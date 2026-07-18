@@ -24,3 +24,4 @@ Run any with `python3 test_REQ-MATH-NNN_*.py`; exit code 0 iff its canary passes
 
 The "context" scripts underpin the joint note's framing (the scissors, the
 class spectrum, the geometry) rather than a single numbered claim.
+| `test_REQ-MATH-012_repeated_word_law.py` | L-A2 | independent key on the repeated-word gcd law: `gcd(q_P, R_0(B^j)) = |q_P|/q_red(B)`, forced > 1, divisible iff the base is — 2,400 exact checks (hand-computed canaries first), conventions re-derived from this stack only |

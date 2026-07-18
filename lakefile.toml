@@ -1,0 +1,10 @@
+name = "otf-lean-merle"
+defaultTargets = ["OneObstruction"]
+
+[[lean_lib]]
+name = "OneObstruction"
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.27.0"

@@ -5,11 +5,14 @@
 #     n <-> -n). Le "mystere du signe" = "pourquoi 3x-1 a 3 maisons et 3x+1 une seule".
 #  B. ENVELOPPE : q+(k) + q-(k) = 2^floor(k*L) exactement — les deux cotes se partagent
 #     un budget fixe ; AUCUNE asymetrie structurelle des frolements.
-#  C. EQUIDISTRIBUTION : le meilleur frolement tombe ~50/50 de chaque cote (k <= 5000).
-#     => le signe ne change RIEN aux lois du jeu.
-#  D. CATALAN : les ecarts |2^a - 3^b| = 1 (serrure GRATUITE : q=+-1 divise tout) sont
+#  C. ASYMETRIE DES COTES : ~50/50 en distance MULTIPLICATIVE (reponse juste a CETTE question),
+#     mais log2(3/2) = 58.5% en distance ADDITIVE — et c'est l'additive qui compte pour les
+#     cycles (la divisibilite vit sur q comme ENTIER). Loi pour k >= 2 (k=1 : egalite q+=q-=1).
+#     [adjudication B. Macindoe 2026-07-18 : les deux reponses sont justes, a deux questions.]
+#  D. FINITUDE DES SERRURES GRATUITES : les ecarts |2^a - 3^b| = 1 (q=+-1 divise tout) sont
 #     exactement TROIS : (2,3), (4,3), (8,9) — repartis 1 cote +, 2 cote -.
-#     [Mihailescu 2002 prouve qu'il n'y en aura jamais d'autres — theoreme de Catalan.]
+#     [Finitude elementaire : Gersonides 1343 (De numeris harmonicis), argument mod 8 + factoring.
+#      Mihailescu 2002 (Catalan general) n'est PAS necessaire ici — merci B. Macindoe.]
 #  E. LA CARTE EXHAUSTIVE k <= 10 : enumeration PROUVEE-complete de tous les cycles des
 #     deux cotes (bornes demontrees : cote+ kL < K <= 2k ; cote- k <= K < kL),
 #     divisibilite testee sur UNE rotation (L-A1). Attendu : {+1} et {-1,-5,-17}, rien d'autre.
@@ -53,12 +56,11 @@ for k in range(1, 5001):
     if (p3 - 2**Kf) < (2**(Kf+1) - p3):   # q- < q+ : le cote - frole mieux
         better_minus += 1
 print(f"le cote NEGATIF frole mieux dans {better_minus}/5000 = {better_minus/50:.1f}% des cas")
-# CORRECTION ARES (le premier jet de ce script annoncait '~50/50' — la mesure a dit non) :
-# q- < q+  <=>  {kL} < log2(3/2) = L-1 = 0.58496...  (mesure de Weyl / loi de Benford :
-# le ratio 3^k/2^floor(kL) = 2^{kL mod 1} suit la loi de Benford, qui favorise le bas).
-print("=> PAS 50/50 : la theorie exacte est log2(3/2) = 58.496% (Weyl/Benford) ;")
-print(f"   mesure {better_minus/5000:.4f} vs theorie 0.58496 — le cote negatif est")
-print("   structurellement favorise pour les frolements, dans cette proportion exacte.")
+# NUANCE (adjudication B. Macindoe 2026-07-18) : '50/50' EST juste — pour la distance
+# MULTIPLICATIVE (ratio 3^k/2^K). Mais la divisibilite vit sur q ENTIER, donc la distance
+# pertinente est ADDITIVE : la, q- < q+ <=> {kL} < log2(3/2) = 0.58496 (= Benford 2e bit de 3^k).
+print("=> 50/50 en distance MULTIPLICATIVE (juste) ; en distance ADDITIVE — la pertinente pour")
+print(f"   les cycles — c'est log2(3/2) = 58.496%, mesure {better_minus/5000:.4f}. Loi pour k >= 2.")
 
 print("\n=== D. CATALAN : les serrures gratuites (|2^a - 3^b| = 1) ===")
 catalan = []

@@ -19,6 +19,8 @@ Run any with `python3 test_REQ-MATH-NNN_*.py`; exit code 0 iff its canary passes
 | `test_REQ-MATH-004_scissors_race.py` | context | scissors race: k_min ~ √X₀ vs k_max ≤ X₀^⅓ — the window opens with more verification |
 | `test_REQ-MATH-007_campagne_HR.py` | context | H_R campaign (62 instances; `R mod q` uniform, never 0) |
 | `test_REQ-MATH-008_paralleles_ou_pas.py` | context | powers of 2 vs 3 are not parallel: minimal gap strictly decreasing → 0, never 0 |
+| `test_REQ-MATH-010_kangourous_cycles_reels.py` | context | the four real cycles (1, −1, −5, −17) each anchored to a near-miss q; 256/243 carries none (771 profiles, one rotation per profile via L-A1) |
+| `test_REQ-MATH-011_pourquoi_le_signe.py` | context | why the sign: the 3x−1 mirror, the shared envelope q₊+q₋=2^⌊kL⌋, the Benford log₂(3/2)=58.5% side-bias, the three Catalan free-locks (\|q\|=1), and the exhaustive k≤10 map of both signs |
 
 The "context" scripts underpin the joint note's framing (the scissors, the
 class spectrum, the geometry) rather than a single numbered claim.

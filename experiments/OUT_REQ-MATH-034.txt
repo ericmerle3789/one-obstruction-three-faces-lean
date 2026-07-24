@@ -1,0 +1,24 @@
+=== ANALYSE PAR CELLULE : sommes exponentielles S(j) ===
+    (n,S)    a=|q|       W      W/a cycles dir.   formule    max|S|   moy|S|  sqrt(W)  max/sqrtW
+    (3,3)       37       6   0.1622           1     1.000      3.82     2.14     2.45       1.56
+    (4,2)       17       4   0.2353           1     1.000      2.48     1.72     2.00       1.24
+    (5,3)       13      15   1.1538           0     0.000      5.41     3.31     3.87       1.40
+    (6,3)      217      21   0.0968           1     1.000      8.72     4.24     4.58       1.90
+    (7,4)      139      84   0.6043           2     2.000     13.65     7.83     9.17       1.49
+    (5,4)      269      35   0.1301           0     0.000     12.70     4.96     5.92       2.15
+    (6,5)     1319     126   0.0955           0    -0.000     36.37     9.27    11.22       3.24
+    (4,4)      175      20   0.1143           1     1.000      7.92     3.76     4.47       1.77
+    (8,5)     1631     330   0.2023           0     0.000     95.53    15.12    18.17       5.26
+
+=== P1 CANARI : 'formule' doit egaler 'cycles dir.' (entier) ===
+=== P2/P3 : comparer moy|S| a sqrt(W) (annulation racine) et max|S| (resonances) ===
+
+=== ZOOM : le spectre des |S(j)| sur la cellule du -17 (7,4) ===
+  a=139, W=84, sqrt(W)=9.17
+  top 8 resonances (|S(j)|, j) : [(13.7, 86), (13.7, 53), (13.0, 137), (13.0, 2), (12.9, 12), (12.9, 127), (12.1, 4), (12.1, 135)]
+  |S| median = 8.14
+
+=== LECTURE ===
+Le mur, en langage analytique : il faudrait |sum_{j!=0} S(j)| < a - W pour conclure 0 cycle.
+Avec annulation racine (|S|~sqrt(W)) la somme des a-1 termes vaut ~a*sqrt(W) >> a : INSUFFISANT.
+Il faudrait une annulation ENTRE les j (structure), pas seulement dans chaque S(j).

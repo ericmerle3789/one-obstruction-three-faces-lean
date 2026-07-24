@@ -1,0 +1,24 @@
+=== CANARIS ===
+C1  Vandermonde (demande generale) : True
+C2  Σ_p oddcomp(S,p) = Fibonacci(S) : True
+C3  log2c stable : True
+CANARIS: PASS
+
+=== CAPACITE (K=log2 q) vs DEMANDE (log2 nb de profils) — la marge croit-elle ? ===
+    n   K=log2 q    log2 St  marge St   log2 Gen  marge Gen    K/n  margeSt/n
+   10         16        8.9       7.1       11.0        5.0  1.600     0.7066
+   20         32       21.7      10.3       25.7        6.3  1.600     0.5131
+   40         64       47.9      16.1       55.7        8.3  1.600     0.4023
+   80        127       99.7      27.3      114.9       12.1  1.587     0.3412
+  160        254      204.9      49.1      235.1       18.9  1.587     0.3070
+  320        508      415.7      92.3      476.1       31.9  1.587     0.2884
+  640       1015      836.8     178.2      957.1       57.9  1.586     0.2784
+ 1280       2029     1679.6     349.4     1919.7      109.3  1.585     0.2730
+
+  marge_strate / n  aux grands n : 0.2884, 0.2784, 0.2730
+  => si cette valeur se stabilise > 0, la marge CROIT lineairement : nb attendu de cycles
+     ~ 2^(-marge) -> 0 exponentiellement. Forme quantifiee du cadeau B de Ben (capacite > demande).
+
+  LIMITE HONNETE : c'est l'heuristique 'sans conspiration'. La rendre RIGOUREUSE (interdire
+  la conspiration individuelle) reste le fosse x2x3 — mais la cible est nette : une independance/
+  equidistribution des residus R_0 mod q le long de la famille, PAS une obstruction de congruence.

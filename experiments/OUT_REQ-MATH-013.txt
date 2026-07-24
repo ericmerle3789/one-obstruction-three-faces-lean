@@ -1,0 +1,52 @@
+=== CANARIS ===
+C1  3|(2^s-1) <=> s pair : True
+C2  p=7 distances [0.17, 0.41, 0.47, 0.34, 0.42, 0.05, 0.48] : True
+C3  p=7 dans la strate (s7 tous impairs) : True
+C4  R0() coherent avec rotations_R[0] : True
+CANARIS: PASS
+
+=== MESURE 1 : staircase n=round(L^p), p=4..22 — frolement min_r u_r et sa vitesse ===
+  p       n  strate?  bits(q)    min_r u_r log2(min u)
+  4       6     True        9     0.074576       -3.75
+  5      10    False       13     0.050871       -4.30
+  6      16     True       25     0.167306       -2.58
+  7      25     True       38     0.034640       -4.85
+  8      40     True       63     0.038166       -4.71
+  9      63     True       97     0.111859       -3.16
+ 10     100    False      158     0.026797       -5.22
+ 11     159    False      252     0.006379       -7.29
+ 12     251    False      395     0.013237       -6.24
+ 13     398     True      628     0.008275       -6.92
+ 14     631     True     1000     0.001074       -9.86
+ 15    1001    False     1586     0.000563      -10.79
+ 16    1586     True     2512     0.000431      -11.18
+ 17    2514     True     3983     0.000242      -12.01
+ 18    3984    False     6314     0.000059      -14.04
+ 19    6315     True    10009     0.000025      -15.27
+ 20   10009    False    15861     0.000122      -13.00
+ 21   15863    False    25142     0.000007      -17.18
+ 22   25143     True    39849     0.000007      -17.07
+  (min_r u_r decroit ~ regulierement : le staircase FROLE de plus en plus pres, en proportion.)
+
+=== MESURE 2 : q fixe ; STRATE (s impairs) vs GENERAL (s quelconques) ; cycle atteint ? inf du frolement ? ===
+   n   p  bits(q)       mode   #profils  cycles(u=0)        inf u  gcd>1 %    max gcd
+   5   3        4     STRATE   6 (enum)            0     0.153846     0.0%          1
+   5   3        4    GENERAL   6 (enum)            0     0.153846     0.0%          1
+   8   5       11     STRATE  35 (enum)            0     0.007357    14.3%          7
+   8   5       11    GENERAL  35 (enum)            0     0.007357    14.3%          7
+  12   6       19     STRATE 2772 (enum)            0     0.000116    22.1%        295
+  12   6       19    GENERAL 9702 (enum)            0     0.000048    22.2%       8765
+  17   6       23     STRATE 91728 (enum)            0     0.000004    20.1%      14303
+  17   6       23    GENERAL 60000 (ech.)            0     0.000007    21.2%    1015513
+  25   5       38     STRATE 60000 (ech.)            0     0.000002    16.8% 19401770641
+  25   5       38    GENERAL 60000 (ech.)            0     0.000002    16.9%      36791
+  40   6       63     STRATE 60000 (ech.)            0     0.000000    27.7%   10119313
+  40   6       63    GENERAL 60000 (ech.)            0     0.000000    28.1%     323921
+  63   5       97     STRATE 60000 (ech.)            0     0.000000     0.1%       1511
+  63   5       97    GENERAL 60000 (ech.)            0     0.000000     0.1%       1511
+
+=== LECTURE ===
+* cycles(u=0) : 0 partout attendu (sinon on aurait trouve un cycle non trivial !).
+* inf u : si la STRATE reste NETTEMENT au-dessus du GENERAL (frole moins bien) => indice de RIGIDITE.
+  si strate ~ general (meme inf, ~0 aux grands q par densite d'echantillon) => la fissure n'aide pas seule.
+* gcd>1 / max gcd : signature multiplicative propre a la strate (obstruction de type L-A2) ?

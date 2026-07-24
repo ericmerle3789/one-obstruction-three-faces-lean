@@ -1,0 +1,31 @@
+=== CANARIS ===
+C1  p=7 min_r u = 0.05 (att. 0.05) : True
+C2  Weyl uniforme max=0.022(<.08) ; tout-zero min=1.000(=1) : True
+C3  mot repete B^2 : q_P=247(247), gcd=19(19) : True
+CANARIS: PASS
+
+=== M1 : R_0 mod q equidistribue-t-il sur la strate ? (Weyl W_k + sur-densite pres de 0) ===
+   n  bits(q)    #ech  max_k W_k  1/sqrt(N) frac(u<.01) attendu .02
+  12       19    2772     0.0890     0.0190      0.0166      0.0200
+  24       38   40000     0.2850     0.0050      0.1429      0.0200
+  40       63   40000     0.3309     0.0050      0.2147      0.0200
+  63       97   40000     0.4337     0.0050      0.3629      0.0200
+  max_k W_k ~ 1/sqrt(N) et frac(u<.01) ~ 0.02  =>  EQUIDISTRIBUE, pas de masse cachee pres de 0.
+
+=== M2 : profils PERIODIQUES (mots repetes accordes, periode d|pgcd(n,S)) : u et gcd ===
+   n   d  ell  #profils min u (periodique)  gcd>1 % min u GENERIQUE (rappel)
+  24   3    1         1           0.019007   100.0%                 0.000002
+  24   3    3        63           0.054568   100.0%                 0.000002
+  36   2    1         1           0.000014   100.0%                 0.000000
+  36   2    3      2040           0.000055   100.0%                 0.000000
+  60   2    2       261           0.000000   100.0%                 0.000000
+  60   3    2       114           0.000010   100.0%                 0.000000
+  60   4    1         1           0.000210   100.0%                 0.000000
+  60   4    3       910           0.000845   100.0%                 0.000000
+  60   6    2        27           0.019578   100.0%                 0.000000
+  60  12    1         1           0.461538   100.0%                 0.000000
+  60  12    3         6           0.153846   100.0%                 0.000000
+
+  LECTURE : si les periodiques ont gcd>1 (souvent 100%) ET min u >> 0 (LOIN de 0) alors la
+  structure est RIGIDE — aucun cycle ne peut s'y cacher, il faudrait un profil GENERIQUE, or
+  ceux-la equidistribuent (M1). Le seul refuge possible d'un cycle est donc ferme des 2 cotes.

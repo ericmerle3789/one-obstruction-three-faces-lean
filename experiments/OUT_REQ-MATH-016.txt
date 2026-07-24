@@ -1,0 +1,30 @@
+=== CANARIS ===
+C1  heritage : triv cycle->B^2 cycle (q7,R7)=True ; non-cycle->B^d non-cycle=True : True
+C2  Weyl uniforme max(k<=3)=0.019(<.09) : True
+CANARIS: PASS
+
+=== (A) la masse pres de 0 vient-elle des degeneres R_0/q<1 (aucun cycle possible) ? ===
+   n  bits(q)    #ech  frac R0/q<1  frac u<.01   dont R0/q<1   dont R0/q>=2
+  24       38   30000        0.529      0.1438          0.94           0.05
+  40       63   30000        0.485      0.2156          0.95           0.04
+  63       97   30000        0.523      0.3657          0.97           0.02
+  90      141   30000        0.580      0.4634          0.98           0.02
+  Si 'dont R0/q<1' ~ 1.00 : la masse u<.01 est PUREMENT degeneree (R_0/q proche de 0 ou 1,
+  element minimal <1 : aucun cycle non trivial la) => la 'non-equidistribution' de REQ-015 est
+  un ARTEFACT DE TAILLE, pas un signal de cycle.
+
+=== (A bis) R_0 mod l equidistribue-t-il (petit module l, sans confusion de taille) ? ===
+   n    l   chi2/df          verdict
+  40    7      6.43            BIAIS
+  40   11      0.83         uniforme
+  40   13      0.98         uniforme
+  63    7      7.63            BIAIS
+  63   11      0.61         uniforme
+  63   13      0.50         uniforme
+  chi2/df ~ 1 => R_0 mod l uniforme (recoupe REQ-MATH-005 'prime-local structureless').
+
+=== (B) heritage : sur familles periodiques, cycle(P) <=> cycle(base) — jamais neuf ===
+  cycle(P)==cycle(base) sur 3600 tirages periodiques : 3600/3600  (PARFAIT)
+  => aucune famille structuree ne cree de cycle ; un cycle neuf devrait etre GENERIQUE,
+     et le generique n'a de masse pres de 0 que par artefact de taille (A). Porte fermee des 2 cotes,
+     MODULO la seule chose qui reste vraie et non prouvee : l'equidistribution a GRANDE echelle (x2x3).

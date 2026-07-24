@@ -1,0 +1,24 @@
+CANARI: -17 sud (q<0), trivial^2 nord (q>0) : OK
+
+=== DIMENSION P-ADIQUE (chiffres) : les deux faces sont-elles la MEME paroi ? ===
+  nord : 4236729 mots | gcd>1 = 12.9% | C moyen = 0.0172 | max C = 1.0000 | chi2/df(mod7) = 0.81
+   sud : 1074400 mots | gcd>1 =  8.8% | C moyen = 0.0132 | max C = 1.0000 | chi2/df(mod7) = 0.32
+  -> si gcd>1%, C moyen, chi2(mod7) COINCIDENT : meme paroi cote chiffres (p-adique).
+
+=== DIMENSION ARCHIMEDIENNE (taille) : le VIDE ===
+    n  min|q| nord   min|q| sud  gagnant
+    3            5           11     nord
+    4           47           17      SUD
+    5           13          115     nord
+    6          295          217      SUD
+    7         1909          139      SUD
+    8         1631         2465     nord
+    9        13085         3299      SUD
+   10         6487        26281     nord
+   11        84997        46075      SUD
+  le SUD a la meilleure serrure (plus petit |q|) : 8/14 = 57% (attendu ~58.5% = log2(3/2))
+
+=== VERDICT : le vide est a la place ARCHIMEDIENNE. La symetrie du miroir est EXACTE
+dans toutes les places finies ; elle ne se brise qu'a l'infini (la taille du frolement),
+gouvernee par la partie fractionnaire {n log2 3}. Casser la symetrie = un enonce sur
+l'equidistribution ponderee de {n log2 3} au bord du rasoir 2^K=3^n.

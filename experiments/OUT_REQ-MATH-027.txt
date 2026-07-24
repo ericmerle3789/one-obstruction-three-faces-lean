@@ -1,0 +1,33 @@
+CANARI: -17 (q=-139, B=2363) OK
+
+=== P1 : 'serrure la plus serree => cycle' ? (cellules sud, triees par |q| croissant) ===
+      |q|    (n,K)  cycles  #mots
+       11    (3,4)       0      1
+       17    (4,6)       1      4  <-- GAGNE
+       49    (4,5)       0      1
+      115    (5,7)       0      5
+      139   (7,11)       2     84  <-- GAGNE
+      179    (5,6)       0      1
+      217    (6,9)       1     21  <-- GAGNE
+      473    (6,8)       0      6
+      601    (6,7)       0      1
+     1163   (7,10)       0     28
+     1675    (7,9)       0      7
+     1931    (7,8)       0      1
+  frolements sud PLUS serres que 139 SANS cycle : 3  ex: [11, 49, 115]
+  => P1 CONFIRMEE (rigidite cellule FAUSSE : serrure serree n exige pas cycle)
+
+=== P2 : le STOCK GRATUIT |q|=1 est-il rigide/exact ? ===
+  gratuits |q|=1 : nord=0, sud=1, total=1
+  (Gersonides : exactement 3 paires harmoniques a distance 1 -> 2^K-3^n=+-1 ; DETERMINISTE)
+
+=== P3 : les serrures PAYANTES gagnantes (|q|>1) sur les 2 rives ===
+  cellules payantes SUD avec cycle : [(17, 4, 6, 1), (217, 6, 9, 1), (139, 7, 11, 2), (2465, 8, 12, 1), (26281, 10, 15, 1), (269297, 12, 18, 1), (2685817, 14, 21, 1), (588665, 14, 22, 2), (26269505, 16, 24, 1), (253202761, 18, 27, 1), (2413042577, 20, 30, 1)]
+  -> le sud ne gagne au payant que la cellule |q|=139 (le -17), rang 5 par petitesse de |q|
+
+=== VERDICT (strategie) ===
+Si P1 confirmee + P2 exact : l'exactitude RIGIDE n'est PAS au niveau des serrures payantes
+(stochastiques) mais au niveau du STOCK GRATUIT (Gersonides, prouve, 3 exact). Donc le miroir
+ne se casse pas en rendant le payant rigide -- il se casse en prouvant que le nord n'a droit
+qu'a 1 gratuit (le +1) et que son unique budget payant reste sous 1. Le levier reel = coupler
+l'exactitude PROUVEE du stock (Gersonides+Catalan) a la petitesse PROUVEE du budget payant nord.

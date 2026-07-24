@@ -1,0 +1,24 @@
+=== CANARIS ===
+  ancre n=5 : K=8, q=13 (attendu 13) ; n=7 : K=12, q=1909 (attendu 1909)
+  budgets-mots n<=14 : nord=6.17 (attendu 6.17), sud=3.41 (attendu 3.41)
+  CANARIS: PASS
+
+=== R_best(n) (exact) vs borne  -c_gen*n + (mu-1)*log2 n + C0  — n jusqu'a 2000 ===
+  C0 (max de Delta, exhibe) = -5.774  atteint a n=2
+  marge de l'ingredient individuel : min_n [eps_n * n^(mu-1)] = 1.45e+01 a n=2  (>>1 : la regle 2 est TRES au-dessus du besoin)
+
+      N  masse exacte n>N (calc)  borne prouvable n>N
+     14                4.954e+00            1.516e+06  ok (borne>=exact)
+     30                2.024e+00            1.481e+06  ok (borne>=exact)
+     60                2.370e-01            1.178e+06  ok (borne>=exact)
+    120                6.464e-03            3.431e+05  ok (borne>=exact)
+    300                6.294e-07            4.817e+02  ok (borne>=exact)
+    600                3.414e-14            5.020e-04  ok (borne>=exact)
+   1200                3.921e-29            3.863e-17  ok (borne>=exact)
+
+=== VERDICT ===
+L'instrument tient : masse de tickets bornee PAR THEOREME (2 ingredients publies + algebre)
+pour TOUTES les echelles — le kiosque ferme prouvablement, plus seulement jusqu'a n=200.
+Ce que l'instrument NE fait PAS (honnete) : esperance ~0 n'est pas certitude 0 ; le pas
+modele->certitude reste le x2x3. Mais c'est la PREMIERE piece trans-echelle du programme,
+et la fusion demandee : comptage fini (Ben) x Diophantien individuel (Salikhov).

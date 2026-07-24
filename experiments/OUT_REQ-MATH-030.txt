@@ -1,0 +1,38 @@
+=== CANARIS ===
+  trivial^2 B=7=q x=1 : True | mot -17 B=2363 q=-139 x=-17 : True
+CANARIS: PASS
+
+=== maxB et x_max sur les cellules ACCORDEES (exhaustif) ===
+    n   K              q  A=maxB/3^n   x_max=maxB/q
+    2   4              7      0.7778          1.000
+    2   5             23      1.2222          0.478
+    3   5              5      1.0741          5.800
+    3   6             37      1.8148          1.324
+    4   7             47      2.2099          3.809
+    4   8            175      4.0864          1.891
+    5   8             13      2.4733         46.231
+    5   9            269      4.6132          4.167
+    6  10            295      4.9643         12.268
+    6  11           1319      9.5953          5.303
+   12  20         517135     84.6801         87.023
+   13  21         502829     85.0090        269.538
+   14  23        3605639    170.1231        225.672
+  => A (max observe sur cellules accordees, n<=14) = 339.9128
+
+=== PORTEE DETERMINISTE (aucune probabilite) ===
+  X0=2^71=2.361e+21 (Barina) ; mu=5.125 (Salikhov, a re-sourcer)
+  hebergement exige : eps_n <= A/(X0*ln2) = 2.077e-19
+           c     N* = (c*X0*ln2/A)^(1/(mu-1))
+       1e+00                        3.382e+04
+       1e-01                        1.935e+04
+       1e-02                        1.107e+04
+       1e-03                        6.336e+03
+
+  -> n < N* ~ 3.38e+04 : EXCLU DETERMINISTIQUEMENT (notre chaine elementaire, autonome)
+  -> litterature (Hercher) : k > 1.375e11, soit 4066217x plus loin (chaine bien plus fine)
+
+=== LA RACINE ATTEINTE ===
+  La portee deterministe est FINIE PAR NATURE : au-dela de N*, eps_n redevient minuscule
+  aux convergents et la regle d'individu (n^-(mu-1)) est trop lente pour l'interdire.
+  C'est le ciseau (REQ-001/004) sous un autre jour. Au-dela : seule l'esperance (torsion).
+  RACINE = le pas 'esperance -> certitude' = x2x3. Aucun assemblage de nos pieces ne le franchit.

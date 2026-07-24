@@ -1,0 +1,26 @@
+=== CANARI : colliers de la cellule (7,11) — 84 mots, l'orbite -17 = 1 collier de 2 ===
+  mots=84 (att.84) | colliers=30 | colliers-hit=1 (att.1)
+CANARIS: PASS
+
+=== budgets exacts en COLLIERS (n<=14, |q|>1) ===
+   SUD : budget colliers =  1.12 | colliers-hit = 8 (dont PRIMITIFS 1) | P(0 primitif | Poisson) = 0.327
+  NORD : budget colliers =  2.64 | colliers-hit = 8 (dont PRIMITIFS 0) | P(0 primitif | Poisson) = 0.071
+
+=== budget RESTANT par tranches (approx colliers = Σ_p mots_p/p / |q|) ===
+  n=[ 15, 30] : sud +=   0.1043 | nord +=   0.2648
+  n=[ 31, 60] : sud +=   0.0519 | nord +=   0.0583
+  n=[ 61,120] : sud +=   0.0034 | nord +=   0.0049
+  n=[121,200] : sud +=   0.0000 | nord +=   0.0001
+  TOTAL restant n=15..200 : SUD = 0.1596 | NORD = 0.3280
+  cellules dominantes (lambda>0.02) :
+    n= 17 K= 27 NORD lambda=0.062  (K/n=1.5882)
+    n= 24 K= 38 SUD lambda=0.034  (K/n=1.5833)
+    n= 53 K= 84 SUD lambda=0.028  (K/n=1.5849)
+    n= 15 K= 24 NORD lambda=0.022  (K/n=1.6000)
+    n= 29 K= 46 NORD lambda=0.022  (K/n=1.5862)
+    n= 19 K= 30 SUD lambda=0.021  (K/n=1.5789)
+
+=== LECTURE ===
+Budget vie entiere de chaque rive = budget n<=14 + queue. Si la queue est petite et que le
+sud a paye ~son budget (1 collier primitif, -17) tandis que le nord n'a rien paye : l'ecart
+nord se mesure en P(0). La conclusion honnete est chiffree ci-dessus, pas proclamee.

@@ -1,0 +1,65 @@
+=== CANARIS (main d'abord) ===
+  [OK] trivial q
+  [OK] -5 : ([2],[1]) B=5 q=-1 x=-5
+  [OK] -17 : q=-139
+  [OK] -17 : B=2363=17*139, x=-17
+  [OK] -17 : R0=139 (cadre reduit, C=1 aussi)
+  [OK] beta 2/3/4 = 5/19/65
+  [OK] puissance de -5 : ([2,2],[1,1]) x=-5
+CANARIS: PASS
+
+=== HITS C=1 (|q|>1) — la carte complete ===
+  n   K         q                        mot     x primitif  R0 ok
+  2   4         7              (1, 1)|(1, 1)     1    False   True
+  3   6        37        (1, 1, 1)|(1, 1, 1)     1    False   True
+  4   6       -17              (2, 2)|(1, 1)    -5    False   True
+  4   8       175  (1, 1, 1, 1)|(1, 1, 1, 1)     1    False   True
+  5  10       781 (1, 1, 1, 1, 1)|(1, 1, 1, 1, 1)     1    False   True
+  6   9      -217        (2, 2, 2)|(1, 1, 1)    -5    False   True
+  6  12      3367 (1, 1, 1, 1, 1, 1)|(1, 1, 1, 1, 1, 1)     1    False   True
+  7  11      -139              (3, 4)|(3, 1)   -41     True   True
+  7  11      -139              (4, 3)|(1, 3)   -17     True   True
+  7  14     14197 (1, 1, 1, 1, 1, 1, 1)|(1, 1, 1, 1, 1, 1, 1)     1    False   True
+  8  12     -2465  (2, 2, 2, 2)|(1, 1, 1, 1)    -5    False   True
+  8  16     58975 (1, 1, 1, 1, 1, 1, 1, 1)|(1, 1, 1, 1, 1, 1, 1, 1)     1    False   True
+  9  18    242461 (1, 1, 1, 1, 1, 1, 1, 1, 1)|(1, 1, 1, 1, 1, 1, 1, 1, 1)     1    False   True
+ 10  15    -26281 (2, 2, 2, 2, 2)|(1, 1, 1, 1, 1)    -5    False   True
+ 12  18   -269297 (2, 2, 2, 2, 2, 2)|(1, 1, 1, 1, 1, 1)    -5    False   True
+ 14  21  -2685817 (2, 2, 2, 2, 2, 2, 2)|(1, 1, 1, 1, 1, 1, 1)    -5    False   True
+ 14  22   -588665  (3, 4, 3, 4)|(3, 1, 3, 1)   -41    False   True
+ 14  22   -588665  (4, 3, 4, 3)|(1, 3, 1, 3)   -17    False   True
+
+  mots |q|=1 (stock Gersonides, C indefini) : 1 — realisations x : [-5]
+
+=== CELLULES D'INTERET : esperance de comptage vs realite ===
+   (n,K)       q   #mots esper.=#/|q|  hits P(0) Poisson
+   (5,8)      13      15        1.154     0        0.315
+  (7,11)    -139      84        0.604     2        0.546
+ (12,19)   -7153   12376        1.730     0        0.177
+
+=== BUDGET DES DEUX RIVES (n<=14, |q|>1) : somme des esperances vs hits reels ===
+  RIVE SUD  (q<0) : budget =   3.41 | hits = 10 (dont primitifs 2)
+  RIVE NORD (q>0) : budget =   6.17 | hits = 8 (dont primitifs 0)
+
+=== A echelle n, quel bord a le plus petit |q| (la meilleure brique-serrure) ? ===
+  n= 2 : min|q| sud =        1 | nord =        7  -> SUD
+  n= 3 : min|q| sud =       11 | nord =        5  -> nord
+  n= 4 : min|q| sud =       17 | nord =       47  -> SUD
+  n= 5 : min|q| sud =      115 | nord =       13  -> nord
+  n= 6 : min|q| sud =      217 | nord =      295  -> SUD
+  n= 7 : min|q| sud =      139 | nord =     1909  -> SUD
+  n= 8 : min|q| sud =     2465 | nord =     1631  -> nord
+  n= 9 : min|q| sud =     3299 | nord =    13085  -> SUD
+  n=10 : min|q| sud =    26281 | nord =     6487  -> nord
+  n=11 : min|q| sud =    46075 | nord =    84997  -> SUD
+  n=12 : min|q| sud =     7153 | nord =   517135  -> SUD
+  n=13 : min|q| sud =   545747 | nord =   502829  -> nord
+  n=14 : min|q| sud =   588665 | nord =  3605639  -> SUD
+  le sud gagne 8/13 (asymptotique attendu ~ log2(3/2) = 58.5% cote sud, Weyl/Benford)
+
+=== LECTURE ===
+P1: comparer la table des hits a la prediction (que des heritages + l'orbite -17).
+P2: (12,19) — si 0 hit avec esperance >1, le 'pourquoi' est statistique (Poisson) ou structurel : voir P(0).
+P3: si hits ~ budgets sur les 2 rives, les cycles reels sont le BUDGET DE CHANCE de leur rive ;
+    la question du mur devient : le nord est-il pauvre par MANQUE DE BUDGET (rarete diophantienne
+    de ses bonnes briques) ou par censure au-dela du budget ? — la reponse chiffree est ci-dessus.

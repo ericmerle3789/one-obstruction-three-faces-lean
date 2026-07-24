@@ -1,0 +1,10 @@
+=== (a) realisabilite des 18 hits (orbite reelle exacte) ===
+  hits reellement realises : 18/18 (x impair, sigma exact, retour exact)
+
+=== (b) fantome 2-adique : x = B*q^-1 mod 2^Bits suit-il le sigma du mot ? (300 mots) ===
+  itineraires fantomes conformes au mot : 300/300
+
+=== VERDICT ===
+Si (a)=18/18 et (b)=300/300 : FILTRE = 1 (gain formel => vrai cycle, parite et valuations
+automatiques via le point fixe 2-adique). La loterie calibree est donc DIRECTEMENT l'esperance
+de vrais cycles : residu nord ~0.005 confirme sans correction.

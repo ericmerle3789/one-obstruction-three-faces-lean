@@ -1,0 +1,19 @@
+=== CANARIS ===
+  P1 : -17 (x=-17<0, q<0 sud) ; trivial^2 (x=1>0, q>0 nord) : True
+CANARIS: PASS
+
+=== FUSION : haute serrure (C>0.5) ET signe de x, par rive ===
+  nord: mots=19316234 | C>0.5 : 2274 | dont x>0 : 1858 (  82%) | max C avec x>0 : 1.0000
+   sud: mots=2155975 | C>0.5 :  618 | dont x>0 :    0 (   0%) | max C avec x>0 : 0.0000
+
+=== couplage (C, gamma) sur les mots a haute serrure (C>0.3) : correlation ? ===
+  nord: n=51143 | corr(C,gamma)=+0.177 | frac x>0 = 0.910 | gamma moyen = 1.14
+  sud: n=8816 | corr(C,gamma)=+0.039 | frac x>0 = 0.000 | gamma moyen = 1.38
+
+=== LA ZONE : mots avec C=1 (cycles) et signe de x ===
+  nord: (les C=1 sont les cycles reels ; nord = puissances triviales x>0 ; sud = -5,-17 x<0)
+  sud: (les C=1 sont les cycles reels ; nord = puissances triviales x>0 ; sud = -5,-17 x<0)
+
+LECTURE : si au nord 'C>0.5 avec x>0' est RARE et son max-C s'effondre vs le sud,
+la fusion revele une zone haute-serrure/x-positif appauvrie -> couplage fini x infini reel,
+premier fragment mesurable de l'instrument. Sinon : couplage ailleurs, route eliminee.

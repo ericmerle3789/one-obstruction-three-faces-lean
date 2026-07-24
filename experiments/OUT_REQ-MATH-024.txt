@@ -1,0 +1,19 @@
+CANARI : C(-17)=1 ; voisins immediats : max C = 0.0000 (borne couture attendue <= 0.3944)
+  nb voisins interieurs = 3 ; contenu PARTAGE avec le pic (lemme) : 1 (attendu 1 : isolation totale)
+
+=== C par distance au pic -17 (2000 marches aleatoires, pas 0..8) ===
+ dist    C max  C moyen
+    0   1.0000   1.0000
+    1   0.0000   0.0000
+    2   1.0000   0.3045
+    3   1.0000   0.0740
+    4   1.0000   0.1930
+    5   1.0000   0.0890
+    6   1.0000   0.1510
+    7   1.0000   0.1020
+    8   1.0000   0.1445
+
+LECTURE : si C max chute a ~0.39 des le pas 1 puis reste au fond (pas de remontee
+progressive), le contenu NE S'ACCUMULE PAS le long des chemins : arrivee = SAUT arithmetique.
+Combine au contre-exemple -17 (primitif C=1, rive sud) : la borne globale par iteration
+de T1/T2 seuls N'EXISTE PAS ; tout plafond vrai doit invoquer le signe/la taille (q>0).

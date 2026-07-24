@@ -1,0 +1,7 @@
+# ContentSeparation.lean — #print axioms (commited output, 2026-07-24T15:25Z)
+# lake env lean OneObstruction/ContentSeparation.lean — compile clean, 0 error
+'ContentSeparation.T1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ContentSeparation.T2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ContentSeparation.separation_T1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ContentSeparation.separation_T2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ContentSeparation.q_divisor_coprime' depends on axioms: [propext, Classical.choice, Quot.sound]

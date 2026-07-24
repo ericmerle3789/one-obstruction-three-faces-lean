@@ -1,0 +1,9 @@
+n=63, S=37, p=5 (fixe pour comparaison equitable)
+  l   famille     N=30k    N=120k    N=480k
+  5   GENERAL      5.02      6.96     47.47
+  5    STRATE      1.59      2.09     14.71
+  7   GENERAL      5.93     18.25     45.01
+  7    STRATE      6.18     23.50     85.19
+
+Si STRATE reste ~1 plat et GENERAL croit : la strate LAVE le biais (s impairs symetrise).
+Alors REQ-016/017 (strate) etaient JUSTES pour la strate ; REQ-021 (general) juste pour le general.

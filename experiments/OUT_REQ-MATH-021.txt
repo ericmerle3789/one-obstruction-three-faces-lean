@@ -1,0 +1,16 @@
+=== CANARI : synthetique — uniforme stable, biaise croissant ===
+  uniforme mod7 chi2/df @10k,50k : 1.09,0.82 (stable ~1) ; biaise : 10000,50000 (croit)
+  CANARI: PASS
+
+=== chi2/df de R_0 mod l par N croissant (n=63) — biais STRUCTUREL = croissance ===
+   l  ord_l(2)     N=30k    N=120k    N=480k   verdict
+   5         4    146.62    555.02   2269.25   STRUCTUREL (croit)
+   7         3    149.32    598.05   2423.39   STRUCTUREL (croit)
+  11        10     22.62     77.67    274.63   STRUCTUREL (croit)
+  13        12     27.19    107.08    451.43   STRUCTUREL (croit)
+  31         5     17.33     67.97    280.87   STRUCTUREL (croit)
+ 127         7      7.17     25.04     95.61   STRUCTUREL (croit)
+
+  lecture : seul l ou chi2/df CROIT avec N a un biais reel ; les 'plats ~1' sont du bruit
+  (mod 5 a N=30k pouvait franchir un seuil sans etre structurel). L'unicite du 7 se lit
+  sur le MECANISME (2^3-1, terme (2^s-1)=0 mod 7 des que s=3 mod 6), pas sur la detectabilite.

@@ -13,7 +13,14 @@ Bridge to the Python-side R₀ (REQ-MATH-003..019): W0(l) = 2^(m₀) · R₀(l) 
 nonempty l — verified numerically, exact big-int, in
 experiments/test_REQ-MATH-020_pont_lean.py. Since the seam modulus
 q = 2^K − 3^n is ODD (and prime to 3), gcd(q, W0) = gcd(q, R₀): every divisor
-statement below transfers verbatim to R₀. In W0 coordinates the m-transfer at
+statement below transfers verbatim to R₀.
+
+REDUCED vs UNREDUCED MODULUS (explicit, per review). Every statement below is about
+the UNREDUCED seam modulus q = 2^K − 3^n — never the reduced denominator q / gcd(q, R₀).
+The two differ exactly when gcd(q, R₀) > 1 (concretely the p = 7 seed, where gcd = 7:
+q carries a factor 7 that R₀ does not fully carry). The separation theorems quantify over
+an ARBITRARY divisor d ∣ q, hence cover every prime power of the unreduced q; and
+`q_divisor_coprime` is stated for d ∣ (2^K − 3^n) with no reduction assumed. In W0 coordinates the m-transfer at
 position 0 is REGULAR (no wrap-around pathology): T2 below holds at every
 position, strengthening the rotation-reduction used on the Python side.
 

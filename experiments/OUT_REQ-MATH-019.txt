@@ -1,0 +1,21 @@
+=== CANARIS (conventions) ===
+C1 trivial^2 (q=7,R=7): True | C2 (1,3)^2 gcd 19: True
+CANARIS: PASS
+
+=== T1/T2 : verification EXACTE des formules de difference (800 mots aleatoires) ===
+  T1 (s-transfert)      : 713/713 exacts
+  T2 (m-transfert i>=1) : 604/604 exacts
+  T2 (i=0 via rotation) : 605/605 (gcd invariant + corollaire tient)
+
+=== COROLLAIRE : gcd(q, R0(P), R0(P')) divise la mini-couture locale (600 tirages) ===
+  contenu partage | mini-couture locale : 560/560 ; isolation totale (partage=1) : 553/560
+
+=== POINT FIXE : den(R0/q) = q/gcd ; B^j garde le MEME point fixe (loi L-A2 en une ligne) ===
+  den(R0/q) = |q|/gcd : True (200 mots, q des deux signes)
+  base ([1]|[3]) : x(B^j) == x(B) pour j=2..5 : True  (denominateur fige = 13)
+  base ([1, 2]|[3, 1]) : x(B^j) == x(B) pour j=2..5 : True  (denominateur fige = 101)
+  base ([2, 1]|[1, 3]) : x(B^j) == x(B) pour j=2..5 : True  (denominateur fige = 101)
+
+=== APPLICATION : tour ([1,2]|[3,1])^3 (C=0.68) — TOUS ses voisins adjacents ===
+  contenu de la tour gcd=20569 (C=0.683) ; pire contenu PARTAGE avec un voisin = 1 (C_partage=0.000)
+  => la tour ne partage (presque) rien : falaise DEMONTREE, pas seulement mesuree.

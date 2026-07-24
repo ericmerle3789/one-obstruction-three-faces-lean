@@ -1,0 +1,15 @@
+=== CANARI : la cellule (6,14) q=15655 — 792 mots, 101|q, 7.8 attendus, 0 observe ? ===
+  q=15655, mots=792, mots avec 101|R0 = 0 (attendu ~7.8)
+  CANARI: ANOMALIE CONFIRMEE
+
+=== BALAYAGE : morts par HASARD vs morts STRUCTURELLES (n<=11) ===
+  morts OBSERVEES : 27
+  morts ATTENDUES par pur hasard : 26.5
+  -> PAS d exces global (loterie)
+
+=== ANOMALIES STRUCTURELLES (esperance>=5 mots, 0 observe) : 1 ===
+    n   K          q     l v_l(q)      W  attendus ord_l(2) ord_l(3)
+    6  14      15655   101      1    792       7.8      100      100
+
+  -> une ANOMALIE = un premier qui ne divise JAMAIS R0 dans sa cellule alors qu'il
+     'devrait' : c'est une OMBRE STRUCTURELLE, un vrai mecanisme d'exclusion locale.

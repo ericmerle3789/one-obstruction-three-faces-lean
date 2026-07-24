@@ -1,0 +1,32 @@
+=== CANARIS ===
+  (2,4) trivial non-exclue : True | (7,11) -17 non-exclue : True
+CANARIS: PASS
+
+=== TAMIS : cellules mortes par deficit de valuation (n<=11, exhaustif) ===
+  cellules testees : 129 | MORTES : 23 | vivantes : 106
+  exclusions par exposant v_l(q) : {1: 22, 2: 4}
+
+    n   K            q  premiers tueurs (l, v_l(q), max v_l(R0))
+    2   5           23  [(23, 1, 0)]
+    3   4          -11  [(11, 1, 0)]
+    3   5            5  [(5, 1, 0)]
+    3   7          101  [(101, 1, 0)]
+    4   5          -49  [(7, 2, 0)]
+    4   7           47  [(47, 1, 0)]
+    4  10          943  [(23, 1, 0)]
+    5   6         -179  [(179, 1, 0)]
+    5   7         -115  [(5, 1, 0), (23, 1, 0)]
+    5   8           13  [(13, 1, 0)]
+    5  11         1805  [(19, 2, 1)]
+    6   8         -473  [(11, 1, 0)]
+    6  14        15655  [(101, 1, 0)]
+    7   9        -1675  [(5, 2, 0), (67, 1, 0)]
+
+=== P1 : les cellules des VRAIS cycles sont-elles epargnees ? ===
+  cellules de cycles reels testees : [(2, 4), (3, 6), (4, 6), (4, 8), (6, 9), (7, 11), (8, 12), (10, 15)]
+  parmi les MORTES : AUCUNE (P1 CONFIRMEE — pas de contradiction)
+
+=== LECTURE ===
+Si des cellules meurent SANS toucher les vrais cycles : le tamis de valuation est un vrai
+mecanisme d'exclusion DETERMINISTE (l'ombre du trou noir). Reste a mesurer sa densite
+asymptotique : quelle fraction des cellules candidates tue-t-il quand n grandit ?

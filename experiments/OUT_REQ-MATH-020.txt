@@ -1,0 +1,2 @@
+(1) W0 == 2^m0 * R0 : True (300 mots)
+(2) T1 Lean exact : True | T2 Lean exact : True | (3) T2 position 0 regulier : True (300 chacun)

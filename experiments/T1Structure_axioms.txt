@@ -1,4 +1,6 @@
-# T1Structure.lean — #print axioms (committed, 2026-07-25T15:24Z) — 0 error, 0 sorry, 0 native_decide, 0 user axiom
+# T1Structure.lean — #print axioms (committed, 2026-07-25T15:43Z) — 0 error, 0 sorry, 0 native_decide, 0 user axiom — 5 theorems
+'T1Structure.succ_pow_le_pow_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'T1Structure.seam_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
 'T1Structure.cycle_prod_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
 'T1Structure.survivor_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
 'T1Structure.ceiling_upper' depends on axioms: [propext, Classical.choice, Quot.sound]

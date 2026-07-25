@@ -129,6 +129,61 @@ example : (2:ℕ) ^ 2 < 2 * 3 ^ 1 :=
   ceiling_upper 0 1 2 (fun _ => 1) (fun _ => 2)
     (fun i => by norm_num) (by simp) (by norm_num) (fun i => le_refl 1) (by norm_num)
 
+/-- Difference of powers, multiplied form (no subtraction):
+    `(b+1)^(n+1) ≤ b^(n+1) + (n+1)·(b+1)^n`. -/
+lemma succ_pow_le_pow_add (b : ℕ) : ∀ n, (b+1) ^ (n+1) ≤ b ^ (n+1) + (n+1) * (b+1) ^ n := by
+  intro n
+  induction n with
+  | zero => simp
+  | succ n ih =>
+      have hmono : b ^ (n+1) ≤ (b+1) ^ (n+1) := Nat.pow_le_pow_left (by omega) _
+      calc (b+1) ^ (n+2) = (b+1) ^ (n+1) * (b+1) := by ring
+        _ ≤ (b ^ (n+1) + (n+1) * (b+1) ^ n) * (b+1) := Nat.mul_le_mul_right _ ih
+        _ = b ^ (n+1) * b + b ^ (n+1) + (n+1) * (b+1) ^ (n+1) := by ring
+        _ ≤ b ^ (n+1) * b + (b+1) ^ (n+1) + (n+1) * (b+1) ^ (n+1) :=
+            Nat.add_le_add_right (Nat.add_le_add_left hmono _) _
+        _ = b ^ (n+2) + (n+2) * (b+1) ^ (n+1) := by ring
+
+/-- **T1 grid half, quantitative core (the seam bound).** For a positive cycle with all
+    elements ≥ X and `2p < 3X`:  `2^K·3X < 3^(p+1)·(3X + 2(p+1))`.
+    Reading: `(2^K − 3^(p+1))·3X < 2(p+1)·3^(p+1)` — the seam gap `q` is squeezed inversely
+    to the minimum element. Large `X` forces `‖n·log₂3‖ ≤ n/(3X·ln2)`; by best approximation
+    (script-verified exhaustively, REQ-MATH-053; not formalized here) this confines `n` to
+    the Ostrowski grid of convergent denominators and yields `n ≥ q₂₁ = 6.547·10¹⁰` for
+    `X ≥ 2⁷¹` — one convergent step below Hercher's dedicated `q₂₂ = 1.375·10¹¹`. -/
+theorem seam_bound (p X K : ℕ) (x v : Fin (p+1) → ℕ)
+    (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
+    (hK : K = ∑ i, v i) (hX : 0 < X) (hmin : ∀ i, X ≤ x i)
+    (hpX : 2 * p < 3 * X) :
+    2 ^ K * (3 * X) < 3 ^ (p+1) * (3 * X + 2 * (p+1)) := by
+  have hb := survivor_bound p X K x v hstep hK hX hmin
+  have hd : (3*X+1) ^ (p+1) ≤ (3*X) ^ (p+1) + (p+1) * (3*X+1) ^ p :=
+    succ_pow_le_pow_add (3*X) p
+  have h2 : (3*X+1) ^ p < 2 * (3*X) ^ p :=
+    pow_succ_lt_two_mul_pow (3*X) p (by positivity) hpX
+  have hstep2 : (3*X+1) ^ (p+1) < (3*X) ^ (p+1) + (p+1) * (2 * (3*X) ^ p) := by
+    calc (3*X+1) ^ (p+1) ≤ (3*X) ^ (p+1) + (p+1) * (3*X+1) ^ p := hd
+      _ < (3*X) ^ (p+1) + (p+1) * (2 * (3*X) ^ p) :=
+          Nat.add_lt_add_left (Nat.mul_lt_mul_of_pos_left h2 (Nat.succ_pos p)) _
+  have hfinal : (2 ^ K * (3 * X)) * (3 * X) ^ p
+      < (3 ^ (p+1) * (3 * X + 2 * (p+1))) * (3 * X) ^ p := by
+    calc (2 ^ K * (3 * X)) * (3 * X) ^ p
+        = 2 ^ K * (3 * X) ^ (p+1) := by rw [pow_succ' (3*X) p]; ring
+      _ ≤ 3 ^ (p+1) * (3 * X + 1) ^ (p+1) := hb
+      _ < 3 ^ (p+1) * ((3*X) ^ (p+1) + (p+1) * (2 * (3*X) ^ p)) :=
+          Nat.mul_lt_mul_of_pos_left hstep2 (pow_pos (by norm_num) _)
+      _ = (3 ^ (p+1) * (3 * X + 2 * (p+1))) * (3 * X) ^ p := by
+          rw [pow_succ' (3*X) p]; ring
+  exact lt_of_mul_lt_mul_right hfinal (Nat.zero_le _)
+
+/-- Canary: the trivial cycle instantiates the seam bound — `2^2·3 < 3·5`. -/
+example : (2:ℕ) ^ 2 * 3 < 3 ^ 1 * 5 :=
+  seam_bound 0 1 2 (fun _ => 1) (fun _ => 2)
+    (fun i => by norm_num) (by simp) (by norm_num) (fun i => le_refl 1) (by norm_num)
+
+#print axioms succ_pow_le_pow_add
+#print axioms seam_bound
+
 #print axioms cycle_prod_identity
 #print axioms survivor_bound
 #print axioms ceiling_upper

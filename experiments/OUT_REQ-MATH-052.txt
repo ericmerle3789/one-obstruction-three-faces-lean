@@ -1,0 +1,58 @@
+=== (a) IDENTITE PRODUIT sur les 4 cycles reels ===
+  cycle    1 : p=1, K=2 | Prod(3x+1)=4, 2^K*Prod(x)=4 : True
+  cycle   -1 : p=1, K=1 | Prod(3x+1)=-2, 2^K*Prod(x)=-2 : True
+  cycle   -5 : p=2, K=3 | Prod(3x+1)=280, 2^K*Prod(x)=280 : True
+  cycle  -17 : p=7, K=11 | Prod(3x+1)=-403123745024000, 2^K*Prod(x)=-403123745024000 : True
+CANARIS (a): PASS
+
+=== (b)(c) BORNE + CEILING sur le cycle trivial (seul cycle positif) ===
+  trivial : borne True | 2p<3X : True | ceiling 3<4<6 : True
+=== (c-bis) sanity : les cycles NEGATIFS violent la condition q>0 (hors-champ, attendu) ===
+  cycle   -1 : 3^p=3 vs 2^K=2 -> q>0 ? False  (attendu False)
+  cycle   -5 : 3^p=9 vs 2^K=8 -> q>0 ? False  (attendu False)
+  cycle  -17 : 3^p=2187 vs 2^K=2048 -> q>0 ? False  (attendu False)
+
+=== (b)(c) sur des PSEUDO-cycles (mots du recensement, x=B/q rationnel) : ceiling force ? ===
+  cellules q>0 testees : 114 | cas ou K != K0 mais la borne accepterait X=n : 0  (attendu 0)
+
+=== (d) LA GRILLE : fenetre de Legendre et structure d'Ostrowski ===
+  delta = 1/(3 ln2 X0) = 2.037e-22 | fenetre Legendre n < sqrt(1/(2 delta)) = 4.955e+10
+  (P4 : ~5e10 ; Hercher exige n > 1.375e11 -> au-dela, regime Ostrowski)
+Traceback (most recent call last):
+  File "/private/tmp/claude-501/-Users-ericmerle-Documents/267884bb-f8c2-43e3-bfc6-c8b98a94f52a/scratchpad/run/REQ052.py", line 73, in <module>
+    ds=convergents(10**13)
+       ^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/claude-501/-Users-ericmerle-Documents/267884bb-f8c2-43e3-bfc6-c8b98a94f52a/scratchpad/run/REQ052.py", line 65, in convergents
+    y=mpf(3).ln()/mpf(2).ln(); a=[]
+      ^^^^^^^^^
+AttributeError: 'mpf' object has no attribute 'ln'
+  cycle   -5 : 3^p=9 vs 2^K=8 -> q>0 ? False  (attendu False)
+  cycle  -17 : 3^p=2187 vs 2^K=2048 -> q>0 ? False  (attendu False)
+
+=== (b)(c) sur des PSEUDO-cycles (mots du recensement, x=B/q rationnel) : ceiling force ? ===
+  cellules q>0 testees : 114 | cas ou K != K0 mais la borne accepterait X=n : 0  (attendu 0)
+
+=== (d) LA GRILLE : fenetre de Legendre et structure d'Ostrowski ===
+  delta = 1/(3 ln2 X0) = 2.037e-22 | fenetre Legendre n < sqrt(1/(2 delta)) = 4.955e+10
+  (P4 : ~5e10 ; Hercher exige n > 1.375e11 -> au-dela, regime Ostrowski)
+  denominateurs : [1, 1, 2, 5, 12, 41, 53, 306, 665, 15601, 31867, 79335, 111202, 190537, 10590737, 10781274, 53715833, 171928773, 225644606, 397573379, 6189245291, 6586818670, 65470613321, 137528045312, 753110839881, 5409303924479, 6162414764360, 11571718688839]
+  n avec eps<0.0001 (12 premiers) et leur ancre de grille : [(14936, None), (15601, 12), (31202, 12), (46803, 15601), (47468, None), (63069, 53), (78670, 12), (79335, 41), (94271, 12), (94936, None), (110537, 41), (126138, 53)]
+  tous ancres sur la grille ? False
+=== (d-bis) Ostrowski des n a eps<0.0001 : les digits bas sont-ils nuls ? ===
+         n                            expansion (d,c)  plus petit d utilise
+     14936                      [(665, 22), (306, 1)]                   306
+     15601                               [(15601, 1)]                 15601
+     31202                               [(15601, 2)]                 15601
+     46803          [(31867, 1), (665, 22), (306, 1)]                   306
+     47468                   [(31867, 1), (15601, 1)]                 15601
+     63069                   [(31867, 1), (15601, 2)]                 15601
+     78670          [(31867, 2), (665, 22), (306, 1)]                   306
+     79335                               [(79335, 1)]                 79335
+     94271          [(79335, 1), (665, 22), (306, 1)]                   306
+     94936                   [(79335, 1), (15601, 1)]                 15601
+
+  plus petit denominateur utilise : eps-petits = [306, 15601, 15601, 306, 15601, 15601, 306, 79335, 306, 15601]
+                                   controle    = [2, 1, 1, 1, 2, 1, 2, 1, 1, 306]
+  mediane eps-petits : 15601 | mediane controle : 1
+  => si les eps-petits n'utilisent QUE des grands d (306+) et le controle descend a 1-12 :
+     LA GRILLE EST CONFIRMEE (structure d'Ostrowski, digits bas nuls).

@@ -1,0 +1,19 @@
+=== CANARIS ===
+  V3 definie : True | cycle trivial : somme dV3 = 0.0e+00 (doit etre 0) : True
+CANARIS: PASS
+
+=== P1 : V3 est-elle independante de la taille ? (R^2 avec log2 n) ===
+  R^2(V3, log2 n) = 0.0081   (dépôt annonce ~0.008)   moyenne V3=6330.5, ecart-type=443.6
+
+=== P2/P3 : derive et taux de grande deviation de V3 par pas impair ===
+  E[dV3] = -26.664   ecart-type = 584.399
+  taux de grande deviation (gaussien) = 0.0015 bit/pas
+  a comparer a c_gen = 0.0793 bit/pas  ->  rapport = 0.0x
+
+=== RED TEAM : la queue est-elle gaussienne ? (sinon le taux est illusoire) ===
+  quantile  0.001: dV3 =  -1892.0  (z = -3.19)
+  quantile   0.01: dV3 =  -1408.0  (z = -2.36)
+  quantile    0.5: dV3 =    -26.0  (z = +0.00)
+  quantile   0.99: dV3 =   1346.0  (z = +2.35)
+  quantile  0.999: dV3 =   1752.0  (z = +3.04)
+  kurtosis = 3.20 (gaussienne = 3.0)  -> compatible gaussien

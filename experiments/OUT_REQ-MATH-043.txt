@@ -1,0 +1,9 @@
+c_gen (asymptotique, non prouve en Lean) = 0.0793186
+c prouve en Lean (1/13)                  = 0.0769231   (ecart 0.00240)
+
+   constante   C0 exhibe  croisement/echelle   queue<1    queue n>600
+       c_gen     -14.949                1596      1661      3.863e+19
+1/13 (prouve)     -14.954                1655      1722      1.096e+20
+
+LECTURE : la constante prouvee (1/13) est ~3% plus faible que c_gen ; l'effet sur
+les seuils est modere. Les chiffres de L-A7 doivent citer LA CONSTANTE PROUVEE.

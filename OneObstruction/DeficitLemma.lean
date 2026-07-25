@@ -145,11 +145,101 @@ theorem key_core (k j : ℕ) (hub : (2:ℕ) ^ (k + j + 2) ≤ 2 * 3 ^ (k + 1)) :
 #print axioms atom_D
 #print axioms key_core
 
-/-- Remaining: the bookkeeping from `key_core` + `deficit_term_le` to the `n`-indexed
-    margin statement (exponent arithmetic only, no new mathematical content).
-    Verified in exact integers, **not yet formalized**. -/
-def MarginTarget : Prop :=
-  ∀ n K : ℕ, 1 ≤ n → 3 ^ n ≤ 2 ^ K → 2 ^ K < 2 * 3 ^ n →
-    ((K - 2).choose (n - 1)) ^ 13 * 2 ^ n ≤ 2 ^ (13 * K)
+/-- `key_core` with the constant `2^172` divided out. -/
+theorem key_shifted (k j : ℕ) (hub : (2:ℕ) ^ (k + j + 2) ≤ 2 * 3 ^ (k + 1)) :
+    2 ^ (86 * (k + j)) * 2 ^ (15 * (k + 1)) * 7 ^ (195 * k)
+      ≤ 2 ^ 390 * 12 ^ (195 * k) := by
+  have h := key_core k j hub
+  have e : 86 * (k + j + 2) = 86 * (k + j) + 172 := by ring
+  rw [e, pow_add] at h
+  have e562 : (2:ℕ) ^ 562 = 2 ^ 172 * 2 ^ 390 := by rw [← pow_add]
+  refine Nat.le_of_mul_le_mul_left ?_ (show 0 < (2:ℕ) ^ 172 by positivity)
+  calc (2:ℕ) ^ 172 * (2 ^ (86 * (k + j)) * 2 ^ (15 * (k + 1)) * 7 ^ (195 * k))
+      = 2 ^ (86 * (k + j)) * 2 ^ 172 * 2 ^ (15 * (k + 1)) * 7 ^ (195 * k) := by ring
+    _ ≤ 2 ^ 562 * 12 ^ (195 * k) := h
+    _ = 2 ^ 172 * (2 ^ 390 * 12 ^ (195 * k)) := by rw [e562, mul_assoc]
+
+/-- The 15th-power form of the key exponential inequality. -/
+theorem key15 (k j : ℕ) (hub : (2:ℕ) ^ (k + j + 2) ≤ 2 * 3 ^ (k + 1)) :
+    19 ^ (195 * (k + j)) * 2 ^ (15 * (k + 1))
+      ≤ 2 ^ (195 * (k + j + 2)) * (12 ^ (195 * k) * 7 ^ (195 * j)) := by
+  have hA : (19:ℕ) ^ (195 * (k + j)) ≤ 2 ^ (281 * (k + j)) * 7 ^ (195 * (k + j)) := by
+    have h1 : (19:ℕ) ^ 195 ≤ 2 ^ 281 * 7 ^ 195 := by
+      calc (19:ℕ) ^ 195 ≤ 14 ^ 195 * 2 ^ 86 := atom_A
+        _ = (2 * 7) ^ 195 * 2 ^ 86 := by norm_num
+        _ = 2 ^ 195 * 7 ^ 195 * 2 ^ 86 := by rw [mul_pow]
+        _ = 2 ^ 281 * 7 ^ 195 := by rw [show (281:ℕ) = 195 + 86 by norm_num, pow_add]; ring
+    calc (19:ℕ) ^ (195 * (k + j)) = (19 ^ 195) ^ (k + j) := by
+          rw [← pow_mul, mul_comm 195 (k + j)]
+      _ ≤ (2 ^ 281 * 7 ^ 195) ^ (k + j) := Nat.pow_le_pow_left h1 _
+      _ = 2 ^ (281 * (k + j)) * 7 ^ (195 * (k + j)) := by
+          rw [mul_pow, ← pow_mul, ← pow_mul]
+  have hs := key_shifted k j hub
+  have esplit : (195:ℕ) * (k + j) = 195 * k + 195 * j := by ring
+  have e281 : 281 * (k + j) = 195 * (k + j) + 86 * (k + j) := by ring
+  have e195 : 195 * (k + j + 2) = 195 * (k + j) + 390 := by ring
+  calc 19 ^ (195 * (k + j)) * 2 ^ (15 * (k + 1))
+      ≤ (2 ^ (281 * (k + j)) * 7 ^ (195 * (k + j))) * 2 ^ (15 * (k + 1)) :=
+        Nat.mul_le_mul_right _ hA
+    _ = 2 ^ (195 * (k + j)) * 7 ^ (195 * j) *
+          (2 ^ (86 * (k + j)) * 2 ^ (15 * (k + 1)) * 7 ^ (195 * k)) := by
+        rw [e281, esplit, pow_add, pow_add]; ring
+    _ ≤ 2 ^ (195 * (k + j)) * 7 ^ (195 * j) * (2 ^ 390 * 12 ^ (195 * k)) :=
+        Nat.mul_le_mul_left _ hs
+    _ = 2 ^ (195 * (k + j + 2)) * (12 ^ (195 * k) * 7 ^ (195 * j)) := by
+        rw [e195, pow_add]; ring
+
+/-- **The margin inequality, `(k, j)` form.** No natural subtraction, no hypothesis beyond
+    the Diophantine upper bound. This is `MarginTarget` after the substitution
+    `m = k + j`, `n = k + 1`, `K = k + j + 2`. -/
+theorem margin_core (k j : ℕ) (hub : (2:ℕ) ^ (k + j + 2) ≤ 2 * 3 ^ (k + 1)) :
+    ((k + j).choose k) ^ 13 * 2 ^ (k + 1) ≤ 2 ^ (13 * (k + j + 2)) := by
+  set C := (k + j).choose k with hC
+  -- the deficit lemma, with (k+j) - k = j
+  have hd : 12 ^ k * 7 ^ j * C ≤ 19 ^ (k + j) := by
+    have h := deficit_term_le (k + j) k (Nat.le_add_right k j)
+    simpa using h
+  -- raise it to the 195th power
+  have hd195 : (12 ^ (195 * k) * 7 ^ (195 * j)) * C ^ 195 ≤ 19 ^ (195 * (k + j)) := by
+    have := Nat.pow_le_pow_left hd 195
+    calc (12 ^ (195 * k) * 7 ^ (195 * j)) * C ^ 195
+        = (12 ^ k * 7 ^ j * C) ^ 195 := by
+          rw [mul_pow, mul_pow, ← pow_mul, ← pow_mul, mul_comm k 195, mul_comm j 195]
+      _ ≤ (19 ^ (k + j)) ^ 195 := this
+      _ = 19 ^ (195 * (k + j)) := by rw [← pow_mul, mul_comm (k + j) 195]
+  -- combine with key15 to get the 15th power of the goal
+  have h15 : (C ^ 13 * 2 ^ (k + 1)) ^ 15 ≤ (2 ^ (13 * (k + j + 2))) ^ 15 := by
+    have hgoal : C ^ 195 * 2 ^ (15 * (k + 1)) ≤ 2 ^ (195 * (k + j + 2)) := by
+      refine Nat.le_of_mul_le_mul_left ?_
+        (show 0 < 12 ^ (195 * k) * 7 ^ (195 * j) by positivity)
+      calc (12 ^ (195 * k) * 7 ^ (195 * j)) * (C ^ 195 * 2 ^ (15 * (k + 1)))
+          = ((12 ^ (195 * k) * 7 ^ (195 * j)) * C ^ 195) * 2 ^ (15 * (k + 1)) := by ring
+        _ ≤ 19 ^ (195 * (k + j)) * 2 ^ (15 * (k + 1)) := Nat.mul_le_mul_right _ hd195
+        _ ≤ 2 ^ (195 * (k + j + 2)) * (12 ^ (195 * k) * 7 ^ (195 * j)) := key15 k j hub
+        _ = (12 ^ (195 * k) * 7 ^ (195 * j)) * 2 ^ (195 * (k + j + 2)) := by ring
+    calc (C ^ 13 * 2 ^ (k + 1)) ^ 15
+        = C ^ 195 * 2 ^ (15 * (k + 1)) := by
+          rw [mul_pow, ← pow_mul, ← pow_mul, mul_comm (k + 1) 15]
+      _ ≤ 2 ^ (195 * (k + j + 2)) := hgoal
+      _ = (2 ^ (13 * (k + j + 2))) ^ 15 := by
+          rw [← pow_mul]; congr 1; ring
+  exact (Nat.pow_le_pow_iff_left (by norm_num)).mp h15
+
+/-- **`MarginTarget`, proved.** The `n`-indexed form used by the L-A7 ledger entry. -/
+theorem marginTarget (n K : ℕ) (hn : 1 ≤ n) (hlb : 3 ^ n ≤ 2 ^ K) (hub : 2 ^ K < 2 * 3 ^ n) :
+    ((K - 2).choose (n - 1)) ^ 13 * 2 ^ n ≤ 2 ^ (13 * K) := by
+  -- from 2^n < 3^n ≤ 2^K we get K ≥ n + 1, so K = (n-1) + j + 2 for some j
+  have h2n : (2:ℕ) ^ n < 3 ^ n := Nat.pow_lt_pow_left (by norm_num) (by omega)
+  have hKn : n + 1 ≤ K := by
+    have : (2:ℕ) ^ n < 2 ^ K := lt_of_lt_of_le h2n hlb
+    have := (Nat.pow_lt_pow_iff_right (a := 2) (by norm_num)).mp this
+    omega
+  obtain ⟨k, rfl⟩ : ∃ k, n = k + 1 := ⟨n - 1, by omega⟩
+  obtain ⟨j, rfl⟩ : ∃ j, K = k + j + 2 := ⟨K - k - 2, by omega⟩
+  have hub' : (2:ℕ) ^ (k + j + 2) ≤ 2 * 3 ^ (k + 1) := le_of_lt hub
+  simpa using margin_core k j hub'
+
+#print axioms margin_core
+#print axioms marginTarget
 
 end DeficitLemma

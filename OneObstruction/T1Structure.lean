@@ -278,19 +278,88 @@ lemma log_two_gt : (693:ℝ)/1000 < Real.log 2 := by
   norm_num at h ⊢
   linarith
 
-/- **RETRACTED (2026-07-25).** A `quotient_is_convergent` theorem was drafted here and
-   *pushed in commit `da2c8db` claiming kernel-3 status. That claim was FALSE*: the file
-   did not compile — `lake env lean` printed no `error:` line but aborted with a stack
-   overflow (`maxRecDepth 40000`), and at workable depths the proof carries `sorryAx`.
-   The obstruction is elaboration blow-up on the literal `2^71` inside `nlinarith`, not a
-   gap in the mathematics: the statement and its chain are verified exactly in
-   REQ-MATH-054/055. It is withdrawn until proved, and this note stays as the record.
+/-! ### Legendre invocation, with the threshold ABSTRACT (March 1-ter, second attempt)
 
-   Statement, for the record (NOT proved here):
-     a positive cycle with `x_min ≥ 2^71` and length `n = p+1` with `4000·n² ≤ 2079·2^71`
-     has `K/n` a convergent of `log₂3` — via `log_gap_at_barina` and
-     `LegendreApprox.abs_sub_ge_nat_div` (which does compile unchanged, 0 errors). -/
+The first attempt (commit `da2c8db`, retracted) let the literal `2^71` reach `nlinarith`
+and the elaborator blew the stack. Here the threshold is a **variable** `X`; the numeral
+appears only when instantiating, never inside a tactic. -/
 
+/-- Logarithmic gap, threshold abstract. Division handled explicitly, no numeral in tactics. -/
+theorem log_gap_gen (p X K : ℕ) (x v : Fin (p+1) → ℕ)
+    (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
+    (hK : K = ∑ i, v i) (hX : 0 < X) (hmin : ∀ i, X ≤ x i)
+    (hpX : 2 * p < 3 * X) (hceil : 3 ^ (p+1) < 2 ^ K) :
+    0 < (K:ℝ) * Real.log 2 - (p+1) * Real.log 3 ∧
+      (K:ℝ) * Real.log 2 - (p+1) * Real.log 3 < 2 * ((p:ℝ)+1) / (3 * X) := by
+  have hB : (0:ℝ) < 3 ^ (p+1) := by positivity
+  have hApos : (0:ℝ) < 2 ^ K := by positivity
+  have hXR : (0:ℝ) < (X:ℝ) := by exact_mod_cast hX
+  have hlow : ((3:ℝ)) ^ (p+1) < 2 ^ K := by exact_mod_cast hceil
+  have hcast : (2:ℝ) ^ K * (3 * X) < 3 ^ (p+1) * (3 * X) + 3 ^ (p+1) * (2 * ((p:ℝ)+1)) := by
+    have := seam_bound p X K x v hstep hK hX hmin hpX
+    have hR : (2:ℝ) ^ K * (3 * X) < 3 ^ (p+1) * (3 * X + 2 * ((p:ℕ)+1)) := by exact_mod_cast this
+    push_cast at hR ⊢; linarith
+  have h1 : 1 < (2:ℝ) ^ K / 3 ^ (p+1) := by rw [lt_div_iff₀ hB]; linarith
+  have hpos : (0:ℝ) < 2 ^ K / 3 ^ (p+1) := div_pos hApos hB
+  have hsub : (2:ℝ) ^ K / 3 ^ (p+1) - 1 < 2 * ((p:ℝ)+1) / (3 * X) := by
+    rw [div_sub_one (ne_of_gt hB), div_lt_div_iff₀ hB (by positivity)]
+    nlinarith [hcast, hB, hXR]
+  have hlogeq : Real.log ((2:ℝ) ^ K / 3 ^ (p+1))
+      = (K:ℝ) * Real.log 2 - (p+1) * Real.log 3 := by
+    rw [Real.log_div (ne_of_gt hApos) (ne_of_gt hB), Real.log_pow, Real.log_pow]
+    push_cast; ring
+  refine ⟨by rw [← hlogeq]; exact Real.log_pos h1, ?_⟩
+  have hle := Real.log_le_sub_one_of_pos hpos
+  rw [hlogeq] at hle
+  linarith
+
+/-- **THE LEGENDRE STEP, threshold abstract.** Inside the integral window `4000·n² ≤ 2079·X`,
+    a surviving cycle above threshold `X` has `K/n` a convergent of `log₂3`.
+    Instantiating `X := 2^71` is the Barina case, window `n ≤ 3.5032·10^10` (REQ-MATH-055). -/
+theorem quotient_is_convergent_gen (p X K : ℕ) (x v : Fin (p+1) → ℕ)
+    (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
+    (hK : K = ∑ i, v i) (hX : 0 < X) (hmin : ∀ i, X ≤ x i)
+    (hpX : 2 * p < 3 * X) (hceil : 3 ^ (p+1) < 2 ^ K)
+    (hwin : 4000 * (p+1) ^ 2 ≤ 2079 * X) :
+    ∃ m, Rat.divInt (K : ℤ) ((p+1 : ℕ) : ℤ) = (Real.log 3 / Real.log 2).convergent m := by
+  obtain ⟨hgap0, hgap⟩ := log_gap_gen p X K x v hstep hK hX hmin hpX hceil
+  have hnR : (0:ℝ) < ((p:ℝ)+1) := by positivity
+  have hXR : (0:ℝ) < (X:ℝ) := by exact_mod_cast hX
+  have hl2 : (0:ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  have hcastn : (((p+1:ℕ)):ℝ) = (p:ℝ)+1 := by push_cast; ring
+  have hsign : Real.log 3 / Real.log 2 - (K:ℝ) / ((p:ℝ)+1) ≤ 0 := by
+    rw [div_sub_div _ _ (ne_of_gt hl2) (ne_of_gt hnR)]
+    apply div_nonpos_of_nonpos_of_nonneg
+    · nlinarith [hgap0]
+    · positivity
+  have hdiff : |Real.log 3 / Real.log 2 - (K:ℝ) / ((p:ℝ)+1)|
+      = ((K:ℝ) * Real.log 2 - ((p:ℝ)+1) * Real.log 3) / (((p:ℝ)+1) * Real.log 2) := by
+    rw [abs_of_nonpos hsign]; field_simp; ring
+  -- the window, step by step (no numeral reaches a tactic in one block)
+  have hwinR : (4000:ℝ) * ((p:ℝ)+1) ^ 2 ≤ 2079 * (X:ℝ) := by exact_mod_cast hwin
+  have hA : (4:ℝ) * ((p:ℝ)+1) ^ 2 ≤ 2079 * (X:ℝ) / 1000 := by linarith
+  have hBn : (2079:ℝ) * (X:ℝ) / 1000 < 3 * (X:ℝ) * Real.log 2 := by
+    have hlb := log_two_gt; nlinarith [hlb, hXR]
+  have hC : (4:ℝ) * ((p:ℝ)+1) ^ 2 < 3 * (X:ℝ) * Real.log 2 := lt_of_le_of_lt hA hBn
+  have hkey : |Real.log 3 / Real.log 2 - (K:ℝ) / ((p:ℝ)+1)| < 1 / (2 * ((p:ℝ)+1) ^ 2) := by
+    rw [hdiff, div_lt_div_iff₀ (by positivity) (by positivity)]
+    have hmul : ((K:ℝ) * Real.log 2 - ((p:ℝ)+1) * Real.log 3) * (2 * ((p:ℝ)+1) ^ 2)
+        ≤ (2 * ((p:ℝ)+1) / (3 * (X:ℝ))) * (2 * ((p:ℝ)+1) ^ 2) :=
+      mul_le_mul_of_nonneg_right (le_of_lt hgap) (by positivity)
+    have hfin : (2 * ((p:ℝ)+1) / (3 * (X:ℝ))) * (2 * ((p:ℝ)+1) ^ 2)
+        < 1 * (((p:ℝ)+1) * Real.log 2) := by
+      rw [div_mul_eq_mul_div, div_lt_iff₀ (by positivity)]
+      nlinarith [hC, hnR, hl2, hXR]
+    linarith
+  by_contra hcon
+  push_neg at hcon
+  have hleg := LegendreApprox.abs_sub_ge_nat_div
+      (Real.log 3 / Real.log 2) K (p+1) (by omega) (fun m => hcon m)
+  rw [hcastn] at hleg
+  linarith [hkey, hleg]
+
+#print axioms log_gap_gen
+#print axioms quotient_is_convergent_gen
 #print axioms log_two_gt
 
 #print axioms ratio_bound_at_barina

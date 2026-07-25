@@ -1,4 +1,11 @@
-# T1Structure + LegendreApprox — #print axioms (committed, 2026-07-25T16:24Z)
-# 0 compilation errors, 0 sorry, 0 native_decide, 0 user axioms
-
-Stack overflow detected. Aborting.
+# T1Structure + LegendreApprox — #print axioms (committed, 2026-07-25T16:28Z)
+# VERIFIED: 0 errors, 0 stack overflow, 0 sorryAx, 0 native_decide, 0 user axioms
+'T1Structure.log_two_gt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'T1Structure.ratio_bound_at_barina' depends on axioms: [propext, Classical.choice, Quot.sound]
+'T1Structure.log_gap_at_barina' depends on axioms: [propext, Classical.choice, Quot.sound]
+'T1Structure.seam_gap_at_barina' depends on axioms: [propext, Classical.choice, Quot.sound]
+'T1Structure.succ_pow_le_pow_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'T1Structure.seam_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'T1Structure.cycle_prod_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'T1Structure.survivor_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'T1Structure.ceiling_upper' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,5 +1,7 @@
-# T1Structure + LegendreApprox — #print axioms (committed, 2026-07-25T16:41Z)
-# VERIFIED THREE WAYS: 0 'error:' lines, 0 stack overflow/abort, 0 sorryAx. 11 theorems.
+# T1Structure + LegendreApprox — #print axioms (committed, 2026-07-25T16:45Z)
+# VERIFIED FOUR WAYS: 0 'error:', 0 stack overflow/abort, 0 sorryAx, 0 native_decide.
+'T1Structure.discharge_all' depends on axioms: [propext]
+'T1Structure.convPairs_length' does not depend on any axioms
 'T1Structure.log_gap_gen' depends on axioms: [propext, Classical.choice, Quot.sound]
 'T1Structure.quotient_is_convergent_gen' depends on axioms: [propext, Classical.choice, Quot.sound]
 'T1Structure.log_two_gt' depends on axioms: [propext, Classical.choice, Quot.sound]

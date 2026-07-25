@@ -358,6 +358,45 @@ theorem quotient_is_convergent_gen (p X K : ℕ) (x v : Fin (p+1) → ℕ)
   rw [hcastn] at hleg
   linarith [hkey, hleg]
 
+/-! ### The finite discharge (T1, closing step)
+
+Legendre pins `n` to a convergent denominator of `log₂3`. It remains to kill each of the 22
+denominators inside the Barina window. Using the classical convergent bound
+`θ_j > 1/(q_j + q_{j+1})`, the seam constraint fails at `q_j` as soon as
+
+  `2000 · q_j · (q_j + q_{j+1}) ≤ 2079 · X`,
+
+a purely **integer** inequality — no logarithm, no high precision. Verified for all 22
+(REQ-MATH-056; tightest margin 5.17× at `q₂₁ = 6586818670`; the exact test gives 5.44×, so
+the integer criterion is conservative as intended). -/
+
+/-- The 22 convergent denominators of `log₂3` below the Barina window, paired with their
+    successor (needed for the classical lower bound on `θ_j`). -/
+def convPairs : List (ℕ × ℕ) :=
+  [(1,1), (1,2), (2,5), (5,12), (12,41), (41,53), (53,306), (306,665), (665,15601),
+   (15601,31867), (31867,79335), (79335,111202), (111202,190537), (190537,10590737),
+   (10590737,10781274), (10781274,53715833), (53715833,171928773), (171928773,225644606),
+   (225644606,397573379), (397573379,6189245291), (6189245291,6586818670),
+   (6586818670,65470613321)]
+
+/-- **The finite discharge.** Every convergent denominator in the window fails the seam
+    criterion `2000·q·(q+q') ≤ 2079·2^71`. Decided by kernel arithmetic. -/
+theorem discharge_all : ∀ qq ∈ convPairs, 2000 * qq.1 * (qq.1 + qq.2) ≤ 2079 * 2 ^ 71 := by
+  decide
+
+/-- Sanity: there are exactly 22 of them, and the last is the tightest. -/
+theorem convPairs_length : convPairs.length = 22 := by decide
+
+/-- Canary: the tightest case, spelled out — margin 5.17×, and it holds. -/
+example : 2000 * 6586818670 * (6586818670 + 65470613321) ≤ 2079 * 2 ^ 71 := by norm_num
+
+/-- Canary (non-vacuity): the criterion is not trivially true — it FAILS one convergent
+    beyond the window, which is exactly why the window is where it is. -/
+example : ¬ (2000 * 65470613321 * (65470613321 + 137528045312) ≤ 2079 * 2 ^ 71) := by norm_num
+
+#print axioms discharge_all
+#print axioms convPairs_length
+
 #print axioms log_gap_gen
 #print axioms quotient_is_convergent_gen
 #print axioms log_two_gt

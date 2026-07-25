@@ -1,0 +1,31 @@
+=== CANARIS ===
+  Collatz : step(3,3)=(5,1), step(3,1)=(1,2) : True | 5x+1 : 13->33 : True
+CANARIS: PASS
+
+=== P1 : la PENTE du lavabo (derive de log2 x par pas impair) ===
+     y   log2(y)-2 (theorie)     mesure            forme
+     1               -2.0000    -2.0024  LAVABO (rentre)
+     3               -0.4150    -0.4205  LAVABO (rentre)
+     5                0.3219     0.3172   COLLINE (fuit)
+     7                0.8074     0.8059   COLLINE (fuit)
+     9                1.1699     1.1768   COLLINE (fuit)
+    11                1.4594     1.4493   COLLINE (fuit)
+
+  -> le basculement est a y = 4 (log2 4 = 2). Les impairs sous 4 : 1 et 3 SEULEMENT.
+
+=== P2 : que devient l'orbite selon y ? (300 graines) ===
+     y    -> 1  autre cycle   diverge?    pente
+     1     300            0          0   -2.000
+     3     300            0          0   -0.415
+     5       1            0        299    0.322
+     7       0            0        300    0.807
+     9       0            0        300    1.170
+
+=== P3 : LE POINT — 3 est-il le seul cas marginal ? ===
+  y=1 : pente -2.000 — descente FORCEE ((x+1)/2^v <= x), trivial
+  y=3 : pente -0.415 — a peine negative : le bruit (sigma=1.414) l'ecrase
+        rapport signal/bruit = 0.2935  <-- notre mu/sigma !
+  y=5 : pente +0.322 — POSITIVE : la bille s'echappe
+
+  => 3 est le SEUL impair y avec 1 < y < 4. Le lavabo de Collatz est le
+     dernier lavabo avant la colline — et sa pente est 3 fois plus faible que sa rugosite.

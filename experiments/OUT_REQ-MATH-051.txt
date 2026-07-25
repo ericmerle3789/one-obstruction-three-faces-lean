@@ -1,0 +1,42 @@
+=== CANARIS ===
+  ancetres de 1 : [5, 21, 85, 341, 1365]  (attendu 5, 21, 85, 341, 1365)
+  multiples de 3 sans ancetre : True
+CANARIS: PASS
+
+=== COUVERTURE de l'arbre des ancetres de 1, par profondeur ===
+   profondeur   nouveaux  total <= N  couverture
+            1          8           9       0.01%
+            2         24          33       0.03%
+            3         56          89       0.09%
+            4        104         193       0.19%
+            5        169         362       0.36%
+            6        278         640       0.64%
+            7        354         994       0.99%
+            8        512        1506       1.51%
+            9        649        2155       2.15%
+           10        756        2911       2.91%
+           11        993        3904       3.90%
+           12        978        4882       4.88%
+           15       1308        8620       8.62%
+           20       1463       15897      15.90%
+           25       1295       22917      22.92%
+           30       1056       28705      28.71%
+           35        914       33507      33.51%
+           40        784       37387      37.39%
+
+  couverture finale (impairs < 200001) : 37387/100000 = 37.39%
+  exposant apparent : |arbre| ~ N^a avec a = 0.8626  (K-L : 0.84)
+
+=== P3 : les NON-ATTEINTS sont-ils structures ? ===
+  non atteints : 62613 (62.61%)  premiers : [27, 55, 73, 97, 109, 129, 145, 147, 171, 193, 195, 199]
+  repartition mod 3 : {0: 20866, 1: 20964, 2: 20783}
+  (reference, tous impairs mod 3) : {0: 33333, 2: 33333, 1: 33333}
+  repartition mod 8 : {1: 14431, 3: 16794, 5: 10473, 7: 20915}
+
+  -> tous ces non-atteints atteignent-ils 1 en AVANT ? (test direct)
+  sur 400 non-atteints testes : 0 n'atteignent PAS 1  -> tous atteignent 1
+
+=== LECTURE ===
+Si les non-atteints atteignent tous 1 en avant, l'arbre est incomplet seulement par
+PROFONDEUR (on n'a pas assez remonte), pas par nature. Le bassin serait alors 'tout',
+et la question devient : pourquoi la remontee ne rate-t-elle jamais personne ?

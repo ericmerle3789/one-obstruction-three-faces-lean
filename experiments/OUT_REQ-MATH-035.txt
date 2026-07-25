@@ -1,0 +1,21 @@
+=== CANARI : R_best(n) exact reproduit-il les ancres connues ? ===
+  n=5 K=8 q=13 (att. 13) ; n=7 K=12 q=1909 (att. 1909) : True
+  R_best calcule sur 3999 echelles (n<=4000)
+
+=== A) avec l'ancienne regle (exposant 4.125, celle qui etait MAL ETIQUETEE) ===
+  ancienne (mu-1 = 4.125)
+    exposant p = 4.125 | C0 exhibe = -5.774 | violations borne<exact : 0
+    L1 croisement PAR ECHELLE (borne < 1 ticket)      : n = 372
+    L2 croisement QUEUE CUMULEE (somme queue < 1)     : n = 440
+
+=== B) avec la regle RE-SOURCEE (Rhin 1987, exposant 13.3 ; via Simons-de Weger) ===
+  Rhin 1987 (p = 13.3)
+    exposant p = 13.3 | C0 exhibe = -14.949 | violations borne<exact : 0
+    L1 croisement PAR ECHELLE (borne < 1 ticket)      : n = 1596
+    L2 croisement QUEUE CUMULEE (somme queue < 1)     : n = 1661
+
+=== VERDICT ===
+  Le '~550' de L-A7 : NON REPRODUIT, et jamais calcule. Les valeurs justes, avec nos
+  propres constantes, sont L1 = 372 (par echelle) et L2 = 440 (queue cumulee).
+  -> Ben a raison sur les deux lectures. Le 550 doit etre RETIRE.
+  Sous la regle correctement sourcee (Rhin) : L1 = 1596, L2 = 1661.

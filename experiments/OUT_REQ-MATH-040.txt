@@ -1,0 +1,31 @@
+=== CANARIS ===
+  ancre n=5 : True | (i) borne binome x=12/7 sur echantillon : True
+CANARIS: PASS
+
+=== (A) la CIBLE tient-elle ?  C^13 * 2^n <= 2^(13K) ===
+  n=1..1200 : echecs = 0 [] | marge min (bits) = (25, 1)
+
+=== (B) la ROUTE BINOME suffit-elle a l'etablir ? (iii) ===
+  n=1..1200 : echecs = 0 [] | marge min (bits) = (22, 7)
+
+=== (C) RED TEAM : petits n un par un (la ou ca casse d'habitude) ===
+    n    K   C=C(K-2,n-1)  cible OK  route OK
+    1    2              1      True      True
+    2    4              2      True      True
+    3    5              3      True      True
+    4    7             10      True      True
+    5    8             15      True      True
+    6   10             56      True      True
+    7   12            210      True      True
+    8   13            330      True      True
+    9   15           1287      True      True
+   10   16           2002      True      True
+   11   18           8008      True      True
+   12   20          31824      True      True
+   13   21          50388      True      True
+   14   23         203490      True      True
+   15   24         319770      True      True
+
+=== VERDICT ===
+Si (A) et (B) sans echec : le lemme de deficit devient une inegalite ENTIERE,
+prouvable en Lean par (binome) + (inegalite exponentielle), SANS entropie ni Stirling.

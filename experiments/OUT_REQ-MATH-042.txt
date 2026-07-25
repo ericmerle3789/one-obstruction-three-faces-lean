@@ -1,0 +1,10 @@
+=== ATOMES ===
+            A: 19^195 <= 14^195*2^86 : True  (marge 0.088 bits)
+        a: 3^86*2^15*7^195 <= 12^195 : True  (marge 0.327 bits)
+       C: 2^86*12^195 <= 2^562*7^195 : True  (marge 324.367 bits)
+
+=== CHAINE COMPLETE, etape par etape, sur n=1..300 ===
+  echecs par etape : AUCUN — chaine complete valide
+
+=== RED TEAM : (3) implique-t-il bien (2) ? test de l'implication elle-meme ===
+  cas ou (3) vrai mais (2) faux : 0  (doit etre 0)

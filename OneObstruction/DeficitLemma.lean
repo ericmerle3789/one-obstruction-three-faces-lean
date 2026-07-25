@@ -22,11 +22,12 @@ Numerically established before formalizing (REQ-MATH-039/040, canary-anchored, c
 * the integer target `C(K−2,n−1)^13 · 2^n ≤ 2^{13K}` holds for `n = 1..1200`,
   0 failures, and the binomial route below implies it with ≥ 22 bits to spare.
 
-SCOPE, stated plainly. `deficit_term_le` below is proved, kernel-3, 0 sorry — it is the
-analytic heart, and it is now elementary. The passage from it to the `n`-indexed statement
-additionally needs the comparison between `K` and `n` (`3^n ≤ 2^K < 2·3^n`); that step is
-stated here as `MarginTarget` and is **not yet proved in Lean** — it is a finite-rational
-exponent comparison, deliberately left explicit rather than hidden.
+SCOPE, stated plainly. Everything below is proved: kernel-3, no `sorry`, no user axioms,
+no `native_decide`. `deficit_term_le` is the analytic heart (now elementary); `key_core`
+is the heart of the assembly — it absorbs the Diophantine hypothesis and the `j`-dependence.
+What remains outside Lean is pure exponent bookkeeping from `key_core` + `deficit_term_le`
+to the `n`-indexed statement `MarginTarget`; verified in exact integers (REQ-MATH-042,
+`n = 1..300`, 0 failures), deliberately left explicit rather than hidden.
 -/
 import Mathlib
 
@@ -71,17 +72,10 @@ example : 12 ^ 10 * 7 ^ 15 * (Nat.choose 25 10) ≤ 19 ^ 25 :=
 example : 12 ^ 7 * 7 ^ 0 * (Nat.choose 7 7) ≤ 19 ^ 7 :=
   deficit_term_le 7 7 (le_refl 7)
 
-/-- The `K`-vs-`n` comparison that turns `deficit_term_le` into the ledger's margin
-    statement. `K` is the least exponent with `3^n ≤ 2^K`. Verified numerically for
-    `n = 1..1200` (REQ-MATH-040, 0 failures, ≥ 22 bits of slack); **not proved here**. -/
-def MarginTarget : Prop :=
-  ∀ n K : ℕ, 1 ≤ n → 3 ^ n ≤ 2 ^ K → 2 ^ K < 2 * 3 ^ n →
-    ((K - 2).choose (n - 1)) ^ 13 * 2 ^ n ≤ 2 ^ (13 * K)
-
 #print axioms deficit_term_le
 #print axioms deficit_choose_le
 
-end DeficitLemma
+
 
 /-! ## The three integer atoms for `MarginTarget` (s = 15, t = 86)
 
@@ -98,23 +92,64 @@ theorem atom_A : (19 : ℕ) ^ 195 ≤ 14 ^ 195 * 2 ^ 86 := by norm_num
 /-- Atom (a): the per-`n` factor. Margin 0.327 bits. -/
 theorem atom_a : (3 : ℕ) ^ 86 * 2 ^ 15 * 7 ^ 195 ≤ 12 ^ 195 := by norm_num
 
-/-- Atom (b): the constant factor. Proved by a soft chain (324 bits of room),
-    avoiding a 500-digit evaluation: `2^86·84^195 ≤ 2^195·84^195 = 168^195 ≤ 361^195 = 19^390`. -/
-theorem atom_b : (2 : ℕ) ^ 86 * 84 ^ 195 ≤ 19 ^ 390 := by
-  have h1 : (2 : ℕ) ^ 86 ≤ 2 ^ 195 := Nat.pow_le_pow_right (by norm_num) (by norm_num)
-  have h2 : (2 : ℕ) ^ 86 * 84 ^ 195 ≤ 2 ^ 195 * 84 ^ 195 :=
-    Nat.mul_le_mul_right _ h1
-  have h3 : (2 : ℕ) ^ 195 * 84 ^ 195 = 168 ^ 195 := by
-    rw [← Nat.mul_pow]
-  have h4 : (168 : ℕ) ^ 195 ≤ 361 ^ 195 := Nat.pow_le_pow_left (by norm_num) _
-  have h5 : (361 : ℕ) ^ 195 = 19 ^ 390 := by
-    have : (361 : ℕ) = 19 ^ 2 := by norm_num
-    rw [this, ← pow_mul]
-  calc (2 : ℕ) ^ 86 * 84 ^ 195 ≤ 2 ^ 195 * 84 ^ 195 := h2
-    _ = 168 ^ 195 := h3
-    _ ≤ 361 ^ 195 := h4
-    _ = 19 ^ 390 := h5
+/-- Atom (D): the constant factor, in the `m = k + j` parametrisation. Margin ≈ 325 bits.
+    (Supersedes an earlier, clumsier constant atom; the `k+j` parametrisation removes all
+    natural subtraction and reduces the constant to `3^86 ≤ 2^461`.) -/
+theorem atom_D : (2 : ℕ) ^ 101 * 3 ^ 86 ≤ 2 ^ 562 := by
+  have h3 : (3:ℕ) ^ 86 ≤ 2 ^ 172 := by
+    calc (3:ℕ) ^ 86 ≤ 4 ^ 86 := Nat.pow_le_pow_left (by norm_num) _
+      _ = 2 ^ 172 := by rw [show (4:ℕ) = 2 ^ 2 by norm_num, ← pow_mul]
+  calc (2:ℕ) ^ 101 * 3 ^ 86 ≤ 2 ^ 101 * 2 ^ 172 := Nat.mul_le_mul_left _ h3
+    _ = 2 ^ 273 := by rw [← pow_add]
+    _ ≤ 2 ^ 562 := Nat.pow_le_pow_right (by norm_num) (by norm_num)
+
+/-! ## Assembly: the heart
+
+Parametrised as `m = k + j`, `n = k + 1`, `K = k + j + 2` — no natural subtraction.
+Verified in exact integers first (REQ-MATH-042: full chain `n = 1..300`, 0 failures). -/
+
+/-- **The core of the assembly.** Everything that depends on `j` and on the Diophantine
+    hypothesis is concentrated here; the rest is bookkeeping on exponents. -/
+theorem key_core (k j : ℕ) (hub : (2:ℕ) ^ (k + j + 2) ≤ 2 * 3 ^ (k + 1)) :
+    2 ^ (86 * (k + j + 2)) * 2 ^ (15 * (k + 1)) * 7 ^ (195 * k)
+      ≤ 2 ^ 562 * 12 ^ (195 * k) := by
+  have e1 : 86 * (k + 1) = 86 + 86 * k := by ring
+  have e2 : 15 * (k + 1) = 15 + 15 * k := by ring
+  -- hub to the 86th power
+  have h1 : (2:ℕ) ^ (86 * (k + j + 2)) ≤ 2 ^ 86 * 3 ^ (86 * (k + 1)) := by
+    calc (2:ℕ) ^ (86 * (k + j + 2)) = (2 ^ (k + j + 2)) ^ 86 := by
+          rw [mul_comm, pow_mul]
+      _ ≤ (2 * 3 ^ (k + 1)) ^ 86 := Nat.pow_le_pow_left hub _
+      _ = 2 ^ 86 * (3 ^ (k + 1)) ^ 86 := by rw [mul_pow]
+      _ = 2 ^ 86 * 3 ^ (86 * (k + 1)) := by rw [← pow_mul, mul_comm (k + 1) 86]
+  -- the per-k factor, via atom_a
+  have h2 : (3:ℕ) ^ (86 * k) * 2 ^ (15 * k) * 7 ^ (195 * k) ≤ 12 ^ (195 * k) := by
+    have hpow : (3:ℕ) ^ (86 * k) * 2 ^ (15 * k) * 7 ^ (195 * k)
+        = (3 ^ 86 * 2 ^ 15 * 7 ^ 195) ^ k := by
+      rw [mul_pow, mul_pow, ← pow_mul, ← pow_mul, ← pow_mul,
+          mul_comm 86 k, mul_comm 15 k, mul_comm 195 k]
+    have h12 : (12:ℕ) ^ (195 * k) = (12 ^ 195) ^ k := by
+      rw [← pow_mul, mul_comm 195 k]
+    rw [hpow, h12]
+    exact Nat.pow_le_pow_left atom_a k
+  calc 2 ^ (86 * (k + j + 2)) * 2 ^ (15 * (k + 1)) * 7 ^ (195 * k)
+      ≤ (2 ^ 86 * 3 ^ (86 * (k + 1))) * 2 ^ (15 * (k + 1)) * 7 ^ (195 * k) := by
+        exact Nat.mul_le_mul_right _ (Nat.mul_le_mul_right _ h1)
+    _ = 2 ^ 101 * 3 ^ 86 * (3 ^ (86 * k) * 2 ^ (15 * k) * 7 ^ (195 * k)) := by
+        rw [e1, e2, pow_add, pow_add]; ring
+    _ ≤ 2 ^ 101 * 3 ^ 86 * 12 ^ (195 * k) := Nat.mul_le_mul_left _ h2
+    _ ≤ 2 ^ 562 * 12 ^ (195 * k) := Nat.mul_le_mul_right _ atom_D
 
 #print axioms atom_A
 #print axioms atom_a
-#print axioms atom_b
+#print axioms atom_D
+#print axioms key_core
+
+/-- Remaining: the bookkeeping from `key_core` + `deficit_term_le` to the `n`-indexed
+    margin statement (exponent arithmetic only, no new mathematical content).
+    Verified in exact integers, **not yet formalized**. -/
+def MarginTarget : Prop :=
+  ∀ n K : ℕ, 1 ≤ n → 3 ^ n ≤ 2 ^ K → 2 ^ K < 2 * 3 ^ n →
+    ((K - 2).choose (n - 1)) ^ 13 * 2 ^ n ≤ 2 ^ (13 * K)
+
+end DeficitLemma

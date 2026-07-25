@@ -210,6 +210,64 @@ theorem seam_gap_at_barina (p K : ℕ) (x v : Fin (p+1) → ℕ)
 example : ¬ (∀ i : Fin 1, (2:ℕ) ^ 71 ≤ (fun _ : Fin 1 => 1) i) := by
   intro h; have := h 0; norm_num at this
 
+/-! ### The analytic bridge (March 1-bis)
+
+From the integer seam gap to the logarithmic gap, using only `Real.log_le_sub_one_of_pos`
+(`log x ≤ x − 1`, Mathlib) — no continued fractions yet. This is the exact hinge feeding
+Legendre's criterion. -/
+
+/-- **The ratio bound.** For a surviving positive cycle at the Barina threshold:
+    `1 < 2^K / 3^(p+1) < 1 + 2(p+1)/(3·2^71)`. -/
+theorem ratio_bound_at_barina (p K : ℕ) (x v : Fin (p+1) → ℕ)
+    (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
+    (hK : K = ∑ i, v i) (hmin : ∀ i, 2 ^ 71 ≤ x i)
+    (hpX : 2 * p < 3 * 2 ^ 71) (hceil : 3 ^ (p+1) < 2 ^ K) :
+    1 < (2:ℝ) ^ K / 3 ^ (p+1) ∧
+      (2:ℝ) ^ K / 3 ^ (p+1) < 1 + 2 * (p+1) / (3 * 2 ^ 71) := by
+  have hB : (0:ℝ) < 3 ^ (p+1) := by positivity
+  have hlow : ((3:ℝ)) ^ (p+1) < 2 ^ K := by exact_mod_cast hceil
+  have hnat := seam_gap_at_barina p K x v hstep hK hmin hpX
+  have hR : (2:ℝ) ^ K * (3 * 2 ^ 71)
+      < 3 ^ (p+1) * (3 * 2 ^ 71) + 3 ^ (p+1) * (2 * (p+1)) := by exact_mod_cast hnat
+  constructor
+  · rw [lt_div_iff₀ hB]; linarith
+  · rw [div_lt_iff₀ hB]
+    have hc : (0:ℝ) < 3 * 2 ^ 71 := by norm_num
+    have : (2:ℝ) ^ K < 3 ^ (p+1) * (1 + 2 * (p+1) / (3 * 2 ^ 71)) := by
+      rw [mul_add, mul_one, mul_div_assoc]
+      rw [← lt_div_iff₀ hc] at *
+      nlinarith [hR, hB, hc]
+    linarith
+
+/-- **The logarithmic gap.** `0 < K·log 2 − (p+1)·log 3 < 2(p+1)/(3·2^71)`.
+    Dividing by `(p+1)·log 2` gives `|log₂3 − K/(p+1)| < δ`, `δ = 2/(3·2^71·ln 2)`,
+    the input of Legendre's criterion — which applies for `p+1 ≤ 3.5035·10^10`
+    (REQ-MATH-054: within that window all 22 convergent denominators fail). -/
+theorem log_gap_at_barina (p K : ℕ) (x v : Fin (p+1) → ℕ)
+    (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
+    (hK : K = ∑ i, v i) (hmin : ∀ i, 2 ^ 71 ≤ x i)
+    (hpX : 2 * p < 3 * 2 ^ 71) (hceil : 3 ^ (p+1) < 2 ^ K) :
+    0 < (K:ℝ) * Real.log 2 - (p+1) * Real.log 3 ∧
+      (K:ℝ) * Real.log 2 - (p+1) * Real.log 3 < 2 * (p+1) / (3 * 2 ^ 71) := by
+  obtain ⟨h1, h2⟩ := ratio_bound_at_barina p K x v hstep hK hmin hpX hceil
+  have hB : (0:ℝ) < 3 ^ (p+1) := by positivity
+  have hApos : (0:ℝ) < 2 ^ K := by positivity
+  have hpos : (0:ℝ) < 2 ^ K / 3 ^ (p+1) := div_pos hApos hB
+  have hlogeq : Real.log ((2:ℝ) ^ K / 3 ^ (p+1))
+      = (K:ℝ) * Real.log 2 - (p+1) * Real.log 3 := by
+    rw [Real.log_div (ne_of_gt hApos) (ne_of_gt hB), Real.log_pow, Real.log_pow]
+    push_cast
+    ring
+  constructor
+  · rw [← hlogeq]; exact Real.log_pos h1
+  · have hle : Real.log ((2:ℝ) ^ K / 3 ^ (p+1)) ≤ (2:ℝ) ^ K / 3 ^ (p+1) - 1 :=
+      Real.log_le_sub_one_of_pos hpos
+    rw [hlogeq] at hle
+    linarith
+
+#print axioms ratio_bound_at_barina
+#print axioms log_gap_at_barina
+
 #print axioms seam_gap_at_barina
 
 #print axioms succ_pow_le_pow_add

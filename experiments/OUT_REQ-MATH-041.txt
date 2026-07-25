@@ -1,0 +1,20 @@
+=== FENETRE pour t/s ===
+  borne basse (borne 19/14) = 5.727444
+  borne haute (facteur n)   = 5.747075
+  fenetre non vide ? True  (largeur 0.019631)
+
+=== recherche du plus petit s admissible ===
+  s= 15 : t dans [86,86] -> t=86 (t/s=5.733333)
+
+  RETENU : s=15, t=86
+
+=== VERIFICATION EXACTE des 3 inegalites (grands entiers) ===
+        (A) 19^(13s) <= 14^(13s)*2^t : True   (ratio droite/gauche = 1.063150, 0.088 bits)
+     (a) 3^t*2^s*7^(13s) <= 12^(13s) : True   (ratio droite/gauche = 1.254144, 0.327 bits)
+        (b) 2^t*84^(13s) <= 19^(26s) : True   (ratio droite/gauche = 38981986112879108825679139601537616405208066312587659568224205260675959712151460233982436444209152.000000, 324.190 bits)
+
+=== RED TEAM : la chaine complete redonne-t-elle MarginTarget ? (test direct) ===
+  n=1..400 : echecs = 0 []
+
+=== VERDICT ===
+Route VALIDE avec s=15, t=86 : 3 controles grands-entiers + 2^K<2*3^n suffisent.

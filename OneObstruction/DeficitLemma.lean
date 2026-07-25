@@ -82,3 +82,39 @@ def MarginTarget : Prop :=
 #print axioms deficit_choose_le
 
 end DeficitLemma
+
+/-! ## The three integer atoms for `MarginTarget` (s = 15, t = 86)
+
+Verified numerically first (REQ-MATH-041, exact big-integer arithmetic, committed):
+the admissible window for `t/s` is `[5.727444, 5.747075]` — width `0.0196` — and
+`s = 15, t = 86` is the smallest admissible pair. Exact margins: `(A)` 0.088 bits,
+`(a)` 0.327 bits, `(b)` 324 bits. The first two are razor-thin but exact.
+A wrong upper bound in the first draft of the search made `(a)` fail at `s = 1`;
+the failure is what exposed the bug. Recorded, not smoothed. -/
+
+/-- Atom (A): `(19/14)^195 ≤ 2^86`, cleared of denominators. Margin 0.088 bits. -/
+theorem atom_A : (19 : ℕ) ^ 195 ≤ 14 ^ 195 * 2 ^ 86 := by norm_num
+
+/-- Atom (a): the per-`n` factor. Margin 0.327 bits. -/
+theorem atom_a : (3 : ℕ) ^ 86 * 2 ^ 15 * 7 ^ 195 ≤ 12 ^ 195 := by norm_num
+
+/-- Atom (b): the constant factor. Proved by a soft chain (324 bits of room),
+    avoiding a 500-digit evaluation: `2^86·84^195 ≤ 2^195·84^195 = 168^195 ≤ 361^195 = 19^390`. -/
+theorem atom_b : (2 : ℕ) ^ 86 * 84 ^ 195 ≤ 19 ^ 390 := by
+  have h1 : (2 : ℕ) ^ 86 ≤ 2 ^ 195 := Nat.pow_le_pow_right (by norm_num) (by norm_num)
+  have h2 : (2 : ℕ) ^ 86 * 84 ^ 195 ≤ 2 ^ 195 * 84 ^ 195 :=
+    Nat.mul_le_mul_right _ h1
+  have h3 : (2 : ℕ) ^ 195 * 84 ^ 195 = 168 ^ 195 := by
+    rw [← Nat.mul_pow]
+  have h4 : (168 : ℕ) ^ 195 ≤ 361 ^ 195 := Nat.pow_le_pow_left (by norm_num) _
+  have h5 : (361 : ℕ) ^ 195 = 19 ^ 390 := by
+    have : (361 : ℕ) = 19 ^ 2 := by norm_num
+    rw [this, ← pow_mul]
+  calc (2 : ℕ) ^ 86 * 84 ^ 195 ≤ 2 ^ 195 * 84 ^ 195 := h2
+    _ = 168 ^ 195 := h3
+    _ ≤ 361 ^ 195 := h4
+    _ = 19 ^ 390 := h5
+
+#print axioms atom_A
+#print axioms atom_a
+#print axioms atom_b

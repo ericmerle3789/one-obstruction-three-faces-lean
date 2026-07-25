@@ -1,3 +1,6 @@
-# DeficitLemma.lean — #print axioms (committed, 2026-07-25T09:38Z) — 0 error, 0 sorry, 0 native_decide
+# DeficitLemma.lean — #print axioms (committed, 2026-07-25T09:48Z) — 0 error, 0 sorry, 0 native_decide
 'DeficitLemma.deficit_term_le' depends on axioms: [propext, Classical.choice, Quot.sound]
 'DeficitLemma.deficit_choose_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'atom_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+'atom_a' depends on axioms: [propext, Classical.choice, Quot.sound]
+'atom_b' depends on axioms: [propext, Classical.choice, Quot.sound]

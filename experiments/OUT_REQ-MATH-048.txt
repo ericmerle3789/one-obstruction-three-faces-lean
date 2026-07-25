@@ -1,0 +1,25 @@
+=== CANARI : a c > log2(3/2), tout pas v=1 decroit-il ? ===
+  pas v=1 testes : 24842 | echecs : 0  -> CONFIRME
+CANARIS: PASS
+
+=== ANATOMIE des echecs restants (c = log2(3/2) + eps) ===
+  taux d'echec : 14.47%
+  par v          : {2: 25227, 3: 3172, 4: 438, 5: 98, 6: 4, 7: 1}
+  par saut v2    : {1: 12681, 2: 6307, 3: 4709, 4: 2301, 5: 1425, 6: 737}
+  -> les echecs sont les ENTREES de run (saut de v2 vers le haut)
+  amplitude : mediane=0.510, 99e=3.680, max=7.774
+
+=== LE TEST DECISIF : le bilan sur un RUN COMPLET (entree + traversee) ===
+    k  entree dV  traversee     BILAN  net<0 ?
+    2      0.585      0.152     0.737    False
+    3      1.170      0.110     1.280    False
+    4      1.755      0.066     1.821    False
+    5      2.340      0.037     2.377    False
+    6      2.925      0.020     2.945    False
+    7      3.510      0.010     3.520    False
+    8      4.095      0.005     4.100    False
+
+=== LECTURE ===
+Si le BILAN d'un run complet est POSITIF et croit avec k : la correction v2(x+1) deplace
+le probleme (elle paie la traversee mais surfacture l'entree) -> pas de Lyapunov par la.
+Si le bilan est negatif : la piste est vivante et merite une correction affinee.

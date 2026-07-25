@@ -1,0 +1,31 @@
+=== CANARIS ===
+  T(3)=(5,1), v2 ok : True | run : x=255 -> v=1, v2(x+1): 8 -> 7 : True
+CANARIS: PASS
+
+=== P1/P2 : taux d'echec (dV >= 0) et mu/sigma selon c ===
+        c   P(dV>=0)        mu     sigma   mu/sigma  gain vs log2
+    0.000     0.4983    0.4177    1.4106     0.2961          100%
+    0.300     0.5654    0.4153    1.2512     0.3319          112%
+    0.500     0.6426    0.4138    1.2187     0.3395          115%
+    0.585     0.1445    0.4131    1.2248     0.3373          114%
+    0.700     0.1472    0.4122    1.2518     0.3293          111%
+    0.900     0.1682    0.4106    1.3455     0.3052          103%
+    1.200     0.1711    0.4082    1.5747     0.2593           88%
+    1.585     0.2116    0.4052    1.9678     0.2059           70%
+
+  meilleur : c=0.5 -> mu/sigma=0.3395, taux d'echec=0.6426
+  P1 : CONFIRMEE — aucun c ne supprime les echecs
+
+=== P3 : les echecs sont-ils STRUCTURES ? (a quoi ressemblent-ils ?) ===
+  nb echecs : 128512/200000 (64.3%)
+  repartition par v      : {1: 99654, 2: 25235, 3: 3154, 4: 416, 5: 49, 6: 2}
+  repartition par dv2    : {-1: 99654, 1: 12635, 2: 6391, 3: 4603, 4: 2341, 5: 1433}
+  (reference, tous v)    : {1: 99654, 2: 50172, 3: 25004, 4: 12674, 5: 6242, 6: 3135}
+
+=== P3bis : amplitude des echecs (bornee ou non ?) ===
+  dV en echec : median=0.085, max=6.585, 99e pct=2.085
+
+=== LECTURE ===
+Si les echecs sont concentres sur v=1 (runs) ET d'amplitude bornee, une correction
+supplementaire pourrait les absorber. S'ils sont diffus et d'amplitude non bornee,
+aucune correction locale ne fermera l'ensemble exceptionnel.

@@ -1,0 +1,15 @@
+=== TEST 1 : telescopage sur les cycles REELS (somme Delta g = 0 ?) ===
+   cycle trivial 1 (longueur 1) : somme Delta v2(|x|+1) = 0  (doit etre 0)
+                -1 (longueur 1) : somme Delta v2(|x|+1) = 0  (doit etre 0)
+                -5 (longueur 2) : somme Delta v2(|x|+1) = 0  (doit etre 0)
+               -17 (longueur 7) : somme Delta v2(|x|+1) = 0  (doit etre 0)
+
+=== TEST 2 : la contrainte de cycle depend-elle de la correction ? ===
+  Un cycle exige somme(v_i) = K avec 2^K/3^n ~ 1, i.e. moyenne(v) = log2 3.
+  Ajouter c*g(x) ne change PAS cette contrainte (telescopage) -> le taux reste I(log2 3).
+  taux optimal (invariant par toute correction) = 0.0793186 bit/pas = c_gen
+
+=== CONCLUSION ===
+Le gain mu/sigma des corrections est REEL pour une marche aleatoire, ILLUSOIRE pour les
+cycles : le telescopage annule toute fonction de x. Le taux c_gen est donc OPTIMAL —
+aucune fonction de Lyapunov ne peut faire mieux sur le probleme des cycles.

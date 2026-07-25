@@ -1,0 +1,30 @@
+=== CANARIS ===
+  T(3)=(5,1),T(1)=(1,2),T(5)=(1,4) : True | v2 ok : True
+CANARIS: PASS
+
+=== P1 : mu/sigma de log2 x (theorie puis mesure) ===
+  theorie : E[v]=2, Var[v]=2  ->  mu=0.4150, sigma=1.4142, mu/sigma=0.2935
+  mesure  : mu=0.4177, sigma=1.4106, mu/sigma=0.2961   (critere 0.3316)
+  -> log2 x atteint 89% du critere  (V3 : 14%)
+
+=== P2 : c_gen est-il le taux de grande deviation EXACT de log2 x ? ===
+  taux exact I(log2 3) = 0.0793186 bit/pas   (atteint a t=-0.438)
+  c_gen                = 0.0793186 bit/pas
+  ecart = 1.24e-08  ->  IDENTIQUES : les deux moities sont le MEME objet
+  (approx gaussienne, pour comparaison : 0.0621 — sous-estime)
+
+=== P3 : corrections 2-adiques — une famille testee mecaniquement ===
+                      candidate V(x)        mu     sigma   mu/sigma  vs critere
+                              log2 x    0.4179    1.4159     0.2952         89%
+                log2 x + 0.3*v2(x+1)    0.4161    1.2685     0.3281         99%
+              log2 x + 0.585*v2(x+1)    0.4151    1.2367     0.3356        101%
+                log2 x + 1.0*v2(x+1)    0.4130    1.4282     0.2892         87%
+                log2 x + 2.0*v2(x+1)    0.4212    2.4417     0.1725         52%
+                log2 x - 0.5*v2(x+1)    0.4218    1.8866     0.2236         67%
+                log2 x - 1.0*v2(x+1)    0.4158    2.4505     0.1697         51%
+  log2 x +.585 v2(x+1) -.415 v2(x-1)    0.4156    1.4874     0.2794         84%
+
+=== LECTURE ===
+Si aucune correction ne depasse log2 x seul : la fonction optimale EST log2 x, son taux
+EST c_gen, et nous l'avons DEJA prouve (marginTarget). La synthese inverse boucle sur
+l'acquis — ce qui est un resultat, pas un echec : elle dit que la marge est OPTIMALE.

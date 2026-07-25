@@ -1,10 +1,4 @@
-# T1Structure.lean — #print axioms (committed, 2026-07-25T16:08Z)
-# 0 compilation errors, 0 sorry, 0 native_decide, 0 user axioms — 8 theorems, all kernel-3
-'T1Structure.ratio_bound_at_barina' depends on axioms: [propext, Classical.choice, Quot.sound]
-'T1Structure.log_gap_at_barina' depends on axioms: [propext, Classical.choice, Quot.sound]
-'T1Structure.seam_gap_at_barina' depends on axioms: [propext, Classical.choice, Quot.sound]
-'T1Structure.succ_pow_le_pow_add' depends on axioms: [propext, Classical.choice, Quot.sound]
-'T1Structure.seam_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
-'T1Structure.cycle_prod_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
-'T1Structure.survivor_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
-'T1Structure.ceiling_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+# T1Structure + LegendreApprox — #print axioms (committed, 2026-07-25T16:24Z)
+# 0 compilation errors, 0 sorry, 0 native_decide, 0 user axioms
+
+Stack overflow detected. Aborting.

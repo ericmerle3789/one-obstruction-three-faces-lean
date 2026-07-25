@@ -16,6 +16,7 @@ and the GRID half (Ostrowski: ε-small n use only large convergent denominators)
 script-verified, NOT proved here.
 -/
 import Mathlib
+import LegendreApprox
 
 namespace T1Structure
 
@@ -264,6 +265,62 @@ theorem log_gap_at_barina (p K : ℕ) (x v : Fin (p+1) → ℕ)
       Real.log_le_sub_one_of_pos hpos
     rw [hlogeq] at hle
     linarith
+
+/-! ### Legendre invocation (March 1-ter)
+
+Feeding `log_gap_at_barina` into Legendre's criterion. The window is stated in **integers**
+(`4000·n² ≤ 2079·2⁷¹`, using `ln 2 > 693/1000`) so no irrational appears in the hypothesis;
+it is `n ≤ 3.5032·10¹⁰`, within `0.011 %` of the exact window (REQ-MATH-055). -/
+
+/-- `log 2 > 693/1000`, the rational floor used to make the window integral. -/
+lemma log_two_gt : (693:ℝ)/1000 < Real.log 2 := by
+  have h := Real.log_two_gt_d9
+  norm_num at h ⊢
+  linarith
+
+/-- **The Legendre step.** A surviving positive cycle at the Barina threshold, of length
+    `n = p+1` inside the integral window, has `K/n` a **convergent** of `log₂3`.
+
+    Consequence (verified exactly, REQ-MATH-054/055, not formalized): the 22 convergent
+    denominators below the window all fail the seam constraint, so no such cycle exists —
+    i.e. no positive cycle with `x_min ≥ 2⁷¹` and length `≤ 3.5·10¹⁰`. -/
+set_option maxRecDepth 40000 in
+theorem quotient_is_convergent (p K : ℕ) (x v : Fin (p+1) → ℕ)
+    (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
+    (hK : K = ∑ i, v i) (hmin : ∀ i, 2 ^ 71 ≤ x i)
+    (hpX : 2 * p < 3 * 2 ^ 71) (hceil : 3 ^ (p+1) < 2 ^ K)
+    (hwin : 4000 * (p+1) ^ 2 ≤ 2079 * 2 ^ 71) :
+    ∃ m, Rat.divInt (K : ℤ) ((p+1 : ℕ) : ℤ) = (Real.log 3 / Real.log 2).convergent m := by
+  obtain ⟨hgap0, hgap⟩ := log_gap_at_barina p K x v hstep hK hmin hpX hceil
+  set n : ℕ := p + 1 with hn
+  have hnpos : (0:ℝ) < (n:ℝ) := by positivity
+  have hl2 : (0:ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  -- |log₂3 − K/n| = (K·log2 − n·log3)/(n·log2), positive and < 2/(3·2⁷¹·log 2)
+  have hsign : Real.log 3 / Real.log 2 - (K:ℝ) / n ≤ 0 := by
+    rw [div_sub_div _ _ (ne_of_gt hl2) (ne_of_gt hnpos)]
+    apply div_nonpos_of_nonpos_of_nonneg
+    · nlinarith [hgap0]
+    · positivity
+  have hdiff : |Real.log 3 / Real.log 2 - (K:ℝ) / n|
+      = ((K:ℝ) * Real.log 2 - (n:ℝ) * Real.log 3) / ((n:ℝ) * Real.log 2) := by
+    rw [abs_of_nonpos hsign]
+    field_simp
+    ring
+  -- the window makes 2/(3·2⁷¹·log2) < 1/(2n²)
+  have hwinR : 4000 * ((n:ℝ))^2 ≤ 2079 * 2 ^ 71 := by exact_mod_cast hwin
+  have hkey : |Real.log 3 / Real.log 2 - (K:ℝ) / n| < 1 / (2 * (n:ℝ) ^ 2) := by
+    rw [hdiff]
+    rw [div_lt_div_iff₀ (by positivity) (by positivity)]
+    have hlb := log_two_gt
+    nlinarith [hgap, hwinR, hl2, hnpos, sq_nonneg ((n:ℝ))]
+  by_contra hcon
+  push_neg at hcon
+  have hlegendre := LegendreApprox.abs_sub_ge_nat_div
+      (Real.log 3 / Real.log 2) K n (by omega) (fun m => hcon m)
+  linarith [hkey, hlegendre]
+
+#print axioms log_two_gt
+#print axioms quotient_is_convergent
 
 #print axioms ratio_bound_at_barina
 #print axioms log_gap_at_barina

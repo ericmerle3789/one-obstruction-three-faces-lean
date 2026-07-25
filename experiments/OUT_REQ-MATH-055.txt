@@ -1,0 +1,23 @@
+=== CANARI : ln2 > 693/1000 ? ===
+  ln2 = 0.6931471806 > 0.693 : True
+CANARIS: PASS
+
+=== fenetre EXACTE : n < sqrt(3*2^71*ln2/4) = 3.5035491e+10
+=== fenetre ENTIERE (4000 n^2 <= 2079*2^71) : n <= 3.503177115e+10
+    perte vs exacte : 0.01062 %
+
+=== verification de la condition entiere a des seuils ronds ===
+  n =    10000000000 : 4000n^2 <= 2079*2^71 ? True
+  n =    30000000000 : 4000n^2 <= 2079*2^71 ? True
+  n =    34000000000 : 4000n^2 <= 2079*2^71 ? True
+  n =    34900000000 : 4000n^2 <= 2079*2^71 ? True
+  n =    35000000000 : 4000n^2 <= 2079*2^71 ? True
+  n =    36000000000 : 4000n^2 <= 2079*2^71 ? False
+
+=== SEUIL RETENU pour Lean : n <= 34_900_000_000 ===
+  4000*n^2      = 4872040000000000000000000
+  2079*2^71     = 4908899958942996199636992
+  condition OK  : True  (marge 1.0075656x)
+
+=== les 22 convergents restent-ils tous dans ce seuil et echouent-ils ? ===
+  convergents avec q_j <= 34900000000 : 22 | tous echouent : True

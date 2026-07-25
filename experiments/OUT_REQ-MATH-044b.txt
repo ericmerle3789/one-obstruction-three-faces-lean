@@ -1,0 +1,8 @@
+     cellule   a=|q|           facteurs  ord_a(2)   ord/a  corr mesuree
+      (7, 4)     139              [139]       138   0.993        -0.100
+      (5, 4)     269              [269]       268   0.996         0.077
+      (6, 5)    1319             [1319]       659   0.500         0.250
+      (8, 5)    1631           [7, 233]        87   0.053         0.421
+
+LECTURE : si les fortes correlations vont avec un ord_a(2) PETIT (orbites courtes),
+la correlation est un ARTEFACT de permutation, pas une structure arithmetique.

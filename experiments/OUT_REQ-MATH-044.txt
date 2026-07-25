@@ -1,0 +1,23 @@
+=== CANARI : cellule du -17 (n=7,S=4) ===
+  a=139 (139), W=84 (84), mediane |S|=8.14 (8.14), max=13.7 (13.7)
+  top j : [86, 53, 137, 2, 12, 127, 4, 135]
+  CANARI: PASS
+
+=== P1 : |S(j)| est-il invariant sous j -> u*j pour u = 2, 3, 3/2 ? ===
+  (n=7,S=4) a=   139 : j->2j: r=-0.100 | j->3j: r=-0.157 | j->j/2: r=-0.100 | ALEATOIRE r=+0.059
+  (n=6,S=5) a=  1319 : j->2j: r=+0.250 | j->3j: r=+0.267 | j->j/2: r=+0.250 | ALEATOIRE r=+0.023
+  (n=8,S=5) a=  1631 : j->2j: r=+0.421 | j->3j: r=+0.393 | j->j/2: r=+0.421 | ALEATOIRE r=+0.007
+  (n=5,S=4) a=   269 : j->2j: r=+0.077 | j->3j: r=+0.104 | j->j/2: r=+0.077 | ALEATOIRE r=-0.016
+
+=== P2 : les resonances forment-elles des orbites multiplicatives ? ===
+  seuil = 1.4 x mediane = 11.40 | resonances : [2, 4, 12, 14, 16, 24, 25, 27, 29, 30, 53, 86, 109, 110, 112, 114, 115, 123, 125, 127, 135, 137]
+    stable sous j->2j ? 4/22 restent resonants
+    stable sous j->3j ? 2/22 restent resonants
+    stable sous j->4j ? 2/22 restent resonants
+    stable sous j->12j ? 6/22 restent resonants
+
+=== LECTURE ===
+Si une invariance EXACTE apparait (r=1.000 EXACT) : le paquet de residus a une
+symetrie multiplicative -> les S(j) se regroupent en orbites, et la somme sur j se
+decompose en (peu d'orbites structurees) + (reste generique). C'est la decomposition
+classique terme principal / terme d'erreur, et elle serait ACQUISE, pas supposee.

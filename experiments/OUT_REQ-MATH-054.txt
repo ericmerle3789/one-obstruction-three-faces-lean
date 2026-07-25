@@ -1,0 +1,33 @@
+=== CANARIS ===
+  2^e-1 >= e*ln2 sur (0,1) : True | trivial : eps = 0.4150 in (0,1) : True
+CANARIS: PASS
+
+=== P1/P2 : la constante et la fenetre ===
+  delta = 2/(3*2^71*ln2) = 4.07337e-22
+  (REQ-053 utilisait 1/(3 X ln2) = 2.03668e-22 — facteur 2 manquant, CORRIGE)
+  fenetre de Legendre : n <= sqrt(1/(2 delta)) = 3.5035491e+10
+
+=== P3 : verification finie sur TOUS les convergents de la fenetre ===
+    j            q_j   theta_j=|q_j L-p_j|      q_j*delta  theta>=q*delta ?  -> pas de cycle
+    0              1              0.584963    4.07337e-22              True             True
+    1              1              0.415037    4.07337e-22              True             True
+    2              2              0.169925    8.14673e-22              True             True
+   12         111202            5.19401e-6    4.52967e-17              True             True
+   13         190537            9.30647e-8    7.76127e-17              True             True
+   14       10590737            7.54537e-8      4.314e-15              True             True
+   15       10781274             1.7611e-8    4.39161e-15              True             True
+   16       53715833            5.00989e-9    2.18804e-14              True             True
+   17      171928773            2.58129e-9    7.00329e-14              True             True
+   18      225644606            2.42859e-9    9.19133e-14              True             True
+   19      397573379             1.527e-10    1.61946e-13              True             True
+   20     6189245291           1.38095e-10    2.52111e-12              True             True
+   21     6586818670           1.46046e-11    2.68305e-12              True             True
+
+  convergents dans la fenetre : 22 | TOUS echouent la contrainte : True
+
+=== CONCLUSION DE LA MARCHE 1 ===
+  Pour X >= 2^71 : aucun cycle positif de longueur n <= 3.50355e+10
+  (dans la fenetre, Legendre force n = q_j ; les 22 q_j possibles echouent tous)
+
+  a comparer : Hercher (papier) n > 1.375e11 ; le notre serait VERIFIE PAR MACHINE.
+  ratio : 3.92x

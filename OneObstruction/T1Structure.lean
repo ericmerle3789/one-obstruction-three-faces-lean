@@ -181,6 +181,37 @@ example : (2:ℕ) ^ 2 * 3 < 3 ^ 1 * 5 :=
   seam_bound 0 1 2 (fun _ => 1) (fun _ => 2)
     (fun i => by norm_num) (by simp) (by norm_num) (fun i => le_refl 1) (by norm_num)
 
+/-- **March 1, arithmetic core.** Specialising the seam bound at the Barina threshold
+    `X ≥ 2^71`: the seam gap of any surviving positive cycle is crushed below
+    `3^(p+1)` by a factor `3·2^71 / (2(p+1))`.
+
+    Stated subtraction-free (`q = 2^K − 3^(p+1)` is not formed): the hypothesis
+    `2^K·(3·2^71) < 3^(p+1)·(3·2^71) + 3^(p+1)·2(p+1)` is exactly `q·3X < 2(p+1)·3^(p+1)`.
+
+    This is the integer half of March 1. The analytic half — converting this into
+    `‖(p+1)·log₂3‖ < (p+1)·δ` with `δ = 2/(3·2^71·ln 2)`, then invoking Legendre's
+    criterion (contrapositive already available as `LegendreApprox.abs_sub_ge_of_not_convergent`,
+    0 sorry / 0 axioms, in the Merle Junction repository) to force `K/(p+1)` to be a
+    convergent, then checking the 22 convergent denominators below the Legendre window
+    `3.5035·10^10` — is verified exactly in REQ-MATH-054 (all 22 fail the constraint, the
+    tightest by a factor 5.4) but is **not formalized here**. -/
+theorem seam_gap_at_barina (p K : ℕ) (x v : Fin (p+1) → ℕ)
+    (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
+    (hK : K = ∑ i, v i) (hmin : ∀ i, 2 ^ 71 ≤ x i)
+    (hpX : 2 * p < 3 * 2 ^ 71) :
+    2 ^ K * (3 * 2 ^ 71) < 3 ^ (p+1) * (3 * 2 ^ 71) + 3 ^ (p+1) * (2 * (p+1)) := by
+  have h := seam_bound p (2 ^ 71) K x v hstep hK (by positivity) hmin hpX
+  calc 2 ^ K * (3 * 2 ^ 71)
+      < 3 ^ (p+1) * (3 * 2 ^ 71 + 2 * (p+1)) := h
+    _ = 3 ^ (p+1) * (3 * 2 ^ 71) + 3 ^ (p+1) * (2 * (p+1)) := by ring
+
+/-- Canary: the trivial cycle does *not* satisfy the Barina hypothesis (its elements are 1),
+    so the specialisation is not vacuously about it — the statement bites only above 2^71. -/
+example : ¬ (∀ i : Fin 1, (2:ℕ) ^ 71 ≤ (fun _ : Fin 1 => 1) i) := by
+  intro h; have := h 0; norm_num at this
+
+#print axioms seam_gap_at_barina
+
 #print axioms succ_pow_le_pow_add
 #print axioms seam_bound
 

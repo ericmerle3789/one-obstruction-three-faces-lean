@@ -1,0 +1,15 @@
+=== CANARI : la formule de Ben redonne-t-elle 0.0793186 ? ===
+  c_gen (formule Ben, exacte) = 0.07931861277   (annonce : 0.0793186)
+  CANARI: True
+
+=== LE TEST : gamma (Junction, par unite de S) x L = c_gen (par unite de n) ? ===
+  gamma = 1 - h(1/log2 3) = 0.05004447281
+  gamma * log2(3)         = 0.07931861277
+  c_gen (Ben)             = 0.07931861277
+  ecart |gamma*L - c_gen| = 0.0
+
+  => IDENTIQUES (meme constante, unites differentes : par S vs par n)
+
+  Verification algebrique : c_gen = L*(1 - h(1/L)) ?
+    L*(1-h(1/L)) = 0.0793186127748554
+    c_gen        = 0.0793186127748554

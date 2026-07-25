@@ -1,0 +1,53 @@
+=== CANARIS ===
+  ancre n=5 -> q=13 (13), K=8 : True
+  margin(2) = 3.0000 (attendu 3) : True
+CANARIS: PASS
+
+=== DETTE 1 : plancher SUD — eps + eps' = 1 ? ===
+       n   eps (nord)  eps prime (sud)    somme  max>=1/2
+       2     0.830075         0.169925   1.0000      True
+       3     0.245112         0.754888   1.0000      True
+       4     0.660150         0.339850   1.0000      True
+       5     0.075187         0.924813   1.0000      True
+       6     0.490225         0.509775   1.0000      True
+       7     0.905262         0.094738   1.0000      True
+       8     0.320300         0.679700   1.0000      True
+       9     0.735337         0.264663   1.0000      True
+      10     0.150375         0.849625   1.0000      True
+      11     0.565412         0.434588   1.0000      True
+   15601     0.000026         0.999974   1.0000      True
+  190537     0.000000         1.000000   1.0000      True
+  violations (somme != 1 ou max < 1/2) : 0
+  plus petit min(eps,eps') rencontre : 9.306e-08 a n=190537
+  => si 0 violation : le plancher SUD ne demande AUCUN ingredient neuf —
+     une rive est >= 1/2 gratuitement, l'autre est couverte par la meme borne diophantienne.
+
+=== DETTE 2a : margin(n) - c_gen*n >= 0 (exact, mpmath) ===
+  n=2..3000 : slack minimum = 2.8414 a n=2 | violations (slack<0) : 0
+
+=== DETTE 2b : la route ENTROPIE suffit-elle ? (de-risque la preuve de Ben) ===
+       n  margin exact  borne entropie    c_gen*n entropie suffit
+       2        3.0000          2.0000     0.1586            True
+       3        3.4150          2.2451     0.2380            True
+       4        3.6781          2.1452     0.3173            True
+       5        4.0931          2.4902     0.3966            True
+       6        4.1926          2.3645     0.4759            True
+       7        4.2858          2.2905     0.5552            True
+       8        4.6337          2.5977     0.6345            True
+       9        4.6702          2.5039     0.7139            True
+      10        5.0328          2.8360     0.7932            True
+      11        5.0328          2.7291     0.8725            True
+      12        5.0422          2.6466     0.9518            True
+      13        5.3792          2.9604     1.0311            True
+      14        5.3654          2.8671     1.1105            True
+      50        9.1653          5.7409     3.9659            True
+     200       22.3883         17.9636    15.8637            True
+    1000       86.9936         81.4048    79.3186            True
+    3000      246.3909        240.0091   237.9558            True
+
+  balayage n=2..3000 : la borne entropie domine c_gen*n partout ? True
+  marge minimale de la route entropie : 1.6647 a n=1995
+
+=== LECTURE ===
+Si DETTE1 = 0 violation et DETTE2b = True partout : les deux dettes sont solubles,
+la 1re sans ingredient neuf, la 2e par un argument d entropie elementaire (route validee).

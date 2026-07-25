@@ -1,0 +1,18 @@
+=== marge de la route entropie vs n (est-elle bornee ?) ===
+       n   slack VRAI  slack ENTROPIE  (1/2)log2 n  ecart V-E
+     100       5.8065          1.8819       3.3219     3.9246
+     500       6.9641          1.8753       4.4829     5.0888
+    1000       7.6750          2.0862       4.9829     5.5889
+    2000       8.1590          2.0697       5.4829     6.0893
+    5000       8.7709          2.0204       6.1439     6.7505
+   10000       9.1889          1.9384       6.6439     7.2505
+   20000       9.5248          1.7742       7.1439     7.7506
+   50000      10.1314          1.7199       7.8048     8.4115
+  100000      10.6868          1.7753       8.3048     8.9115
+
+  balayage n=2..200000 : marge ENTROPIE minimale = 1.6647 a n=16266
+  -> RESTE POSITIVE et bornee : route VALIDE, mais serree (~1.6 bit)
+
+  Lecture : l'ecart (vrai - entropie) suit (1/2)log2 n = la correction de Stirling.
+  La marge entropie est donc ASYMPTOTIQUEMENT CONSTANTE (~1.6-2 bits), pas croissante :
+  la preuve passe, mais sans reserve — la correction de Stirling doit etre traitee proprement.

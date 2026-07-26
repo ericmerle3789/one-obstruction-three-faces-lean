@@ -309,6 +309,30 @@ Feeding `log_gap_at_barina` into Legendre's criterion. The window is stated in *
 (`4000·n² ≤ 2079·2⁷¹`, using `ln 2 > 693/1000`) so no irrational appears in the hypothesis;
 it is `n ≤ 3.5032·10¹⁰`, within `0.011 %` of the exact window (REQ-MATH-055). -/
 
+/- ============================================================================
+   **RETRACTED — commit `da2c8db` (2026-07-25). PERMANENT RECORD, DO NOT REMOVE.**
+
+   CLAIMED: `quotient_is_convergent` (the non-general form, threshold literal `2^71`)
+   was kernel-3.
+
+   THE CLAIM WAS FALSE. `lake env lean` printed no `error:` line but had aborted with a
+   stack overflow at `maxRecDepth 40000`; at workable recursion depths the proof carried
+   `sorryAx`. I read "0 errors" without checking that the compiler had finished.
+
+   REAL OBSTRUCTION: elaboration blow-up on the literal `2^71` inside `nlinarith` — not a
+   mathematical gap. The theorem is re-proved below as `quotient_is_convergent_gen`, with
+   the threshold abstracted to a variable so no numeral reaches a tactic.
+
+   CONSEQUENCE: the verification protocol is hardened. Every check now tests for `error:`
+   AND stack overflow/abort AND `sorryAx` AND presence in the theorem's own
+   `#print axioms` probe.
+
+   This block is restored 2026-07-26 after Macindoe's round-10 audit observed, correctly,
+   that the standalone note had been superseded at `4856058` by a one-line reference —
+   so the record required `git log` to find. A record that requires `git log` is not a
+   record. It stays here.
+   ============================================================================ -/
+
 /-- `log 2 > 693/1000`, the rational floor used to make the window integral. -/
 lemma log_two_gt : (693:ℝ)/1000 < Real.log 2 := by
   have h := Real.log_two_gt_d9

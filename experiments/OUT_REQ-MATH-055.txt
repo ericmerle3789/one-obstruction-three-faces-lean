@@ -21,3 +21,5 @@ CANARIS: PASS
 
 === les 22 convergents restent-ils tous dans ce seuil et echouent-ils ? ===
   convergents avec q_j <= 34900000000 : 22 | tous echouent : True
+
+VERDICT reproduction : CONFORME A LA SORTIE DEPOSEE

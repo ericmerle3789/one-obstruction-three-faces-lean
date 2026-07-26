@@ -1,9 +1,20 @@
+=== CANARI : les ancres exactes de REQ-MATH-035 ===
+  n=5 K=8 q=13 (att. 13) ; n=7 K=12 q=1909 (att. 1909) : True
+  R_best calcule sur 3999 echelles (n<=4000)
+CANARIS: PASS
+
 c_gen (asymptotique, non prouve en Lean) = 0.0793186
 c prouve en Lean (1/13)                  = 0.0769231   (ecart 0.00240)
 
-   constante   C0 exhibe  croisement/echelle   queue<1    queue n>600
-       c_gen     -14.949                1596      1661      3.863e+19
-1/13 (prouve)     -14.954                1655      1722      1.096e+20
+       constante  C0 exhibe  croisement/echelle   queue<1   queue n>600
+           c_gen    -14.949                1596      1661     3.863e+19
+   1/13 (prouve)    -14.954                1655      1722     1.096e+20
 
 LECTURE : la constante prouvee (1/13) est ~3% plus faible que c_gen ; l'effet sur
 les seuils est modere. Les chiffres de L-A7 doivent citer LA CONSTANTE PROUVEE.
+
+=== CONTROLE DES PREDICTIONS (reproduction de OUT_REQ-MATH-043.txt) ===
+          c_gen : C0 -14.949 vs -14.949 OK | L1 1596 vs 1596 OK | L2 1661 vs 1661 OK | queue 3.863e+19 vs 3.863e+19 OK | violations borne<exact : 0
+  1/13 (prouve) : C0 -14.954 vs -14.954 OK | L1 1655 vs 1655 OK | L2 1722 vs 1722 OK | queue 1.096e+20 vs 1.096e+20 OK | violations borne<exact : 0
+
+VERDICT : REPRODUCTION EXACTE DE LA SORTIE DEPOSEE

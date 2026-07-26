@@ -3,7 +3,7 @@
   (b+1)^(n+1) <= b^(n+1)+(n+1)(b+1)^n : True
 CANARIS: PASS
 
-=== P2 : MEILLEURE APPROXIMATION, exhaustive jusqu'a q_10=190537 ===
+=== P2 : MEILLEURE APPROXIMATION, exhaustive jusqu'a n < q_13 = 190537 ===
   j=2 : min ||nL|| sur n<5 = 1.699e-01 atteint a n=2 (q_j=2) : True
   j=3 : min ||nL|| sur n<12 = 7.519e-02 atteint a n=5 (q_j=5) : True
   j=4 : min ||nL|| sur n<41 = 1.955e-02 atteint a n=12 (q_j=12) : True
@@ -12,58 +12,44 @@ CANARIS: PASS
   j=7 : min ||nL|| sur n<665 = 1.475e-03 atteint a n=306 (q_j=306) : True
   j=8 : min ||nL|| sur n<15601 = 6.298e-05 atteint a n=665 (q_j=665) : True
   j=9 : min ||nL|| sur n<31867 = 2.625e-05 atteint a n=15601 (q_j=15601) : True
+  j=10 : min ||nL|| sur n<79335 = 1.048e-05 atteint a n=31867 (q_j=31867) : True
+  j=11 : min ||nL|| sur n<111202 = 5.287e-06 atteint a n=79335 (q_j=79335) : True
+  j=12 : min ||nL|| sur n<190537 = 5.194e-06 atteint a n=111202 (q_j=111202) : True
   BEST-APPROX : CONFIRMEE EXHAUSTIVEMENT
 
 === P3 : LA BORNE DE LONGUEUR issue de NOTRE chaine (X0 = 2^71) ===
-  delta = 2.0367e-22 ; condition d'existence d'une echelle n : ||nL|| <= n*delta
+  delta = 4.0734e-22 ; condition d'existence d'une echelle n : ||nL|| <= n*delta
   pour n < q_(j+1) : ||nL|| >= theta_j -> il faut theta_j <= n*delta, donc n >= theta_j/delta
     j              q_j       theta_j   theta_j/delta  q_j admissible ?
-    6               53     3.013e-03       1.479e+19             False
-    7              306     1.475e-03       7.241e+18             False
-    8              665     6.298e-05       3.092e+17             False
-    9            15601     2.625e-05       1.289e+17             False
-   10            31867     1.048e-05       5.146e+16             False
-   11            79335     5.287e-06       2.596e+16             False
-   12           111202     5.194e-06       2.550e+16             False
-   13           190537     9.306e-08       4.569e+14             False
-   14         10590737     7.545e-08       3.705e+14             False
-   15         10781274     1.761e-08       8.647e+13             False
-   16         53715833     5.010e-09       2.460e+13             False
-   17        171928773     2.581e-09       1.267e+13             False
-   18        225644606     2.429e-09       1.192e+13             False
-   19        397573379     1.527e-10       7.497e+11             False
-  (aucune dans la fenetre)
-  Hercher (dedie, publie)       : n > 1.375e11
-Traceback (most recent call last):
-  File "/private/tmp/claude-501/-Users-ericmerle-Documents/267884bb-f8c2-43e3-bfc6-c8b98a94f52a/scratchpad/run/REQ053.py", line 62, in <module>
-    print(f"  rapport : {1.375e11/first:.2f}x — notre chaine independante retrouve l'ordre de grandeur")
-                         ~~~~~~~~^~~~~~
-TypeError: unsupported operand type(s) for /: 'float' and 'NoneType'
-=== P3 etendu : premiere echelle admissible (condition theta_j <= n*delta, n in [q_j, q_{j+1})) ===
-    j                q_j       theta_j    theta_j/delta            q_(j+1) fenetre admet ?
-   18          397573379     1.527e-10        7.497e+11         6189245291           False
-   19         6189245291     1.381e-10        6.780e+11         6586818670           False
-   20         6586818670     1.460e-11        7.171e+10        65470613321           False
-   21        65470613321     6.654e-12        3.267e+10       137528045312            True
-   22       137528045312     1.296e-12        6.366e+09       753110839881            True
-   23       753110839881     1.716e-13        8.427e+08      5409303924479            True
-   24      5409303924479     9.512e-14        4.670e+08      6162414764360            True
-   25      6162414764360     7.651e-14        3.757e+08     11571718688839            True
-   26     11571718688839     1.861e-14        9.135e+07     52449289519716            True
-   27     52449289519716     2.085e-15        1.024e+07    431166034846567            True
-   28    431166034846567     1.924e-15        9.448e+06    483615324366283            True
-   29    483615324366283     1.610e-16        7.904e+05   5750934602875680            True
+    6               53     3.013e-03       7.396e+18             False
+    7              306     1.475e-03       3.621e+18             False
+    8              665     6.298e-05       1.546e+17             False
+    9            15601     2.625e-05       6.444e+16             False
+   10            31867     1.048e-05       2.573e+16             False
+   11            79335     5.287e-06       1.298e+16             False
+   12           111202     5.194e-06       1.275e+16             False
+   13           190537     9.306e-08       2.285e+14             False
+   14         10590737     7.545e-08       1.852e+14             False
+   15         10781274     1.761e-08       4.323e+13             False
+   16         53715833     5.010e-09       1.230e+13             False
+   17        171928773     2.581e-09       6.337e+12             False
+   18        225644606     2.429e-09       5.962e+12             False
+   19        397573379     1.527e-10       3.749e+11             False
+   20       6189245291     1.381e-10       3.390e+11             False
+   21       6586818670     1.460e-11       3.585e+10             False
+   22      65470613321     6.654e-12       1.634e+10              True
+   23     137528045312     1.296e-12       3.183e+09              True
+   24     753110839881     1.716e-13       4.213e+08              True
+   25    5409303924479     9.512e-14       2.335e+08              True
 
-  => PREMIER j admissible : j=21 ; la premiere echelle possible est n >= 6.5471e+10
-     (dans la fenetre [6.547e+10, 1.375e+11))
+  => PREMIERE echelle admissible : n = q_22 = 65470613321 (6.547e+10)
+  Hercher (dedie, publie)       : n > 1.375e11 = q_23 (seuil sous-jacent)
+  rapport : 2.10x — notre chaine independante retrouve l'ordre de
+  grandeur, une reduite en dessous. NOTE (Macindoe r10) : l'indexation ici est
+  q_0 = q_1 = 1, tous deux comptes ; c'est celle des OUT-054/056.
 
-  Hercher publie : n > 1.375e11 = q_23 exactement (True)
-    q_20 = 6586818670
-    q_21 = 65470613321
-    q_22 = 137528045312
-    q_23 = 753110839881
-    q_24 = 5409303924479
-    q_25 = 6162414764360
-
-  => notre chaine (seam bound noyau + best-approx) donne n >= 6.547e+10
-     rapport a Hercher : 0.48x
+=== LECTURE ===
+Le seam bound (noyau) + best-approx (exhaustif ici, standard en theorie des nombres)
+forcent : (i) n sur la grille d'Ostrowski ; (ii) n > ~6.5e10 pour tout cycle avec
+x_min >= 2^71. La moitie grille de T1 est LANCEE : coeur quantitatif prouvable au noyau,
+marche best-approx a formaliser (standard mais non triviale en Lean).

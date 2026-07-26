@@ -4,16 +4,16 @@ CANARIS: PASS
 
 === fenetre entiere : n <= 35031771147 ===
 
-  j            q_j          q_(j+1)      2000*q_j*(q_j+q_j1)                     2079*X  ECHOUE ?    marge
-  0              1                1                     4000  4908899958942996199636992      True 1227224989735749156864.0x
-  1              1                2                     6000  4908899958942996199636992      True 818149993157165973504.0x
- 15       10781274         53715833      1390721965548636000  4908899958942996199636992      True 3529749.4x
- 16       53715833        171928773     24241375946493596000  4908899958942996199636992      True 202500.9x
- 17      171928773        225644606    136708606457867934000  4908899958942996199636992      True  35907.8x
- 18      225644606        397573379    281251553354877820000  4908899958942996199636992      True  17453.8x
- 19      397573379       6189245291   5237487510984371860000  4908899958942996199636992      True    937.3x
- 20     6189245291       6586818670 158148387416268115302000  4908899958942996199636992      True     31.0x
- 21     6586818670      65470613321 949258476701148143940000  4908899958942996199636992      True      5.2x
+   j            q_j          q_(j+1)      2000*q_j*(q_j+q_j1)                     2079*X  ECHOUE ?    marge
+   0              1                1                     4000  4908899958942996199636992      True 1.22722e+21x
+   1              1                2                     6000  4908899958942996199636992      True 8.1815e+20x
+  15       10781274         53715833      1390721965548636000  4908899958942996199636992      True 3.52975e+6x
+  16       53715833        171928773     24241375946493596000  4908899958942996199636992      True 202501.0x
+  17      171928773        225644606    136708606457867934000  4908899958942996199636992      True  35907.8x
+  18      225644606        397573379    281251553354877820000  4908899958942996199636992      True  17453.8x
+  19      397573379       6189245291   5237487510984371860000  4908899958942996199636992      True  937.262x
+  20     6189245291       6586818670 158148387416268115302000  4908899958942996199636992      True  31.0398x
+  21     6586818670      65470613321 949258476701148143940000  4908899958942996199636992      True   5.1713x
 
   convergents dans la fenetre : 22 | TOUS echouent (critere entier) : True
   marge la plus serree : 5.17x au convergent j=21 (q=6586818670)
@@ -23,6 +23,10 @@ CANARIS: PASS
         besoin q_j*delta=2.68305e-12 -> exact echoue de 5.443x, borne entiere de 5.17x
 
 === CONCLUSION : T1 fermee dans la fenetre ===
-  Legendre (PROUVE) : n dans la fenetre => n = q_j
-  decharge (ce test) : les 22 q_j echouent tous, critere ENTIER, verifiable par norm_num
+  Legendre (PROUVE) : n dans la fenetre => n = q_j (ou un MULTIPLE — cf. Macindoe r10 :
+                      si n = t*q_m alors |K-nL| = t*theta_m et n*delta = t*q_m*delta,
+                      le t se simplifie, donc les memes 22 tests tuent tous les multiples)
+  decharge (ce test) : les 22 q_j echouent tous, critere ENTIER, verifiable par decide
   => aucun cycle positif avec x_min >= 2^71 et n <= 35031771147
+
+VERDICT reproduction : CONFORME A LA SORTIE DEPOSEE

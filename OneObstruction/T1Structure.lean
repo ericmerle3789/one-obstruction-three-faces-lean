@@ -120,6 +120,41 @@ theorem ceiling_upper (p X K : ℕ) (x v : Fin (p+1) → ℕ)
 
 /- ===== Canaries : le cycle trivial instancie tout ===== -/
 
+/-- **The ceiling, lower half (REQ-MATH-066).** Found missing by Macindoe's round-10 audit:
+`ceiling_upper` proves only `2^K < 2*3^(p+1)`; the companion bound `3^(p+1) < 2^K` was
+threaded downstream as the hypothesis `hceil` and proved nowhere. One line from the product
+identity: every factor `3*x i + 1` strictly exceeds `3*x i`, so
+`3^(p+1) * ∏x < ∏(3x+1) = 2^K * ∏x`, and `∏x > 0` cancels. -/
+theorem ceiling_lower (p X K : ℕ) (x v : Fin (p+1) → ℕ)
+    (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
+    (hK : K = ∑ i, v i) (hX : 0 < X) (hmin : ∀ i, X ≤ x i) :
+    3 ^ (p+1) < 2 ^ K := by
+  have hxpos : ∀ i, 0 < x i := fun i => lt_of_lt_of_le hX (hmin i)
+  have hprodpos : 0 < ∏ i, x i := Finset.prod_pos (fun i _ => hxpos i)
+  have hid : ∏ i, (3 * x i + 1) = 2 ^ K * ∏ i, x i := by
+    rw [hK]; exact cycle_prod_identity p x v hstep
+  have hL : ∏ i, (3 * x i) = 3 ^ (p+1) * ∏ i, x i := by
+    rw [Finset.prod_mul_distrib, Finset.prod_const, Finset.card_univ, Fintype.card_fin]
+  have hlt : ∏ i, (3 * x i) < ∏ i, (3 * x i + 1) := by
+    refine Finset.prod_lt_prod_of_nonempty (fun i _ => ?_) (fun i _ => ?_) Finset.univ_nonempty
+    · have := hxpos i; omega
+    · omega
+  rw [hL, hid] at hlt
+  exact lt_of_mul_lt_mul_right hlt (Nat.zero_le _)
+
+/-- **The ceiling, both halves.** `K` is pinned: `3^(p+1) < 2^K < 2*3^(p+1)`. -/
+theorem ceiling_pinned (p X K : ℕ) (x v : Fin (p+1) → ℕ)
+    (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
+    (hK : K = ∑ i, v i) (hX : 0 < X) (hmin : ∀ i, X ≤ x i)
+    (hpX : 2 * (p+1) < 3 * X) :
+    3 ^ (p+1) < 2 ^ K ∧ 2 ^ K < 2 * 3 ^ (p+1) :=
+  ⟨ceiling_lower p X K x v hstep hK hX hmin,
+   ceiling_upper p X K x v hstep hK hX hmin hpX⟩
+
+/-- Canary: `ceiling_pinned` on the trivial cycle gives `3 < 4 < 6`. -/
+example : (3:ℕ) ^ 1 < 2 ^ 2 ∧ (2:ℕ) ^ 2 < 2 * 3 ^ 1 := by norm_num
+
+
 /-- Canary: the trivial cycle (x ≡ 1, v ≡ 2 on Fin 1) satisfies the step hypothesis. -/
 example : ∀ i : Fin 1, 3 * (fun _ : Fin 1 => 1) i + 1
     = 2 ^ (fun _ : Fin 1 => 2) i * (fun _ : Fin 1 => 1) (i + 1) := by
@@ -222,10 +257,12 @@ Legendre's criterion. -/
 theorem ratio_bound_at_barina (p K : ℕ) (x v : Fin (p+1) → ℕ)
     (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
     (hK : K = ∑ i, v i) (hmin : ∀ i, 2 ^ 71 ≤ x i)
-    (hpX : 2 * p < 3 * 2 ^ 71) (hceil : 3 ^ (p+1) < 2 ^ K) :
+    (hpX : 2 * p < 3 * 2 ^ 71) :
     1 < (2:ℝ) ^ K / 3 ^ (p+1) ∧
       (2:ℝ) ^ K / 3 ^ (p+1) < 1 + 2 * (p+1) / (3 * 2 ^ 71) := by
   have hB : (0:ℝ) < 3 ^ (p+1) := by positivity
+  have hceil : 3 ^ (p+1) < 2 ^ K :=
+    ceiling_lower p _ K x v hstep hK (by positivity) hmin
   have hlow : ((3:ℝ)) ^ (p+1) < 2 ^ K := by exact_mod_cast hceil
   have hnat := seam_gap_at_barina p K x v hstep hK hmin hpX
   have hR : (2:ℝ) ^ K * (3 * 2 ^ 71)
@@ -247,10 +284,10 @@ theorem ratio_bound_at_barina (p K : ℕ) (x v : Fin (p+1) → ℕ)
 theorem log_gap_at_barina (p K : ℕ) (x v : Fin (p+1) → ℕ)
     (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
     (hK : K = ∑ i, v i) (hmin : ∀ i, 2 ^ 71 ≤ x i)
-    (hpX : 2 * p < 3 * 2 ^ 71) (hceil : 3 ^ (p+1) < 2 ^ K) :
+    (hpX : 2 * p < 3 * 2 ^ 71) :
     0 < (K:ℝ) * Real.log 2 - (p+1) * Real.log 3 ∧
       (K:ℝ) * Real.log 2 - (p+1) * Real.log 3 < 2 * (p+1) / (3 * 2 ^ 71) := by
-  obtain ⟨h1, h2⟩ := ratio_bound_at_barina p K x v hstep hK hmin hpX hceil
+  obtain ⟨h1, h2⟩ := ratio_bound_at_barina p K x v hstep hK hmin hpX
   have hB : (0:ℝ) < 3 ^ (p+1) := by positivity
   have hApos : (0:ℝ) < 2 ^ K := by positivity
   have hpos : (0:ℝ) < 2 ^ K / 3 ^ (p+1) := div_pos hApos hB
@@ -288,12 +325,14 @@ appears only when instantiating, never inside a tactic. -/
 theorem log_gap_gen (p X K : ℕ) (x v : Fin (p+1) → ℕ)
     (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
     (hK : K = ∑ i, v i) (hX : 0 < X) (hmin : ∀ i, X ≤ x i)
-    (hpX : 2 * p < 3 * X) (hceil : 3 ^ (p+1) < 2 ^ K) :
+    (hpX : 2 * p < 3 * X) :
     0 < (K:ℝ) * Real.log 2 - (p+1) * Real.log 3 ∧
       (K:ℝ) * Real.log 2 - (p+1) * Real.log 3 < 2 * ((p:ℝ)+1) / (3 * X) := by
   have hB : (0:ℝ) < 3 ^ (p+1) := by positivity
   have hApos : (0:ℝ) < 2 ^ K := by positivity
   have hXR : (0:ℝ) < (X:ℝ) := by exact_mod_cast hX
+  have hceil : 3 ^ (p+1) < 2 ^ K :=
+    ceiling_lower p _ K x v hstep hK (by positivity) hmin
   have hlow : ((3:ℝ)) ^ (p+1) < 2 ^ K := by exact_mod_cast hceil
   have hcast : (2:ℝ) ^ K * (3 * X) < 3 ^ (p+1) * (3 * X) + 3 ^ (p+1) * (2 * ((p:ℝ)+1)) := by
     have := seam_bound p X K x v hstep hK hX hmin hpX
@@ -319,10 +358,10 @@ theorem log_gap_gen (p X K : ℕ) (x v : Fin (p+1) → ℕ)
 theorem quotient_is_convergent_gen (p X K : ℕ) (x v : Fin (p+1) → ℕ)
     (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
     (hK : K = ∑ i, v i) (hX : 0 < X) (hmin : ∀ i, X ≤ x i)
-    (hpX : 2 * p < 3 * X) (hceil : 3 ^ (p+1) < 2 ^ K)
+    (hpX : 2 * p < 3 * X)
     (hwin : 4000 * (p+1) ^ 2 ≤ 2079 * X) :
     ∃ m, Rat.divInt (K : ℤ) ((p+1 : ℕ) : ℤ) = (Real.log 3 / Real.log 2).convergent m := by
-  obtain ⟨hgap0, hgap⟩ := log_gap_gen p X K x v hstep hK hX hmin hpX hceil
+  obtain ⟨hgap0, hgap⟩ := log_gap_gen p X K x v hstep hK hX hmin hpX
   have hnR : (0:ℝ) < ((p:ℝ)+1) := by positivity
   have hXR : (0:ℝ) < (X:ℝ) := by exact_mod_cast hX
   have hl2 : (0:ℝ) < Real.log 2 := Real.log_pos (by norm_num)
@@ -393,6 +432,9 @@ example : 2000 * 6586818670 * (6586818670 + 65470613321) ≤ 2079 * 2 ^ 71 := by
 /-- Canary (non-vacuity): the criterion is not trivially true — it FAILS one convergent
     beyond the window, which is exactly why the window is where it is. -/
 example : ¬ (2000 * 65470613321 * (65470613321 + 137528045312) ≤ 2079 * 2 ^ 71) := by norm_num
+
+#print axioms ceiling_lower
+#print axioms ceiling_pinned
 
 #print axioms discharge_all
 #print axioms convPairs_length

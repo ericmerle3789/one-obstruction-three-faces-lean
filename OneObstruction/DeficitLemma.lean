@@ -25,9 +25,11 @@ Numerically established before formalizing (REQ-MATH-039/040, canary-anchored, c
 SCOPE, stated plainly. Everything below is proved: kernel-3, no `sorry`, no user axioms,
 no `native_decide`. `deficit_term_le` is the analytic heart (now elementary); `key_core`
 is the heart of the assembly — it absorbs the Diophantine hypothesis and the `j`-dependence.
-What remains outside Lean is pure exponent bookkeeping from `key_core` + `deficit_term_le`
-to the `n`-indexed statement `MarginTarget`; verified in exact integers (REQ-MATH-042,
-`n = 1..300`, 0 failures), deliberately left explicit rather than hidden.
+`MarginTarget` is PROVED below (2026-07-25) — the exponent bookkeeping from `key_core` +
+`deficit_term_le` to the `n`-indexed statement is now internal (`key_shifted` -> `key15` ->
+`margin_core` -> `marginTarget`), not left outside. This paragraph previously said it was
+outside Lean; corrected 2026-07-26 after Macindoe's round-10 audit flagged the stale header.
+The exact-integer cross-check stands as written (REQ-MATH-042, `n = 1..300`, 0 failures).
 -/
 import Mathlib
 
@@ -239,6 +241,8 @@ theorem marginTarget (n K : ℕ) (hn : 1 ≤ n) (hlb : 3 ^ n ≤ 2 ^ K) (hub : 2
   have hub' : (2:ℕ) ^ (k + j + 2) ≤ 2 * 3 ^ (k + 1) := le_of_lt hub
   simpa using margin_core k j hub'
 
+#print axioms key_shifted
+#print axioms key15
 #print axioms margin_core
 #print axioms marginTarget
 

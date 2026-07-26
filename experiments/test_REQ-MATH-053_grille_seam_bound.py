@@ -21,7 +21,7 @@ c3=all((b+1)**(n+1) <= b**(n+1)+(n+1)*(b+1)**n for b in (1,3,10,100) for n in ra
 print(f"  (b+1)^(n+1) <= b^(n+1)+(n+1)(b+1)^n : {c3}")
 if not(c1 and c2 and c3): print("CANARI FAIL"); raise SystemExit(1)
 print("CANARIS: PASS\n")
-print("=== P2 : MEILLEURE APPROXIMATION, exhaustive jusqu'a q_10=190537 ===")
+print("=== P2 : MEILLEURE APPROXIMATION, exhaustive jusqu'a n < q_13 = 190537 ===")
 # convergents
 y=L; a=[]
 for _ in range(40):
@@ -34,7 +34,7 @@ def frac_dist(n):
     z=n*L; return float(min(z-floor(z), floor(z)+1-z))
 # verifier : pour chaque j, min_{0<n<q_{j+1}} ||nL|| = theta_j atteint a q_j
 ok=True
-for j in range(2,10):
+for j in range(2,14):
     qj,qj1=qs[j],qs[j+1]
     if qj1>200000: break
     m=min((frac_dist(n),n) for n in range(1,qj1))
@@ -44,12 +44,13 @@ for j in range(2,10):
 print(f"  BEST-APPROX : {'CONFIRMEE EXHAUSTIVEMENT' if ok else 'ECHEC'}")
 print("\n=== P3 : LA BORNE DE LONGUEUR issue de NOTRE chaine (X0 = 2^71) ===")
 X0=2**71
-delta=1/(3*math.log(2)*X0)     # eps_n <= n*delta pour un cycle avec x_min >= X0
+delta=2/(3*math.log(2)*X0)     # REQ-MATH-054 : facteur 2 (l'ancienne valeur 1/(3 X ln2)
+                               # etait deux fois trop petite -> 1re echelle admissible surestimee)
 print(f"  delta = {delta:.4e} ; condition d'existence d'une echelle n : ||nL|| <= n*delta")
 print(f"  pour n < q_(j+1) : ||nL|| >= theta_j -> il faut theta_j <= n*delta, donc n >= theta_j/delta")
 print(f"  {'j':>3} {'q_j':>16} {'theta_j':>13} {'theta_j/delta':>15} {'q_j admissible ?':>17}")
 first=None
-for j in range(6,20):
+for j in range(6,26):
     if j>=len(qs): break
     qj=qs[j]; th=float(thetas[j])
     need=th/delta
@@ -57,9 +58,15 @@ for j in range(6,20):
     if adm and first is None: first=qj
     if qs[j]>10**13: break
     print(f"  {j:>3} {qj:>16} {th:>13.3e} {need:>15.3e} {str(adm):>17}")
-print(f"\n  => PREMIERE echelle admissible : n ~ {first:.3e}" if first else "  (aucune dans la fenetre)")
-print(f"  Hercher (dedie, publie)       : n > 1.375e11")
-print(f"  rapport : {1.375e11/first:.2f}x — notre chaine independante retrouve l'ordre de grandeur")
+if first is None:
+    print("\n  => AUCUNE echelle admissible dans la plage balayee (etendre range(6,26))")
+else:
+    jj = qs.index(first)
+    print(f"\n  => PREMIERE echelle admissible : n = q_{jj} = {first} ({first:.3e})")
+    print(f"  Hercher (dedie, publie)       : n > 1.375e11 = q_23 (seuil sous-jacent)")
+    print(f"  rapport : {1.375e11/first:.2f}x — notre chaine independante retrouve l'ordre de")
+    print(f"  grandeur, une reduite en dessous. NOTE (Macindoe r10) : l'indexation ici est")
+    print(f"  q_0 = q_1 = 1, tous deux comptes ; c'est celle des OUT-054/056.")
 print("\n=== LECTURE ===")
 print("Le seam bound (noyau) + best-approx (exhaustif ici, standard en theorie des nombres)")
 print("forcent : (i) n sur la grille d'Ostrowski ; (ii) n > ~6.5e10 pour tout cycle avec")

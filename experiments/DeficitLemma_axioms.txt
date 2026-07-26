@@ -1,13 +1,10 @@
-# DeficitLemma.lean — #print axioms (committed, 2026-07-25T10:18Z)
-# 0 compilation errors, 0 sorry, 0 native_decide, 0 user axioms — 10 theorems, all kernel-3
 'DeficitLemma.deficit_term_le' depends on axioms: [propext, Classical.choice, Quot.sound]
 'DeficitLemma.deficit_choose_le' depends on axioms: [propext, Classical.choice, Quot.sound]
-/Users/ericmerle/Documents/Collatz-Racine-Mur-2026-07-16/lean/DeficitLemma.lean:104:19: warning: exponent 273 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
 'DeficitLemma.atom_A' depends on axioms: [propext, Classical.choice, Quot.sound]
 'DeficitLemma.atom_a' depends on axioms: [propext, Classical.choice, Quot.sound]
 'DeficitLemma.atom_D' depends on axioms: [propext, Classical.choice, Quot.sound]
 'DeficitLemma.key_core' depends on axioms: [propext, Classical.choice, Quot.sound]
-/Users/ericmerle/Documents/Collatz-Racine-Mur-2026-07-16/lean/DeficitLemma.lean:190:28: warning: exponent 390 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
-/Users/ericmerle/Documents/Collatz-Racine-Mur-2026-07-16/lean/DeficitLemma.lean:219:77: warning: exponent 390 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+'DeficitLemma.key_shifted' depends on axioms: [propext, Classical.choice, Quot.sound]
+'DeficitLemma.key15' depends on axioms: [propext, Classical.choice, Quot.sound]
 'DeficitLemma.margin_core' depends on axioms: [propext, Classical.choice, Quot.sound]
 'DeficitLemma.marginTarget' depends on axioms: [propext, Classical.choice, Quot.sound]

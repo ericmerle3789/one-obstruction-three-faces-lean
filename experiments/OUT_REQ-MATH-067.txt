@@ -1,0 +1,77 @@
+================================================================================
+P1 — CANARI : le nombre d'or et Fibonacci
+================================================================================
+  quotients partiels de phi (20 premiers) : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+  denominateurs de phi   : [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]
+  Fibonacci              : [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]
+  P1 PASS — phi = [1;1,1,1,...], denominateurs = Fibonacci exactement
+CANARIS: PASS
+
+================================================================================
+P2 — log2(3) ressemble-t-il au nombre d'or ?
+================================================================================
+  quotients partiels de log2(3) (30 premiers) :
+    [1, 1, 1, 2, 2, 3, 1, 5, 2, 23, 2, 2, 1, 1, 55, 1, 4, 3, 1, 1, 15, 1, 9, 2, 5, 7, 1, 1, 4, 8]
+
+  quotients >= 20 dans les 30 premiers : [(9, 23), (14, 55)]
+  P2 PASS — log2(3) est TOUT SAUF le nombre d'or :
+     phi n'a QUE des 1 (le plus mal approchable) ; log2(3) a des pics.
+     Chaque pic = une approximation exceptionnellement bonne = un endroit dangereux.
+
+================================================================================
+P3 — log2(3) est-il un irrationnel BANAL ? (loi de Gauss-Kuzmin)
+================================================================================
+    k   observe  Gauss-Kuzmin    ecart
+    1    0.4175        0.4150  +0.0025
+    2    0.1670        0.1699  -0.0029
+    3    0.0930        0.0931  -0.0001
+    4    0.0555        0.0589  -0.0034
+    5    0.0420        0.0406  +0.0014
+    6    0.0265        0.0297  -0.0032
+    7    0.0225        0.0227  -0.0002
+    8    0.0205        0.0179  +0.0026
+  >8    0.1555        0.1520  +0.0035
+
+  distance normalisee chi2/N = 0.00103
+    (somme sur les 8 classes de TETE k=1..8 de (p_obs-p_att)^2/p_att, p = probabilites ;
+     la classe de queue k>=9 ci-dessus est AFFICHEE et N'EST PAS SOMMEE — elle porte
+     0.152 de la masse attendue, 3e des neuf. Ce n'est donc PAS un chi2 reduit,
+     qui serait chi2 par degre de liberte. Label corrige 2026-07-29 apres la question
+     de Macindoe, qui n'avait pu placer le nombre ni comme statistique ni comme p-value.)
+  P3 : log2(3) est-il BANAL ? OUI — il suit la loi du hasard
+     => aucune structure cachee a exploiter dans ses chiffres. C'est un irrationnel
+        ordinaire. Le programme ne peut RIEN tirer de sa nature propre.
+
+================================================================================
+P4 — nos seuils tombent-ils apres un gros quotient partiel ?
+================================================================================
+  fin de notre fenetre T1 (q22)    : j=22, quotient partiel a_j = 9, a_(j+1) = 2
+  seuil de Hercher (q23)           : j=23, quotient partiel a_j = 2, a_(j+1) = 5
+
+  rappel : a_j grand => q_(j+1) = a_j*q_j + q_(j-1) fait un GRAND SAUT
+  les 5 plus gros quotients parmi les 40 premiers : [(55, 14), (23, 9), (20, 33), (15, 20), (11, 31)]
+
+================================================================================
+P5 — croissance : Fibonacci ou pas ?
+================================================================================
+    j     q_j (log2 3)  ratio q_j/q_(j-1)  phi = 1.618
+    5               41              3.417             
+   10            31867              2.043             
+   15         10781274              1.018             
+   20       6189245291             15.568             
+   23     137528045312              2.101             
+   25    5409303924479              7.183             
+
+  Fibonacci croit avec un ratio CONSTANT phi = 1.618.
+  log2(3) : ratios de 1.02 a 55.58 — irregulier, sans rapport.
+  P5 : AUCUNE structure de Fibonacci. Les deux objets n'ont rien a voir.
+
+================================================================================
+CONCLUSION
+================================================================================
+  Le nombre d'or est le nombre le MIEUX PROTEGE contre l'approximation.
+  Si log2(3) etait le nombre d'or, Collatz serait probablement FACILE.
+  Il ne l'est pas : c'est un irrationnel parfaitement banal, avec des pics
+  d'approximation imprevisibles, et statistiquement indiscernable du hasard.
+  => la piste 'nombre d'or / Fibonacci' est FERMEE, mais elle explique POURQUOI
+     c'est dur : on n'a pas eu la chance de tomber sur le bon nombre.

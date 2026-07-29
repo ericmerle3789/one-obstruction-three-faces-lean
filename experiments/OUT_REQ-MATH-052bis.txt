@@ -1,0 +1,26 @@
+=== (d-bis) Ostrowski des n a eps<0.0001 : les digits bas sont-ils nuls ? ===
+         n                            expansion (d,c)   plus petit d utilise
+     14936                      [(665, 22), (306, 1)]                    306
+     15601                               [(15601, 1)]                  15601
+     31202                               [(15601, 2)]                  15601
+     46803          [(31867, 1), (665, 22), (306, 1)]                    306
+     47468                   [(31867, 1), (15601, 1)]                  15601
+     63069                   [(31867, 1), (15601, 2)]                  15601
+     78670          [(31867, 2), (665, 22), (306, 1)]                    306
+     79335                               [(79335, 1)]                  79335
+     94271          [(79335, 1), (665, 22), (306, 1)]                    306
+     94936                   [(79335, 1), (15601, 1)]                  15601
+
+  plus petit denominateur utilise : eps-petits = [306, 15601, 15601, 306, 15601, 15601, 306, 79335, 306, 15601]
+                                   controle    = [2, 1, 1, 2, 1, 2, 5, 5, 1, 12]   (re-specifie, graine 0)
+  mediane eps-petits : 15601 | mediane controle : 2
+  controle elargi (200 tirages, graine 1) : mediane 2, max 53, part >= 306 : 0/200
+  => si les eps-petits n'utilisent QUE des grands d (306+) et le controle descend a 1-12 :
+     LA GRILLE EST CONFIRMEE (structure d'Ostrowski, digits bas nuls).
+
+=== CANARIS ===
+  C1 14936 = 22*665 + 306                    : PASS
+  C2 quatre premiers hits                    : PASS
+  C3 colonne eps-petits + mediane 15601      : PASS
+  C4 tout eps-petit a d >= 306               : PASS
+  VERDICT : PASS

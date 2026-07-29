@@ -11,7 +11,8 @@ Chain: (a) cycle product identity ∏(3xᵢ+1) = 2^K·∏xᵢ (telescoping);
 (b) survivor bound (per-factor (3x+1)(3X) ≤ 3x(3X+1) ⟺ X ≤ x);
 (c) binomial two-bound (m+1)^n < 2·m^n for 2n < m (elementary induction).
 Machine-verified first (REQ-MATH-052): identity exact on all four real cycles (both shores),
-bound+ceiling on the trivial cycle, 114 census cells consistent, Legendre window 4.955e10,
+bound+ceiling on the trivial cycle, 114 census cells consistent, Legendre window 3.5035491e10
+(exact; integral form 3.503177115e10 — the earlier 4.955e10 was withdrawn at REQ-MATH-054),
 and the GRID half (Ostrowski: ε-small n use only large convergent denominators) —
 script-verified, NOT proved here.
 -/
@@ -183,10 +184,14 @@ lemma succ_pow_le_pow_add (b : ℕ) : ∀ n, (b+1) ^ (n+1) ≤ b ^ (n+1) + (n+1)
 /-- **T1 grid half, quantitative core (the seam bound).** For a positive cycle with all
     elements ≥ X and `2p < 3X`:  `2^K·3X < 3^(p+1)·(3X + 2(p+1))`.
     Reading: `(2^K − 3^(p+1))·3X < 2(p+1)·3^(p+1)` — the seam gap `q` is squeezed inversely
-    to the minimum element. Large `X` forces `‖n·log₂3‖ ≤ n/(3X·ln2)`; by best approximation
+    to the minimum element. Large `X` forces `‖n·log₂3‖ ≤ 2n/(3X·ln2)`; by best approximation
     (script-verified exhaustively, REQ-MATH-053; not formalized here) this confines `n` to
-    the Ostrowski grid of convergent denominators and yields `n ≥ q₂₁ = 6.547·10¹⁰` for
-    `X ≥ 2⁷¹` — one convergent step below Hercher's dedicated `q₂₂ = 1.375·10¹¹`. -/
+    the Ostrowski grid of convergent denominators and yields `n ≥ q₂₂ = 6.547·10¹⁰` for
+    `X ≥ 2⁷¹` — one convergent step below Hercher's underlying `q₂₃ = 1.375·10¹¹`.
+    Indexing pinned to `q₀ = q₁ = 1` both counted (OUT-054/056): `q₂₁ = 6586818670`,
+    `q₂₂ = 65470613321`, `q₂₃ = 137528045312`. The `δ` above carries the factor 2 of
+    REQ-MATH-054; the subscripts and the pre-054 `δ` were corrected 2026-07-29 after
+    Macindoe's round-11 audit found two different `q₂₁` in this file. -/
 theorem seam_bound (p X K : ℕ) (x v : Fin (p+1) → ℕ)
     (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
     (hK : K = ∑ i, v i) (hX : 0 < X) (hmin : ∀ i, X ≤ x i)

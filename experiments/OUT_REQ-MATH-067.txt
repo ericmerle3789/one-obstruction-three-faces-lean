@@ -10,6 +10,7 @@ CANARIS: PASS
 ================================================================================
 P2 — log2(3) ressemble-t-il au nombre d'or ?
 ================================================================================
+  CANARI C0 precision : dps=3000, recalcul a dps=6000 -> CONVERGE (2000/2000 identiques)
   quotients partiels de log2(3) (30 premiers) :
     [1, 1, 1, 2, 2, 3, 1, 5, 2, 23, 2, 2, 1, 1, 55, 1, 4, 3, 1, 1, 15, 1, 9, 2, 5, 7, 1, 1, 4, 8]
 
@@ -22,17 +23,17 @@ P2 — log2(3) ressemble-t-il au nombre d'or ?
 P3 — log2(3) est-il un irrationnel BANAL ? (loi de Gauss-Kuzmin)
 ================================================================================
     k   observe  Gauss-Kuzmin    ecart
-    1    0.4175        0.4150  +0.0025
-    2    0.1670        0.1699  -0.0029
-    3    0.0930        0.0931  -0.0001
-    4    0.0555        0.0589  -0.0034
-    5    0.0420        0.0406  +0.0014
-    6    0.0265        0.0297  -0.0032
-    7    0.0225        0.0227  -0.0002
-    8    0.0205        0.0179  +0.0026
-  >8    0.1555        0.1520  +0.0035
+    1    0.4165        0.4150  +0.0015
+    2    0.1615        0.1699  -0.0084
+    3    0.0980        0.0931  +0.0049
+    4    0.0600        0.0589  +0.0011
+    5    0.0405        0.0406  -0.0001
+    6    0.0285        0.0297  -0.0012
+    7    0.0230        0.0227  +0.0003
+    8    0.0185        0.0179  +0.0006
+  >8    0.1535        0.1520  +0.0015
 
-  distance normalisee chi2/N = 0.00103
+  distance normalisee chi2/N = 0.00078
     (somme sur les 8 classes de TETE k=1..8 de (p_obs-p_att)^2/p_att, p = probabilites ;
      la classe de queue k>=9 ci-dessus est AFFICHEE et N'EST PAS SOMMEE — elle porte
      0.152 de la masse attendue, 3e des neuf. Ce n'est donc PAS un chi2 reduit,

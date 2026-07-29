@@ -22,7 +22,18 @@
 #     Predire NON : croissance bien plus rapide et irreguliere.
 from mpmath import mp, mpf, log, floor, sqrt
 import math
-mp.dps = 400
+mp.dps = 3000
+# PRECISION — CORRIGE 2026-07-29, et c'est un defaut de fond, pas de confort.
+# Ce script tournait a mp.dps = 400. A cette precision la fraction continue de log2(3)
+# DIVERGE de la vraie a l'indice 385 : au-dela, les quotients partiels ne sont plus ceux
+# de log2(3) mais du bruit d'arrondi. 1615 des 2000 termes etaient faux.
+# Consequence : le chi2/N imprime valait 0.00103 ; sur la vraie suite il vaut 0.00078.
+# Diagnostic : Macindoe n'arrivait pas a placer le 0.00103, et pour cause — ses trois
+# chiffres (plus grand ecart de classe 0.008425 ; son chi2/N 0.001214 ; chi2/dof < 0.567)
+# se reproduisent TOUS exactement sur la suite correcte et AUCUN sur celle-ci. Pire :
+# sur l'ancienne suite le max chi2/dof valait 1.0504, ce qui aurait contredit sa borne.
+# Il calculait juste ; c'est notre suite qui etait fausse.
+# Le canari C0 ci-dessous refuse desormais de tourner si la precision ne suffit pas.
 
 def cf(x, n):
     y = x; a = []
@@ -52,6 +63,18 @@ print("CANARIS: PASS")
 
 print("\n"+"="*80); print("P2 — log2(3) ressemble-t-il au nombre d'or ?"); print("="*80)
 aL = cf(L, 2000)
+
+# CANARI C0 — la suite est-elle CONVERGEE ? Recalcul a precision doublee : si un seul
+# quotient partiel bouge, la precision ne suffit pas et tout ce qui suit est du bruit.
+_dps = mp.dps
+mp.dps = 2 * _dps
+_ref = cf(log(3)/log(2), 2000)
+mp.dps = _dps
+_div = next((i for i in range(2000) if aL[i] != _ref[i]), None)
+print(f"  CANARI C0 precision : dps={_dps}, recalcul a dps={2*_dps} -> "
+      f"{'CONVERGE (2000/2000 identiques)' if _div is None else f'DIVERGE a l indice {_div} — REFUSER LA SUITE'}")
+assert _div is None, (f"precision insuffisante : la fraction continue diverge a l'indice {_div}. "
+                      f"Augmenter mp.dps. (A dps=400 la divergence etait a 385.)")
 print(f"  quotients partiels de log2(3) (30 premiers) :\n    {aL[:30]}")
 gros = [(i,v) for i,v in enumerate(aL[:30]) if v>=20]
 print(f"\n  quotients >= 20 dans les 30 premiers : {gros}")

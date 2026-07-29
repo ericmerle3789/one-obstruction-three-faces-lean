@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 # REQ-MATH-037 — ARES : le gamma du Junction Theorem (Merle 2026) EST le c_gen de Macindoe.
-# Junction: log2 d - log2 C >= (S-1)*gamma, gamma = 1 - h(1/log2 3)   [par unite de S]
+# Junction: log2 d - log2 C >= (S-1)*gamma - epsilon(k), gamma = 1 - h(1/log2 3), epsilon(k) = O(log k)
+#   CORRIGE 2026-07-29 : cette ligne omettait le terme d'erreur - epsilon(k) du preprint.
+#   Sans lui, l'inegalite imprimee est FAUSSE quand on la lit litteralement : marge negative
+#   aux k echantillonnes, pire -4.485 a k=306 et -2.451 a k=200, chaque echec au voisinage
+#   d'un denominateur de convergent — exactement ce que epsilon(k) absorbe. Releve par
+#   Macindoe (tour 11). Sans consequence sur ce que ce script teste, qui est l'identite
+#   entre CONSTANTES gamma*log2(3) == c_gen et ne fait pas intervenir epsilon(k).
 # L-A7   : margin(n) >= c_gen*n,            c_gen = L - L log2 L + (L-1) log2(L-1)  [par unite de n]
 # TEST : gamma * log2(3) == c_gen exactement ?  (S ~ n*log2 3)
 from mpmath import mp, mpf, log

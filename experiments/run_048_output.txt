@@ -1,0 +1,12 @@
+==============================================================================================
+CANARIS (a la main avant le code)
+==============================================================================================
+  C1 boucle p=3 -> x = -1          : PASS   -1
+  C2 boucle p=5 -> x = -1/3        : PASS   -1/3
+  C3 mot (montee,descente) -> 1    : FAIL   2
+  C4 boucle p=7 -> x = -1/5        : PASS   -1/5
+Traceback (most recent call last):
+  File "/Users/ericmerle/Documents/Collatz-LAB-LOCAL/breche/instrument/run_048.py", line 125, in <module>
+    assert c1 and c2 and c3 and c4, "canaris en echec"
+           ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: canaris en echec

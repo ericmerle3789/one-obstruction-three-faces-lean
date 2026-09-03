@@ -1,0 +1,74 @@
+==============================================================================================
+CANARIS (calcules a la main AVANT le code)
+==============================================================================================
+  [PASS] C1  p=3, k=8 : le temoin est 2^9-1 = 511   temoin=511
+  [PASS] C2  T(511) = 767 et 767 = 511 mod 256
+  [PASS] C3  le cycle trivial 1 -> 2 -> 1 est bien parcouru
+  [PASS] C4  -1 est un point fixe reel de la branche montante
+  [PASS] C5  p=5 : le point fixe -1/3 n'est PAS un entier (rappel §95/run_048 P2)   -1/3
+
+==============================================================================================
+P1 — LE TEMOIN EXISTE POUR TOUT p IMPAIR ET TOUT k  (entiers exacts, zero flottant)
+==============================================================================================
+  [PASS] boucle montante presente : 4000 couples (p,k), p=3..201 impairs, k=1..40   echecs : aucun
+       exemples : p=3,k=8 -> u=255, p=5,k=8 -> u=85, p=7,k=8 -> u=51, p=9,k=8 -> u=73, p=11,k=8 -> u=199
+
+==============================================================================================
+P2 — L'ARETE EST REALISEE PAR UNE INFINITE D'ENTIERS POSITIFS, ET ILS MONTENT
+==============================================================================================
+  [PASS] 2880 entiers positifs temoins : meme reste, image de meme reste, et STRICTEMENT croissants   echecs : aucun
+       le plus petit pour p=3,k=8 : x=511 -> T(x)=767 (restes 255 et 255, ratio 1.5010)
+
+==============================================================================================
+P3 *** LA CONCLUSION *** — LA CONTRAINTE DE LA BOUCLE, EN ENTIERS
+==============================================================================================
+  Sur l'arete u -> u, la condition de decroissance de V(x) = x f(x mod 2^k) s'ecrit
+  g(u) - g(u) > log(2/p) apres passage au log, soit 0 > log(2/p), soit p > 2.
+  C'est une comparaison d'ENTIERS : aucun flottant n'intervient.
+  [PASS] p > 2 pour tout p impair >= 3 : la contrainte est violee, le systeme est insatisfiable
+  -> aucune altitude a quotient fini ne decroit sur tous les entiers positifs,
+     pour aucun k, pour aucun f. Sans Bellman-Ford, sans recensement, sans flottant.
+
+==============================================================================================
+P4 — POURQUOI LA RECONSTRUCTION MACINDOE DIVERGE : L'ARETE TEMOIN Y EST ABSENTE
+==============================================================================================
+    p   k   cycles fautifs (carte acceleree, 1 successeur)
+    3   4                                                0
+    3   5                                                0
+    3   6                                                0
+    3   7                                                0
+    3   8                                                0
+    3   9                                                0
+    3  10                                    1  [(26, 37)]
+    3  11                                    1  [(25, 37)]
+    3  12                              2  [(6, 7), (7, 9)]
+    3  13                                                0
+    3  14                                                0
+    3  15                                                0
+    3  16                                                0
+    7   8                    3  [(3, 4), (4, 8), (31, 67)]
+  [PASS] l'arete temoin u -> u est ABSENTE de la carte acceleree canonique   u=255 y va vers 127, pas vers lui-meme
+  -> sa non-reproduction a p=3 est exacte, et porte sur un autre objet :
+     un seul relevement (m=0) la ou la relation en a 2^v. Le temoin vient de m=1.
+
+==============================================================================================
+P5 — CONTROLE DE NON-VACUITE, ET UNE CORRECTION DE FORMULATION
+==============================================================================================
+  511 [255] -> 767 [255] -> 1151 [127] -> 1727 [191] -> 2591 [31] -> 3887 [47] -> 5831 [199]   (entre crochets : le reste mod 2^8)
+  [PASS] le temoin monte : premier pas strictement croissant   511 -> 767
+  [PASS] le temoin boucle : x et T(x) ont le MEME reste mod 2^k   reste 255
+  [PASS] correction enregistree : la trajectoire QUITTE la classe des le pas 2   premier pas hors classe : 2
+  -> un seul pas suffit : V(T(x)) = 767*f(255) > 511*f(255) = V(x), pour TOUT f > 0.
+     Aucun cycle n'est requis, donc la question 'fantome ou reel' ne se pose meme pas.
+
+==============================================================================================
+P6 — CONTROLE NEGATIF : l'argument ne doit PAS prouver trop
+==============================================================================================
+  Pour p=1 la branche 'montante' x -> (x+1)/2 DESCEND. La contrainte de boucle
+  devient 0 > log(2/1), soit 1 > 2 : FAUSSE, donc la boucle n'obstrue RIEN.
+  [PASS] l'argument ne conclut pas a l'impossibilite quand p=1 (il prouverait trop)
+  -> le critere est bien p > 2, et il separe correctement les cas.
+
+==============================================================================================
+TOTAL : TOUS LES CONTROLES PASSENT
+==============================================================================================

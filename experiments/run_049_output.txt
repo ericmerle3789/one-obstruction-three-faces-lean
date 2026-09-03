@@ -1,0 +1,45 @@
+==============================================================================================
+CANARIS
+==============================================================================================
+  C1 sans filtrage : insatisfiable (=§80)  : PASS
+  C2 aretes bien dans Z/2^k                : PASS
+  C3 boucle -> x = -1                      : PASS
+  C4 T(7) = 11                             : PASS
+
+==============================================================================================
+P1 — CHAQUE ARETE D'UN CYCLE FANTOME EST-ELLE REALISEE PAR UN VRAI ENTIER ?
+==============================================================================================
+  Chaque arete (u -> v) du graphe provient d'un relevement r dans Z/2^(k+1) :
+  il existe donc une INFINITE d'entiers x = r mod 2^(k+1), et pour chacun
+  x mod 2^k = u et T(x) mod 2^k = v. L'arete est donc TOUJOURS realisee.
+  verification sur 20 000 aretes tirees au hasard : PASS — toutes realisees
+
+==============================================================================================
+P2 — EN FILTRANT LES FANTOMES, OBTIENT-ON UN f ?
+==============================================================================================
+  p=7, k=8 : §96 a mesure 100 % de fantomes parmi les cycles fautifs.
+  sans filtrage : insatisfiable
+  apres retrait de la boucle fantome en 51 : toujours insatisfiable
+
+==============================================================================================
+P3 *** LE TEST *** CE f FAIT-IL DECROITRE V SUR DE VRAIS ENTIERS ?
+==============================================================================================
+  (systeme toujours insatisfiable meme apres filtrage : le filtre ne suffit pas)
+  apres retrait GLOUTON de 63 restes : satisfiable
+  entiers testes : 40000 | V ne decroit PAS : 17002
+  contre-exemple : x=2, T(x)=1, V(x)=0.0007105, V(T(x))=0.0007105
+  -> *** LE f OBTENU NE MARCHE PAS SUR LES ENTIERS : le filtre est REFUTE ***
+
+==============================================================================================
+P4 — LA CONCLUSION
+==============================================================================================
+  Un cycle du graphe des restes impose une contrainte sur g QUELLE QUE SOIT sa
+  realisation entiere, parce que g est une fonction du RESTE : en faisant le tour,
+  g revient sur lui-meme. Les 'fantomes' sont donc des contraintes LEGITIMES.
+
+  *** AUCUNE ALTITUDE A QUOTIENT FINI x*f(x mod 2^k) NE PEUT EXISTER, pour aucun k,
+      et la raison n'est pas Collatz : c'est la FINITUDE DU QUOTIENT. ***
+      Z/2^k possede des cycles que Z n'a pas ; toute fonction du reste en herite.
+
+  Echappatoire : il faudrait que k CROISSE avec x — c'est-a-dire ne plus compresser
+  du tout. On retombe sur le vecteur de parite complet (§75), donc sur 'presque tous'.

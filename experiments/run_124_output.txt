@@ -1,0 +1,12 @@
+==============================================================================================
+CANARIS
+==============================================================================================
+  [PASS] C1  T(7)=11, T(4)=2
+  [PASS] C2  cycle_member('10') = 1 (cycle trivial)
+  [PASS] C3  cycle_member('11111000') = 211/13 (Knight Ex 2.1)
+  [FAIL] C4  rot_equal reconnait une rotation
+Traceback (most recent call last):
+  File "/Users/ericmerle/Documents/Collatz-LAB-LOCAL/breche/instrument/run_124.py", line 66, in <module>
+    assert not FAILS
+           ^^^^^^^^^
+AssertionError

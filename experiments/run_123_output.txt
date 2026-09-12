@@ -1,0 +1,93 @@
+==============================================================================================
+CANARIS (a la main avant le code)
+==============================================================================================
+  [PASS] C1  ceil(1*L)=2, ceil(2*L)=4, ceil(3*L)=5 -> gaps 2,2,1
+  [PASS] C2  C(S-1,k-1) at k=6,S=10 is 126
+  [PASS] C3  F2[x] : T(x^2+1) = ((x+1)(x^2+1)+1)/x = x^2+x+1 ; T(x^2)=x
+  [PASS] C4  1/(2 ln 2) = 0.72135
+
+==============================================================================================
+P1/P2 — LE MOT DE STURM : R/k, R >= k/2, ET SON NOMBRE DE BLOCS
+==============================================================================================
+        k gaps⊂{1,2}        S   blocs  blocs/k           R      R/k  R>=k/2
+       10       True       16       6   0.6000         7.5   0.7540    True
+  [PASS] k=10: blocs = ceil(kL) - k
+      100       True      159      59   0.5900        72.0   0.7202    True
+  [PASS] k=100: blocs = ceil(kL) - k
+     1000       True     1585     585   0.5850       721.5   0.7215    True
+  [PASS] k=1000: |R/k - 0.7213| < 0.002 and R >= k/2
+  [PASS] k=1000: blocs = ceil(kL) - k
+    10000       True    15850    5850   0.5850      7215.2   0.7215    True
+  [PASS] k=10000: |R/k - 0.7213| < 0.002 and R >= k/2
+  [PASS] k=10000: blocs = ceil(kL) - k
+   100000       True   158497   58497   0.5850     72136.0   0.7214    True
+  [PASS] k=100000: |R/k - 0.7213| < 0.002 and R >= k/2
+  [PASS] k=100000: blocs = ceil(kL) - k
+  [PASS] blocs > 91 from k = 156 on (Hercher's m <= 91 does not reach the Sturm word)   blocs(156) = 92
+
+==============================================================================================
+P3 — PORTEE DU THEOREME DES MOTS REPETES : COMPTES EXACTS (Mobius)
+==============================================================================================
+    k   S gcd(k,S)             mots  imprimitifs   fraction   journal §169
+    3   5        1                6            0   0.00e+00   0
+  [PASS] k=3: imprimitifs = 0
+    4   7        1               20            0   0.00e+00   0
+  [PASS] k=4: imprimitifs = 0
+    5   8        1               35            0   0.00e+00   0
+  [PASS] k=5: imprimitifs = 0
+    6  10        2              126            6   4.76e-02   6
+  [PASS] k=6: imprimitifs = 6
+    7  12        1              462            0   0.00e+00   0
+  [PASS] k=7: imprimitifs = 0
+    8  13        1              792            0   0.00e+00   0
+  [PASS] k=8: imprimitifs = 0
+   11  18        1           19,448            0   0.00e+00   0
+  [PASS] k=11: imprimitifs = 0
+   12  20        4           75,582          126   1.67e-03   126
+  [PASS] k=12: imprimitifs = 126
+   13  21        1          125,970            0   0.00e+00   0
+  [PASS] k=13: imprimitifs = 0
+   14  23        1          497,420            0   0.00e+00   0
+  [PASS] k=14: imprimitifs = 0
+   16  26        2        3,268,760          792   2.42e-04   792
+  [PASS] k=16: imprimitifs = 792
+   17  27        1        5,311,735            0   0.00e+00   0
+  [PASS] k=17: imprimitifs = 0
+   20  32        4      141,120,525        5,005   3.55e-05   <=51 (faux)
+  [PASS] k=20: imprimitifs = 5005
+   24  39        3   15,471,286,560          792   5.12e-08   <=67 (faux)
+  [PASS] k=24: imprimitifs = 792
+
+==============================================================================================
+P4 — COLLATZ SUR F2[x] : TEMPS D'ARRET EXHAUSTIFS ET BORNE DU DEGRE
+==============================================================================================
+  [PASS] C3 (computed) T(x^2+1) = x^2+x+1 and T(x^2) = x
+    d  polys  max arret  d^2+2d  deg max   journal §179
+    4     16          9      24        4   9
+  [PASS] d=4: max stopping time = 9, <= d^2+2d, degree never exceeds d
+    6     64         15      48        6   15
+  [PASS] d=6: max stopping time = 15, <= d^2+2d, degree never exceeds d
+    8    256         21      80        8   21
+  [PASS] d=8: max stopping time = 21, <= d^2+2d, degree never exceeds d
+   10   1024         29     120       10   29
+  [PASS] d=10: max stopping time = 29, <= d^2+2d, degree never exceeds d
+   12   4096         35     168       12   35
+  [PASS] d=12: max stopping time = 35, <= d^2+2d, degree never exceeds d
+   14  16384         43     224       14   37 (faux)
+  [PASS] d=14: max stopping time = 43, <= d^2+2d, degree never exceeds d
+   16  65536         51     288       16   39 (faux)
+  [PASS] d=16: max stopping time = 51, <= d^2+2d, degree never exceeds d
+
+==============================================================================================
+P5 — CONTROLE NEGATIF : UN MOT A UN SEUL BLOC A R BORNE
+==============================================================================================
+  k=   100: one-block word, R = 6.821, R/k = 0.06821
+  k=  1000: one-block word, R = 6.079, R/k = 0.00608
+  k= 10000: one-block word, R = 6.890, R/k = 0.00069
+  [PASS] one-block word: R stays below 10 while k grows 100x
+  -> R bounded for the most UNbalanced word, ~0.72 k for the most balanced one: the trivial bound
+     R <= k is tight exactly on the words the circuit theorems do NOT cover.
+
+==============================================================================================
+TOTAL : TOUS LES CONTROLES PASSENT
+==============================================================================================

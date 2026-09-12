@@ -16,8 +16,12 @@
 #  P2  Le mot de Sturm (lineaire, pente irrationnelle L) et le mot de Christoffel (S,k) (circulaire,
 #      pente rationnelle) coincident CIRCULAIREMENT pour certains k et PAS pour d'autres. Prediction :
 #      egaux pour k = 3,4,5,8,10,13,15 ; differents pour k = 7,11,14 (mesure exploratoire du 12/09).
-#  P3  R/k -> 1/(2 ln 2) = 0,7213 aussi sur le mot de Knight : la borne du sceau est serree sur
-#      les DEUX mots. Prediction : |R/k - 0,7213| < 0,002 des k = 1000.
+#  P3  [RETRACTEE A L'EXECUTION, 2026-09-12 — gardee visible] "R/k -> 1/(2 ln 2) aussi sur le mot de
+#      Knight". FAUX : sur le mot de Christoffel la pente est RATIONNELLE S/k, la marche u_i =
+#      {S i/k} - i eps/k (eps = S - kL) vit dans une bande de hauteur 1 + eps, pas 1 ; R/k depend de eps
+#      (0,597 a k = 156 ou eps = 0,75 ; 0,717 a k = 1000 ou eps = 0,037). Ce que L-A11 a besoin est
+#      seulement R LINEAIRE en k. Prediction corrigee : R >= k/4 exactement (termes >= 2^-(1+eps) > 1/4),
+#      et R >= k/2 mesure pour tout k <= 300 ; R/k s'approche de 0,7213 quand eps est petit.
 #  P4  Si g = gcd(S,k) > 1, le mot de Christoffel (S,k) est la puissance g-ieme du mot de
 #      Christoffel (S/g, k/g), et S/g = ceil((k/g) L). Donc L-A2 (mot repete <=> base) ramene le
 #      cas non premier au cas premier, ou Knight s'applique : LE CYCLE BALANCE EST EXCLU A TOUT k.
@@ -62,7 +66,9 @@ print("=" * 94); print("CANARIS"); print("=" * 94)
 check("C1  T(7)=11, T(4)=2", T(7) == 11 and T(4) == 2)
 check("C2  cycle_member('10') = 1 (cycle trivial)", cycle_member([1,0]) == 1)
 check("C3  cycle_member('11111000') = 211/13 (Knight Ex 2.1)", cycle_member([1,1,1,1,1,0,0,0]) == Fraction(211,13))
-check("C4  rot_equal reconnait une rotation", rot_equal([1,0,0,1], [0,1,1,0]) and not rot_equal([1,0,0,1],[1,1,0,0]))
+# C4, premiere version : "1100 n'est pas une rotation de 1001" — FAUX (rotations de 1001 : 1001, 0011, 0110, 1100).
+# Le canari a saute sur le TEST, pas sur le code ; corrige le 2026-09-12, le code n'a pas bouge.
+check("C4  rot_equal reconnait une rotation et rejette une non-rotation", rot_equal([1,0,0,1], [0,1,1,0]) and not rot_equal([1,0,1,0], [1,1,0,0]))
 assert not FAILS
 
 print(); print("=" * 94); print("P1 — LES EXEMPLES DE KNIGHT"); print("=" * 94)
@@ -81,7 +87,12 @@ for k in list(range(2, 41)) + [100, 156, 200, 1000]:
     if k <= 16 or k in (40, 100, 156, 200, 1000):
         print(f"  {k:>5} {S:>5} {g:>4} {str(same):>13} {float(Ra)/k:>10.4f} {float(Rb)/k:>11.4f}")
     if k >= 1000:
-        check(f"k={k}: R/k du mot de Knight dans 0.7213 ± 0.002", abs(float(Rb)/k - 0.72135) < 0.002)
+        eps = float(S - k*L)
+        check(f"k={k}: eps = S - kL = {eps:.3f} petit => R/k de Knight proche de 0.7213", abs(float(Rb)/k - 0.72135) < 0.01, f"R/k = {float(Rb)/k:.4f}")
+rk_min = min((float(R_of(knight_pv(int(mceil(k*L)), k)))/k, k) for k in range(2, 301))
+check(f"R >= k/2 sur le mot de Knight pour tout k <= 300 (minimum R/k = {rk_min[0]:.4f} a k = {rk_min[1]})", rk_min[0] >= 0.5)
+check("R >= k/4 exactement sur le mot de Knight (bande de hauteur <= 1 + eps < 2), k <= 300",
+      all(R_of(knight_pv(int(mceil(k*L)), k)) >= mpf(k)/4 for k in range(2, 301)))
 check("P2 : egaux pour k = 3,4,5,8,10,13,15", all(k in egaux for k in (3,4,5,8,10,13,15)))
 check("P2 : differents pour k = 7,11,14", all(k in differents for k in (7,11,14)))
 print(f"  egaux (k<=40)      : {[k for k in egaux if k<=40]}")

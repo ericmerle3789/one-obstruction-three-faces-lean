@@ -1,0 +1,89 @@
+==============================================================================================
+CANARIS (a la main avant le code)
+==============================================================================================
+  [PASS] C1  cycle trivial : mot (2,), d = 2^2 - 3 = 1, N_prefix = N_suffix = 1
+  [PASS] C2  mot (2,2) (cycle trivial double) : N_prefix = 3 + 4 = 7 = 1*(16-9)
+  [PASS] C3  mot (3,1) : N_prefix = 3 + 8 = 11, N_suffix = 6 + 1 = 7 (le 'canari' de run_120 n'est pas un cycle)
+  [PASS] C4  isqrt(2079*2^71 // 4000) = 35031771147 (fenetre entiere de L-A8)
+
+==============================================================================================
+P1 — QUELLE SOMME EST LE NUMERATEUR DU CYCLE ? Test sur les cycles entiers reels
+==============================================================================================
+    x0                    mot g      d   x0*d  N_prefix  N_suffix
+     1                     (2,)      1      1         1         1
+    -1                     (1,)     -1      1         1         1
+    -5                   (1, 2)     -1      5         5        13
+    -7                   (2, 1)     -1      7         7         7
+   -17    (1, 1, 1, 2, 1, 1, 4)   -139   2363      2363    893713
+   -25    (1, 1, 2, 1, 1, 4, 1)   -139   3475      3475    883303
+   -41    (1, 1, 4, 1, 1, 1, 2)   -139   5699      5699    874021
+  [PASS] x0*d = N_prefix(g) sur les 7 cycles
+  [PASS] N_suffix echoue exactement sur -5, -17, -25, -41   [-5, -17, -25, -41]
+
+==============================================================================================
+P2/P3 — TABLES DE RESIDUS EXHAUSTIVES : numerateur vrai (prefixe) contre run_120 (suffixe)
+==============================================================================================
+  k=12  S=20  d=517135  C=75582  lambda=0.1462
+     m  N vrai (prefixe)  ecart Poisson  run_120 (suffixe)   ecart
+     0            445603          -0.3%             445863   -0.2%
+     1             67578          +3.5%              67100   +2.7%
+     2              3859         -19.1%               4037  -15.4%
+     3                94         -59.6%                132  -43.2%
+     4                 1         -88.2%                  3  -64.7%
+     5                 0          +0.0%                  0   +0.0%
+  [PASS] k=12: la table suffixe reproduit run_120
+  k=14  S=23  d=3605639  C=497420  lambda=0.1380
+     m  N vrai (prefixe)  ecart Poisson  run_120 (suffixe)   ecart
+     0           3133682          -0.2%            3141930   +0.0%
+     1            447164          +3.2%             431550   -0.4%
+     2             24130         -19.3%              30678   +2.6%
+     3               656         -52.3%               1412   +2.7%
+     4                 7         -85.2%                 67  +41.3%
+     5                 0        -100.0%                  2  +52.9%
+  [PASS] k=14: la table suffixe reproduit run_120
+  k=15  S=24  d=2428309  C=817190  lambda=0.3365
+     m  N vrai (prefixe)  ecart Poisson  run_120 (suffixe)   ecart
+     0           1725804          -0.5%            1735122   +0.0%
+     1            598138          +2.5%             582630   -0.2%
+     2             94773          -3.5%              98147   -0.1%
+     3              8918         -19.1%              11440   +3.8%
+     4               631         -31.9%                905   -2.4%
+     5                43         -31.1%                 64   +2.6%
+  [PASS] k=15: la table suffixe reproduit run_120
+  [PASS] k=15: numerateur vrai sous-disperse, ecart a m=3 < -15 % et a m=4 < -25 %   -19.1 %, -31.9 %
+  [PASS] residu 0 : compte 0 pour N_prefix a tout k de 3 a 15   {3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0, 13: 0, 14: 0, 15: 0}
+  [PASS] residu 0 : N_suffix a des solutions (faux positifs) exactement a k = 3, 4, 5, 8, 11   [3, 4, 5, 8, 11]
+  -> le 'Poisson a 0,1 %' du §167 est une propriete de la somme suffixe, pas du numerateur du cycle.
+
+==============================================================================================
+P4/P5 — LA FENETRE DE LA ROUTE DIRECTE, EN EXACT
+==============================================================================================
+  [PASS] fenetre directe = 49547666543 aux deux precisions, encadrement exact
+  [PASS] fenetre chaine  = 35035491004 aux deux precisions, encadrement exact
+  [PASS] rapport des fenetres = sqrt 2 (20 decimales)   1.4142135623730950488016
+  [PASS] denominateurs des convergents identiques aux deux precisions
+  [PASS] 22 convergents <= fenetre directe, dernier 6586818670, suivant 65470613321
+  [PASS] fenetres entieres : 2000n^2 <= 2079X -> 49542405870 ; 4000n^2 <= 2079X -> 35031771147
+
+==============================================================================================
+P6/P7 — LA DECHARGE DIRECTE : MEMES 22 VERIFICATIONS, MARGE DOUBLEE, t S'ANNULE
+==============================================================================================
+  [PASS] min theta_j/(q_j delta_direct) sur les 22 = 10.8865 (a j = 21)   10.886539491
+  [PASS] chaine : exactement la moitie, 5.4433 (le chiffre de L-A8)
+  [PASS] q_22 : rapport 0.4990 < 1 -> non-vacuite, la fenetre est limitee par Legendre   0.4990177409
+  [PASS] forme entiere 1000 q (q+q') <= 2079*2^71 : vraie pour les 22, fausse pour q_22
+  [PASS] annulation de t : n = t q_21, K = t p_21 -> meme rapport pour t = 1, 2, 7
+  multiples t*q_j admis par la fenetre large et pas par l'ancienne : 41,091,018,653 — tous couverts par les 22 memes verifications (t s'annule).
+
+==============================================================================================
+P8 — CONTROLE NEGATIF : la route directe ne rejoint pas q_22 = 65470613321 a X = 2^71
+==============================================================================================
+  fenetre avec R = n         : 49547666543
+  fenetre avec R = 0.7213 n  : 58337919180   (meilleur R possible sur les mots admissibles, mot de Sturm)
+  q_22                       : 65470613321
+  [PASS] meme au meilleur R, la fenetre reste < q_22 : rejoindre Hercher demanderait R/n <= 0.5727
+  R/n necessaire pour atteindre q_22 : 0.5727
+
+==============================================================================================
+TOTAL : TOUS LES CONTROLES PASSENT
+==============================================================================================

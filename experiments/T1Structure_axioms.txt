@@ -1,3 +1,6 @@
+'T1Structure.log_gap_direct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'T1Structure.quotient_is_convergent_direct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'T1Structure.discharge_all_direct' depends on axioms: [propext]
 'T1Structure.ceiling_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
 'T1Structure.ceiling_pinned' depends on axioms: [propext, Classical.choice, Quot.sound]
 'T1Structure.discharge_all' depends on axioms: [propext]

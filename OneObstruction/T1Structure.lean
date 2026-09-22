@@ -12,7 +12,12 @@ Chain: (a) cycle product identity ∏(3xᵢ+1) = 2^K·∏xᵢ (telescoping);
 (c) binomial two-bound (m+1)^n < 2·m^n for 2n < m (elementary induction).
 Machine-verified first (REQ-MATH-052): identity exact on all four real cycles (both shores),
 bound+ceiling on the trivial cycle, 114 census cells consistent, Legendre window 3.5035491e10
-(exact; integral form 3.503177115e10 — the earlier 4.955e10 was withdrawn at REQ-MATH-054),
+(exact; integral form 3.503177115e10 — the earlier 4.955e10 was withdrawn at REQ-MATH-054
+  [2026-09-22: the withdrawn 4.955e10 = ⌊√(3·2⁷¹·ln2/2)⌋ = 49547666543 is the window of the DIRECT
+  route — survivor_bound + Real.log_le_sub_one_of_pos, no two-bound — whose δ = 1/(3X·ln2) is half of
+  this chain's; the factor 2 is lost here in pow_succ_lt_two_mul_pow, not a slip in the figure. Same 22
+  convergents, same discharge, doubled margin. Verified (run_125.py), NOT yet a theorem in this file:
+  the direct analogue needs log_gap_direct and hwin 2000·(p+1)² ≤ 2079·X. See shared LEDGER L-A8, round 16.]),
 and the GRID half (Ostrowski: ε-small n use only large convergent denominators) —
 script-verified, NOT proved here.
 -/
@@ -461,6 +466,133 @@ example : 2000 * 6586818670 * (6586818670 + 65470613321) ≤ 2079 * 2 ^ 71 := by
 /-- Canary (non-vacuity): the criterion is not trivially true — it FAILS one convergent
     beyond the window, which is exactly why the window is where it is. -/
 example : ¬ (2000 * 65470613321 * (65470613321 + 137528045312) ≤ 2079 * 2 ^ 71) := by norm_num
+
+
+/-! ### The direct route (round 16, 2026-09-22)
+
+The seam chain above spends a factor 2 in `pow_succ_lt_two_mul_pow` (`(m+1)^p < 2·m^p`,
+hypothesis `2p < 3X`). The direct route does not: from `survivor_bound` alone —
+`2^K·(3X)^(p+1) ≤ 3^(p+1)·(3X+1)^(p+1)` — take logarithms and use `Real.log_le_sub_one_of_pos`
+once. The log gap is then `≤ (p+1)/(3X)`, half the chain's `2(p+1)/(3X)`, with no `hpX`; Legendre's
+window widens by `√2`: `2000·n² ≤ 2079·X` in place of `4000·n² ≤ 2079·X`. At `X = 2^71`:
+`n ≤ 49542405870` (integral; exact `⌊√(3·2^71·ln2/2)⌋ = 49547666543`) — the figure REQ-MATH-052
+computed and REQ-MATH-054 withdrew as a "factor-2 slip". It was the chain's loss, not a slip.
+`discharge_all` needs no change: `2000·q(q+q') ≤ 2079·2^71` implies the direct criterion
+`1000·q(q+q') ≤ 2079·2^71`, restated below with its own non-vacuity canary. -/
+
+/-- Direct logarithmic gap: `0 < K·ln 2 − (p+1)·ln 3 ≤ (p+1)/(3X)`. No two-bound, no `hpX`. -/
+theorem log_gap_direct (p X K : ℕ) (x v : Fin (p+1) → ℕ)
+    (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
+    (hK : K = ∑ i, v i) (hX : 0 < X) (hmin : ∀ i, X ≤ x i) :
+    0 < (K:ℝ) * Real.log 2 - (p+1) * Real.log 3 ∧
+      (K:ℝ) * Real.log 2 - (p+1) * Real.log 3 ≤ ((p:ℝ)+1) / (3 * X) := by
+  have hB : (0:ℝ) < 3 ^ (p+1) := by positivity
+  have hApos : (0:ℝ) < 2 ^ K := by positivity
+  have hXR : (0:ℝ) < (X:ℝ) := by exact_mod_cast hX
+  have h3X : (0:ℝ) < 3 * (X:ℝ) := by positivity
+  have hceil : 3 ^ (p+1) < 2 ^ K :=
+    ceiling_lower p _ K x v hstep hK (by positivity) hmin
+  have hlow : ((3:ℝ)) ^ (p+1) < 2 ^ K := by exact_mod_cast hceil
+  have h1 : 1 < (2:ℝ) ^ K / 3 ^ (p+1) := by rw [lt_div_iff₀ hB]; linarith
+  have hlogeq : Real.log ((2:ℝ) ^ K / 3 ^ (p+1))
+      = (K:ℝ) * Real.log 2 - (p+1) * Real.log 3 := by
+    rw [Real.log_div (ne_of_gt hApos) (ne_of_gt hB), Real.log_pow, Real.log_pow]
+    push_cast; ring
+  refine ⟨by rw [← hlogeq]; exact Real.log_pos h1, ?_⟩
+  -- the survivor bound, cast to ℝ
+  have hsb := survivor_bound p X K x v hstep hK hX hmin
+  have hsbR : (2:ℝ) ^ K * (3 * (X:ℝ)) ^ (p+1) ≤ 3 ^ (p+1) * (3 * (X:ℝ) + 1) ^ (p+1) := by
+    exact_mod_cast hsb
+  -- hence 2^K / 3^(p+1) ≤ ((3X+1)/(3X))^(p+1)
+  have hratio : (2:ℝ) ^ K / 3 ^ (p+1) ≤ ((3 * (X:ℝ) + 1) / (3 * X)) ^ (p+1) := by
+    rw [div_pow, div_le_div_iff₀ hB (by positivity)]
+    linarith [hsbR, mul_comm ((3:ℝ) ^ (p+1)) ((3 * (X:ℝ) + 1) ^ (p+1))]
+  have hq : (0:ℝ) < (3 * (X:ℝ) + 1) / (3 * X) := by positivity
+  have hlog1 : Real.log ((2:ℝ) ^ K / 3 ^ (p+1))
+      ≤ ((p:ℝ)+1) * Real.log ((3 * (X:ℝ) + 1) / (3 * X)) := by
+    have h := Real.log_le_log (div_pos hApos hB) hratio
+    rw [Real.log_pow] at h
+    push_cast at h
+    exact h
+  have hlog2 : Real.log ((3 * (X:ℝ) + 1) / (3 * X)) ≤ 1 / (3 * (X:ℝ)) := by
+    have h := Real.log_le_sub_one_of_pos hq
+    have hsimp : (3 * (X:ℝ) + 1) / (3 * X) - 1 = 1 / (3 * (X:ℝ)) := by
+      field_simp
+      ring
+    linarith [h, hsimp]
+  rw [hlogeq] at hlog1
+  have hnn : (0:ℝ) ≤ (p:ℝ)+1 := by positivity
+  calc (K:ℝ) * Real.log 2 - (p+1) * Real.log 3
+      ≤ ((p:ℝ)+1) * Real.log ((3 * (X:ℝ) + 1) / (3 * X)) := hlog1
+    _ ≤ ((p:ℝ)+1) * (1 / (3 * (X:ℝ))) := mul_le_mul_of_nonneg_left hlog2 hnn
+    _ = ((p:ℝ)+1) / (3 * X) := by ring
+
+/-- **THE LEGENDRE STEP, direct route.** Inside the wider integral window `2000·n² ≤ 2079·X`,
+    with no `2p < 3X` hypothesis, a surviving cycle above threshold `X` has `K/n` a convergent
+    of `log₂3`. Instantiating `X := 2^71` is the Barina case, window `n ≤ 49542405870`. -/
+theorem quotient_is_convergent_direct (p X K : ℕ) (x v : Fin (p+1) → ℕ)
+    (hstep : ∀ i, 3 * x i + 1 = 2 ^ v i * x (i + 1))
+    (hK : K = ∑ i, v i) (hX : 0 < X) (hmin : ∀ i, X ≤ x i)
+    (hwin : 2000 * (p+1) ^ 2 ≤ 2079 * X) :
+    ∃ m, Rat.divInt (K : ℤ) ((p+1 : ℕ) : ℤ) = (Real.log 3 / Real.log 2).convergent m := by
+  obtain ⟨hgap0, hgap⟩ := log_gap_direct p X K x v hstep hK hX hmin
+  have hnR : (0:ℝ) < ((p:ℝ)+1) := by positivity
+  have hXR : (0:ℝ) < (X:ℝ) := by exact_mod_cast hX
+  have hl2 : (0:ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  have hcastn : (((p+1:ℕ)):ℝ) = (p:ℝ)+1 := by push_cast; ring
+  have hsign : Real.log 3 / Real.log 2 - (K:ℝ) / ((p:ℝ)+1) ≤ 0 := by
+    rw [div_sub_div _ _ (ne_of_gt hl2) (ne_of_gt hnR)]
+    apply div_nonpos_of_nonpos_of_nonneg
+    · nlinarith [hgap0]
+    · positivity
+  have hdiff : |Real.log 3 / Real.log 2 - (K:ℝ) / ((p:ℝ)+1)|
+      = ((K:ℝ) * Real.log 2 - ((p:ℝ)+1) * Real.log 3) / (((p:ℝ)+1) * Real.log 2) := by
+    rw [abs_of_nonpos hsign]; field_simp; ring
+  -- the window, step by step (no numeral reaches a tactic in one block)
+  have hwinR : (2000:ℝ) * ((p:ℝ)+1) ^ 2 ≤ 2079 * (X:ℝ) := by exact_mod_cast hwin
+  have hA : (2:ℝ) * ((p:ℝ)+1) ^ 2 ≤ 2079 * (X:ℝ) / 1000 := by linarith
+  have hBn : (2079:ℝ) * (X:ℝ) / 1000 < 3 * (X:ℝ) * Real.log 2 := by
+    have hlb := log_two_gt; nlinarith [hlb, hXR]
+  have hC : (2:ℝ) * ((p:ℝ)+1) ^ 2 < 3 * (X:ℝ) * Real.log 2 := lt_of_le_of_lt hA hBn
+  have hkey : |Real.log 3 / Real.log 2 - (K:ℝ) / ((p:ℝ)+1)| < 1 / (2 * ((p:ℝ)+1) ^ 2) := by
+    rw [hdiff, div_lt_div_iff₀ (by positivity) (by positivity)]
+    have hgap' : (K:ℝ) * Real.log 2 - ((p:ℝ)+1) * Real.log 3 ≤ ((p:ℝ)+1) / (3 * (X:ℝ)) := by
+      have := hgap; push_cast at this; linarith
+    have hmul : ((K:ℝ) * Real.log 2 - ((p:ℝ)+1) * Real.log 3) * (2 * ((p:ℝ)+1) ^ 2)
+        ≤ (((p:ℝ)+1) / (3 * (X:ℝ))) * (2 * ((p:ℝ)+1) ^ 2) :=
+      mul_le_mul_of_nonneg_right hgap' (by positivity)
+    have hfin : (((p:ℝ)+1) / (3 * (X:ℝ))) * (2 * ((p:ℝ)+1) ^ 2)
+        < 1 * (((p:ℝ)+1) * Real.log 2) := by
+      rw [div_mul_eq_mul_div, div_lt_iff₀ (by positivity)]
+      nlinarith [hC, hnR, hl2, hXR]
+    linarith
+  by_contra hcon
+  push_neg at hcon
+  have hleg := LegendreApprox.abs_sub_ge_nat_div
+      (Real.log 3 / Real.log 2) K (p+1) (by omega) (fun m => hcon m)
+  rw [hcastn] at hleg
+  linarith [hkey, hleg]
+
+/-- The direct discharge criterion holds on the same 22 convergent pairs — implied by
+    `discharge_all`, restated so the direct route has its own integer witness. -/
+theorem discharge_all_direct : ∀ qq ∈ convPairs, 1000 * qq.1 * (qq.1 + qq.2) ≤ 2079 * 2 ^ 71 := by
+  decide
+
+/-- Canary (non-vacuity of the direct criterion): it FAILS at the 23rd convergent
+    `(q₂₂, q₂₃) = (65470613321, 137528045312)`, which lies outside the direct window. -/
+example : ¬ (1000 * 65470613321 * (65470613321 + 137528045312) ≤ 2079 * 2 ^ 71) := by norm_num
+
+/-- Canary: the direct integral window at `X = 2^71` is exactly `n ≤ 49542405870`. -/
+example : 2000 * 49542405870 ^ 2 ≤ 2079 * 2 ^ 71 := by norm_num
+example : ¬ (2000 * 49542405871 ^ 2 ≤ 2079 * 2 ^ 71) := by norm_num
+
+/-- Canary: the direct window strictly contains the chain window `35031771147`. -/
+example : 4000 * 35031771147 ^ 2 ≤ 2079 * 2 ^ 71 ∧ 2000 * 35031771147 ^ 2 ≤ 2079 * 2 ^ 71 := by
+  norm_num
+
+#print axioms log_gap_direct
+#print axioms quotient_is_convergent_direct
+#print axioms discharge_all_direct
 
 #print axioms ceiling_lower
 #print axioms ceiling_pinned

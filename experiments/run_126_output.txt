@@ -1,0 +1,52 @@
+==============================================================================================
+CANARIS (a la main avant le code)
+==============================================================================================
+  [PASS] C1  cycle trivial : mot 10, C = 2^0*3^0 = 1, d = 4 - 3 = 1, x = 1
+  [PASS] C2  Knight Ex. 5.5 : (8,5), v_h = 11011010 -> C = 319, d = 13
+  [PASS] C3  Knight Ex. 5.5 : v_h^R = 01011011 -> C = 842
+  [PASS] C4  mot de Christoffel (8,5) selon floor(8i/5) = 11011010 (Knight Ex. 4.2)
+
+==============================================================================================
+P1/P2/P4 — EXHAUSTIF N <= 20, TOUT r AVEC 2^N > 3^r, d > 1
+==============================================================================================
+  [PASS] P1 identite exacte sur les 4029 paires a un deplacement trouvees   0 ecarts
+  [PASS] P2 t = 1 <=> necklace de Christoffel, sur 94911 necklaces primitifs (N <= 20, tout r)   contre-exemples : []
+  [PASS] P4 aucun necklace exclu par le lemme n'a C divisible par d   []
+
+==============================================================================================
+P3 — LE CIRCUIT : t minimal = N - r, et la condition est la reduction classique de Steiner
+==============================================================================================
+  [PASS] t minimal du circuit = N - r pour r >= 2 ; pour r = 1 le circuit est le mot de Christoffel (t = 1), N <= 20
+  [PASS] d | C(circuit) = 3^r - 2^r  <=>  d | 2^(N-r) - 1  (la reduction elementaire de Steiner)
+
+==============================================================================================
+P5 — RECENSEMENT A LA SOMME DE COUTURE N = ceil(r log2 3)
+==============================================================================================
+    N   r        d necklaces  t=1  t=2  t>=3  fraction
+    4   2        7         1    0    1     0  100.00 %
+    5   3        5         2    1    1     0  100.00 %
+    7   4       47         5    1    0     1   40.00 %
+    8   5       13         7    1    0     1   28.57 %
+   10   6      295        20    0    0     1    5.00 %
+   12   7     1909        66    1    0     1    3.03 %
+   13   8     1631        99    1    0     1    2.02 %
+   15   9    13085       333    0    0     2    0.60 %
+   16  10     6487       497    0    1     1    0.40 %
+   18  11    84997      1768    1    0     1    0.11 %
+   20  12   517135      6288    0    0     1    0.02 %
+  [PASS] fraction decroissante sur les 5 dernieres lignes (classe mince)
+
+==============================================================================================
+P6 — CONTROLE NEGATIF : le cycle trivial ne doit pas etre exclu
+==============================================================================================
+  [PASS] (N,r) = (2,1) : d = 1 divise 2^t - 1 pour tout t -> le lemme ne conclut rien   paires trouvees : 1
+
+==============================================================================================
+P7 — CARACTERISATION : suite des plages de zeros a deux valeurs et equilibree
+==============================================================================================
+  [PASS] P7 classe a un deplacement = suites de zeros bi-valuees equilibrees, sur 8783 necklaces (N <= 16, r >= 2)   0 desaccords
+  [PASS] P7 t unique et egal a max - min des plages   0 ecarts
+
+==============================================================================================
+TOTAL : TOUS LES CONTROLES PASSENT
+==============================================================================================

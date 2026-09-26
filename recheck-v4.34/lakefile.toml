@@ -8,3 +8,6 @@ rev = "v4.34.0"
 
 [[lean_lib]]
 name = "OneObstruction"
+
+[[lean_lib]]
+name = "Labo"

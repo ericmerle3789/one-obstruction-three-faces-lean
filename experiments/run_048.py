@@ -22,6 +22,15 @@
 #      D'ARTEFACT DERRIERE LUI : ce fichier ne teste jamais p=7, et son recensement est faux
 #      deux fois. Le chiffre est retire, pas corrige.
 #
+#  AMENDEMENT (2026-09-26, round 17 — rien ci-dessus n'est supprime) :
+#   - R1 reste vrai POUR CE FICHIER. Mais une VERSION CORRIGEE a tourne le 2026-08-05 depuis l'entree standard,
+#     jamais sauvee ; recuperee et relancee, sa sortie est identique a l'octet a l'archive (sha256 fbcd923987a75419) :
+#     c'est experiments/run_127.py. Le chiffre est RESTAURE a sa vraie portee : p=7, k=8, 330 cycles fautifs,
+#     0 realise, exhaustif pour L <= 11 (run_128, run_129). "Jamais produites" et "pas d'artefact" sont faux.
+#   - La CAUSE donnee en R2 est fausse : un test de parite absent ne peut pas produire un entier hors cycle
+#     (bijection de parite). L'accumulateur de CE fichier oublie le facteur p sur une montee ((num+1)/2 au lieu
+#     de (p*num+1)/2) ; c'est de la que vient x = -6 (run_130). Voir rounds/R17-merle.md §1 du depot commun.
+#
 # CE QUI SURVIT, ET QUI EST L'ESSENTIEL : P1 et P2 (la boucle du §95, x = 1/(2-p), entiere
 # pour p=3 seulement) n'utilisent que des mots d'UNE lettre, ou l'ordre de parcours est sans
 # effet — canaris C1, C2, C4 verts. Ce resultat tient.

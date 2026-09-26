@@ -1,0 +1,54 @@
+==============================================================================================
+CANARIS (apres correctif)
+==============================================================================================
+  C1 boucle p=3 -> -1            : PASS   -1
+  C2 boucle p=5 -> -1/3          : PASS   -1/3
+  C3 (montee,descente) -> 1      : PASS   1
+  C4 mot long calculable         : PASS   415/1967
+  C5 boucle p=7 -> -1/5          : PASS   -1/5
+
+==============================================================================================
+P1/P2 — LA BOUCLE DU §95 SE REALISE-T-ELLE EN ENTIER ?
+==============================================================================================
+     p    x = 1/(2-p)     entier ?                    realisation
+     3             -1          OUI     cycle negatif trivial {-1}
+     5           -1/3          non                *** FANTOME ***
+     7           -1/5          non                *** FANTOME ***
+     9           -1/7          non                *** FANTOME ***
+    11           -1/9          non                *** FANTOME ***
+    13          -1/11          non                *** FANTOME ***
+
+==============================================================================================
+P3/P4 *** LE TEST *** COMBIEN DE CYCLES FAUTIFS SONT DES FANTOMES ?
+==============================================================================================
+     p    k   cycles fautifs   realises en entiers   part fantome
+     3    6               63                     3         95.2%
+     3    8               88                     3         96.6%
+     3   10               97                     3         96.9%
+     5    6              216                     1         99.5%
+     5    8              268                     1         99.6%
+     5   10              281                     1         99.6%
+     7    6              265                     0        100.0%
+     7    8              330                     0        100.0%
+     7   10              345                     0        100.0%
+
+==============================================================================================
+P5 — CONTROLE : LES ENTIERS TROUVES SONT-ILS LES CYCLES CONNUS ?
+==============================================================================================
+  p=3 k=  6 : [-61, -10, -1]
+           hors connus : [-10]
+  p=3 k=  8 : [-136, -10, -1]
+           hors connus : [-136, -10]
+  p=3 k= 10 : [-136, -10, -1]
+           hors connus : [-136, -10]
+
+  p=5 k=10 : entiers obtenus [-2]
+  p=7 k=10 : entiers obtenus []
+
+==============================================================================================
+LE POINT
+==============================================================================================
+  Le graphe des restes contient des cycles SANS REALISATION ENTIERE. La methode du §80
+  ne peut pas les distinguer des vrais : elle voit un obstacle la ou il n'y a personne.
+  *** C'est pourquoi aucune fonction de Lyapunov modulo 2^k ne peut exister — non pas
+  parce que Collatz est faux, mais parce que Z/2^k a PLUS de cycles que Z. ***

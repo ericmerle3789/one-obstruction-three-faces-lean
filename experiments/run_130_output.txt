@@ -1,0 +1,9 @@
+Q1 mot 110, p=3 : commite sans reversed -> -3 ; correct -> -5
+Q2 entiers produits (sans reversed, L<=12) : [-14, -13, -10, -7, -6, -5, -3, -1, 0, 1, 2, 5, 7, 9, 11, 14, 18] ... hors cycle : [-14, -13, -6, -3, 5, 7, 9, 11, 14, 18]
+Q2 entiers produits (correct, L<=12)       : [-136, -91, -82, -68, -61, -55, -41, -37, -34, -25, -17, -10, -7, -5, -1, 0, 1, 2]
+   chaque entier correct suit son mot : True
+   chaque entier correct est sur un cycle : True
+   mots qui donnent -6 (sans reversed) : ['011'] ; valeur correcte sur ces mots : ['-10']
+Q1 TENUE
+Q2 TENUE
+Q3 TENUE

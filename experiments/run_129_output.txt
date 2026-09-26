@@ -1,0 +1,13 @@
+  canari Lyndon(4) = 0001,0011,0111       : PASS
+  canari fenetres('01', k=3) = 010,101    : PASS
+  canari x_w('10',p=5) = -1               : PASS
+
+F1/F4 — paires fusionnees par la cle 'ensemble des sommets', fautifs, L <= 11
+  p=3 k= 6 : 01011101111 (L=11, j=8, x_w=-25006/4513, entier=False)  |  01011110111 (L=11, j=8, x_w=-23278/4513, entier=False)
+  p=5 k= 6 : 01011101111 (L=11, j=8, x_w=-377234/388577, entier=False)  |  01011110111 (L=11, j=8, x_w=-369234/388577, entier=False)
+  p=7 k= 6 : 01011101111 (L=11, j=8, x_w=-2995078/5762753, entier=False)  |  01011110111 (L=11, j=8, x_w=-2973126/5762753, entier=False)
+
+F2/F3 — nombre de fusions (tous cycles simples, fautifs ou non) par L ; la structure ne depend pas de p (p=3 utilise)
+  k= 6 : fusions L<=k = 0 ; premiere L avec fusion = 11 ; par L : 1:0 2:0 3:0 4:0 5:0 6:0 7:0 8:0 9:0 10:0 11:2 12:10 13:16 14:28 15:54 16:102 17:224 18:508 19:1010 20:2023 21:3974 22:7163
+  k= 8 : fusions L<=k = 0 ; premiere L avec fusion = 14 ; par L : 1:0 2:0 3:0 4:0 5:0 6:0 7:0 8:0 9:0 10:0 11:0 12:0 13:0 14:2 15:10 16:26 17:42 18:74 19:136 20:286 21:718 22:1550
+  k=10 : fusions L<=k = 0 ; premiere L avec fusion = 17 ; par L : 1:0 2:0 3:0 4:0 5:0 6:0 7:0 8:0 9:0 10:0 11:0 12:0 13:0 14:0 15:0 16:0 17:2 18:10 19:20 20:58 21:92 22:150

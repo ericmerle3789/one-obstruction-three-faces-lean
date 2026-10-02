@@ -97,8 +97,8 @@ lake build OneObstruction.LegendreApprox OneObstruction.TransportRecurrence \
   OneObstruction.DeficitLemma OneObstruction.T1Structure
 ```
 
-Each file ends with `#print axioms`. For L-A1 the output is the **kernel-3** profile —
-no user axioms, no `native_decide`:
+Each file except `LegendreApprox.lean` ends with `#print axioms`. For L-A1 the output is the
+**kernel-3** profile — no user axioms, no `native_decide`:
 
 ```
 'CollatzTransport.transport_collapse' depends on axioms:

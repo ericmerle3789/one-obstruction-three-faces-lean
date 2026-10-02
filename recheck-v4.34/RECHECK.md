@@ -30,4 +30,4 @@ and two Mathlib renames of 2026-09-01 — `Finset.prod_le_prod` → `Finset.prod
 `Finset.prod_lt_prod_of_nonempty` → `Finset.prod_lt_prod_of_nonempty₀`, same statements and argument
 order (the old names now denote the ordered-monoid versions). No proof changed.
 
-**Reproduce.** `cd recheck-v4.34 && lake exe cache get && lake build`.
+**Reproduce.** `cd recheck-v4.34 && lake exe cache get && lake build OneObstruction.LegendreApprox OneObstruction.TransportRecurrence OneObstruction.ContentDescent OneObstruction.ContentSeparation OneObstruction.DeficitLemma OneObstruction.T1Structure` (there is no `OneObstruction.lean` root, so a bare `lake build` is not a target).

@@ -1,5 +1,13 @@
 # One Obstruction, Three Faces — Merle Lean stack
 
+> **Status (2026-10-02).** This is the Merle side of the joint note *One obstruction, three
+> faces* with Benjamin Macindoe. It formalizes and checks entries of the shared claims ledger.
+> **Nothing here excludes a Collatz cycle beyond the published bounds** (Bařina's verification
+> to 2⁷¹; Hercher 2023). Every kernel claim was first checked on Lean 4.27.0, which predates the
+> fix of the kernel soundness bug [lean4#14576](https://github.com/leanprover/lean4/issues/14576)
+> (fixed in v4.32.2, 2026-07-28); all six files were then re-checked on Lean 4.34.0 — see
+> [`recheck-v4.34/RECHECK.md`](recheck-v4.34/RECHECK.md).
+
 The **Lean 4 verification stack** (Eric Merle's "kernel key") for the joint note
 *One obstruction, three faces* with Benjamin Macindoe.
 
@@ -8,10 +16,32 @@ stack lives in its own repository and is never merged into the other's:
 
 - **this repo** — Merle side, the Lean kernel key;
 - [`macindoe/collatz`](https://github.com/macindoe/collatz) — Macindoe side, independent code;
-- the shared repo (note text + protocol + claims ledger) links to both.
+- the shared repo [`macindoe/one-obstruction-three-faces`](https://github.com/macindoe/one-obstruction-three-faces)
+  (note text + protocol + claims ledger + correspondence rounds) links to both.
 
 A load-bearing claim turns **both** keys — the Lean kernel here, independent
-code there — with neither derived from the other.
+code there — with neither derived from the other. The status of each entry is the
+last "Key status" block of `LEDGER.md` in the shared repo, not this README.
+
+## Contents
+
+| file | ledger | what is kernel-checked |
+|---|---|---|
+| `OneObstruction/TransportRecurrence.lean` | L-A1 | recurrence ⟹ the `p` divisibility conditions collapse to one (below) |
+| `OneObstruction/ContentDescent.lean` | L-A4 | a repeated word `B^k` is a cycle iff `B` is (`cycle_iff`); the gcd climb law |
+| `OneObstruction/ContentSeparation.lean` | L-A5 | the adjacent-transfer difference formulas T1/T2 and the separation corollaries |
+| `OneObstruction/DeficitLemma.lean` | L-A7 | the margin inequality at the rational constant 1/13 (`marginTarget`) |
+| `OneObstruction/T1Structure.lean`, `LegendreApprox.lean` | L-A8 | the forced ceiling `K = ⌈(p+1)·log₂3⌉`; the Legendre step and the 22-point discharge at `X = 2⁷¹` (windows `n ≤ 3.5032·10¹⁰`, chain; `n ≤ 4.954·10¹⁰`, direct route). Two continued-fraction facts and the multiples cancellation remain prose (LEDGER L-A8). The window lies below Hercher's published bound. |
+| `recheck-v4.34/` | — | the six files above on Lean 4.34.0; `Labo/`: lab modules offered for information, no ledger entry, one `sorry` (the open target `Tstar_open`) — see `LABO.md` |
+| `experiments/` | — | Python verification scripts and outputs (`experiments/README.md`) |
+| `rounds/` | — | round 11 only; rounds 12 onward live in the shared repo |
+
+**Two stale docstrings in `T1Structure.lean`** (kept unchanged so that the re-checked files stay
+byte-identical to what was checked): the header (l. 19-20) says the direct route is "NOT yet a
+theorem in this file" — it is, since `acd7063` (`log_gap_direct`, `quotient_is_convergent_direct`,
+`discharge_all_direct`); the docstring of `seam_gap_at_barina` (l. 236-243) says the Legendre step
+and the 22-point check are "not formalized here" — they are, further down
+(`quotient_is_convergent_gen`, `discharge_all`).
 
 ## Ledger entry L-A1 — the transport recurrence
 
@@ -45,22 +75,29 @@ This artifact certifies the *kernel-friendly core*: recurrence ⟹ collapse. A
 sanity canary (the trivial cycle, `q = 2^4 − 3^2 = 7`) is proved inside Lean to
 witness that the hypothesis is non-vacuous.
 
+## Kernel version
+
+The files at the repository root were checked on **Lean 4.27.0 / Mathlib v4.27.0**
+(rev `a3a10db`), before the fix of lean4#14576. All six were recompiled on
+**Lean 4.34.0 + Mathlib v4.34.0** (post-fix) on 2026-09-23: 0 errors, 0 `sorryAx`,
+40 declarations, each depending only on a subset of `[propext, Classical.choice, Quot.sound]`
+(`recheck-v4.34/axioms_v4.34.txt`). Five files are byte-identical; `T1Structure.lean`
+differs by its import path and two Mathlib renames.
+
 ## Reproduce
 
-Verified under **Lean 4.27.0 / Mathlib v4.27.0** (rev `a3a10db`):
+There is no `OneObstruction.lean` root file, so a bare `lake build` is not a valid target;
+build the modules by name. On the post-fix kernel:
 
 ```
-lake exe cache get     # fetch prebuilt Mathlib oleans
-lake build             # builds OneObstruction; 0 errors, 0 sorry
+cd recheck-v4.34
+lake exe cache get
+lake build OneObstruction.LegendreApprox OneObstruction.TransportRecurrence \
+  OneObstruction.ContentDescent OneObstruction.ContentSeparation \
+  OneObstruction.DeficitLemma OneObstruction.T1Structure
 ```
 
-or, against any Lean 4.27.0 + Mathlib project:
-
-```
-lake env lean OneObstruction/TransportRecurrence.lean
-```
-
-The file ends with `#print axioms`, whose output is the **kernel-3** profile —
+Each file ends with `#print axioms`. For L-A1 the output is the **kernel-3** profile —
 no user axioms, no `native_decide`:
 
 ```
@@ -70,12 +107,17 @@ no user axioms, no `native_decide`:
   [propext, Classical.choice, Quot.sound]
 ```
 
+The root-level v4.27.0 files are kept as they were checked; `TransportRecurrence.lean`
+also compiles alone with `lake env lean` in any Lean 4.27.0 + Mathlib project.
+
 ## Working conditions, disclosed
 
 Research direction and standards of evidence are the author's; the mathematical
 development is carried out with an AI collaborator (Claude) under the A.R.E.S.
 protocol (independent second key, zero bibliographic recall, every assertion
-traceable to a runnable check), and the Lean kernel is the final arbiter — a
-model cannot bluff a compiler.
+traceable to a runnable check). The Lean kernel is the arbiter of the proofs —
+not of their hypotheses, and not of a model's reading of its output: commit
+`7d46474` retracts `da2c8db`, where an aborted compilation was misreported as
+"0 errors"; and the kernel itself can have bugs (lean4#14576).
 
 License: CC BY 4.0.

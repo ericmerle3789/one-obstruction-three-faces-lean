@@ -1,0 +1,7 @@
+'LaboHH.thm3_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.lemma8_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.thm1_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.thm1_all_k_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.thm2_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.thm2_gen_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.opt_counterexample_thm' depends on axioms: [propext, Classical.choice, Quot.sound]

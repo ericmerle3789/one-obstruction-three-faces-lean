@@ -1,0 +1,6 @@
+'LaboHH.thm1_cond_gap_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.cf_gap_all_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.thm1_from_gap_all_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.thm1_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.thm3_line_of_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.thm3_of_thm' depends on axioms: [propext, Classical.choice, Quot.sound]

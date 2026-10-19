@@ -33,6 +33,7 @@ last "Key status" block of `LEDGER.md` in the shared repo, not this README.
 | `OneObstruction/DeficitLemma.lean` | L-A7 | the margin inequality at the rational constant 1/13 (`marginTarget`) |
 | `OneObstruction/T1Structure.lean`, `LegendreApprox.lean` | L-A8 | the forced ceiling `K = ⌈(p+1)·log₂3⌉`; the Legendre step and the 22-point discharge at `X = 2⁷¹` (windows `n ≤ 3.5032·10¹⁰`, chain; `n ≤ 4.954·10¹⁰`, direct route). Two continued-fraction facts and the multiples cancellation remain prose (LEDGER L-A8). The window lies below Hercher's published bound. |
 | `recheck-v4.34/` | — | the six files above on Lean 4.34.0; `Labo/`: lab modules offered for information, no ledger entry, one `sorry` (the open target `Tstar_open`) — see `LABO.md` |
+| `hh1997/` | — | Halbeisen–Hungerbühler 1997 (*Acta Arith.* 78) formalised on Lean 4.34.0: a classical paper, not a ledger entry; 70 proved statements, standard axioms; one remark of the paper not proved — see `hh1997/README.md` |
 | `experiments/` | — | Python verification scripts and outputs (`experiments/README.md`) |
 | `rounds/` | — | round 11 only; rounds 12 onward live in the shared repo |
 

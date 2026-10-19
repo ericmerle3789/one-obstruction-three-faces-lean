@@ -1,0 +1,3 @@
+3000 profils (q des deux signes) ; P1-P4 contrôlés ci-dessus
+P5 : HH (4) sur ϕ : 2487 succès ; même loi sur W0 = 2^m0 R0 : 2487 succès (sur les profils p ≥ 2)
+TOTAL : 12000 contrôles, 0 échec(s)

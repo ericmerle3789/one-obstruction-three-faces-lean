@@ -1,0 +1,6 @@
+P1 cases (D>0, l>=1, n<=14): 26419 | with v_0 = 1: 11957 | failures k_m/2: 0 | failures 2G0 <= 3^n-2^n: 0
+P2 x(100 0^4) = 1/125 | (2^{n+m}-3^l)/G_m = 125 | printed (2^m-3^l)/G_0 = 13
+P3 x(v) = N/(2^n - 3^{k+1}) is the T-periodic point with parity word v (n<=10): True | differs from N/(2^n - 3^k): True
+P4 v=1: D = -1 gcd = 1 D/(N,D) = -1 | x(v) = -1 reduced denominator 1
+P5 v=001: x(v) = 4/5 N(v) = 4 | T_5 orbit of 4: [4, 2, 1] back to 4: True gcd(4,5) = 1 | some p<=20 with 2^p = 1 mod 4: False
+P6 x(100) = 1/5 | 5 mod 6 = 5

@@ -6,7 +6,7 @@ import Lagarias.L3_Preuves
 # Lagarias 1990 · Theorems 3.1 and 3.2 · proofs (phase 2b)
 
 The proof of Theorem 3.1 is run over the PRIMES `p ≥ 5` of `(k0, A·k0]` (repairing the printed argument, which
-runs over all integers and can only produce a multiple of 3, see `L1990b_Enonces.lean`). The analytic input is
+runs over all integers `l` and may yield an even `l` or a multiple of 3, see the README). The analytic input is
 either Chebyshev's bounds, which are in Mathlib (`thm3_1_65`, constant `6/5`), or the prime number theorem `H_PNT`
 (`thm3_1`, the printed constant `5/4`). Theorem 3.2 then follows from `H_BF`.
 -/

@@ -9,8 +9,8 @@ MR 91i:11024, DOI [10.4064/aa-56-1-33-53](https://doi.org/10.4064/aa-56-1-33-53)
 > repairs are listed below, next to what is printed, and the list of slips is not exhaustive. Several statements
 > go beyond the printed text, for example `bseq_inj` (cited by the paper from [10]), `no3` and `min_pm1` (used
 > without proof), `thm3_1_65` (Theorem 3.1 without hypothesis, constant 6/5), `thm3_2` without the prime number
-> theorem, the minimality of the two corrected rows of Table 3.1, the explicit constant in (2.6), Theorem 4.2's
-> printed constant `2n⁴` by a sharper count than the printed proof, and the `…_printed_false` counterexamples.
+> theorem, the minimality of the two corrected rows of Table 3.1, an explicit constant for (2.6) (`c = 2`, from the proof), Theorem 4.2's
+> printed constant `2n⁴` by a sharper estimate than the printed proof, and the `…_printed_false` counterexamples.
 
 **Status (2026-10-20).**
 - **Kernel-checked:**
@@ -52,7 +52,7 @@ lake exe cache get
 
 `check.sh` first checks the sources against `SHA256SUMS`, then compiles the files one by one with
 `lake env lean`, in dependency order. It then reads the `#print axioms` output of `Lagarias/Axiomes.lean`, and
-fails if any theorem depends on an axiom other than the three above, or if the number of reports is not 61. It was run from a clean build on 2026-10-20 (25 files, about 5½ minutes on an M1 Pro once Mathlib is cached).
+fails if any theorem depends on an axiom other than the three above, or if the number of reports is not 61. It was run from a clean build on 2026-10-20 (25 files, about 6 minutes on an M1 Pro once Mathlib is cached).
 
 ## Named hypotheses
 
@@ -67,14 +67,14 @@ They appear only as hypotheses of `thm3_1` (`H_PNT → …`) and `thm3_2` (`H_BF
 
 | file | content |
 |---|---|
-| `Lagarias/L1990_Enonces.lean`, `L1990b_Enonces.lean`, `Tables_Enonces.lean`, `Addenda_Enonces.lean`, `Addenda2_Enonces.lean`, `Addenda3_Enonces.lean` | frozen statements, each with a line-by-line comparison with the paper in its header (a few header rows are superseded, see below) |
+| `Lagarias/L1990_Enonces.lean`, `L1990b_Enonces.lean`, `Tables_Enonces.lean`, `Addenda_Enonces.lean`, `Addenda2_Enonces.lean`, `Addenda3_Enonces.lean` | frozen statements, each with a line-by-line comparison with the paper in its header (a few header rows and docstrings are superseded, see below) |
 | `Lagarias/L2_Preuves.lean`, `L3_Preuves.lean`, `L4_Preuves.lean`, `Tables.lean` | phase 2a proofs (Sections 2, 3, 4, tables) |
 | `Lagarias/L3b_Preuves.lean`, `L4b_Preuves.lean` | phase 2b proofs (Theorems 3.1–3.2, Ash's bound, Theorem 4.2) |
 | `Lagarias/Mots.lean` | primitive words: rotation periods closed under `gcd` (Mathlib v4.34 has `List.HasPeriod.gcd` for linear periods, not for rotations), unique irreducible root, free action of the rotations |
 | `Lagarias/L2b_Preuves.lean`, `L4c_Preuves.lean` | phase 2c proofs ((2.4), (2.5), Table 2.1; Theorem 4.2 with `2n⁴`) |
 | `Lagarias/Addenda.lean` | three points raised by the first adversarial review (see below) |
-| `Lagarias/Addenda2.lean` | (2.6), added after the first Red Team pass |
-| `Lagarias/Addenda3.lean` | the attainment in (4.4), added after the second Red Team pass |
+| `Lagarias/Addenda2.lean` | (2.6), added during the adversarial passes before release |
+| `Lagarias/Addenda3.lean` | the attainment in (4.4), added during the adversarial passes before release |
 | `checks/` | Python recomputations of the numerical points (not proofs; see `checks/README.md`) |
 | `Lagarias/Axiomes.lean` | statement checks and `#print axioms` |
 | `Labo/*`, `OneObstruction/*` | copied from `hh1997/` (see *Dependencies*) |
@@ -95,11 +95,11 @@ They appear only as hypotheses of `thm3_1` (`H_PNT → …`) and `thm3_2` (`H_BF
 | (2.4) `Σ_{d∣n} d·I(d) = 2ⁿ` | `eq2_4` | proved: every word of length `n` is `u^{n/d}` for exactly one irreducible `u` of length `d ∣ n` (`sum_card_Irr`), and the rotations act freely on irreducible words, so `d` divides their number (`dvd_card_Irr`). The empty word is vacuously irreducible; (2.4) only uses `d ≥ 1` |
 | (2.5) `I(n) = (1/n) Σ_{d∣n} μ(d) 2^{n/d}` | `eq2_5` | proved (Möbius inversion of Mathlib), as `n·I(n) = Σ_{d∣n} μ(d) 2^{n/d}` in `ℤ` |
 | Table 2.1 | `table2_1` | proved: the 20 printed values are right. They are computed by the recursion `I(n) = (2ⁿ − Σ_{d∣n, d<n} d·I(d))/n` given by (2.4), checked by `decide +kernel` |
-| (2.6) `I(n) = 2ⁿ/n + O(2^{n/2})` | `eq2_6` | proved, with `|I(n) − 2ⁿ/n| ≤ 2·2^{n/2}` for `n ≥ 1`; in integers, `0 ≤ 2ⁿ − n·I(n) < 2^{⌊n/2⌋+1}` (`eq2_6_explicit`) |
+| (2.6) `I(n) = 2ⁿ/n + O(2^{n/2})` | `eq2_6` | proved. The frozen statement has `∃ c`; the proof gives `c = 2`, through the lemma `eq2_6_explicit` (not frozen): `0 ≤ 2ⁿ − n·I(n) < 2^{⌊n/2⌋+1}` |
 | Table 2.2 | `table2_2_values`, `table2_2_complete`, `table2_2_gcd` | proved: the 23 rows, completeness for `n ≤ 6`, the `110000` remark |
 | p. 40, clearing denominators; `T_{dk'}(dn') = d·T_{k'}(n')` | `clear_den`, `tk_scale` | proved |
 | p. 40, rational cycles ↔ primitive cycles of the `T_k`, `k > 0`, `k ≡ ±1 (6)` | `bij3` | proved as a bijection of points (`Set.BijOn`): the elements `x` of rational cycles (odd denominator) ↔ the pairs `(k, n0)` with `n0` in a primitive cycle of `T_k`, by `x ↦ (den x, num x)` |
-| p. 44, the smallest member of a primitive cycle is `≡ ±1 (6)` (used, not proved in the paper) | `no3`, `min_pm1` | proved for positive cycles; false for negative ones, see below |
+| p. 44, the smallest member of a primitive cycle is `≡ ±1 (6)` (used, not proved in the paper) | `no3`, `min_pm1` | `no3` (no nonzero member of a cycle of `T_k`, `3 ∤ k`, is divisible by 3) holds for every cycle; `min_pm1` (the smallest member is `≡ ±1 (6)`) is proved for positive cycles, and is false for negative ones, see below |
 | Theorem 3.1 | `thm3_1` (`H_PNT`), `thm3_1_65` | proved: with `5/4` under `H_PNT`; with `6/5` unconditionally (Chebyshev's bound `θ(n) ≥ n log 2 − O(√n log n)` of Mathlib). The proof runs over the primes `p ≥ 5`, so the `k` found are primes |
 | proof of Thm 3.1: `k ∣ 2ⁿ − 3^l`; `S(t) ≤ 3^{t(t+1)(2t+1)/6}` | `k_dvd_D`, `S31_bound` | proved |
 | Theorem 3.2 | `thm3_2` (`H_BF`) | proved, with `log₂` and `|D(v)|`, from `thm3_1_65` (so without `H_PNT`) |
@@ -126,88 +126,95 @@ They appear only as hypotheses of `thm3_1` (`H_PNT → …`) and `thm3_2` (`H_BF
 
 ## What is printed, what is wrong, what is proved
 
-The rows below are the slips we found; the list is not exhaustive. How they were checked:
-- every row was read on the page image;
-- the column *proved here* is checked by the Lean kernel;
-- the column *what is wrong* is checked by the kernel only where a counterexample is named (`…_printed_false`,
-  `p41`, `table3_1_row35`, `table3_1_row73`, `thm3_3_count_printed_false`); otherwise it comes from reading the
-  printed proof;
-- the numerical rows were also recomputed in Python (`checks/`, with the recorded outputs).
+The slips below are the ones we found; the list is not exhaustive. They are in three groups, by how they are
+checked:
+- **A**, the table: each row is backed by a Lean theorem, kernel-checked (a counterexample to the printed text, or
+  the repaired statement), and sometimes also by a script of `checks/`;
+- **B**: recomputed by a Python script of `checks/` (with its recorded output), not by Lean;
+- **C**: noted on reading the page image, checked neither by Lean nor by a script.
+
+Scripts are cited by short names: `audit` = `checks/L1990_audit_numerique.py`, `table31_details` =
+`checks/L1990_table31_details.py`, `rt2`, `rt3`, `rt4` = `checks/L1990_rt2_eq413_fenetres.py`,
+`checks/L1990_rt3_eq413_terme_suivant.py`, `checks/L1990_rt4_verifications.py`.
 
 The list was read by adversarial reviews. Two were made during the formalisation: the first corrected three rows
 (pp. 39, 44 and 48; the three Lean statements are frozen in `Lagarias/Addenda_Enonces.lean` and proved in
-`Lagarias/Addenda.lean`), the second added a precision to the
-row of pp. 48–50; these four rows are marked *review*. Two Red Team passes followed before release; they added
-rows and slips, led to (2.6) (`Lagarias/Addenda2.lean`), to the attainment in (4.4) (`Lagarias/Addenda3.lean`)
-and to the section *Superseded header rows*. As far as we checked, none of these points is reported in print:
-entry 108 of Lagarias's annotated bibliography *The 3x+1 problem: an annotated bibliography (1963–1999)*
+`Lagarias/Addenda.lean`), the second added a precision to the row of pp. 48–50; these rows are marked *review*.
+Several adversarial passes followed before release; they led to (2.6) (`Lagarias/Addenda2.lean`), to the
+attainment in (4.4) (`Lagarias/Addenda3.lean`) and to the section *Superseded header rows and docstrings*. The
+release follows two consecutive passes with no remark. As far as we checked, none of these points is reported in
+print: entry 108 of Lagarias's annotated bibliography *The 3x+1 problem: an annotated bibliography (1963–1999)*
 (arXiv math/0309224) lists no erratum, and the second one, *(2000–2009)* (arXiv math/0608208), does not mention
 the paper.
 
-| page | printed | what is wrong | proved here |
+**A. Backed by Lean.**
+
+| page | printed | what is wrong | Lean (and `checks/`) |
 |---|---|---|---|
-| 37 | proof of Cor. 2.1a: `x(v) = (2ⁿ − 3^k)^{−1} Σ …` | the word has `k+1` ones | `eq1_3` (exponent `k+1`) |
-| 39 | `δ(v) = D(v)/(N(v), D(v))` | negative when `D(v) < 0`: `v = 1` gives `D = −1`, `δ = −1` | `delta_eq` (with `|D(v)|`) |
-| 39 | "`T` does not change the denominator" | ambiguous (*review*). It is true for the formal denominator `q` of `a/q`; it is false for the reduced one, since `T(1/3) = 1` | `den_formal`, `den_printed_false`; the conclusion `den_cycle` holds |
-| 40 | `(D(v), 6) = 1` | `v = 00` gives `D = 3`. Only the reducible words `0ⁿ` with `n` even (`x = 0`) fail; `k ≡ ±1 (6)` is unaffected | `D6_printed_false`; `D6` (when `v` has a 1) |
+| 37 | proof of Cor. 2.1a: `x(v) = (2ⁿ − 3^k)^{−1} Σ …` | the sum has `k+1` terms, so the word has `k+1` ones and the denominator is `2ⁿ − 3^{k+1}` | `eq1_3`; `checks/` (`rt4`, P3) |
+| 39 | `δ(v) = D(v)/(N(v), D(v))` | negative when `D(v) < 0`: `v = 1` gives `D = −1`, `δ = −1`, while `x(v) = −1` has denominator 1 | `delta_eq` (with `|D(v)|`); `checks/` (`rt4`, P4) |
+| 39 | "`T` does not change the denominator" | ambiguous (*review*): true for the formal denominator `q` of `a/q`, false for the reduced one, since `T(1/3) = 1` | `den_formal`, `den_printed_false`; the conclusion `den_cycle` holds |
+| 40 | `(D(v), 6) = 1` | `v = 00` gives `D = 3` | `D6_printed_false`; `D6` (when `v` has a 1) |
 | 40 | `T_k(n) = T_{−k}(−n)` | `T_1(1) = 2`, but `T_{−1}(−1) = −2` | `tk_sign_printed_false`; `tk_sign`: `T_k(n) = −T_{−k}(−n)` |
-| 40 | `T_k(Z(d,k)) ⊆ Z(d,k)` (`k` odd) | `T_9(1) = 6`, `(6,9) = 3`. Needs `3 ∤ k`, which the next paragraph assumes | `tk_Z_printed_false`; `tk_Z` with `3 ∤ k` |
+| 40 | `T_k(Z(d,k)) ⊆ Z(d,k)` (`k` odd) | `T_9(1) = 6`, `(6,9) = 3`; it needs `3 ∤ k`, which the next paragraph assumes | `tk_Z_printed_false`; `tk_Z` with `3 ∤ k` |
 | 41 | Table 3.1, `k = 35`: `(7, 3)` | `{7, 28, 14}` is not primitive | `table3_1_row35`: `(13, 8)` |
 | 41 | Table 3.1, `k = 73`: `(19, 60)` | `5` is in a primitive cycle of length 12 | `table3_1_row73`: `(5, 12)` |
-| 41 | "for `n = 85, 107, 139` this is at least `⅓·2ⁿ`" (about `min_l |2ⁿ − 3^l|`) | these are the `k`'s. The periods are `100, 106, 136`, and there the bound fails | `p41` |
-| 42 | proof of Thm 3.1: "if all `T_l` for `k0 ≤ l ≤ k` have a primitive cycle of length `≤ t`" … | the range includes the even `l`, where `T_l` is not defined, and the `l` with `3 ∣ l`, which have no primitive cycle at all, so the contraposition may yield an `l` of this kind, which says nothing about the `k ≡ ±1 (6)` | `thm3_1`, `thm3_1_65` (argument over primes `p ≥ 5`) |
-| 42 | (3.2) `k ≤ (log D(v))³` | the proof gives it with `log₂` and `|D(v)|` | `thm3_2` |
-| 43 | proof of Thm 3.3: "at least `n^{−1}C(2n,n)` distinct primitive cycles associated to such `v` (with period dividing `n`)" | the number is about `C(2n,n)/(2n)` (recomputed for `n ≤ 5` and `n = 10, 20, 40`: the ratio tends to ½); for `n = 1` there is one cycle, not two. The period divides `2n`, not `n` | `thm3_3_count_printed_false` (`n = 1`) |
-| 44 | "we may index primitive cycles by their smallest member `n0`. This will always be an integer `n0 ≡ ±1 (mod 6)`" | true for positive cycles. False for negative ones if "smallest" is the minimum (*review*): `{−5, −7, −10}` has minimum `−10 ≡ 2` | `min_pm1`; `min_neg_printed_false` |
-| 44 | proof of Thm 3.4: `p = ord_{N(v)}(2)` | undefined when `N(v)` is even, which happens for even `n0`; the statement covers them | `thm3_4`, as printed: the proof uses the odd part of `N(v)` |
-| 44–45 | `v = 10^m`, `v = 1²0^m` | `v` must have total length `m` | `ex_10m`, `ex_5` |
+| 41 | "for `n = 85, 107, 139` this is at least `⅓·2ⁿ`" (about `min_l |2ⁿ − 3^l|`) | these are the `k`'s; at the periods `100, 106, 136` the bound fails | `p41` |
+| 43 | proof of Thm 3.3: "at least `n^{−1}C(2n,n)` distinct primitive cycles associated to such `v`" | for `n = 1` there is one cycle, not two; the number is about `C(2n,n)/(2n)` (`checks/`: the ratio tends to ½ for `n ≤ 5` and `n = 10, 20, 40`) | `thm3_3_count_printed_false` (`n = 1`) |
+| 44 | "we may index primitive cycles by their smallest member `n0`. This will always be an integer `n0 ≡ ±1 (mod 6)`" | true for positive cycles; false for negative ones if "smallest" is the minimum (*review*): `{−5, −7, −10}` has minimum `−10 ≡ 2` | `min_pm1`; `min_neg_printed_false` |
+| 44 | proof of Thm 3.4: `p = ord_{N(v)}(2)` | undefined when `N(v)` is even: `v = 001` gives `x(v) = 4/5`, `N(v) = 4`, and `4` is in a primitive cycle of `T_5`; the statement covers even `n0` | `thm3_4`, as printed: the proof uses the odd part of `N(v)`; `checks/` (`rt4`, P5) |
+| 44–45 | `v = 10^m`, `v = 1²0^m` | `v` must have total length `m`; read literally, the condition becomes `m ≢ 0 (mod 4)` | `ex_10m`, `ex_5`; `checks/` (`audit`, P8) |
 | 47 | (4.4) `Σ 2^j 3^{n−j} = 3ⁿ − 2ⁿ` | the sum is `3(3ⁿ − 2ⁿ)` | `eq4_4_printed_false`; `eq4_4` (exponent `n−1−j`) |
-| 48 | proof of Thm 4.1: "at most `m` choices", `F ≤ m·2^{n−m}` | (*review*) the count is RIGHT for `m ≥ 1`: the head of weight 0 excludes the others. The justification (one head per weight `0…m`) is loose, and the bound fails only for `m = 0`, i.e. `M ∈ {1, 2}` (`M = 1` is excluded by `α > 0` in the paper; the Lean `thm4_1` allows it) | `thm4_1_printed_step_m1`; `thm4_1_printed_step_false` (`M = 2`); the final bound `thm4_1` |
-| 48–50 | Thm 4.2: `F ≤ 2n⁴·2^{(1−α)n}` | the statement is right; the printed proof only gives `4n⁴`: it bounds the normal vectors by `(n−m)·m·2^{n−m}`, then `(n−m)·m ≤ n(n−1)`. That count has two off-by-one slips (*review*, Red Team): (i) "`0 ≤ l ≤ n−m`" gives `n−m+1` window positions, not `n−m`; (ii) "at most `m` vectors `w̄` in the normal set" (for fixed `w`, `w̃` and class `r`) should read `m+1`, one per weight `0…m`. The argument of Theorem 4.1 that removes one weight does not carry over, because the first term of (4.8) depends on the weight of `w̄`; in the range `2n²·2^m ≤ M < 4n²·2^m` of the proof, `n = 6`, `M = 227`, `m = 1`, `w = 11111` gives 2 normal windows in one class (`checks/`). The bound per position is printed `(n−m+1)·2^{n−m}`. The Lean count is `(n−m+1)(m+1)·2^{n−m}`; the arithmetic–geometric mean bound `(n−m+1)(m+1) ≤ (n+2)²/4` gives `n²(n+2)² + n ≤ 2n⁴` (for `n ≥ 5`; `n ≤ 4` is trivial), with the paper's choice of `m` | `thm4_2_printed` (`2n⁴`); `thm4_2` (`4n⁴`, the printed proof) |
+| 48 | proof of Thm 4.1: "at most `m` choices", `F ≤ m·2^{n−m}` | (*review*) the count is right for `m ≥ 1`; the bound fails for `m = 0` (`M = 2`; `M = 1` is excluded by `α > 0` in the paper, the Lean `thm4_1` allows it) | `thm4_1_printed_step_m1`; `thm4_1_printed_step_false` (`M = 2`); the final bound `thm4_1` |
+| 48–50 | Thm 4.2: `F ≤ 2n⁴·2^{(1−α)n}`; the printed proof ends with `4n⁴` (p. 50) | (*review*) the statement is right. The printed count of normal vectors is `(n−m)(m)·2^{n−m}`. For fixed `w`, `w̃` and class, there can be `m+1` normal windows, not `m`: in the range `2n²·2^m ≤ M < 4n²·2^m` of the proof, without using `α ≤ α_c`, `n = 6`, `M = 227`, `m = 1`, `w = 11111` gives 2 (`checks/`, `rt2`). The Lean count is `(n−m+1)(m+1)·2^{n−m}` (window positions `0 ≤ l ≤ n−m`, one window per weight `0…m`); the arithmetic–geometric mean bound `(n−m+1)(m+1) ≤ (n+2)²/4` gives `n²(n+2)² + n ≤ 2n⁴` for `n ≥ 5` (`n ≤ 4` is trivial), with the paper's choice of `m` | `thm4_2_printed` (`2n⁴`); `thm4_2` (`4n⁴`) |
 
-Other printed slips found on reading, that change no Lean statement (not exhaustive):
-- p. 34: "`T^{(i)}(x(v)) ≡ v_i (mod 2)` for `1 ≤ i ≤ n`" should read `0 ≤ i ≤ n − 1` (`v = (v_0, …, v_{n−1})`).
-- p. 34: "`k ≡ 1 (mod 6)`" should read `±1`.
-- p. 40: "described in Section 3.6" should read 3.5 (there is no Section 3.6).
+**B. Recomputed by a script of `checks/`.**
+- p. 34: "`k ≡ 1 (mod 6)`" should read `±1`: `x(100) = 1/5`, a primitive cycle of `T_5` (`rt4`, P6).
+- p. 44: `k_m = (2^m − 3^l)/G_0` should read `2^{n+m}`: for `v = 100`, `m = 4`, `x(v0^m) = 1/125` (`rt4`, P2).
+- p. 44: "`T_k(n_0) = (3n_0 + k_m)/2 ≥ k_m/2 ≥ (2^{5n} − 2ⁿ)/(3ⁿ − 2ⁿ)`": read `T_{k_m}`. The inequality holds
+  (`n ≤ 14`, `m = 4n`: 26 419 words, no failure; `rt4`, P1); its reason, `2G_0 ≤ 3ⁿ − 2ⁿ` since `G_0` divides
+  `2ⁿ − 3^l`, is not printed.
+- pp. 49 and 51: `H(φ) ≐ 0.949955` is truncated: `H(φ) = 0.94995553…` (`table31_details`).
+- p. 50: `α_c ≅ 0.0476598` is computed with the printed `H(φ)`, which gives `0.04765986…`; the value is
+  `0.0476594` (the `0.04766` of p. 48 is right) (`table31_details`, `audit`).
+- p. 35: `β_c ≐ 1.050005`; p. 51: `β_c = 1/(1 − α_c) ≐ 1.050005`; the value is `1.050044` (`= 2 − H(φ)`) (`audit`).
+- p. 51, (4.13): the second inequality, `Σ_{n ≤ β log x} 2ⁿ/n + O(…) ≤ 2x^β/log₂ x + O(x^{β/2})` (log = log₂). Along
+  `x` with `β log₂ x ∈ ℤ`, the sum is `~ 2x^β/(β log₂ x)`, with a correction of order `x^β/(log x)²`; so no bound
+  `2x^β/log₂ x + O(x^{β/2})` holds for `β ≤ 1` (for `β = 1/2`, `x = 2^{100}`, the sum is 2.04 times the printed main
+  term). For `β = 11/10` and `2` the printed inequality holds at the points tested (`rt2`, `rt3`).
+
+**C. Noted on reading, not checked.**
+- p. 34: "for `1 ≤ i ≤ n`" should read `0 ≤ i ≤ n − 1`.
+- p. 40: "described in Section 3.6": the heuristic is in Section 3.5, the last one of Section 3.
 - p. 41: "given by (3.1)" should read (2.1).
-- p. 43, (3.5): "`≥ 2^{2n − c_0/log log n}`" is false as printed (the middle term is `< 4ⁿ/n`). Since
-  `d(B_n) ≤ B_n^{c_0/log log B_n}` with `log log B_n ~ log n`, the argument gives `2^{2n(1 − c_0'/log n)}`, which is
-  what (3.4) needs.
-- p. 43, proof of Thm 3.3: Theorem 4.1 is quoted for `v ∈ {0,1}ⁿ`, with the bound `2n²2ⁿ/M^φ`; the vectors of
-  this proof have length `2n` (read `{0,1}^{2n}` and `2^{2n}`), and Theorem 4.1 (4.3b) has the constant `2n`, not
-  `2n²` (for length `2n`: `4n·2^{2n}/M^φ`, which `2n²·2^{2n}/M^φ` covers for `n ≥ 2`).
-- p. 43: "there are `n+1` choices of `l`" should read `2n+1` (`0 ≤ l ≤ 2n`).
-- p. 44: `k_m = (2^m − 3^l)/G_0` should read `2^{n+m}`.
-- p. 44: "`T_k(n_0) = (3n_0 + k_m)/2 ≥ k_m/2 ≥ (2^{5n} − 2ⁿ)/(3ⁿ − 2ⁿ)`": read `T_{k_m}`, and the last step holds for
-  `k_m`, not `k_m/2` (the numerator is right, since `3^l < 2ⁿ`). The conclusion `> 2ⁿ n_0` still holds for `n ≥ 2`.
-- p. 44: "`p = ord_{N(v)}(2)`, i.e. the smallest `p ≥ 2` with `2^p ≡ 1 (mod N(v))`": the order is 1 when `N(v) = 1`;
-  harmless (`p = 2` is also a period).
+- p. 42, proof of Thm 3.1: "if all `T_l` for `k0 ≤ l ≤ k` have a primitive cycle of length `≤ t`" … The range
+  includes the even `l`, where `T_l` is not defined, and the `l` with `3 ∣ l`, which have no primitive cycle; the
+  contraposition may yield such an `l`. `thm3_1` and `thm3_1_65` run the argument over the primes `p ≥ 5`.
+- p. 42, (3.2) `k ≤ (log D(v))³`: the proof gives it with `log₂` and `|D(v)|`, as in `thm3_2`.
+- p. 43, proof of Thm 3.3: the vectors have length `2n`, so "(with period dividing `n`)" should read `2n`; Theorem 4.1
+  is quoted for `v ∈ {0,1}ⁿ` with `2n²2ⁿ/M^φ`, while (4.3b) has the constant `2n`; "there are `n+1` choices of `l`"
+  should read `2n+1`.
+- p. 43, (3.5): the middle term is less than `4ⁿ/n`, below the printed right side `2^{2n − c_0/log log n}` for large `n`.
+- p. 44: "the smallest `p ≥ 2` with `2^p ≡ 1 (mod N(v))`" differs from `ord_{N(v)}(2)` when `N(v) = 1`.
 - p. 45: "if `x(v) ≤ 0`" should read `< 0`; `a(l)` should read `a(l−1)`.
-- p. 46 (heuristic of §3.5): "`(|Σ_{n,l}|/D_{n,l})ⁿ ≤ (0.99)^{−n²}`" should read `n^{c_1 n}·(0.99)^{n²}`; with the
-  printed exponent, the bound on the terms of (3.10) grows and proves nothing.
+- p. 46 (heuristic of §3.5): "`(|Σ_{n,l}|/D_{n,l})ⁿ ≤ (0.99)^{−n²}`": the exponent should be `n²`, with a factor
+  `n^{c_1 n}`.
 - p. 47: "`0 ≤ M ≤ n`" should read `0 ≤ l ≤ n`.
 - p. 49, proof of Thm 4.2: the bound on `|Ω|` sums `m + 1` terms (`l = 0…m`) and bounds them by `m` times the
-  largest. The `l` found just above satisfies `l ≤ m − 1` (that sum has `m` terms; "`0 ≤ l ≤ m`" is loose), so the
-  sum can stop at `m − 1`.
-- pp. 49 and 51: `H(φ) ≐ 0.949955` is truncated; `H(φ) = 0.94995553…` rounds to `0.949956`.
-- p. 50: `α_c ≅ 0.0476598` is computed with the printed (truncated) `H(φ) ≐ 0.949955`, which gives `0.04765986…`,
-  itself truncated; the value is `0.0476594` (the `0.04766` of p. 48 is right).
-- p. 50: (4.12) is printed with `=`; it is an upper bound (`≤`), exact for `0 < β ≤ φ` as p. 51 says.
-- p. 50: "flat segment between `α_c` and 1" should read "between `α_c` and `(log₂ 3)α_c`".
-- p. 51, (4.13): the second inequality, `Σ_{n ≤ β log x} 2ⁿ/n + O(…) ≤ 2x^β/log₂ x + O(x^{β/2})` (log = log₂),
-  is false for `β ≤ 1`: the sum is about `2x^β/(β log₂ x)`. For `β = 1/2`, `x = 2^{100}` it is 2.04 times the
-  printed main term (`checks/`). It holds for `β > 1`. For `β ≤ 1` the sum is `~ 2x^β/(β log₂ x)`, with a
-  correction of order `x^β/(log x)²`, so no version with an `O(x^{β/2})` error holds (`checks/`).
+  largest; the `l` found just above satisfies `l ≤ m − 1`.
+- p. 50: (4.12) is printed with `=`; p. 51 calls it a bound, "exact for `0 < β ≤ φ`".
+- p. 50: "The flat segment between `α_c` and 1" does not match the range of `α` given in the same sentence, which
+  ends at `(log₂ 3)α_c`.
 - p. 51: `F₀(βn, M) ≤ (βn)⁴2^{βn}/M` omits the constant of Theorem 4.2.
-- pp. 35 and 51: `β_c = 1/(1 − α_c) ≐ 1.050005`; the value is `1.050044` (`= 2 − H(φ)`).
-- pp. 35 and 52: the intro bound has `(β log k)⁶` while (4.19) has `⁵`.
+- pp. 35 and 52: the bound of the introduction has `(β log k)⁶`, (4.19) has `⁵`.
 
-## Superseded header rows
+## Superseded header rows and docstrings
 
-The headers of the frozen files compare each statement with the paper. They are frozen with the statements (their
-SHA-256 are fixed), so the reviews could not edit them; the rows below are superseded by this README.
+The headers and docstrings of the frozen files compare each statement with the paper. They are frozen with the
+statements (their SHA-256 are fixed), so the reviews could not edit them; the rows below are superseded by this
+README.
 
-| file, header row | header says | read instead |
+| file, row or docstring | it says | read instead |
 |---|---|---|
 | `L1990_Enonces.lean`, p. 39 "T does not change the denominator" | FALSE (`T(1/3) = 1`) | ambiguous: true for the formal denominator (`den_formal`), false for the reduced one (`den_printed_false`) |
 | `L1990_Enonces.lean`, p. 39 `v = 110000` | "the only row with `D ≠ δ`", as if printed | the paper says "Table 2.2 includes one example"; that it is the only row with `|D| ≠ δ` is what `table2_2_gcd` proves |
@@ -215,9 +222,13 @@ SHA-256 are fixed), so the reviews could not edit them; the rows below are super
 | `L1990_Enonces.lean`, Thm 3.4 | "the first claim also covers EVEN `n0`" | the printed statement already covers them; only the printed proof does not |
 | `L1990_Enonces.lean`, proof of Thm 4.1 | "`m + 1` choices" | the printed count `m` is right for `m ≥ 1` (`thm4_1_printed_step_m1`); it fails only for `m = 0`, i.e. `M ∈ {1, 2}`; the Lean core uses `m + 1` |
 | `Addenda_Enonces.lean`, proof of Thm 4.1 | "fails only for `m = 0` (`M = 2`…)" | `m = 0` means `M ∈ {1, 2}`; `M = 1` is excluded by `α > 0` in the paper, and the Lean `thm4_1` allows it |
+| `L1990_Enonces.lean`, docstring of `den_printed_false` | "printed reason … — false" | ambiguous: false for the reduced denominator (what `den_printed_false` proves), true for the formal one (`den_formal`) |
+| `L1990_Enonces.lean`, `ex_5` (header row and docstring) | p. 45: "primitive iff `m ≢ 2 (4)`" | the paper says "provided `m ≢ 2 (mod 4)`", a sufficient condition; `ex_5` proves the equivalence, more than printed |
+| `L1990_Enonces.lean`, docstring of `thm4_1_core` | "repaired count `m + 1`" | not a repair: the printed count `m` is right for `m ≥ 1` (`thm4_1_printed_step_m1`); `thm4_1_core` uses `m + 1`, which also covers `m = 0` |
+| `L1990_Enonces.lean`, docstring of `table2_2_gcd` | "it is the only row of Table 2.2 with `(N(v), D(v)) > 1`" | this is proved here, not printed: the paper says "Table 2.2 includes one example" |
 | `L1990_Enonces.lean`, p. 39, `den_cycle` | "none (the conclusion holds; the printed reason does not)" | the printed reason is ambiguous, not false: it holds for the formal denominator (`den_formal`); the conclusion holds (`den_cycle`) |
 | `L1990b_Enonces.lean`, list of proof files | `L3b_Preuves`, `L4b_Preuves`, `L2b_Preuves` | also `L4c_Preuves.lean` (`thm4_2_printed`) and `Mots.lean` |
-| `Addenda2_Enonces.lean`, first line | "the second adversarial review" | the first Red Team pass before release (the third review) |
+| `Addenda2_Enonces.lean`, first line | "the second adversarial review" | the first adversarial pass before release |
 | `L1990_Enonces.lean`, docstring of `eq4_4` | "the maximum element of `Σ_n`" | `eq4_4` proves the identity and the bound `N(v) ≤ 3ⁿ − 2ⁿ`; the attainment is `eq4_4_attained` (`Addenda3_Enonces.lean`) |
 | `L1990b_Enonces.lean`, Ash's bound | `Σ_{j ≥ αk}` | the printed sum is over `j > αk`; the Lean sum has more terms, so `ash_tail` is a slightly stronger statement |
 | `L1990b_Enonces.lean`, Thm 3.1 | the printed range includes `l` with `3 ∣ l`; the contraposition "can only produce such an `l`" | the range also includes the even `l`, where `T_l` is not defined; the contraposition may yield such an `l` (it is not forced to) |

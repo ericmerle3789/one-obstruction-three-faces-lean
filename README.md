@@ -44,12 +44,30 @@ theorem in this file" — it is, since `acd7063` (`log_gap_direct`, `quotient_is
 and the 22-point check are "not formalized here" — they are, further down
 (`quotient_is_convergent_gen`, `discharge_all`).
 
+## Prior literature (added 2026-10-20)
+
+Several ledger entries verified here turned out to be classical, or anticipated in substance. The
+Lean files are unchanged; this table says whom to credit. The matching notes for the shared ledger go
+through the shared repository: L-A1 and L-A4 in round 20 (PR #10, under review), the others in the
+next round.
+
+| ledger | prior literature | what remains ours |
+|---|---|---|
+| L-A1 | Halbeisen–Hungerbühler 1997, Lemma 9, eq. (13)–(15); Seifert 1988, Theorem 1 | the Lean key (`transport_collapse`) |
+| L-A4 | Halbeisen–Hungerbühler 1997, eq. (4): W₀ = (2^K − 3^n) + ϕ (bridge `W0_bridge` in [`hh1997/`](hh1997/)) | the Lean key |
+| L-A5 | the invariance of the gcd under rotation: Lagarias 1990, §2; Halbeisen–Hungerbühler 1997, Lemma 9, eq. (15); Wegner 2021 ([arXiv:2101.08060](https://arxiv.org/abs/2101.08060)), eq. (16)–(18). The adjacent exchange T1/T2 is eq. (2) and (4) of Halbeisen–Hungerbühler 1997, chained | the normalisation C, the gcd corollary, the Lean key |
+| L-A7 | in substance, T. Tao, [blog post of 2011-08-25](https://terrytao.wordpress.com/2011/08/25/the-collatz-conjecture-littlewood-offord-theory-and-powers-of-2-and-3/): the heuristic count 1/q per word, Baker's theorem for q, Stirling, the factor (0.9659…)^a; our c_gen = 0.0793186 = (1 − H₂(log₃ 2))·log₂ 3 is the same constant, counted per odd step | the explicit additive tail (μ named, C₀); the kernel proof at the constant 1/13 |
+| L-A8 | the chain is classical: Crandall 1978 and Eliahou 1993 (product bound, window); the Legendre step as in Simons–de Weger 2005, Lemma 9(a) | re-proved in the kernel |
+
 ## Ledger entry L-A1 — the transport recurrence
 
 `OneObstruction/TransportRecurrence.lean`.
 
 Independent simultaneous discovery (Merle, integer form; Macindoe, fixed-point
 form, `reverse.md` 14.15.9.2), joined by the seam identity `N_r + q = 2^{m_r} R_r`.
+**Correction (2026-10-20): the recurrence was not new.** It is Halbeisen–Hungerbühler 1997,
+Lemma 9, eq. (13)–(15), and Seifert 1988, Theorem 1 (see *Prior literature* above); what is ours
+is the Lean key below. The text of this section is otherwise kept as it was.
 
 **Certified here (kernel, 0 `sorry`, no user axioms):** from the transport
 recurrence

@@ -1,6 +1,13 @@
 # Lemme de séparation du contenu adélique
 ### La falaise démontrée — pourquoi le contenu ne vit que sur les répétitions
 
+> **Note d'antériorité (20/10/2026).** Ce document est conservé tel qu'il a été écrit le 24/07/2026 ; la mention « Antériorité :
+> à vérifier » ci-dessous a depuis sa réponse. L'invariance du pgcd par rotation (le contenu ne dépend pas de la rotation) est
+> classique : J. C. Lagarias 1990, §2 ; L. Halbeisen et N. Hungerbühler 1997, Lemme 9, éq. (15) ; F. Wegner 2021
+> (arXiv:2101.08060), éq. (16)-(18). Les formules d'échange adjacent sont les éq. (2) et (4) de Halbeisen–Hungerbühler 1997,
+> mises bout à bout. Reste à nous : la normalisation C et le corollaire du pgcd. Voir le README du dépôt, section
+> *Prior literature*.
+
 **Session 2026-07-24 · protocole A.R.E.S. · vérification machine : `tests_math/test_REQ-MATH-019_lemme_separation.py` (identités exactes 713/713 et 604/604 ; corollaire 560/560 ; sortie `findings/OUT_REQ-MATH-019.txt`).**
 **Statut : démontré à la main + vérifié machine en arithmétique entière exacte. Lean : à faire. Antériorité (repo Macindoe) : à vérifier avant tout usage public.**
 

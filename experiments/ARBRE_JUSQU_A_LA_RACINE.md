@@ -1,6 +1,13 @@
 # L'arbre jusqu'à la racine
 ### Méthode Merle : à chaque manque — inventaire, sinon construction, sinon on descend d'un cran
 
+> **Note d'antériorité (20/10/2026).** Ce document est conservé tel qu'il a été écrit le 24/07/2026. La « règle de torsion »
+> (nœud 4a, L-A7), présentée plus bas comme « premier énoncé trans-échelle du programme », est anticipée en substance par
+> T. Tao, billet du 25/08/2011 (« The Collatz conjecture, Littlewood-Offord theory, and powers of 2 and 3 ») : même décompte
+> heuristique (1/q par mot, théorème de Baker pour minorer q, Stirling), même facteur (0,9659…)^a. Notre constante
+> c_gen = 0,0793186 = (1 − H₂(log₃ 2))·log₂ 3 est la sienne, comptée par pas impair. Reste à nous : la queue additive explicite (μ nommé, C₀).
+> Voir le README du dépôt, section *Prior literature*.
+
 **2026-07-24 · A.R.E.S. · chaque nœud porte son artefact vérifié ou son statut honnête.**
 Légende : **[ON A]** = démontré/mesuré chez nous · **[CONSTRUIT]** = assemblé ce soir · **[EXISTE AILLEURS]** = littérature · **[RACINE]** = personne, nulle part.
 

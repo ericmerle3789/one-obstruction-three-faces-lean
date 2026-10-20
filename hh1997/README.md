@@ -121,6 +121,10 @@ Nothing here breaks a theorem of the paper.
   argument above covers every l ≥ 1 directly. The example is optimal (`example44_Lm`), which the paper
   does not say.
 
+As far as we could check (EuDML, the authors' pages, Lagarias's annotated bibliography 2003,
+Cox–Ghosh–Sultanow 2021; 20 Oct 2026), none of the points above has been reported in print. Lagarias
+already writes "optimal" in quotation marks (MR 98g:11025).
+
 ## Dependencies
 
 Batch a reuses four earlier files, byte-identical to the ones in [`../recheck-v4.34/`](../recheck-v4.34/)

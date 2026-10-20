@@ -1,0 +1,16 @@
+name = "Lagarias1990"
+defaultTargets = ["Lagarias"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "v4.34.0"
+
+[[lean_lib]]
+name = "OneObstruction"
+
+[[lean_lib]]
+name = "Labo"
+
+[[lean_lib]]
+name = "Lagarias"

@@ -1,0 +1,12 @@
+beta=1/2 x=2^100: (S-G)/x^(b/2) = 2.861e+04 | (S-G)(b log2 x)^2/(2x^b) = 1.0659 | S<P: False
+beta=1/2 x=2^200: (S-G)/x^(b/2) = 2.322e+11 | (S-G)(b log2 x)^2/(2x^b) = 1.0314 | S<P: False
+beta=1/2 x=2^400: (S-G)/x^(b/2) = 6.435e+25 | (S-G)(b log2 x)^2/(2x^b) = 1.0153 | S<P: False
+beta=1 x=2^100: (S-G)/x^(b/2) = 2.322e+11 | (S-G)(b log2 x)^2/(2x^b) = 1.0314 | S<P: False
+beta=1 x=2^200: (S-G)/x^(b/2) = 6.435e+25 | (S-G)(b log2 x)^2/(2x^b) = 1.0153 | S<P: False
+beta=1 x=2^400: (S-G)/x^(b/2) = 2.024e+55 | (S-G)(b log2 x)^2/(2x^b) = 1.0076 | S<P: False
+beta=11/10 x=2^100: (S-G)/x^(b/2) = 6.124e+12 | (S-G)(b log2 x)^2/(2x^b) = 1.0284 | S<P: True
+beta=11/10 x=2^200: (S-G)/x^(b/2) = 5.439e+28 | (S-G)(b log2 x)^2/(2x^b) = 1.0139 | S<P: True
+beta=11/10 x=2^400: (S-G)/x^(b/2) = 1.753e+61 | (S-G)(b log2 x)^2/(2x^b) = 1.0069 | S<P: True
+beta=2 x=2^100: (S-G)/x^(b/2) = 6.435e+25 | (S-G)(b log2 x)^2/(2x^b) = 1.0153 | S<P: True
+beta=2 x=2^200: (S-G)/x^(b/2) = 2.024e+55 | (S-G)(b log2 x)^2/(2x^b) = 1.0076 | S<P: True
+beta=2 x=2^400: (S-G)/x^(b/2) = 8.100e+114 | (S-G)(b log2 x)^2/(2x^b) = 1.0038 | S<P: True

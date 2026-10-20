@@ -1,6 +1,7 @@
 {
   "title": "One Obstruction, Three Faces — Merle Lean stack, with Lean 4 formalisations of Halbeisen–Hungerbühler 1997 and Lagarias 1990",
   "upload_type": "software",
+  "version": "v1.1",
   "creators": [
     {
       "name": "Merle, Eric",

@@ -4,6 +4,8 @@ L. Halbeisen, N. Hungerbühler, *Optimal bounds for the length of rational Colla
 Acta Arithmetica 78 (1997), 227–239 ([PDF](https://bibliotekanauki.pl/articles/1390963.pdf),
 [zbMATH 0863.11015](https://zbmath.org/0863.11015)).
 
+Archived on Zenodo: https://doi.org/10.5281/zenodo.23498095 (concept DOI; v1.0 = 10.5281/zenodo.23498096).
+
 > **What this is.** A formalisation of a classical paper from 1997. It proves nothing new about
 > Collatz cycles: every theorem here is the paper's, sometimes in a slightly stronger form noted below.
 > In particular the §5 equivalence is formalised as an equivalence; the Collatz question it restates

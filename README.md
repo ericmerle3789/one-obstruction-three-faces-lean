@@ -1,5 +1,7 @@
 # One Obstruction, Three Faces — Merle Lean stack
 
+Archived on Zenodo: https://doi.org/10.5281/zenodo.23498095 (concept DOI; v1.0 = 10.5281/zenodo.23498096).
+
 > **Status (2026-10-02).** This is the Merle side of the joint note *One obstruction, three
 > faces* with Benjamin Macindoe. It formalizes and checks entries of the shared claims ledger.
 > **Nothing here excludes a Collatz cycle beyond the published bounds** (Bařina's verification

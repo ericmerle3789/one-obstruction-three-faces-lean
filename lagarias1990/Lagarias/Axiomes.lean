@@ -3,9 +3,11 @@ import Lagarias.L4_Preuves
 import Lagarias.L3b_Preuves
 import Lagarias.L4b_Preuves
 import Lagarias.Addenda
+import Lagarias.L2b_Preuves
+import Lagarias.L4c_Preuves
 
 /-!
-# Lagarias 1990 · statement check and axiom report (phases 2a and 2b)
+# Lagarias 1990 · statement check and axiom report (phases 2a, 2b, 2c)
 
 Each `example` checks that a proof has exactly the type of its frozen statement; `#print axioms` follows.
 `check.sh` fails if any theorem depends on an axiom other than `propext`, `Classical.choice`, `Quot.sound`
@@ -69,6 +71,10 @@ example : thm4_2 := thm4_2_thm
 example : thm4_1_printed_step_m1 := thm4_1_printed_step_m1_thm
 example : den_formal := den_formal_thm
 example : min_neg_printed_false := min_neg_printed_false_thm
+example : eq2_4 := eq2_4_thm
+example : eq2_5 := eq2_5_thm
+example : table2_1 := table2_1_thm
+example : thm4_2_printed := thm4_2_printed_thm
 
 end Lagarias
 
@@ -127,3 +133,7 @@ end Lagarias
 #print axioms Lagarias.thm4_1_printed_step_m1_thm
 #print axioms Lagarias.den_formal_thm
 #print axioms Lagarias.min_neg_printed_false_thm
+#print axioms Lagarias.eq2_4_thm
+#print axioms Lagarias.eq2_5_thm
+#print axioms Lagarias.table2_1_thm
+#print axioms Lagarias.thm4_2_printed_thm

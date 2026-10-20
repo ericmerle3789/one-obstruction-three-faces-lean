@@ -10,20 +10,21 @@ MR 91i:11024).
 
 **Status (2026-10-20).**
 - **Kernel-checked:**
-  - Section 2 (Theorem 2.1, Corollaries 2.1a–b and the facts around them);
+  - Section 2 (Theorem 2.1, Corollaries 2.1a–b and the facts around them, the count (2.4)–(2.5) of irreducible
+    cycles);
   - Section 3: the `3x+k` maps, the bijection with rational cycles, Theorems 3.1, 3.2, 3.4 and 3.5;
-  - Theorems 4.1 and 4.2;
-  - Tables 2.2 and 3.1.
+  - Theorems 4.1 and 4.2 (4.2 with the printed constant `2n⁴`);
+  - Tables 2.1, 2.2 and 3.1.
 - **Named hypotheses:** Theorem 3.1 with the printed constant uses the prime number theorem, and Theorem 3.2 uses
   Baker–Fel'dman. Both enter as **named hypotheses**, never as axioms. Theorem 3.1 is also proved **without any
   hypothesis**, with the constant 6/5 instead of 5/4.
-- **Stated, not yet proved:** (2.4), (2.5), Table 2.1, and Theorem 4.2 with the printed constant `2n⁴`.
+- **Every frozen statement is proved.**
 - **Out of scope:** Theorems 3.3 and 4.3 (see below).
 
 In numbers:
-- **55 proved statements.** Each was frozen in a `*_Enonces.lean` file before its proof was written, and each is
+- **59 proved statements.** Each was frozen in a `*_Enonces.lean` file before its proof was written, and each is
   checked by `example : X := X_thm` in `Lagarias/Axiomes.lean`.
-- **4 frozen statements are not proved yet:** `eq2_4`, `eq2_5`, `table2_1`, `thm4_2_printed`.
+- **0 frozen statement left unproved.**
 - **0 `sorry`** in the proofs (one unused marker in a copied dependency, see *Dependencies*).
 - **0 `native_decide`:** table computations use `decide +kernel`.
 - **Axioms:** only `propext`, `Classical.choice`, `Quot.sound` (log in [`axioms/`](axioms/)).
@@ -40,7 +41,7 @@ lake exe cache get
 
 `check.sh` compiles the files one by one with `lake env lean`, in dependency order. It then reads the
 `#print axioms` output of `Lagarias/Axiomes.lean`, and fails if any theorem depends on an axiom other than the
-three above. It was run from a clean build on 2026-10-20 (about 4 minutes on an M1 Pro once Mathlib is cached).
+three above. It was run from a clean build on 2026-10-20 (21 files, about 4½ minutes on an M1 Pro once Mathlib is cached).
 
 ## Named hypotheses
 
@@ -58,6 +59,8 @@ They appear only as hypotheses of `thm3_1` (`H_PNT → …`) and `thm3_2` (`H_BF
 | `Lagarias/L1990_Enonces.lean`, `L1990b_Enonces.lean`, `Tables_Enonces.lean`, `Addenda_Enonces.lean` | frozen statements, each with a line-by-line comparison with the paper in its header |
 | `Lagarias/L2_Preuves.lean`, `L3_Preuves.lean`, `L4_Preuves.lean`, `Tables.lean` | phase 2a proofs (Sections 2, 3, 4, tables) |
 | `Lagarias/L3b_Preuves.lean`, `L4b_Preuves.lean` | phase 2b proofs (Theorems 3.1–3.2, Ash's bound, Theorem 4.2) |
+| `Lagarias/Mots.lean` | primitive words, absent from Mathlib: periods closed under `gcd`, unique irreducible root, free action of the rotations |
+| `Lagarias/L2b_Preuves.lean`, `L4c_Preuves.lean` | phase 2c proofs ((2.4), (2.5), Table 2.1; Theorem 4.2 with `2n⁴`) |
 | `Lagarias/Addenda.lean` | three points raised by the adversarial review (see below) |
 | `Lagarias/Axiomes.lean` | statement checks and `#print axioms` |
 | `Labo/*`, `OneObstruction/*` | copied from `hh1997/` (see *Dependencies*) |
@@ -75,7 +78,9 @@ They appear only as hypotheses of `thm3_1` (`H_PNT → …`) and `thm3_2` (`H_BF
 | p. 37, eventually periodic or divergent | `dichotomy` | proved |
 | p. 38, the parity map is one-to-one on `Q_(2)` | `bseq_inj` | proved here (the paper cites [10]) |
 | Corollary 2.1b | `cor2_1b` | proved |
-| (2.4), (2.5), Table 2.1 | `eq2_4`, `eq2_5`, `table2_1` | **stated, not proved yet** (combinatorics of primitive words) |
+| (2.4) `Σ_{d∣n} d·I(d) = 2ⁿ` | `eq2_4` | proved: every word of length `n` is `u^{n/d}` for exactly one irreducible `u` of length `d ∣ n` (`sum_card_Irr`), and the rotations act freely on irreducible words, so `d` divides their number (`dvd_card_Irr`). The empty word is vacuously irreducible; (2.4) only uses `d ≥ 1` |
+| (2.5) `I(n) = (1/n) Σ_{d∣n} μ(d) 2^{n/d}` | `eq2_5` | proved (Möbius inversion of Mathlib), as `n·I(n) = Σ_{d∣n} μ(d) 2^{n/d}` in `ℤ` |
+| Table 2.1 | `table2_1` | proved: the 20 printed values are right. They are computed by the recursion `I(n) = (2ⁿ − Σ_{d∣n, d<n} d·I(d))/n` given by (2.4), checked by `decide +kernel` |
 | Table 2.2 | `table2_2_values`, `table2_2_complete`, `table2_2_gcd` | proved: the 23 rows, completeness for `n ≤ 6`, the `110000` remark |
 | p. 40, clearing denominators; `T_{dk'}(dn') = d·T_{k'}(n')` | `clear_den`, `tk_scale` | proved |
 | p. 40, rational cycles ↔ primitive cycles of the `T_k`, `k > 0`, `k ≡ ±1 (6)` | `bij3` | proved (`Set.BijOn`) |
@@ -90,7 +95,7 @@ They appear only as hypotheses of `thm3_1` (`H_PNT → …`) and `thm3_2` (`H_BF
 | (4.4), (4.5), (4.8) | `eq4_4`, `eq4_5`, `eq4_8` | proved ((4.4) with the exponent repaired) |
 | Theorem 4.1 | `thm4_1`, `thm4_1_core`, `thm4_1_printed_step_m1` | proved |
 | Ash, Lemma 4.7.2 | `ash_tail` | proved (Chernoff's argument) |
-| Theorem 4.2 | `thm4_2` | proved with the constant `4n⁴` that the printed proof gives; `thm4_2_printed` (`2n⁴`) stated, not proved |
+| Theorem 4.2 | `thm4_2_printed`, `thm4_2` | proved with the printed constant `2n⁴`, and with the constant `4n⁴` that the printed proof gives (see below) |
 | Table 3.1 | `table3_1_rows`, `table3_1_row35`, `table3_1_row73` | the 48 printed `n0` are in primitive cycles of the printed length (their minimality is confirmed numerically, not in Lean); the 2 other rows are corrected, with minimality in Lean |
 | Theorem 3.3, Theorem 4.3, (4.13)–(4.14), Remark (4)/(4.19) | — | **out of scope**: asymptotic results that need Baker's bound and the divisor bound `d(B) ≤ B^{c/log log B}` (Hardy–Wright Thm 317) |
 | Fig. 4.1 (the flat segment) | — | out of scope: the paper omits the proof |
@@ -125,7 +130,7 @@ erratum.
 | 44–45 | `v = 10^m`, `v = 1²0^m` | `v` must have total length `m` | `ex_10m`, `ex_5` |
 | 47 | (4.4) `Σ 2^j 3^{n−j} = 3ⁿ − 2ⁿ` | the sum is `3(3ⁿ − 2ⁿ)` | `eq4_4_printed_false`; `eq4_4` (exponent `n−1−j`) |
 | 48 | proof of Thm 4.1: "at most `m` choices", `F ≤ m·2^{n−m}` | (*review*) the count is RIGHT for `m ≥ 1`: the head of weight 0 excludes the others. The justification (one head per weight `0…m`) is loose, and the bound fails only for `m = 0`, i.e. `M = 2` | `thm4_1_printed_step_m1`; `thm4_1_printed_step_false` (`M = 2`); the final bound `thm4_1` |
-| 48–50 | Thm 4.2: `F ≤ 2n⁴·2^{(1−α)n}` | the printed proof ends with `4n⁴` | `thm4_2` (`4n⁴`) |
+| 48–50 | Thm 4.2: `F ≤ 2n⁴·2^{(1−α)n}` | the statement is right; the printed proof only gives `4n⁴`, because it bounds the normal vectors by `(n−m)·m·2^{n−m}` and then `(n−m)·m ≤ n(n−1)`. That count is itself off by one twice (*review*): `0 ≤ l ≤ n−m` gives `n−m+1` window positions, and the bound per position is printed `(n−m+1)·2^{n−m}` instead of the `m·2^{n−m}` of the claim just before; the Lean count is `(n−m+1)(m+1)·2^{n−m}`. The arithmetic–geometric mean bound `(n−m+1)(m+1) ≤ (n+2)²/4` gives `n²(n+2)² + n ≤ 2n⁴` (for `n ≥ 5`; `n ≤ 4` is trivial), with the paper's own choice of `m` | `thm4_2_printed` (`2n⁴`); `thm4_2` (`4n⁴`, the printed proof) |
 
 Other printed slips, found on reading, that change no Lean statement:
 - p. 34: "`k ≡ 1 (mod 6)`" should read `±1`.

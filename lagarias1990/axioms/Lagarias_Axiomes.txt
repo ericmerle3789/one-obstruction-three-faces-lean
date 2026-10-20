@@ -53,3 +53,7 @@
 'Lagarias.thm4_1_printed_step_m1_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Lagarias.den_formal_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Lagarias.min_neg_printed_false_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Lagarias.eq2_4_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Lagarias.eq2_5_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Lagarias.table2_1_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Lagarias.thm4_2_printed_thm' depends on axioms: [propext, Classical.choice, Quot.sound]

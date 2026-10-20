@@ -10,7 +10,8 @@ OUT=.lake/build/lib/lean
 mkdir -p "$OUT/Labo" "$OUT/OneObstruction" "$OUT/Lagarias" logs
 ORDER="Labo.Blueprint Labo.S2_Pont OneObstruction.ContentDescent Labo.HH1997_Enonces OneObstruction.TransportRecurrence
 Labo.HH1997_Preuves Lagarias.L1990_Enonces Lagarias.L2_Preuves Lagarias.L3_Preuves Lagarias.L4_Preuves
-Lagarias.Tables_Enonces Lagarias.Tables Lagarias.Axiomes"
+Lagarias.Tables_Enonces Lagarias.Tables Lagarias.L1990b_Enonces Lagarias.L3b_Preuves Lagarias.L4b_Preuves
+Lagarias.Addenda_Enonces Lagarias.Addenda Lagarias.Axiomes"
 for m in $ORDER; do
   p="${m//.//}"
   printf '%-34s ' "$m"

@@ -1,8 +1,11 @@
 import Lagarias.Tables
 import Lagarias.L4_Preuves
+import Lagarias.L3b_Preuves
+import Lagarias.L4b_Preuves
+import Lagarias.Addenda
 
 /-!
-# Lagarias 1990 · statement check and axiom report (phase 2a)
+# Lagarias 1990 · statement check and axiom report (phases 2a and 2b)
 
 Each `example` checks that a proof has exactly the type of its frozen statement; `#print axioms` follows.
 `check.sh` fails if any theorem depends on an axiom other than `propext`, `Classical.choice`, `Quot.sound`
@@ -56,6 +59,16 @@ example : table3_1_row35 := table3_1_row35_thm
 example : table3_1_row73 := table3_1_row73_thm
 example : p41 := p41_thm
 example : thm3_3_count_printed_false := thm3_3_count_printed_false_thm
+example : k_dvd_D := k_dvd_D_thm
+example : S31_bound := S31_bound_thm
+example : thm3_1 := thm3_1_thm
+example : thm3_1_65 := thm3_1_65_thm
+example : thm3_2 := thm3_2_thm
+example : ash_tail := ash_tail_thm
+example : thm4_2 := thm4_2_thm
+example : thm4_1_printed_step_m1 := thm4_1_printed_step_m1_thm
+example : den_formal := den_formal_thm
+example : min_neg_printed_false := min_neg_printed_false_thm
 
 end Lagarias
 
@@ -104,3 +117,13 @@ end Lagarias
 #print axioms Lagarias.table3_1_row73_thm
 #print axioms Lagarias.p41_thm
 #print axioms Lagarias.thm3_3_count_printed_false_thm
+#print axioms Lagarias.k_dvd_D_thm
+#print axioms Lagarias.S31_bound_thm
+#print axioms Lagarias.thm3_1_thm
+#print axioms Lagarias.thm3_1_65_thm
+#print axioms Lagarias.thm3_2_thm
+#print axioms Lagarias.ash_tail_thm
+#print axioms Lagarias.thm4_2_thm
+#print axioms Lagarias.thm4_1_printed_step_m1_thm
+#print axioms Lagarias.den_formal_thm
+#print axioms Lagarias.min_neg_printed_false_thm

@@ -57,3 +57,4 @@
 'Lagarias.eq2_5_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Lagarias.table2_1_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Lagarias.thm4_2_printed_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Lagarias.eq2_6_thm' depends on axioms: [propext, Classical.choice, Quot.sound]

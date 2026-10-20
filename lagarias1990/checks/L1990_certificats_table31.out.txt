@@ -1,0 +1,13 @@
+k=35 n=1 j0=4 L=8 periodic=False
+k=35 n=2 j0=5 L=8 periodic=False
+k=35 n=3 j0=3 L=8 periodic=False
+k=35 n=4 j0=6 L=8 periodic=False
+k=35 n=6 j0=4 L=8 periodic=False
+k=35 n=8 j0=7 L=8 periodic=False
+k=35 n=9 j0=12 L=8 periodic=False
+k=35 n=11 j0=1 L=8 periodic=False
+k=35 n=12 j0=5 L=8 periodic=False
+k=73 n=1 j0=1 L=60 periodic=False
+k=73 n=2 j0=2 L=60 periodic=False
+k=73 n=3 j0=1 L=60 periodic=False
+k=73 n=4 j0=3 L=60 periodic=False

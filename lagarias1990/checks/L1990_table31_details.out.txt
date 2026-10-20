@@ -1,0 +1,7 @@
+k=35 n0=7: cycle=[7, 28, 14] length=3 min=7 gcd(n0,k)=7 primitive=False
+k=35 n0=13: cycle=[13, 37, 73, 127, 208, 104, 52, 26] length=8 min=13 gcd(n0,k)=1 primitive=True
+k=73 n0=5: cycle=[5, 44, 22, 11, 53, 116, 58, 29, 80, 40, 20, 10] length=12 min=5 gcd(n0,k)=1 primitive=True
+k=73 n0=19: cycle=... length=60 min=19 gcd(n0,k)=1 primitive=True
+T_5 cycle of 1 times 7: [7, 28, 14]
+primitive cycles of T_73 meeting [1,400) (min, length): [(5, 12), (19, 60), (47, 15)]
+H=0.94995553 alpha_c=0.04765938 alpha_c(H=0.949955)=0.04765986 beta_c=1.05004447

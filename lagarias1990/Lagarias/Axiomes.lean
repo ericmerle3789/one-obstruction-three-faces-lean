@@ -5,6 +5,7 @@ import Lagarias.L4b_Preuves
 import Lagarias.Addenda
 import Lagarias.L2b_Preuves
 import Lagarias.L4c_Preuves
+import Lagarias.Addenda2
 
 /-!
 # Lagarias 1990 · statement check and axiom report (phases 2a, 2b, 2c)
@@ -75,6 +76,7 @@ example : eq2_4 := eq2_4_thm
 example : eq2_5 := eq2_5_thm
 example : table2_1 := table2_1_thm
 example : thm4_2_printed := thm4_2_printed_thm
+example : eq2_6 := eq2_6_thm
 
 end Lagarias
 
@@ -137,3 +139,4 @@ end Lagarias
 #print axioms Lagarias.eq2_5_thm
 #print axioms Lagarias.table2_1_thm
 #print axioms Lagarias.thm4_2_printed_thm
+#print axioms Lagarias.eq2_6_thm

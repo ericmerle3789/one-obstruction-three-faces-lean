@@ -1,0 +1,45 @@
+== P1 Table 2.1
+mismatches: [] | sum_{d|n} d I(d) = 2^n for n<=20: True
+== P2 Table 2.2
+rows: 23 | complete list of lex-max primitive words: True | all values and Thm 2.1 OK: True
+rows with gcd(N,D)>1: [('110000', 55, 11)]
+== P3 Table 3.1
+  row mismatch k=35: printed (7,3), computed (13,8)
+  row mismatch k=73: printed (19,60), computed (5,12)
+rows exact: 48/50 | undecided trajectories: []
+== P5 p.41 min_l |2^n-3^l| / 2^n
+  n=85: 0.4990
+  n=107: 0.4286
+  n=139: 0.3916
+  n=100: 0.0971
+  n=106: 0.1427
+  n=136: 0.2369
+  k=85: period 100, l=56, D>0: True, x(v)=n0/k: True, log10 gcd(N,D) = 28.2
+  k=107: period 106, l=53, D>0: True, x(v)=n0/k: True, log10 gcd(N,D) = 29.9
+  k=139: period 136, l=74, D>0: True, x(v)=n0/k: True, log10 gcd(N,D) = 38.8
+== P4 constants
+  phi=0.630930 H(phi)=0.949956 alpha_c=0.0476594 beta_c=1/(1-alpha_c)=1.050044 2-H=1.050044
+== P6 necklaces with n ones, length 2n, vs n^-1 C(2n,n)
+  n=1: classes=1, C(2n,n)/n=2.0, ratio=0.5000
+  n=2: classes=2, C(2n,n)/n=3.0, ratio=0.6667
+  n=3: classes=4, C(2n,n)/n=6.7, ratio=0.6000
+  n=4: classes=10, C(2n,n)/n=17.5, ratio=0.5714
+  n=5: classes=26, C(2n,n)/n=50.4, ratio=0.5159
+  n=10: classes=9252, C(2n,n)/n=18475.6, ratio=0.5008
+  n=20: classes=3446167860, C(2n,n)/n=6892326441.0, ratio=0.5000
+  n=40: classes=1343840109168425292660, C(2n,n)/n=2687680218333404200960.0, ratio=0.5000
+== P7 (4.4)
+  printed sum == 3(3^n-2^n) for n<=30: True | corrected sum == 3^n-2^n: True
+== P8 example 5/(2^m-9)
+  length-m reading consistent: True | literal 1^2 0^m gives condition m != 0 mod 4: True
+== P9 Z(d,k) invariance and sign
+  k=9, n=1: T_9(1) = 6 gcd = 3
+  invariance for k = +-1 mod 6: True | T_k(n) = -T_{-k}(-n): True | printed T_k(n) = T_{-k}(-n): False
+== P10 19 19
+== P11 Theorem 3.1 constants
+  (125/64) ln3 / 3 = 0.7152 ; 0.99*4/5 = 0.7920
+  c_max(a=ln2) = 1.2370 ; c_max(a=0.92129) = 1.3601
+== P12 Theorem 3.5
+  x(v)<0 => x(v)<=-1, equality iff v=1^n (n<=12): True
+== P13 Theorem 4.1
+  final bound failures: 0 | corrected (m+1)2^(n-m) failures: 0 | printed m*2^(n-m) failures: 12 first: (1, 2, 1, 0)

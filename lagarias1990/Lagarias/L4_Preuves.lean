@@ -4,8 +4,10 @@ import Lagarias.L3_Preuves
 /-!
 # Lagarias 1990 · Section 4 · proofs (phase 2a)
 
-(4.4) (printed exponent repaired), (4.5), (4.8), and Theorem 4.1, with the integer core of its proof
-(the printed count "at most `m` choices" repaired to `m + 1`).
+(4.4) (printed exponent repaired), (4.5), (4.8), and Theorem 4.1, with the integer core of its proof.
+The core is proved with the count `m + 1` (one head per weight `0…m`), which also covers `m = 0`. The printed
+count "at most `m` choices" is right for `m ≥ 1` (`thm4_1_printed_step_m1`, `Lagarias/Addenda.lean`) and fails
+only for `m = 0`, i.e. `M = 2` (`thm4_1_printed_step_false`).
 Statements: `Lagarias/L1990_Enonces.lean` (frozen).
 -/
 

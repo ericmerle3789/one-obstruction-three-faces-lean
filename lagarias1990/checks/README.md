@@ -16,6 +16,7 @@ python3 L1990_audit_numerique.py          # compare with L1990_audit_numerique.o
 | `L1990_certificats_table31.py` | the non-periodicity certificates used for the minimality of the two corrected rows of Table 3.1 |
 | `L1990_contre_verif_redteam.py` | the first review's three points: the printed bound `m·2^{n−m}` of Theorem 4.1 fails only for `M = 2`; at most `max(1, m)` heads per class (`n ≤ 9`); the minimum of the negative cycles of `−5` and `−17` is `≡ 2 (mod 6)` |
 | `L1990_mots_primitifs_2n4.py` | (2.4), (2.5), Table 2.1 by brute force for `n ≤ 16`; the arithmetic of `2n⁴` in Theorem 4.2 |
+| `L1990_rt2_eq413_fenetres.py` | the second inequality of (4.13) for `β = 1/2, 1, 2` and `x = 2^{100}`; the count of normal windows in the proof of Theorem 4.2 (`M = 7`, and a search in the range `2n²·2^m ≤ M < 4n²·2^m`, `n ≤ 9`, `m ≤ 3`) |
 
 The scripts are copied unchanged from the lab's internal log, where each one was run once with predictions
 written before the run; `L1990_audit_numerique.py` mentions its prediction file, which stays in that log.

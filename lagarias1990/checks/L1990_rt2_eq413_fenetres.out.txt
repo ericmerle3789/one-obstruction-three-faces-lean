@@ -1,0 +1,7 @@
+beta=1/2 x=2^100: S/P = 2.0426 | S/(2x^b/(b log2 x)) = 1.0213 | (S-P)/x^(1/2) = 2.085e-02
+beta=1 x=2^100: S/P = 1.0103 | S/(2x^b/(b log2 x)) = 1.0103 | (S-P)/x^(1/2) = 2.322e+11
+beta=2 x=2^100: S/P = 0.5025 | S/(2x^b/(b log2 x)) = 1.0051 | (S-P)/x^(1/2) = -1.420e+43
+M=7, m=1, w=11: N(110) mod 7 = 5 | N(111) mod 7 = 5
+m=1: max normal windows in one class = 2, first at n=6 M=227 l=5 w=(1, 1, 1, 1, 1) w~=()
+m=2: max normal windows in one class = 2, first at n=7 M=697 l=5 w=(1, 1, 1, 1, 1) w~=()
+m=3: max normal windows in one class = 2, first at n=7 M=997 l=4 w=(1, 1, 1, 1) w~=()

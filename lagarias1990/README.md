@@ -70,7 +70,7 @@ They appear only as hypotheses of `thm3_1` (`H_PNT → …`) and `thm3_2` (`H_BF
 | `Lagarias/L1990_Enonces.lean`, `L1990b_Enonces.lean`, `Tables_Enonces.lean`, `Addenda_Enonces.lean`, `Addenda2_Enonces.lean`, `Addenda3_Enonces.lean` | frozen statements, each with a line-by-line comparison with the paper in its header (a few header rows and docstrings are superseded, see below) |
 | `Lagarias/L2_Preuves.lean`, `L3_Preuves.lean`, `L4_Preuves.lean`, `Tables.lean` | phase 2a proofs (Sections 2, 3, 4, tables) |
 | `Lagarias/L3b_Preuves.lean`, `L4b_Preuves.lean` | phase 2b proofs (Theorems 3.1–3.2, Ash's bound, Theorem 4.2) |
-| `Lagarias/Mots.lean` | primitive words: rotation periods closed under `gcd` (Mathlib v4.34 has `List.HasPeriod.gcd` for linear periods, not for rotations), unique irreducible root, free action of the rotations |
+| `Lagarias/Mots.lean` | primitive words: rotation periods closed under `gcd` (Mathlib has `List.HasPeriod.gcd` for linear periods and `Function.IsPeriodicPt.gcd` for iterated maps; `rot_gcd` is proved directly here), unique irreducible root, free action of the rotations |
 | `Lagarias/L2b_Preuves.lean`, `L4c_Preuves.lean` | phase 2c proofs ((2.4), (2.5), Table 2.1; Theorem 4.2 with `2n⁴`) |
 | `Lagarias/Addenda.lean` | three points raised by the first adversarial review (see below) |
 | `Lagarias/Addenda2.lean` | (2.6), added during the adversarial passes before release |
@@ -99,7 +99,7 @@ They appear only as hypotheses of `thm3_1` (`H_PNT → …`) and `thm3_2` (`H_BF
 | Table 2.2 | `table2_2_values`, `table2_2_complete`, `table2_2_gcd` | proved: the 23 rows, completeness for `n ≤ 6`, the `110000` remark |
 | p. 40, clearing denominators; `T_{dk'}(dn') = d·T_{k'}(n')` | `clear_den`, `tk_scale` | proved |
 | p. 40, rational cycles ↔ primitive cycles of the `T_k`, `k > 0`, `k ≡ ±1 (6)` | `bij3` | proved as a bijection of points (`Set.BijOn`): the elements `x` of rational cycles (odd denominator) ↔ the pairs `(k, n0)` with `n0` in a primitive cycle of `T_k`, by `x ↦ (den x, num x)` |
-| p. 44, the smallest member of a primitive cycle is `≡ ±1 (6)` (used, not proved in the paper) | `no3`, `min_pm1` | `no3` (no nonzero member of a cycle of `T_k`, `3 ∤ k`, is divisible by 3) holds for every cycle; `min_pm1` (the smallest member is `≡ ±1 (6)`) is proved for positive cycles, and is false for negative ones, see below |
+| p. 44, the smallest member of a primitive cycle is `≡ ±1 (6)` (used, not proved in the paper) | `no3`, `min_pm1` | `no3` (no nonzero member of a cycle of `T_k`, `3 ∤ k`, is divisible by 3) holds for every cycle; `min_pm1` (the smallest member is `≡ ±1 (6)`) is proved for positive cycles, and is false for some negative cycles (for example `{−5, −7, −10}`), see below |
 | Theorem 3.1 | `thm3_1` (`H_PNT`), `thm3_1_65` | proved: with `5/4` under `H_PNT`; with `6/5` unconditionally (Chebyshev's bound `θ(n) ≥ n log 2 − O(√n log n)` of Mathlib). The proof runs over the primes `p ≥ 5`, so the `k` found are primes |
 | proof of Thm 3.1: `k ∣ 2ⁿ − 3^l`; `S(t) ≤ 3^{t(t+1)(2t+1)/6}` | `k_dvd_D`, `S31_bound` | proved |
 | Theorem 3.2 | `thm3_2` (`H_BF`) | proved, with `log₂` and `|D(v)|`, from `thm3_1_65` (so without `H_PNT`) |
@@ -142,7 +142,7 @@ The list was read by adversarial reviews. Two were made during the formalisation
 `Lagarias/Addenda.lean`), the second added a precision to the row of pp. 48–50; these rows are marked *review*.
 Several adversarial passes followed before release; they led to (2.6) (`Lagarias/Addenda2.lean`), to the
 attainment in (4.4) (`Lagarias/Addenda3.lean`) and to the section *Superseded header rows and docstrings*. The
-release follows two consecutive passes with no remark. As far as we checked, none of these points is reported in
+release is made only after two consecutive passes with no remark. As far as we checked, none of these points is reported in
 print: entry 108 of Lagarias's annotated bibliography *The 3x+1 problem: an annotated bibliography (1963–1999)*
 (arXiv math/0309224) lists no erratum, and the second one, *(2000–2009)* (arXiv math/0608208), does not mention
 the paper.
@@ -160,13 +160,13 @@ the paper.
 | 41 | Table 3.1, `k = 35`: `(7, 3)` | `{7, 28, 14}` is not primitive | `table3_1_row35`: `(13, 8)` |
 | 41 | Table 3.1, `k = 73`: `(19, 60)` | `5` is in a primitive cycle of length 12 | `table3_1_row73`: `(5, 12)` |
 | 41 | "for `n = 85, 107, 139` this is at least `⅓·2ⁿ`" (about `min_l |2ⁿ − 3^l|`) | these are the `k`'s; at the periods `100, 106, 136` the bound fails | `p41` |
-| 43 | proof of Thm 3.3: "at least `n^{−1}C(2n,n)` distinct primitive cycles associated to such `v`" | for `n = 1` there is one cycle, not two; the number is about `C(2n,n)/(2n)` (`checks/`: the ratio tends to ½ for `n ≤ 5` and `n = 10, 20, 40`) | `thm3_3_count_printed_false` (`n = 1`) |
-| 44 | "we may index primitive cycles by their smallest member `n0`. This will always be an integer `n0 ≡ ±1 (mod 6)`" | true for positive cycles; false for negative ones if "smallest" is the minimum (*review*): `{−5, −7, −10}` has minimum `−10 ≡ 2` | `min_pm1`; `min_neg_printed_false` |
+| 43 | proof of Thm 3.3: "at least `n^{−1}C(2n,n)` distinct primitive cycles associated to such `v`" | for `n = 1` there is one cycle, not two; the number is about `C(2n,n)/(2n)` (`checks/`: computed for `n ≤ 5` and `n = 10, 20, 40`; it approaches ½) | `thm3_3_count_printed_false` (`n = 1`) |
+| 44 | "we may index primitive cycles by their smallest member `n0`. This will always be an integer `n0 ≡ ±1 (mod 6)`" | true for positive cycles; false for some negative cycles if "smallest" is the minimum (*review*): `{−5, −7, −10}` has minimum `−10 ≡ 2` | `min_pm1`; `min_neg_printed_false` |
 | 44 | proof of Thm 3.4: `p = ord_{N(v)}(2)` | undefined when `N(v)` is even: `v = 001` gives `x(v) = 4/5`, `N(v) = 4`, and `4` is in a primitive cycle of `T_5`; the statement covers even `n0` | `thm3_4`, as printed: the proof uses the odd part of `N(v)`; `checks/` (`rt4`, P5) |
 | 44–45 | `v = 10^m`, `v = 1²0^m` | `v` must have total length `m`; read literally, the condition becomes `m ≢ 0 (mod 4)` | `ex_10m`, `ex_5`; `checks/` (`audit`, P8) |
 | 47 | (4.4) `Σ 2^j 3^{n−j} = 3ⁿ − 2ⁿ` | the sum is `3(3ⁿ − 2ⁿ)` | `eq4_4_printed_false`; `eq4_4` (exponent `n−1−j`) |
 | 48 | proof of Thm 4.1: "at most `m` choices", `F ≤ m·2^{n−m}` | (*review*) the count is right for `m ≥ 1`; the bound fails for `m = 0` (`M = 2`; `M = 1` is excluded by `α > 0` in the paper, the Lean `thm4_1` allows it) | `thm4_1_printed_step_m1`; `thm4_1_printed_step_false` (`M = 2`); the final bound `thm4_1` |
-| 48–50 | Thm 4.2: `F ≤ 2n⁴·2^{(1−α)n}`; the printed proof ends with `4n⁴` (p. 50) | (*review*) the statement is right. The printed count of normal vectors is `(n−m)(m)·2^{n−m}`. For fixed `w`, `w̃` and class, there can be `m+1` normal windows, not `m`: in the range `2n²·2^m ≤ M < 4n²·2^m` of the proof, without using `α ≤ α_c`, `n = 6`, `M = 227`, `m = 1`, `w = 11111` gives 2 (`checks/`, `rt2`). The Lean count is `(n−m+1)(m+1)·2^{n−m}` (window positions `0 ≤ l ≤ n−m`, one window per weight `0…m`); the arithmetic–geometric mean bound `(n−m+1)(m+1) ≤ (n+2)²/4` gives `n²(n+2)² + n ≤ 2n⁴` for `n ≥ 5` (`n ≤ 4` is trivial), with the paper's choice of `m` | `thm4_2_printed` (`2n⁴`); `thm4_2` (`4n⁴`) |
+| 48–50 | Thm 4.2: `F ≤ 2n⁴·2^{(1−α)n}`; the printed proof ends with `4n⁴` (p. 50) | (*review*) the statement is right. The printed count of normal vectors is `(n−m)(m)·2^{n−m}`. For fixed `w`, `w̿` and class, there can be `m+1` normal windows, not `m`: in the range `2n²·2^m ≤ M < 4n²·2^m` of the proof, without using `α ≤ α_c`, `n = 6`, `M = 227`, `m = 1`, `w = 11111` gives 2 (`checks/`, `rt2`). The Lean count is `(n−m+1)(m+1)·2^{n−m}` (window positions `0 ≤ l ≤ n−m`, one window per weight `0…m`); the arithmetic–geometric mean bound `(n−m+1)(m+1) ≤ (n+2)²/4` gives `n²(n+2)² + n ≤ 2n⁴` for `n ≥ 5` (`n ≤ 4` is trivial), with the paper's choice of `m` | `thm4_2_printed` (`2n⁴`); `thm4_2` (`4n⁴`) |
 
 **B. Recomputed by a script of `checks/`.**
 - p. 34: "`k ≡ 1 (mod 6)`" should read `±1`: `x(100) = 1/5`, a primitive cycle of `T_5` (`rt4`, P6).
@@ -212,13 +212,13 @@ the paper.
 
 The headers and docstrings of the frozen files compare each statement with the paper. They are frozen with the
 statements (their SHA-256 are fixed), so the reviews could not edit them; the rows below are superseded by this
-README.
+README. Two rows concern proof files (`Mots.lean`, `Tables.lean`), left unchanged to avoid recompiling.
 
 | file, row or docstring | it says | read instead |
 |---|---|---|
 | `L1990_Enonces.lean`, p. 39 "T does not change the denominator" | FALSE (`T(1/3) = 1`) | ambiguous: true for the formal denominator (`den_formal`), false for the reduced one (`den_printed_false`) |
 | `L1990_Enonces.lean`, p. 39 `v = 110000` | "the only row with `D ≠ δ`", as if printed | the paper says "Table 2.2 includes one example"; that it is the only row with `|D| ≠ δ` is what `table2_2_gcd` proves |
-| `L1990_Enonces.lean`, p. 44, smallest member `≡ ±1 (6)` | "the cycle `{0}` excluded" | `min_pm1` assumes `0 < n`, i.e. positive cycles; for negative cycles the printed claim is false (`min_neg_printed_false`) |
+| `L1990_Enonces.lean`, p. 44, smallest member `≡ ±1 (6)` | "the cycle `{0}` excluded" | `min_pm1` assumes `0 < n`, i.e. positive cycles; the printed claim is false for some negative cycles, for example `{−5, −7, −10}` (`min_neg_printed_false`) |
 | `L1990_Enonces.lean`, Thm 3.4 | "the first claim also covers EVEN `n0`" | the printed statement already covers them; only the printed proof does not |
 | `L1990_Enonces.lean`, proof of Thm 4.1 | "`m + 1` choices" | the printed count `m` is right for `m ≥ 1` (`thm4_1_printed_step_m1`); it fails only for `m = 0`, i.e. `M ∈ {1, 2}`; the Lean core uses `m + 1` |
 | `Addenda_Enonces.lean`, proof of Thm 4.1 | "fails only for `m = 0` (`M = 2`…)" | `m = 0` means `M ∈ {1, 2}`; `M = 1` is excluded by `α > 0` in the paper, and the Lean `thm4_1` allows it |
@@ -227,6 +227,8 @@ README.
 | `L1990_Enonces.lean`, docstring of `thm4_1_core` | "repaired count `m + 1`" | not a repair: the printed count `m` is right for `m ≥ 1` (`thm4_1_printed_step_m1`); `thm4_1_core` uses `m + 1`, which also covers `m = 0` |
 | `L1990_Enonces.lean`, docstring of `table2_2_gcd` | "it is the only row of Table 2.2 with `(N(v), D(v)) > 1`" | this is proved here, not printed: the paper says "Table 2.2 includes one example" |
 | `L1990_Enonces.lean`, p. 39, `den_cycle` | "none (the conclusion holds; the printed reason does not)" | the printed reason is ambiguous, not false: it holds for the formal denominator (`den_formal`); the conclusion holds (`den_cycle`) |
+| `Mots.lean`, header (not frozen, left unchanged) | "Mathlib v4.34 has neither primitive words, nor Lyndon words, nor necklaces" | Mathlib v4.34 has `Cycle` (lists up to rotation) but neither primitive nor Lyndon words, nor their count |
+| `Tables.lean`, header (not frozen, left unchanged) | "All computations are checked by the kernel (`decide +kernel`)" | a few steps use plain `decide`, also checked by the kernel; no `native_decide` |
 | `L1990b_Enonces.lean`, list of proof files | `L3b_Preuves`, `L4b_Preuves`, `L2b_Preuves` | also `L4c_Preuves.lean` (`thm4_2_printed`) and `Mots.lean` |
 | `Addenda2_Enonces.lean`, first line | "the second adversarial review" | the first adversarial pass before release |
 | `L1990_Enonces.lean`, docstring of `eq4_4` | "the maximum element of `Σ_n`" | `eq4_4` proves the identity and the bound `N(v) ≤ 3ⁿ − 2ⁿ`; the attainment is `eq4_4_attained` (`Addenda3_Enonces.lean`) |

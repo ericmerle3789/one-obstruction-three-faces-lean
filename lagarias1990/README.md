@@ -174,7 +174,7 @@ the paper.
 - p. 44: "`T_k(n_0) = (3n_0 + k_m)/2 ≥ k_m/2 ≥ (2^{5n} − 2ⁿ)/(3ⁿ − 2ⁿ)`": read `T_{k_m}`. The inequality holds
   (`n ≤ 14`, `m = 4n`: 26 419 words, no failure; `rt4`, P1); its reason, `2G_0 ≤ 3ⁿ − 2ⁿ` since `G_0` divides
   `2ⁿ − 3^l`, is not printed.
-- pp. 49 and 51: `H(φ) ≐ 0.949955` is truncated: `H(φ) = 0.94995553…` (`table31_details`).
+- pp. 49 and 51: `H(φ) ≐ 0.949955` is truncated: `H(φ) = 0.9499555…` (`table31_details`).
 - p. 50: `α_c ≅ 0.0476598` is computed with the printed `H(φ)`, which gives `0.04765986…`; the value is
   `0.0476594` (the `0.04766` of p. 48 is right) (`table31_details`, `audit`).
 - p. 35: `β_c ≐ 1.050005`; p. 51: `β_c = 1/(1 − α_c) ≐ 1.050005`; the value is `1.050044` (`= 2 − H(φ)`) (`audit`).
@@ -212,7 +212,7 @@ the paper.
 
 The headers and docstrings of the frozen files compare each statement with the paper. They are frozen with the
 statements (their SHA-256 are fixed), so the reviews could not edit them; the rows below are superseded by this
-README. Two rows concern proof files (`Mots.lean`, `Tables.lean`), left unchanged to avoid recompiling.
+README. Two rows concern proof files (`Mots.lean`, `Tables.lean`), which were not edited.
 
 | file, row or docstring | it says | read instead |
 |---|---|---|
@@ -229,6 +229,8 @@ README. Two rows concern proof files (`Mots.lean`, `Tables.lean`), left unchange
 | `L1990_Enonces.lean`, p. 39, `den_cycle` | "none (the conclusion holds; the printed reason does not)" | the printed reason is ambiguous, not false: it holds for the formal denominator (`den_formal`); the conclusion holds (`den_cycle`) |
 | `Mots.lean`, header (not frozen, left unchanged) | "Mathlib v4.34 has neither primitive words, nor Lyndon words, nor necklaces" | Mathlib v4.34 has `Cycle` (lists up to rotation) but neither primitive nor Lyndon words, nor their count |
 | `Tables.lean`, header (not frozen, left unchanged) | "All computations are checked by the kernel (`decide +kernel`)" | a few steps use plain `decide`, also checked by the kernel; no `native_decide` |
+| `Tables_Enonces.lean`, header | "kernel computation, `decide +kernel`" | same remark: a few proof steps in `Tables.lean` use plain `decide` |
+| `L1990_Enonces.lean`, header row and docstring of `eq3_8` | "(3.8)–(3.9)" | `eq3_8` states (3.8) with its equality case; (3.9) is the lemma `C_ge` |
 | `L1990b_Enonces.lean`, list of proof files | `L3b_Preuves`, `L4b_Preuves`, `L2b_Preuves` | also `L4c_Preuves.lean` (`thm4_2_printed`) and `Mots.lean` |
 | `Addenda2_Enonces.lean`, first line | "the second adversarial review" | the first adversarial pass before release |
 | `L1990_Enonces.lean`, docstring of `eq4_4` | "the maximum element of `Σ_n`" | `eq4_4` proves the identity and the bound `N(v) ≤ 3ⁿ − 2ⁿ`; the attainment is `eq4_4_attained` (`Addenda3_Enonces.lean`) |

@@ -7,10 +7,12 @@ Mathematics and Computing (Winnipeg, 1977), Congressus Numerantium 20, Utilitas 
 > **What this is.** A formalisation of a classical theorem from 1978: the only circuit on the positive integers
 > that is a cycle of the `3x+1` map is `{1, 2}` — here under a named hypothesis (Rhin's bound), and without any
 > hypothesis for at most 20000 odd terms. It proves nothing new about Collatz cycles.
-> **The original text was not available to us and was not read.** The statements follow published accounts of
-> the theorem and of its proof (see *Sources*). Of the four steps of Steiner's proof, as Simons and de Weger describe
-> it, the inequality and the convergent property are formalised; the rest is replaced by Rhin's lower bound for
-> `|x log 2 + y log 3|` instead of Baker's, as in their Lemma 12, and by an exact check of each small `k`.
+> **The original paper (Congr. Numer. 20, 1978) could not be accessed and was not read; the statements and the proof
+> are reconstructed from Steiner 1981 (Fibonacci Quart. 19, the analogous problem for `q = 5` and `q = 7`),
+> Lagarias's annotated bibliography and Simons–de Weger 2005, §1.4 and Lemma 12** (see *Sources*). Of the four
+> steps of Steiner's proof, as Simons and de Weger describe it, the inequality and the convergent property are
+> formalised; the rest is replaced by Rhin's lower bound for `|x log 2 + y log 3|` instead of Baker's, as in their
+> Lemma 12, and by an exact check of each small `k`.
 
 **Status (2026-10-21).**
 - **Kernel-checked: 12 frozen statements, all proved** (`check.sh` checks that there are 12 axiom reports, one per
@@ -19,7 +21,10 @@ Mathematics and Computing (Winnipeg, 1977), Congressus Numerantium 20, Utilitas 
   `H_Rhin → …` of six statements, never as an axiom.
 - **Without any hypothesis:** the correspondence between circuits and Davison's equation, the inequality, the
   convergent step, and the theorem for `k ≤ 20000` odd terms; hence a circuit-cycle on the positive integers other
-  than `{1, 2}` would start at `n ≥ 2^20001 − 1`.
+  than `{1, 2}` would start at `n ≥ 2^20001 − 1`. The bound `k ≤ 20000` is a finite check certified by the kernel.
+  It uses no computer verification of the conjecture, and it is far weaker than the bounds that do: Hercher 2023
+  (arXiv 2201.00406v3, p. 2) reports "the current K > 7.2 · 10^10" odd terms for every nontrivial cycle. We make
+  no claim of novelty.
 - **0 `sorry`** in the proofs (one unused marker in a copied dependency, see *Dependencies*); **0 `native_decide`**:
   the finite check uses `decide +kernel`.
 - **Axioms:** only `propext`, `Classical.choice`, `Quot.sound` (log in [`axioms/`](axioms/)).
@@ -43,9 +48,9 @@ from a clean build on 2026-10-21 (6 to 11 minutes on an M1 Pro once Mathlib is c
 
 | key | account | what we take from it |
 |---|---|---|
-| [La] | J. C. Lagarias, *The 3x+1 problem: an annotated bibliography (1963–1999)*, arXiv math/0309224v13 (2011), entries 158 (Steiner 1978) and 48 (Davison 1977) | entry 158: the statement, circuits, Davison's equation, "the only solution to this equation in positive integers is (k, l, h) = (1, 1, 1)", and a bracketed remark on the nonpositive integers; entry 48: `h = (n+1)/2^k`, `n` the smallest odd number in the cycle |
-| [SdW] | J. Simons, B. de Weger, *Theoretical and computational bounds for m-cycles of the 3n+1 problem*, Acta Arith. 117 (2005) (their version 1.3); we use version 1.44 (2010), §1.4 and Lemma 12 | the four steps of Steiner's proof; the inequality `0 < (k+ℓ) log 2 − k log 3 < 1/x_min`; the use of Rhin's bound |
-| [St81] | R. Steiner, *On the "Qx + 1 problem," Q odd*, Fibonacci Quart. 19 (1981), 285–288 | the analogous problem for `q = 5` and `q = 7`, with a reference to the 1978 paper ([La], entry 159: "Baker's method is again used, as in Steiner (1978)"): inequality (4), "if k ≥ 4, ℓ/k must be a convergent", Baker's theorem, then the continued fraction |
+| [La] | J. C. Lagarias, *The 3x+1 problem: an annotated bibliography (1963–1999)*, arXiv math/0309224v13 (2011), entries 158 (Steiner 1978) and 48 (Davison 1977) | entry 158 (p. 60): the statement, circuits, Davison's equation, "the only solution to this equation in positive integers is (k, l, h) = (1, 1, 1)", and a bracketed remark on the nonpositive integers; entry 48 (p. 22): `h = (n+1)/2^k`, `n` the smallest odd number in the cycle |
+| [SdW] | J. Simons, B. de Weger, *Theoretical and computational bounds for m-cycles of the 3n+1 problem*, Acta Arith. 117 (2005) (their version 1.3); we use version 1.44 (2010), §1.4 (pp. 3–4) and Lemma 12 (pp. 10–11) | the four steps of Steiner's proof (p. 3); the inequality `0 < (k+ℓ) log 2 − k log 3 < 1/x_min` (p. 4); the use of Rhin's bound |
+| [St81] | R. Steiner, *On the "Qx + 1 problem," Q odd*, Fibonacci Quart. 19 (1981), 285–288 | the analogous problem for `q = 5` and `q = 7`, with a reference to the 1978 paper ([La], entry 159, p. 60: "Baker's method is again used, as in Steiner (1978)"): inequality (4), "if k ≥ 4, ℓ/k must be a convergent" and Baker's theorem (p. 286), then the continued fraction (p. 287) |
 | [Rh] | G. Rhin, *Approximants de Padé et mesures effectives d'irrationalité*, Progress in Math. 71 (1987), 155–164 | inequality (7), see *Named hypothesis* |
 
 ## The statements
@@ -56,16 +61,16 @@ from a clean build on 2026-10-21 (6 to 11 minutes on an M1 Pro once Mathlib is c
 
 | account | Lean | hypothesis | content |
 |---|---|---|---|
-| [La]: circuit-cycles correspond to the solutions of Davison's equation, `h = (n+1)/2^k` | `circuit_iff` | — | for `k ≥ 1`: `CircuitCycle n k l ↔ ∃ h, n + 1 = 2^k h ∧ DavisonEq k l h`, for every `n ∈ ℤ` |
-| [SdW] §1.4; [St81] (4), for `q = 5` | `ineq4` | — | a positive solution has `0 < Λ < 1/(2^k h − 1) ≤ 1/(2^k − 1)` (`2^k h − 1` is the smallest element `n`) |
-| [SdW] §1.4: "(k+ℓ)/k must be a convergent of δ for k ≥ 5" | `convergent4` | — | for `k ≥ 4`, `0 < Λ < 1/(2^k − 1)` makes `(k+l)/k` a convergent of `log₂ 3` (Mathlib's `Real.convergent`, by Legendre's theorem) |
-| [SdW] §1.4: an upper bound for `k` from Baker's theorem | `rhin_k_le` | `H_Rhin` | every solution with `k ≥ 1`, `l ≥ 1`, `h ≠ 0` has `k ≤ 108` |
+| [La], entries 158 (p. 60) and 48 (p. 22): circuit-cycles correspond to the solutions of Davison's equation, `h = (n+1)/2^k` | `circuit_iff` | — | for `k ≥ 1`: `CircuitCycle n k l ↔ ∃ h, n + 1 = 2^k h ∧ DavisonEq k l h`, for every `n ∈ ℤ` |
+| [SdW] §1.4, p. 4; [St81] (4), p. 286, for `q = 5` | `ineq4` | — | a positive solution has `0 < Λ < 1/(2^k h − 1) ≤ 1/(2^k − 1)` (`2^k h − 1` is the smallest element `n`) |
+| [SdW] §1.4, p. 4: "(k+ℓ)/k must be a convergent of δ for k ≥ 5" | `convergent4` | — | for `k ≥ 4`, `0 < Λ < 1/(2^k − 1)` makes `(k+l)/k` a convergent of `log₂ 3` (Mathlib's `Real.convergent`, by Legendre's theorem) |
+| [SdW] §1.4, p. 3: an upper bound for `k` from Baker's theorem | `rhin_k_le` | `H_Rhin` | every solution with `k ≥ 1`, `l ≥ 1`, `h ≠ 0` has `k ≤ 108` |
 | — | `steiner_small` | — | for `1 ≤ k ≤ 20000`, the only positive solution is `(1, 1, 1)` |
-| [La]: the only positive solution is `(1, 1, 1)` | `steiner` | `H_Rhin` | as stated |
-| [La]: "the only circuit on the positive integers that is a cycle is {1, 2}" | `steiner_cycle` | `H_Rhin` | for `n > 0`, `k ≥ 1`: `CircuitCycle n k l → n = 1 ∧ k = 1 ∧ l = 1` |
+| [La], entry 158, p. 60: the only positive solution is `(1, 1, 1)` | `steiner` | `H_Rhin` | as stated |
+| [La], entry 158, p. 60: "the only circuit on the positive integers that is a cycle is {1, 2}" | `steiner_cycle` | `H_Rhin` | for `n > 0`, `k ≥ 1`: `CircuitCycle n k l → n = 1 ∧ k = 1 ∧ l = 1` |
 | — | `steiner_cycle_small` | — | the same for `k ≤ 20000` |
 | — | `circuit_large` | — | a circuit-cycle with `n > 0`, `k ≥ 1`, `n ≠ 1` has `n ≥ 2^20001 − 1` |
-| [La], in brackets: on the nonpositive integers, the cycles `{−1}` and `{−5, −7, −10}`, the solutions `(k, 0, 0)` and `(2, 1, −1)` | `steiner_int`, `steiner_cycle_int` | `H_Rhin` | for `k ≥ 1` and `h ∈ ℤ`, every solution is `l = h = 0`, `(1, 1, 1)` or `(2, 1, −1)`; every circuit-cycle on `ℤ` starts at `n = −1` (`l = 0`), `n = 1` or `n = −5` |
+| [La], entry 158, p. 60, in brackets: on the nonpositive integers, the cycles `{−1}` and `{−5, −7, −10}`, the solutions `(k, 0, 0)` and `(2, 1, −1)` | `steiner_int`, `steiner_cycle_int` | `H_Rhin` | for `k ≥ 1` and `h ∈ ℤ`, every solution is `l = h = 0`, `(1, 1, 1)` or `(2, 1, −1)`; every circuit-cycle on `ℤ` starts at `n = −1` (`l = 0`), `n = 1` or `n = −5` |
 | — | `tstar_circuit` | `H_Rhin` | the open target T★ of `Labo/Blueprint.lean` holds for the words `1^k 0^l` |
 
 [La]'s bracketed remark announces "exactly three circuits that are cycles on the non-positive integers" and names
@@ -131,6 +136,7 @@ inequality again (lemmas `pos_facts`, `Lam_pos_le`), and the finite check.
 
 The header of `Steiner/Steiner_Enonces.lean` is frozen with the statements (its SHA-256 is fixed). It cites [La] as
 entry 158; the formula `h = (n+1)/2^k` of its second row is in entry 48 (Davison 1977) of the same bibliography.
+Its rows cite sections and equation numbers, not pages; the table of *The statements* gives the pages.
 Its first row says that `1 ≤ k` is a hypothesis of each statement: `convergent4` assumes `4 ≤ k`, and
 `tstar_circuit` assumes `true ∈ oneBlock k l`, which amounts to `1 ≤ k`.
 

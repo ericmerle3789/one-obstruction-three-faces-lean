@@ -8,9 +8,9 @@ Mathematics and Computing (Winnipeg, 1977), Congressus Numerantium 20, Utilitas 
 > that is a cycle of the `3x+1` map is `{1, 2}` — here under a named hypothesis (Rhin's bound), and without any
 > hypothesis for at most 20000 odd terms. It proves nothing new about Collatz cycles.
 > **The original text was not available to us and was not read.** The statements follow published accounts of
-> the theorem and of its proof (see *Sources*). Steps 1 and 2 of Steiner's proof, as Simons and de Weger describe
-> it, are formalised as stated. Steps 3 and 4 are replaced: Rhin's lower bound for `|x log 2 + y log 3|` instead of
-> Baker's, as in their Lemma 12, and an exact check of each small `k` instead of the continued-fraction computation.
+> the theorem and of its proof (see *Sources*). Of the four steps of Steiner's proof, as Simons and de Weger describe
+> it, the inequality and the convergent property are formalised; the rest is replaced by Rhin's lower bound for
+> `|x log 2 + y log 3|` instead of Baker's, as in their Lemma 12, and by an exact check of each small `k`.
 
 **Status (2026-10-21).**
 - **Kernel-checked: 12 frozen statements, all proved** (`check.sh` checks that there are 12 axiom reports, one per
@@ -37,7 +37,7 @@ lake exe cache get
 `check.sh` (it needs `python3`) first checks the sources against `SHA256SUMS`, then compiles the 7 files one by
 one with `lake env lean`, in dependency order. It then reads the `#print axioms` output of `Steiner/Axiomes.lean`, and fails
 if any theorem depends on an axiom other than the three above, or if the number of reports is not 12. It was run
-from a clean build on 2026-10-21 (8 to 11 minutes on an M1 Pro once Mathlib is cached, mostly loading Mathlib).
+from a clean build on 2026-10-21 (6 to 11 minutes on an M1 Pro once Mathlib is cached, mostly loading Mathlib).
 
 ## Sources
 
@@ -45,7 +45,7 @@ from a clean build on 2026-10-21 (8 to 11 minutes on an M1 Pro once Mathlib is c
 |---|---|---|
 | [La] | J. C. Lagarias, *The 3x+1 problem: an annotated bibliography (1963–1999)*, arXiv math/0309224v13 (2011), entries 158 (Steiner 1978) and 48 (Davison 1977) | entry 158: the statement, circuits, Davison's equation, "the only solution to this equation in positive integers is (k, l, h) = (1, 1, 1)", and a bracketed remark on the nonpositive integers; entry 48: `h = (n+1)/2^k`, `n` the smallest odd number in the cycle |
 | [SdW] | J. Simons, B. de Weger, *Theoretical and computational bounds for m-cycles of the 3n+1 problem*, Acta Arith. 117 (2005) (their version 1.3); we use version 1.44 (2010), §1.4 and Lemma 12 | the four steps of Steiner's proof; the inequality `0 < (k+ℓ) log 2 − k log 3 < 1/x_min`; the use of Rhin's bound |
-| [St81] | R. Steiner, *On the "Qx + 1 problem," Q odd*, Fibonacci Quart. 19 (1981), 285–288 | the same method for `q = 5` and `q = 7`, with a reference to the 1978 paper: inequality (4), "if k ≥ 4, ℓ/k must be a convergent", Baker's theorem, then the continued fraction |
+| [St81] | R. Steiner, *On the "Qx + 1 problem," Q odd*, Fibonacci Quart. 19 (1981), 285–288 | the analogous problem for `q = 5` and `q = 7`, with a reference to the 1978 paper ([La], entry 159: "Baker's method is again used, as in Steiner (1978)"): inequality (4), "if k ≥ 4, ℓ/k must be a convergent", Baker's theorem, then the continued fraction |
 | [Rh] | G. Rhin, *Approximants de Padé et mesures effectives d'irrationalité*, Progress in Math. 71 (1987), 155–164 | inequality (7), see *Named hypothesis* |
 
 ## The statements
@@ -108,7 +108,7 @@ except the negative candidate at `k = 2`, where `(2, 1, −1)` is a solution; th
 [SdW] §1.4 lists four steps in Steiner's proof. In Lean:
 1. the inequality for `(k+ℓ)/k`: `ineq4`;
 2. a lower bound for `k`, then `(k+ℓ)/k` is a convergent: `convergent4`, which assumes `k ≥ 4` instead of proving a
-   lower bound;
+   lower bound (the finite check plays that role);
 3. an upper bound for `k` from Baker's theorem: `rhin_k_le`, from Rhin's bound;
 4. a lower bound for the partial quotients, then a computation of the continued fraction of `log₂ 3`: replaced by
    the finite check, which tests each `k ≤ 20000` directly.

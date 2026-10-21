@@ -161,12 +161,12 @@ Its first row says that `1 ≤ k` is a hypothesis of each statement: `convergent
   m-Cycles with m ≤ 91*. Its main theorem, `no_m_cycle_le_82` (read on 2026-10-21), excludes m-cycles with
   `m ≤ 82` under two external hypotheses; one bounds the number `K` of odd terms of the cycle by `1.4784·m·δ^m`. At `m = 1`
   this hypothesis already gives `K ≤ 2`, so its case `m = 1` is not Steiner's theorem.
-- **This repository.** `hh1997/` and `lagarias1990/` use the same map `T` (`LaboBP.T`).
+- **This repository.** `hh1997/` uses the same map `T` (`LaboBP.T`).
 
 ## Dependencies
 
 `Labo/Blueprint.lean` is copied unchanged from `hh1997/` (commit 36d5136; sha256
 `c397d06ecff993125417ea28750cd82d24dc31461de6bfa15435082d49c185ac`, as in `hh1997/SHA256SUMS`). It provides `T`, the
-parity-word functions `C`, `d`, `TrivialWord`, and the target T★ (`Tstar`). It contains one `sorry`: the marker
+parity-word functions `C` and `d`, the predicate `TrivialWord`, and the target T★ (`Tstar`). It contains one `sorry`: the marker
 `Tstar_open` for the open statement T★. It is never used; the axiom report of every theorem here excludes
 `sorryAx`.

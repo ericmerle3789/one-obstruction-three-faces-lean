@@ -1,0 +1,10 @@
+P1  k <= 20000 with the positive inequality at L = Lk : [1]
+P1  k with 2^(Lk+1) - 3^k <= 3^k : []
+P2  k <= 20000 with the negative inequality at L = Lk - 1 : [2]
+P4  k <= 20000 with k*A//B + 1 != bit_length(3^k) : []
+P3  solutions with k <= 40, 1 <= l <= 40 : [(1, 1, 1), (2, 1, -1)]
+P3  solutions with l = 0 have h = 0 : True
+P5  largest k with 2^k - 1 < (2k)^14 : 108
+P5  largest k with 2^k - 1 < Lk^13.3 : 96
+P6  min |u1 log2 + u2 log3| * H^13.3 over 2 <= H <= 3000 : 2901.43 at H = 2, (u1, u2) = (2, -1)
+P7  k <= 200 with 2k >= (2^k - 1) ln 2 : [1, 2, 3]

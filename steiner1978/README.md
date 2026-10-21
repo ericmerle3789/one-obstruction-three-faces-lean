@@ -9,10 +9,10 @@ Mathematics and Computing (Winnipeg, 1977), Congressus Numerantium 20, Utilitas 
 > hypothesis for at most 20000 odd terms. It proves nothing new about Collatz cycles.
 > **The original paper (Congr. Numer. 20, 1978) could not be accessed and was not read; the statements and the proof
 > are reconstructed from Steiner 1981 (Fibonacci Quart. 19, the analogous problem for `q = 5` and `q = 7`),
-> Lagarias's annotated bibliography and Simons–de Weger 2005, §1.4 and Lemma 12** (see *Sources*). Of the four
-> steps of Steiner's proof, as Simons and de Weger describe it, the inequality and the convergent property are
-> formalised; the rest is replaced by Rhin's lower bound for `|x log 2 + y log 3|` instead of Baker's, as in their
-> Lemma 12, and by an exact check of each small `k`.
+> Lagarias's annotated bibliography and Simons–de Weger 2005 (read in their version 1.44 of 2010), §1.4 and
+> Lemma 12** (see *Sources*). Of the four steps of Steiner's proof, as Simons and de Weger describe it, the
+> inequality and the convergent property are formalised; the rest is replaced by Rhin's lower bound for
+> `|x log 2 + y log 3|` instead of Baker's, as in their Lemma 12, and by an exact check of each small `k`.
 
 **Status (2026-10-21).**
 - **Kernel-checked: 12 frozen statements, all proved** (`check.sh` checks that there are 12 axiom reports, one per
@@ -39,10 +39,11 @@ lake exe cache get
 ./check.sh
 ```
 
-`check.sh` (it needs `python3`) first checks the sources against `SHA256SUMS`, then compiles the 7 files one by
-one with `lake env lean`, in dependency order. It then reads the `#print axioms` output of `Steiner/Axiomes.lean`, and fails
-if any theorem depends on an axiom other than the three above, or if the number of reports is not 12. It was run
-from a clean build on 2026-10-21 (6 to 11 minutes on an M1 Pro once Mathlib is cached, mostly loading Mathlib).
+`lake build` is not supported (there is no `Steiner.lean` root file); use `check.sh`, which needs `python3`. It
+first checks the sources against `SHA256SUMS`, then compiles the 7 files one by one with `lake env lean`, in
+dependency order. It then reads the `#print axioms` output of `Steiner/Axiomes.lean`, and fails if any theorem
+depends on an axiom other than the three above, or if the number of reports is not 12. It was run from a clean
+build on 2026-10-21 (6 to 11 minutes on an M1 Pro once Mathlib is cached, mostly loading Mathlib).
 
 ## Sources
 

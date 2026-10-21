@@ -7,10 +7,12 @@ Mathematics and Computing (Winnipeg, 1977), Congressus Numerantium 20, Utilitas 
 > **What this is.** A formalisation of a classical theorem from 1978: the only circuit on the positive integers
 > that is a cycle of the `3x+1` map is `{1, 2}` — here under a named hypothesis (Rhin's bound), and without any
 > hypothesis for at most 20000 odd terms. It proves nothing new about Collatz cycles.
-> **The original paper (Congr. Numer. 20, 1978) could not be accessed and was not read; the statements and the proof
-> are reconstructed from Steiner 1981 (Fibonacci Quart. 19, the analogous problem for `q = 5` and `q = 7`),
+> **The statements and the proof were written without the original paper (Congr. Numer. 20, 1978); they are
+> reconstructed from Steiner 1981 (Fibonacci Quart. 19, the analogous problem for `q = 5` and `q = 7`),
 > Lagarias's annotated bibliography and Simons–de Weger 2005 (read in their version 1.44 of 2010), §1.4 and
-> Lemma 12** (see *Sources*). Of the four steps of Steiner's proof, as Simons and de Weger describe it, the
+> Lemma 12** (see *Sources*). After release v1.2, on 2026-10-21, the paper was read in a scanned copy and compared
+> with the statements; nothing in the Lean files changes (see *Comparison with the original* and the correction of 2026-10-21
+> in *Related work*). Of the four steps of Steiner's proof, as Simons and de Weger describe it, the
 > inequality and the convergent property are formalised; the rest is replaced by Rhin's lower bound for
 > `|x log 2 + y log 3|` instead of Baker's, as in their Lemma 12, and by an exact check of each small `k`.
 
@@ -116,7 +118,8 @@ except the negative candidate at `k = 2`, where `(2, 1, −1)` is a solution; th
 2. a lower bound for `k`, then `(k+ℓ)/k` is a convergent: `convergent4`, which assumes `k ≥ 4` instead of proving a
    lower bound (the finite check plays that role);
 3. an upper bound for `k` from Baker's theorem: `rhin_k_le`, from Rhin's bound;
-4. a lower bound for the partial quotients, then a computation of the continued fraction of `log₂ 3`: replaced by
+4. a lower bound for the partial quotients, then a computation of the continued fraction of `log₂(3/2)`
+   (equivalently `log₂ 3`): replaced by
    the finite check, which tests each `k ≤ 20000` directly.
 
 The proof of `steiner` uses neither `ineq4` nor `convergent4`: it uses `rhin_k_le`, whose proof derives the
@@ -124,14 +127,42 @@ inequality again (lemmas `pos_facts`, `Lam_pos_le`), and the finite check.
 
 ## Not formalised
 
-- Steiner's own step 3 (Baker's theorem; [La] and [St81] cite A. Baker, *Transcendental Number Theory*, p. 45)
-  and step 4 (the continued fraction of `log₂ 3` up to the resulting bound; in [St81] the bound is `10^201` for
+- Steiner's own step 3 (Baker's theorem: the paper's Lemma 1, from A. Baker, *Transcendental Number Theory*, p. 45,
+  as [La] and [St81] cite it) and step 4 (the continued fraction of `log₂(3/2)` up to the resulting bound; in [St81] the bound is `10^201` for
   `q = 5`): replaced, see above.
-- The numbers of the 1978 paper: its text was not read.
-- Steiner's map: [St81] says that the 1978 paper studied `f(n) = (3n+1)/2` (`n` odd, `n > 1`), `n/2` (`n` even),
+- The paper's computations (the first ten convergents and `k > 15601`; Lemma 2; Lemma 1 and `k < 10^199`; the
+  expansion to 1200 decimal places): not formalised, see *Comparison with the original*.
+- Steiner's map: the 1978 paper (§II) studies, as [St81] says, `f(n) = (3n+1)/2` (`n` odd, `n > 1`), `n/2` (`n` even),
   `f(1) = 1`. The statements here use `T`, with `T(1) = 2`, as [La] does.
-- The circuit map `n ↦ n*` on the positive odd integers and the monotone runs of [St81] (Theorems 1 and 5), known
-  to us for `q = 5, 7` only.
+- The circuit map `n ↦ n*` on the positive odd integers (§II of the paper) and Davison's Theorem 1, the increasing run
+  up to `f^k(n)` with `k = v₂(n+1)` (for `q = 5, 7`, Theorems 1 and 5 of [St81]): not formalised; the cycle condition
+  is formalised as `CircuitCycle`. The identity (1) of Theorem 2, `2^j(n_j + 1) = 3^j(n + 1)`, is proved for `j ≤ k`
+  while the first `k` iterates are odd, as the auxiliary lemma `run_odd` of `Steiner/Dynamique.lean` (not a frozen
+  statement).
+
+## Comparison with the original (2026-10-21)
+
+The statements were frozen (`7fd7873`) and proved before the paper was read. On 2026-10-21, after release v1.2, the
+paper was read in a scanned copy: 7 pages, pp. 553–559, an interlibrary-loan copy with a reader's typed annotations,
+linked from a review on the ccchallenge entry (see *Related work*). The scan is not reproduced here. The comparison
+(not exhaustive):
+
+| paper | Lean | comparison |
+|---|---|---|
+| §II: `f(n) = (3n+1)/2` for odd `n > 1`, `n/2` for even `n`, `f(1) = 1`; the circuit from `n` with `k = v₂(n+1)`, and the circuit map `n ↦ n*` on the positive odd integers (the paper's `T`) | `CircuitCycle`, `LaboBP.T` | the same circuits, as a cycle condition (the circuit map itself is not formalised); the solution `(1, 1, 1)` is `n = 1`, fixed by the paper's circuit map; the paper's `f` fixes 1, where the `T` here (`T(1) = 2`) has the cycle `{1, 2}` |
+| Theorems 1 and 2 (Davison): the increasing run up to `f^k(n)`, and `2^j(n_j + 1) = 3^j(n + 1)` | `run_odd` (auxiliary lemma, not a frozen statement) | the identity of Theorem 2, for `j ≤ k` while the iterates are odd (the printed statement gives no range); Theorem 1 is not formalised |
+| Theorem 3 (cited from Davison's paper, p. 158): there is an `n` with `T(n) = n` (the paper's `T`) if and only if (2), `(2^{k+ℓ} − 3^k)h = 2^ℓ − 1`, has a solution in positive integers `k, ℓ, h`; its proof gives `n + 1 = 2^k h` | `circuit_iff` | Theorem 3 and its proof in one statement, for every integer `n`, `k ≥ 1` and `l ≥ 0`, with `h ∈ ℤ` |
+| Theorem 4: the only solution of (2) in positive integers is `k = ℓ = h = 1` | `steiner` | the same conclusion, under `H_Rhin` (a premise of the statement) in place of the paper's Lemma 1 (Baker's bound, from Baker's *Transcendental Number Theory*, p. 45) |
+| (3) and (4): `0 < 2^{k+ℓ} − 3^k ≤ 2^ℓ − 1` and `0 < \|(k+ℓ) ln 2 − k ln 3\| ≤ 1/(2^k − 1)` | `ineq4` | inequality (4), stronger: without the absolute value, with `<`, and with the intermediate bound `1/(2^k h − 1)`; (3) has no statement of its own |
+| (5) and the next sentence: for `k ≥ 4`, `ℓ/k` must be a convergent of `log₂(3/2)` | `convergent4` | the same threshold `k ≥ 4` (the account of [SdW] §1.4 says `k ≥ 5`); stated for `(k+ℓ)/k` and `log₂ 3`, which is equivalent, since the two expansions differ by their integer part; for `0 < Λ` only (the paper's (5) has an absolute value; for a solution, (3) gives `Λ > 0`) |
+| the first ten convergents give `k > 15601`; Legendre's lemma (Lemma 2) gives a partial quotient larger than about `10^4690` (the exponent is partly illegible in the scan); Lemma 1 gives `k < 10^199`; `log₂(3/2)` computed to 1200 decimal places, then its continued fraction until `q_n > 10^199`, whose largest partial quotient is 2436 | `steiner_small`, `rhin_k_le` | replaced by the exact check of each `k ≤ 20000` and by Rhin's bound (`k ≤ 108`); Lemma 2 (the paper's lower bound for `\|θ − p_n/q_n\|`, not the convergent criterion used by `convergent4`) and the computation are not formalised |
+| the conclusion: no circuit under `f` is a cycle | `steiner_cycle` | the same conclusion, `{1, 2}` excepted, under `H_Rhin` |
+| — | `steiner_int`, `steiner_cycle_int` | on all integers: not in the paper, which treats the positive integers only |
+| — | `steiner_cycle_small`, `circuit_large` | hypothesis-free cycle forms of the finite check (compare the row of the computations) |
+| — | `tstar_circuit` | the lab's target T★ (see *Dependencies*), not in the paper |
+
+Nothing in the Lean files changes. The annotations of the scan point out misprints and imprecisions of the printed text, for
+instance `3^ℓ` for `3^k` in (2) (the proof below it has `3^k`); none of them affects the statements here.
 
 ## The header of the frozen file
 
@@ -140,6 +171,10 @@ entry 158; the formula `h = (n+1)/2^k` of its second row is in entry 48 (Davison
 Its rows cite sections and equation numbers, not pages; the table of *The statements* gives the pages.
 Its first row says that `1 ≤ k` is a hypothesis of each statement: `convergent4` assumes `4 ≤ k`, and
 `tstar_circuit` assumes `true ∈ oneBlock k l`, which amounts to `1 ≤ k`.
+The first sentence of line 10 of the file, "The original text was not available to us and was not read.", is
+withdrawn in part by the
+correction of 2026-10-21 (see *Related work*): the paper was not read when the statements were written, but "not
+available to us" was not justified; it was read afterwards (see *Comparison with the original*).
 
 ## Layout
 
@@ -156,7 +191,16 @@ Its first row says that `1 ≤ k` is a hypothesis of each statement: `convergent
 
 ## Related work
 
-- **ccchallenge** entry `Steiner1978`: status `not_started`, no formalisation (public API, 2026-10-21).
+- **ccchallenge** entry `Steiner1978`: its only formalisation (API record id 16) points to the Zenodo DOI of
+  release v1.2; status `waiting_to_be_audited` (public API, 2026-10-21; earlier that day, before our submission:
+  `not_started`, no formalisation). A review on that entry, dated 2026-03-04, links a file described as an
+  "Annotated PDF", and a Reddit post in r/Collatz; we found these two links after release v1.2. On 2026-10-21 we
+  opened the file, a scan of the paper (see *Comparison with the original*); the Reddit post was not opened. **Correction (2026-10-21):** release v1.2 (its notes, this README, the root README and the Zenodo record
+  10.5281/zenodo.23541611) says that the original paper "could not be accessed", and the frozen header of
+  `Steiner/Steiner_Enonces.lean` (line 10) says "The original text was not available to us"; these claims were not justified (we had not checked
+  that entry's reviews, where the file described as an "Annotated PDF" was linked before the release) and are
+  withdrawn. The root README now says that the statements were written without the original paper and compared with
+  it after release v1.2; `.zenodo.json` will be updated at the next release.
 - **Hercher 2023.** [PhilNorfleet/Hercher2023_lean](https://github.com/PhilNorfleet/Hercher2023_lean)
   (ccchallenge entry `Hercher2023`, status `waiting_to_be_audited`) formalises Hercher's *There are no Collatz
   m-Cycles with m ≤ 91*. Its main theorem, `no_m_cycle_le_82` (read on 2026-10-21), excludes m-cycles with

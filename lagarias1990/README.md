@@ -145,7 +145,10 @@ attainment in (4.4) (`Lagarias/Addenda3.lean`) and to the section *Superseded he
 release is made only after two consecutive passes with no remark. As far as we checked, none of these points is reported in
 print: entry 108 of Lagarias's annotated bibliography *The 3x+1 problem: an annotated bibliography (1963–1999)*
 (arXiv math/0309224) lists no erratum, and the second one, *(2000–2009)* (arXiv math/0608208), does not mention
-the paper.
+the paper. **Correction (2026-10-21):** two of these points, the rows k = 35 and k = 73 of Table 3.1, had already been
+corrected in the OEIS: the entries A102280 and A102284, which reproduce that table, give the corrected values
+(corrections by G. H. Morley, 14 March 2013). A note collects the points of this paper and of Halbeisen–Hungerbühler
+1997 that are checked by a Lean theorem or by a script: doi:[10.5281/zenodo.23535498](https://doi.org/10.5281/zenodo.23535498).
 
 **A. Backed by Lean.**
 

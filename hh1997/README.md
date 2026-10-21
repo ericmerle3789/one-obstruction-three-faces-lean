@@ -125,7 +125,8 @@ Nothing here breaks a theorem of the paper.
 
 As far as we could check (EuDML, the authors' pages, Lagarias's annotated bibliography 2003,
 Cox–Ghosh–Sultanow 2021; 20 Oct 2026), none of the points above has been reported in print. Lagarias
-already writes "optimal" in quotation marks (MR 98g:11025).
+already writes "optimal" in quotation marks (MR 98g:11025). A note collects the points of this paper and of Lagarias 1990
+that are checked by a Lean theorem or by a script (21 October 2026): doi:[10.5281/zenodo.23535498](https://doi.org/10.5281/zenodo.23535498).
 
 ## Dependencies
 

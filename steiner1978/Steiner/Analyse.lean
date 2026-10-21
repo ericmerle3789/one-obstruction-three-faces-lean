@@ -142,7 +142,8 @@ theorem convergent4_thm : convergent4 := by
 
 /-! ## Rhin's bound -/
 
-/-- `H_Rhin` applied to `u₁ = k + l`, `u₂ = −k`: `(k+l)^(−13.3) ≤ |Λ|`. -/
+/-- `H_Rhin` applied to `u₁ = k + l`, `u₂ = −k` gives `(k+l)^(−13.3) ≤ |Λ|`; stated here in the weaker form
+`1/(k+l)^14 ≤ |Λ|`. -/
 theorem rhin_apply (hR : H_Rhin) {k l : ℕ} (hl : 1 ≤ l) (hk : 1 ≤ k) :
     1 / ((k + l : ℕ) : ℝ) ^ 14 ≤ |Lam k l| := by
   have hmax : max |((k + l : ℕ) : ℤ)| |(-(k : ℤ))| = ((k + l : ℕ) : ℤ) := by

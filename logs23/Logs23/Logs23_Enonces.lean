@@ -21,7 +21,7 @@ Plan (see `README.md`):
   with `reduction`, Steiner's theorem without any hypothesis.
 
 Written before the proofs. Each statement is a `def … : Prop`; the proofs are `…_thm` in the proof files, and
-`Logs23/Axiomes.lean` checks `example : X := X_thm` for the statements proved so far.
+`Logs23/Axiomes.lean` checks `example : X := X_thm` for each of them.
 
 | Lean | content | step |
 |---|---|---|

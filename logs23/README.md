@@ -17,8 +17,8 @@ paper and does not prove `H_Rhin` (its lower bound for `|Λ|` is much weaker tha
 
 ## What is proved (no hypothesis; axioms `propext`, `Classical.choice`, `Quot.sound` only)
 
-Frozen statements: `Logs23/Logs23_Enonces.lean` (step 2a) and `Logs23/TwoLog_Enonces.lean` (step 2b), each written
-and committed before its proofs.
+Frozen statements: `Logs23/Logs23_Enonces.lean` (frozen at step 2a) and `Logs23/TwoLog_Enonces.lean` (frozen at
+step 2b), each written and committed before its proofs.
 
 | statement | content |
 |---|---|
@@ -26,7 +26,7 @@ and committed before its proofs.
 | `bridge_value` | `10^(−101) ≤ \|pBr log 2 − qBr log 3\|` |
 | `lam_lower_bridge` | `lam_lower` for `20000 < k < qBr'` |
 | `steiner_bridge`, `steiner_cycle_bridge` | Steiner's theorem (Davison's equation; circuits) for `k < qBr'` |
-| `two_log_lower` | for natural numbers `b₁`, `b₂ ≥ 2^334`: `exp(−10^12 ν^5) ≤ \|b₁ log 2 − b₂ log 3\|`, `ν = ⌊log₂ b₂⌋ + 1` |
+| `two_log_lower` | for every natural `b₁` and every natural `b₂ ≥ 2^334`: `exp(−10^12 ν^5) ≤ \|b₁ log 2 − b₂ log 3\|`, `ν = ⌊log₂ b₂⌋ + 1` |
 | `lam_lower_large` | `lam_lower` for `k ≥ 2^334` |
 | `lam_lower` | for every `k > 20000` and every `l`: `1/(2^k − 1) ≤ \|Λ\|` |
 | `reduction` | `lam_lower` implies the five statements below |
@@ -35,8 +35,11 @@ and committed before its proofs.
 Here `pBr/qBr` and `pBr'/qBr'` are two consecutive convergents of `log₂ 3`; `qBr` is the first convergent denominator
 with 100 digits and `qBr' ≈ 6.34 · 10^100 > 2^334`.
 
-In particular (`steiner_cycle_nh`): **the only circuit on the positive integers that is a cycle is {1, 2}**, and
-(`steiner_cycle_int_nh`) the circuit-cycles on `ℤ` are `{−1}`, `{1, 2}` and `{−5, −7, −10}`, with no hypothesis.
+In particular (`steiner_cycle_nh`): **every circuit on the positive integers that is a cycle is {1, 2}** (it starts
+at `n = 1`, with `k = l = 1`), and (`steiner_cycle_int_nh`) every circuit-cycle on `ℤ` is `{−1}`, `{1, 2}` or
+`{−5, −7, −10}` (it starts at `n = −1` with `l = 0`, at `n = 1`, or at `n = −5`), with no hypothesis. (These
+statements exclude every other circuit-cycle; that the listed ones are circuit-cycles is a direct computation,
+not stated in Lean.)
 The sixth statement of `../steiner1978/` with the premise `H_Rhin`, `rhin_k_le` ("`k ≤ 108`"), is not covered.
 
 ## How it is proved
@@ -68,8 +71,11 @@ Parameters: `L = ν`, `K + 1 = 2^15 ν`, `N = L (K + 1)`, columns `(r, s)`, `1 �
   `Polynomial.roots_countP_pos_le_signVariations`), `Logs23/ExpKernel.lean` (all Cauchy–Binet terms of
   `det[e^{μ_i x ζ_j}]` have the same sign, hence a lower bound by one term and the bound
   `|E(1)| ≤ x^(−N(N−1)/2) |E(x)|`), `Logs23/Confluence.lean` (with `μ = λ_l + κ h`, a triangular change of rows gives
-  `E = h^σ det[…]`, and `h → 0` gives the same two bounds for `D(x) = det[(xζ)^κ e^{λ_l x ζ}]`, `D(1) = G(0)`).
-* `Logs23/Proposition.lean` (`prop_main`): if `N! X(x)^N / x^(N(N−1)/2) ≤ 1/(2 b₂^σ)`, then `|G(0)|` is small; if
+  `E = h^σ det[…]`, and `h → 0` gives analogous bounds for `D(x) = det[(xζ)^κ e^{λ_l x ζ}]`, `D(1) = G(0)`:
+  `|D(1)| ≥ T' := (∏_{m<N} 1/m!) ((log 2)/2)^(N(N−1)/2) |V(ζ)|` and `|D(1)| ≤ x^(−N(N−1)/2) |D(x)|`).
+* `Logs23/Proposition.lean` (`prop_main`): for distinct points (the integers `r b₂ + s b₁` distinct), with
+  `X(x) := (x ζ_max)^K e^{λ_max x ζ_max}` bounding the entries and `L S |Λ|/b₂ ≤ 1`: if
+  `N! X(x)^N / x^(N(N−1)/2) ≤ 1/(2 b₂^σ)`, then `|G(0)|` is small; if
   `det M ≠ 0` then `|G(δ)| ≥ b₂^(−σ)`, and if `det M = 0` then `G(δ) = 0`; in both cases
   `|G(δ) − G(0)| ≥ |G(0)| ≥ T' > 0`, and the perturbation bound gives `|Λ| ≥ b₂ T' / (N · N! · (3 X(1))^N · L S)`.
   The case `det M = 0` is not excluded.

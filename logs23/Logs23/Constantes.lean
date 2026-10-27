@@ -2,7 +2,7 @@ import Mathlib
 import Logs23.Proposition
 
 /-!
-# Logs23 · the constants (§7 of the register `RHIN_ROUTE_C.md`), for every `ν ≥ 335`
+# Logs23 · the constants of step 2b, for every `ν ≥ 335`
 
 Parameters: `L = ν`, `K + 1 = 2^15 ν`, `N = L (K + 1)`, `S = 2^7 ν`, `ζ_max = 2^9 ν`, `λ_max = ν log 2`, `x = 16`.
 * `cond_P`: the condition `(P)` of `prop_main` holds for every `b₂ < 2^ν`;

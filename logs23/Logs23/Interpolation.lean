@@ -2,7 +2,7 @@ import Mathlib
 import Logs23.Confluence
 
 /-!
-# Logs23 · the integer interpolation determinant and the main inequality (Proposition 6.1 of the register)
+# Logs23 · the integer interpolation determinant and bounds for determinants
 
 Columns `j` carry natural numbers `r_j ≥ 1`, `s_j < S`; for natural numbers `b₁, b₂ ≥ 1` put `θ = b₁/b₂`,
 `ζ_j = r_j + s_j θ`, `Λ = b₁ log 2 − b₂ log 3`, `δ = −Λ/b₂`. The integer matrix

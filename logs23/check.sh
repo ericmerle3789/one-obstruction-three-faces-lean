@@ -5,7 +5,8 @@
 # 1. The sources are checked against SHA256SUMS.
 # 2. ../steiner1978/check.sh is run: it re-checks Steiner 1978 and builds the modules imported here.
 # 3. Each file of Logs23/ is compiled with `lean -o`, in dependency order; the check fails on any error and on any
-#    warning "declaration uses `sorry`". (Warnings "exponent ... exceeds the threshold 256" are expected.)
+#    warning "declaration uses `sorry`". (Warnings "exponent ... exceeds the threshold 256" and deprecation warnings
+#    are expected.)
 # 4. The `#print axioms` output of Logs23/Axiomes.lean is read, for the 15 theorems listed there (the 14 frozen
 #    statements and `widths`): the check fails if one of them depends on an axiom other than
 #    propext, Classical.choice, Quot.sound (this also rules out sorryAx and the auxiliary axiom that native_decide

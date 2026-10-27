@@ -2,7 +2,7 @@ import Mathlib
 import Logs23.Interpolation
 
 /-!
-# Logs23 · the main inequality (Proposition 6.1 of the register `RHIN_ROUTE_C.md`)
+# Logs23 · the main inequality (step 2b; outline in `README.md`)
 
 If the parameters satisfy the condition `(P)`, then
 `|Λ| ≥ b₂ T' / (N · N! · (3 X(1))^N · L S)`, `T' = (∏_{k<N} 1/k!) ((log 2)/2)^(tri N) |V(ζ)|`.

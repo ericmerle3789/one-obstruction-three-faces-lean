@@ -36,8 +36,8 @@ the type of M. Laurent, *Linear forms in two logarithms and interpolation determ
 181–199, or N. Gouillon, *Explicit lower bounds for linear forms in two logarithms*, J. Théor. Nombres Bordeaux 18
 (2006), 125–146). Thanks to the bridge, it is enough to have such a bound for large coefficients only, and with
 large constants: for instance a bound `log|b₁ log 2 − b₂ log 3| ≥ −C (log b)²` for `b = max(|b₁|, |b₂|) ≥ qBr'`
-would suffice as soon as `C ≤ log(2^qBr' − 1)/(log 2qBr')² ≈ 8.1·10^95`. (For `k ≥ qBr'`, either `|Λ| ≥ 1`, or
-`k ≤ b = k + l < 2k`; the function `log(2^k − 1)/(log 2k)²` increases with `k`; value computed by
+would suffice as soon as `C ≤ log(2^qBr' − 1)/(log(2 qBr'))² ≈ 8.1·10^95`. (For `k ≥ qBr'`, either `|Λ| ≥ 1`, or
+`k ≤ b = k + l < 2k`; the function `log(2^k − 1)/(log(2k))²` increases with `k`; value computed by
 `checks/cf_log23.py`.) The published constants are many orders of magnitude smaller. None is formalised here.
 
 ## How the bridge is proved

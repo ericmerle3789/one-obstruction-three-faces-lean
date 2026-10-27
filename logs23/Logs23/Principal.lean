@@ -22,7 +22,7 @@ namespace Logs23
 
 open Steiner LaboBP
 
-/-- A solution with `l ≥ 1`, `h ≠ 0` has `|Λ| < 1/(2^k − 1)`, whatever the sign of `h`. -/
+/-- A solution with `k ≥ 1`, `l ≥ 1`, `h ≠ 0` has `|Λ| < 1/(2^k − 1)`, whatever the sign of `h`. -/
 theorem lam_small {k l : ℕ} {h : ℤ} (hk : 1 ≤ k) (hl : 1 ≤ l) (hh : h ≠ 0) (he : DavisonEq k l h) :
     |Lam k l| < 1 / ((2 : ℝ) ^ k - 1) := by
   have h2k : (2 : ℝ) ≤ 2 ^ k := by

@@ -8,7 +8,7 @@ Padé et mesures effectives d'irrationalité*, Progress in Math. 71 (1987), 155�
 `k ≤ 20000`. That proof uses `H_Rhin` through a single lemma, `rhin_k_le`, to bound `k`. What it needs is much weaker than `H_Rhin`: for
 `Λ = (k + l) log 2 − k log 3`,
 
-> `lam_lower`: for every `k > 20000` and every `l`, `1/(2^k − 1) ≤ |Λ|`.
+> `lam_lower`: for every `k > 20000` and every `l ≥ 0`, `1/(2^k − 1) ≤ |Λ|`.
 
 (If `|Λ| < 1` then `k + l < 2k`, and `H_Rhin` gives `|Λ| ≥ (2k)^(−13.3)`, far above `1/(2^k − 1)` when `k > 20000`.)
 
@@ -54,7 +54,7 @@ would suffice as soon as `C ≤ log(2^qBr' − 1)/(log 2qBr')² ≈ 8.1·10^95`.
   and B. de Weger, *Theoretical and computational bounds for m-cycles of the 3n+1 problem*, Acta Arith. 117 (2005),
   version 1.44 (2010), §1.4. No novelty is claimed.
 * `Logs23/Principal.lean`: the proofs of `../steiner1978/Steiner/Principal.lean`, with `rhin_k_le_thm` replaced by
-  `k_le_of_lam`, which combines the lower bound with `lam_small` (a solution with `l ≥ 1`, `h ≠ 0` has
+  `k_le_of_lam`, which combines the lower bound with `lam_small` (a solution with `k ≥ 1`, `l ≥ 1`, `h ≠ 0` has
   `|Λ| < 1/(2^k − 1)`, for either sign of `h`).
 
 The four integers were computed by `checks/cf_log23.py` (mpmath, 600 digits; output in `checks/cf_log23.out.txt`);
@@ -62,7 +62,7 @@ Lean re-certifies everything it uses about them.
 
 ## Re-checking
 
-`./check.sh` (5 to 11 min; needs `python3`): checks `SHA256SUMS`, runs `../steiner1978/check.sh` (which builds the
+`./check.sh` (needs `python3`): checks `SHA256SUMS`, runs `../steiner1978/check.sh` (which builds the
 Steiner 1978 modules imported here), compiles `Logs23/*.lean` one by one with `lean -o` (`LEAN_PATH` from `env.sh`,
 taken from `../steiner1978`; this folder has no Lake package of its own and `lake build` is not used), fails on any
 error or `sorry` warning, and reads the axiom report of `Logs23/Axiomes.lean` (expected: 7 reports — the 6 proved

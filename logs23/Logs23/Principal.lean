@@ -11,7 +11,7 @@ import Logs23.Pont
 /-!
 # Logs23 · proofs (3): Steiner's theorem from the lower bound for `Λ`
 
-In `../steiner1978/`, `H_Rhin` is used once, through `rhin_k_le` ("`k ≤ 108`"). Here `k_le_of_lam` replaces it:
+In `../steiner1978/`, `H_Rhin` is used through a single lemma, `rhin_k_le` ("`k ≤ 108`"). Here `k_le_of_lam` replaces it:
 a lower bound `1/(2^k − 1) ≤ |Λ|` for the `k > 20000` of a class `B` gives `k ≤ 20000` for every solution with
 `l ≥ 1`, `h ≠ 0` and `B k`, of either sign. The proofs below are those of `../steiner1978/Steiner/Principal.lean`
 with `rhin_k_le_thm` replaced by `k_le_of_lam`; they are stated for an arbitrary class `B`, then used with

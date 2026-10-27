@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Re-check the logs23 formalisation, file by file, on Lean 4.34.0 + Mathlib v4.34.0 (5 to 11 min; needs python3).
+# Re-check the logs23 formalisation, file by file, on Lean 4.34.0 + Mathlib v4.34.0 (needs python3).
 # Prerequisite, once: in ../steiner1978, `lake exe cache get` (prebuilt Mathlib; nothing of Mathlib is recompiled).
 # This folder has no Lake package of its own: env.sh takes LEAN_PATH from ../steiner1978. `lake build` is not used.
 # 1. The sources are checked against SHA256SUMS.

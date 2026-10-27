@@ -8,8 +8,8 @@ import Logs23.Encadrements
 
 Write `(L, k) = a (pBr, qBr) + b (pBr', qBr')` in the basis of the two convergents, which is unimodular
 (`pBr' qBr − pBr qBr' = 1`). Then `L log 2 − k log 3 = a e₁ + b e₂` with `e₁ = pBr log 2 − qBr log 3 < 0` and
-`e₂ = pBr' log 2 − qBr' log 3 > 0`. For `0 < k < qBr'`, `a ≠ 0` and `a b ≤ 0`, so both terms have the sign of
-`a e₁` and `|L log 2 − k log 3| ≥ |e₁|`. The two signs and `|e₁| ≥ 10^(−101)` come from the enclosures of
+`e₂ = pBr' log 2 − qBr' log 3 > 0`. For `0 < k < qBr'`, `a ≠ 0` and `a b ≤ 0`, so `b e₂` is zero or has the sign of
+`a e₁`, and `|L log 2 − k log 3| ≥ |a e₁| ≥ |e₁|`. The two signs and `|e₁| ≥ 10^(−101)` come from the enclosures of
 `Logs23/Encadrements.lean`, compared by the kernel.
 -/
 
@@ -38,7 +38,8 @@ theorem abs_le_of_signs {e₁ e₂ : ℝ} (h₁ : e₁ < 0) (h₂ : 0 < e₂) {a
     rw [abs_of_neg h₁, abs_of_nonpos (by nlinarith)]
     nlinarith
 
-/-- The gap lemma for any unimodular pair of integer vectors with opposite signs. -/
+/-- The gap lemma for vectors of natural numbers `(p, q)`, `(p', q')` with `p' q − p q' = 1` whose linear forms
+`p log 2 − q log 3 < 0 < p' log 2 − q' log 3` have opposite signs (`q ≥ 0` is used). -/
 theorem gap_of_unimodular {p q p' q' : ℕ} (hu : (p' : ℤ) * q - p * q' = 1)
     (h₁ : (p : ℝ) * Real.log 2 - (q : ℝ) * Real.log 3 < 0)
     (h₂ : 0 < (p' : ℝ) * Real.log 2 - (q' : ℝ) * Real.log 3)
@@ -86,10 +87,12 @@ theorem gap_of_unimodular {p q p' q' : ℕ} (hu : (p' : ℤ) * q - p * q' = 1)
 
 theorem unimod_br : (pBr' : ℤ) * qBr - pBr * qBr' = 1 := by decide +kernel
 
-/-- `pBr log 2 − qBr log 3 ≤ −10^(−101)`, from the enclosures (rational comparison by the kernel). -/
+/-- Rational form of `e₁_le`: the upper bound `pBr·L2hi − qBr·(L2lo + L32lo)` for `pBr log 2 − qBr log 3`
+is `≤ −10^(−101)` (rational comparison by the kernel). -/
 theorem e₁_rat : (pBr : ℚ) * L2hi - qBr * (L2lo + L32lo) ≤ -(1 / 10 ^ 101) := by decide +kernel
 
-/-- `pBr' log 2 − qBr' log 3 > 0`, from the enclosures. -/
+/-- Rational form of `e₂_pos`: the lower bound `pBr'·L2lo − qBr'·(L2hi + L32hi)` for `pBr' log 2 − qBr' log 3`
+is `> 0` (rational comparison by the kernel). -/
 theorem e₂_rat : 0 < (pBr' : ℚ) * L2lo - qBr' * (L2hi + L32hi) := by decide +kernel
 
 theorem e₁_le : (pBr : ℝ) * Real.log 2 - (qBr : ℝ) * Real.log 3 ≤ -(1 / 10 ^ 101) := by

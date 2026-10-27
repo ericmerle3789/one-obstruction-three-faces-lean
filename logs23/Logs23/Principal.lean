@@ -13,7 +13,7 @@ import Logs23.Pont
 
 In `../steiner1978/`, `H_Rhin` is used through a single lemma, `rhin_k_le` ("`k ≤ 108`"). Here `k_le_of_lam` replaces it:
 a lower bound `1/(2^k − 1) ≤ |Λ|` for the `k > 20000` of a class `B` gives `k ≤ 20000` for every solution with
-`l ≥ 1`, `h ≠ 0` and `B k`, of either sign. The proofs below are those of `../steiner1978/Steiner/Principal.lean`
+`k ≥ 1`, `l ≥ 1`, `h ≠ 0` and `B k`, of either sign. The proofs below are those of `../steiner1978/Steiner/Principal.lean`
 with `rhin_k_le_thm` replaced by `k_le_of_lam`; they are stated for an arbitrary class `B`, then used with
 `B k := k < qBr'` (the bridge, no hypothesis) and with `B k := True` (`reduction`).
 -/
@@ -55,7 +55,8 @@ theorem lam_small {k l : ℕ} {h : ℤ} (hk : 1 ≤ k) (hl : 1 ≤ l) (hh : h �
     rw [abs_of_pos hpos']
     exact lt_of_lt_of_le hlt hle
 
-/-- The lower bound for `Λ` on a class `B` forces `k ≤ 20000` for the solutions with `l ≥ 1`, `h ≠ 0`, `B k`. -/
+/-- The lower bound for `Λ` on a class `B` forces `k ≤ 20000` for the solutions with `k ≥ 1`, `l ≥ 1`, `h ≠ 0`,
+`B k`. -/
 theorem k_le_of_lam (B : ℕ → Prop) (hL : ∀ k l : ℕ, 20000 < k → B k → 1 / ((2 : ℝ) ^ k - 1) ≤ |Lam k l|)
     {k l : ℕ} {h : ℤ} (hk : 1 ≤ k) (hB : B k) (hl : 1 ≤ l) (hh : h ≠ 0) (he : DavisonEq k l h) :
     k ≤ 20000 := by

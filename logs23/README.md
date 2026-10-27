@@ -10,7 +10,7 @@ Padé et mesures effectives d'irrationalité*, Progress in Math. 71 (1987), 155�
 
 > `lam_lower`: for every `k > 20000` and every `l ≥ 0`, `1/(2^k − 1) ≤ |Λ|`.
 
-(If `|Λ| < 1` then `k + l < 2k`, and `H_Rhin` gives `|Λ| ≥ (2k)^(−13.3)`, far above `1/(2^k − 1)` when `k > 20000`.)
+(For `k > 20000`: if `|Λ| < 1` then `k + l < 2k`, and `H_Rhin` gives `|Λ| ≥ (2k)^(−13.3)`, far above `1/(2^k − 1)`.)
 
 This folder works towards `lam_lower`. **It does not formalise Rhin's paper and does not prove `H_Rhin`.**
 
@@ -24,9 +24,9 @@ This folder works towards `lam_lower`. **It does not formalise Rhin's paper and 
 | `steiner_bridge`, `steiner_cycle_bridge` | Steiner's theorem (Davison's equation; circuits) for `k < qBr'` |
 | `reduction` | `lam_lower` implies `steiner_nh`, `steiner_int_nh`, `steiner_cycle_nh`, `steiner_cycle_int_nh`, `tstar_circuit_nh`: the statements `steiner`, `steiner_int`, `steiner_cycle`, `steiner_cycle_int`, `tstar_circuit` of `../steiner1978/` without their premise `H_Rhin` (the sixth statement there with this premise, `rhin_k_le`, "`k ≤ 108`", is not covered) |
 
-Here `pBr/qBr` and `pBr'/qBr'` are two consecutive convergents of `log₂ 3`; `qBr` is the first denominator with
-100 digits and `qBr' ≈ 6.34 · 10^100`. So Steiner's theorem is proved without hypothesis for every circuit with
-fewer than `qBr'` odd steps (instead of `k ≤ 20000` in `../steiner1978/`).
+Here `pBr/qBr` and `pBr'/qBr'` are two consecutive convergents of `log₂ 3`; `qBr` is the first convergent denominator
+with 100 digits and `qBr' ≈ 6.34 · 10^100`. So, without hypothesis, the only circuit on the positive integers that
+is a cycle and has fewer than `qBr'` odd steps is {1, 2} (instead of `k ≤ 20000` odd steps in `../steiner1978/`).
 
 ## What is not proved
 

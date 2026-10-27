@@ -200,7 +200,8 @@ available to us" was not justified; it was read afterwards (see *Comparison with
   `Steiner/Steiner_Enonces.lean` (line 10) says "The original text was not available to us"; these claims were not justified (we had not checked
   that entry's reviews, where the file described as an "Annotated PDF" was linked before the release) and are
   withdrawn. The root README now says that the statements were written without the original paper and compared with
-  it after release v1.2; `.zenodo.json` will be updated at the next release.
+  it after release v1.2; `.zenodo.json` will be updated at the next release. Update (2026-10-27): `.zenodo.json`
+  updated for release v1.3.
 - **Hercher 2023.** [PhilNorfleet/Hercher2023_lean](https://github.com/PhilNorfleet/Hercher2023_lean)
   (ccchallenge entry `Hercher2023`, status `waiting_to_be_audited`) formalises Hercher's *There are no Collatz
   m-Cycles with m ≤ 91*. Its main theorem, `no_m_cycle_le_82` (read on 2026-10-21), excludes m-cycles with

@@ -22,6 +22,7 @@ e1, e2 = q * th - p, qq * th - pp
 print("q theta - p =", mp.nstr(e1, 8), "; q' theta - p' =", mp.nstr(e2, 8), "; opposite signs:", e1 * e2 < 0)
 print("log10|q theta - p| =", mp.nstr(mp.log10(abs(e1)), 8))
 print("first convergents (p/q):", convs[:16])
+print("digits of the last four denominators:", [len(str(d)) for _, d in convs[-4:]])
 print("pBr  =", p)
 print("qBr  =", q)
 print("pBr' =", pp)

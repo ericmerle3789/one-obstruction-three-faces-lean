@@ -4,3 +4,4 @@
 'Logs23.steiner_bridge_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Logs23.steiner_cycle_bridge_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Logs23.reduction_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Logs23.widths' depends on axioms: [propext, Classical.choice, Quot.sound]

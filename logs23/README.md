@@ -10,6 +10,8 @@ Padé et mesures effectives d'irrationalité*, Progress in Math. 71 (1987), 155�
 
 > `lam_lower`: for every `k > 20000` and every `l`, `1/(2^k − 1) ≤ |Λ|`.
 
+(`H_Rhin` gives `|Λ| ≥ (k + l)^(−13.3)`, which is far above `1/(2^k − 1)` when `k > 20000`.)
+
 This folder works towards `lam_lower`. **It does not formalise Rhin's paper and does not prove `H_Rhin`.**
 
 ## What is proved (no hypothesis; axioms `propext`, `Classical.choice`, `Quot.sound` only)
@@ -24,7 +26,7 @@ This folder works towards `lam_lower`. **It does not formalise Rhin's paper and 
 
 Here `pBr/qBr` and `pBr'/qBr'` are two consecutive convergents of `log₂ 3`; `qBr` is the first denominator with
 100 digits and `qBr' ≈ 6.34 · 10^100`. So Steiner's theorem is proved without hypothesis for every circuit with
-fewer than `qBr'` odd steps (instead of 20 000 in `../steiner1978/`).
+fewer than `qBr'` odd steps (instead of `k ≤ 20000` in `../steiner1978/`).
 
 ## What is not proved
 
@@ -32,8 +34,10 @@ fewer than `qBr'` odd steps (instead of 20 000 in `../steiner1978/`).
 are **not** proved yet. This needs an effective lower bound for linear forms in two logarithms (for instance of
 the type of M. Laurent, *Linear forms in two logarithms and interpolation determinants*, Acta Arith. 66 (1994),
 181–199, or N. Gouillon, *Explicit lower bounds for linear forms in two logarithms*, J. Théor. Nombres Bordeaux 18
-(2006), 125–146); thanks to the bridge, any such bound for `b ≥ 10^100`, whatever its constants, would suffice.
-None is formalised here.
+(2006), 125–146). Thanks to the bridge, it is enough to have such a bound for large coefficients only, and with
+large constants: for instance `log|b₁ log 2 − b₂ log 3| ≥ −C (log b)²` for `b = max(|b₁|, |b₂|) ≥ 10^100`, with
+`C` up to about `10^94`, would suffice (the published constants are many orders of magnitude smaller). None is
+formalised here.
 
 ## How the bridge is proved
 
@@ -44,19 +48,25 @@ None is formalised here.
   `(L, k) = a (pBr, qBr) + b (pBr', qBr')`. For `0 < k < qBr'`, `a ≠ 0` and `a b ≤ 0`; since
   `pBr log 2 − qBr log 3 < 0 < pBr' log 2 − qBr' log 3` (from the enclosures), `|L log 2 − k log 3| ≥ |pBr log 2 − qBr log 3|`.
   No continued-fraction theory is used in Lean: only the two pairs of integers and two certified signs.
-  This best-approximation argument is classical; no novelty is claimed.
+  This best-approximation argument is classical (it is the property that convergents are best approximations);
+  it plays the role of the numerical computation of partial quotients in Steiner's proof as summarised by J. Simons
+  and B. de Weger (Acta Arith. 117 (2005), version 1.44 (2010), §1.4). No novelty is claimed.
 * `Logs23/Principal.lean`: the proofs of `../steiner1978/Steiner/Principal.lean`, with `rhin_k_le_thm` replaced by
-  `k_le_of_lam` (a solution with `l ≥ 1`, `h ≠ 0` has `|Λ| < 1/(2^k − 1)`, for either sign of `h`).
+  `k_le_of_lam`, which combines the lower bound with `lam_small` (a solution with `l ≥ 1`, `h ≠ 0` has
+  `|Λ| < 1/(2^k − 1)`, for either sign of `h`).
 
 The four integers were computed by `checks/cf_log23.py` (mpmath, 600 digits; output in `checks/cf_log23.out.txt`);
 Lean re-certifies everything it uses about them.
 
 ## Re-checking
 
-`./check.sh`: checks `SHA256SUMS`, runs `../steiner1978/check.sh` (which builds the Steiner 1978 modules imported
-here), compiles `Logs23/*.lean` one by one with `lean -o` (`LEAN_PATH` from `env.sh`), and reads the axiom report
-of `Logs23/Axiomes.lean` (expected: 6 reports, standard axioms only). Prerequisite: Mathlib's prebuilt cache
-(`lake exe cache get` in `../steiner1978`). Recorded report: `axioms/Logs23_Axiomes.txt`.
+`./check.sh` (about 11 min; needs `python3`): checks `SHA256SUMS`, runs `../steiner1978/check.sh` (which builds the
+Steiner 1978 modules imported here), compiles `Logs23/*.lean` one by one with `lean -o` (`LEAN_PATH` from `env.sh`,
+taken from `../steiner1978`; this folder has no Lake package of its own and `lake build` is not used), fails on any
+error or `sorry` warning, and reads the axiom report of `Logs23/Axiomes.lean` (expected: 7 reports — the 6 proved
+frozen statements and `widths` — standard axioms only). Warnings "exponent … exceeds the threshold 256" in the
+logs of `Encadrements` and `Pont` are expected. Prerequisite: Mathlib's prebuilt cache (`lake exe cache get` in
+`../steiner1978`). Recorded report: `axioms/Logs23_Axiomes.txt`.
 
 ## Credits
 

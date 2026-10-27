@@ -5,12 +5,12 @@
 `../steiner1978/` proves Steiner's theorem on circuits (the only circuit on the positive integers that is a cycle
 is {1, 2}) under the named hypothesis `H_Rhin` (the case `u₀ = 0` of inequality (7) of G. Rhin, *Approximants de
 Padé et mesures effectives d'irrationalité*, Progress in Math. 71 (1987), 155–164), and without hypothesis for
-`k ≤ 20000`. That proof uses `H_Rhin` once, to bound `k`. What it needs is much weaker than `H_Rhin`: for
+`k ≤ 20000`. That proof uses `H_Rhin` through a single lemma, `rhin_k_le`, to bound `k`. What it needs is much weaker than `H_Rhin`: for
 `Λ = (k + l) log 2 − k log 3`,
 
 > `lam_lower`: for every `k > 20000` and every `l`, `1/(2^k − 1) ≤ |Λ|`.
 
-(`H_Rhin` gives `|Λ| ≥ (k + l)^(−13.3)`, which is far above `1/(2^k − 1)` when `k > 20000`.)
+(If `|Λ| < 1` then `k + l < 2k`, and `H_Rhin` gives `|Λ| ≥ (2k)^(−13.3)`, far above `1/(2^k − 1)` when `k > 20000`.)
 
 This folder works towards `lam_lower`. **It does not formalise Rhin's paper and does not prove `H_Rhin`.**
 
@@ -35,9 +35,10 @@ are **not** proved yet. This needs an effective lower bound for linear forms in 
 the type of M. Laurent, *Linear forms in two logarithms and interpolation determinants*, Acta Arith. 66 (1994),
 181–199, or N. Gouillon, *Explicit lower bounds for linear forms in two logarithms*, J. Théor. Nombres Bordeaux 18
 (2006), 125–146). Thanks to the bridge, it is enough to have such a bound for large coefficients only, and with
-large constants: for instance `log|b₁ log 2 − b₂ log 3| ≥ −C (log b)²` for `b = max(|b₁|, |b₂|) ≥ 10^100`, with
-`C` up to about `10^94`, would suffice (the published constants are many orders of magnitude smaller). None is
-formalised here.
+large constants: for instance a bound `log|b₁ log 2 − b₂ log 3| ≥ −C (log b)²` for `b = max(|b₁|, |b₂|) ≥ qBr'`
+would suffice as soon as `C ≤ log(2^qBr' − 1)/(log 2qBr')² ≈ 8.1·10^95`. (For `k ≥ qBr'`, either `|Λ| ≥ 1`, or
+`k ≤ b = k + l < 2k`; the function `log(2^k − 1)/(log 2k)²` increases with `k`; value computed by
+`checks/cf_log23.py`.) The published constants are many orders of magnitude smaller. None is formalised here.
 
 ## How the bridge is proved
 
@@ -50,7 +51,8 @@ formalised here.
   No continued-fraction theory is used in Lean: only the two pairs of integers and two certified signs.
   This best-approximation argument is classical (it is the property that convergents are best approximations);
   it plays the role of the numerical computation of partial quotients in Steiner's proof as summarised by J. Simons
-  and B. de Weger (Acta Arith. 117 (2005), version 1.44 (2010), §1.4). No novelty is claimed.
+  and B. de Weger, *Theoretical and computational bounds for m-cycles of the 3n+1 problem*, Acta Arith. 117 (2005),
+  version 1.44 (2010), §1.4. No novelty is claimed.
 * `Logs23/Principal.lean`: the proofs of `../steiner1978/Steiner/Principal.lean`, with `rhin_k_le_thm` replaced by
   `k_le_of_lam`, which combines the lower bound with `lam_small` (a solution with `l ≥ 1`, `h ≠ 0` has
   `|Λ| < 1/(2^k − 1)`, for either sign of `h`).
@@ -60,7 +62,7 @@ Lean re-certifies everything it uses about them.
 
 ## Re-checking
 
-`./check.sh` (about 11 min; needs `python3`): checks `SHA256SUMS`, runs `../steiner1978/check.sh` (which builds the
+`./check.sh` (5 to 11 min; needs `python3`): checks `SHA256SUMS`, runs `../steiner1978/check.sh` (which builds the
 Steiner 1978 modules imported here), compiles `Logs23/*.lean` one by one with `lean -o` (`LEAN_PATH` from `env.sh`,
 taken from `../steiner1978`; this folder has no Lake package of its own and `lake build` is not used), fails on any
 error or `sorry` warning, and reads the axiom report of `Logs23/Axiomes.lean` (expected: 7 reports — the 6 proved

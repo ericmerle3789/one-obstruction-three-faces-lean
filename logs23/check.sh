@@ -6,13 +6,13 @@
 # 2. ../steiner1978/check.sh is run: it re-checks Steiner 1978 and builds the modules imported here.
 # 3. Each file of Logs23/ is compiled with `lean -o`, in dependency order; the check fails on any error and on any
 #    warning "declaration uses `sorry`". (Warnings "exponent ... exceeds the threshold 256" are expected.)
-# 4. The `#print axioms` output of Logs23/Axiomes.lean is read, for the 7 theorems listed there (the 6 frozen
-#    statements proved so far and `widths`): the check fails if one of them depends on an axiom other than
+# 4. The `#print axioms` output of Logs23/Axiomes.lean is read, for the 15 theorems listed there (the 14 frozen
+#    statements and `widths`): the check fails if one of them depends on an axiom other than
 #    propext, Classical.choice, Quot.sound (this also rules out sorryAx and the auxiliary axiom that native_decide
 #    adds on Lean 4.34), or if the number of axiom reports is not EXPECTED.
 set -euo pipefail
 cd "$(dirname "$0")"
-EXPECTED=7
+EXPECTED=15
 if command -v sha256sum > /dev/null 2>&1; then sha256sum --quiet -c SHA256SUMS; else shasum -a 256 --quiet -c SHA256SUMS; fi
 echo "SHA256SUMS: all sources match"
 echo "== ../steiner1978/check.sh"
@@ -21,7 +21,9 @@ echo "== logs23"
 source ./env.sh
 OUT=.lake/build/lib/lean
 mkdir -p "$OUT/Logs23" logs
-ORDER="Logs23.Logs23_Enonces Logs23.Encadrements Logs23.Pont Logs23.Principal Logs23.Axiomes"
+ORDER="Logs23.Logs23_Enonces Logs23.TwoLog_Enonces Logs23.Encadrements Logs23.Pont Logs23.Principal
+Logs23.CauchyBinet Logs23.GenVandermonde Logs23.ExpKernel Logs23.Confluence Logs23.Interpolation Logs23.Proposition
+Logs23.Constantes Logs23.TwoLog Logs23.Axiomes"
 for m in $ORDER; do
   p="${m//.//}"
   printf '%-24s ' "$m"

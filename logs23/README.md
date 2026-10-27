@@ -1,76 +1,105 @@
-# logs23 — a lower bound for |L log 2 − k log 3|, towards Steiner 1978 without `H_Rhin`
+# logs23 — a lower bound for |b₁ log 2 − b₂ log 3|, and Steiner 1978 without `H_Rhin`
 
-**Status: work in progress, local only, not released.** Lean 4.34.0, Mathlib v4.34.0.
+**Status: local only, not released.** Lean 4.34.0, Mathlib v4.34.0.
 
 `../steiner1978/` proves Steiner's theorem on circuits (the only circuit on the positive integers that is a cycle
 is {1, 2}) under the named hypothesis `H_Rhin` (the case `u₀ = 0` of inequality (7) of G. Rhin, *Approximants de
 Padé et mesures effectives d'irrationalité*, Progress in Math. 71 (1987), 155–164), and without hypothesis for
-`k ≤ 20000`. That proof uses `H_Rhin` through a single lemma, `rhin_k_le`, to bound `k`. What it needs is much weaker than `H_Rhin`: for
-`Λ = (k + l) log 2 − k log 3`,
+`k ≤ 20000`. That proof uses `H_Rhin` through a single lemma, `rhin_k_le`, to bound `k`. What it needs is much
+weaker than `H_Rhin`: for `Λ = (k + l) log 2 − k log 3`,
 
 > `lam_lower`: for every `k > 20000` and every `l ≥ 0`, `1/(2^k − 1) ≤ |Λ|`.
 
 (For `k > 20000`: if `|Λ| < 1` then `k + l < 2k`, and `H_Rhin` gives `|Λ| ≥ (2k)^(−13.3)`, far above `1/(2^k − 1)`.)
 
-This folder works towards `lam_lower`. **It does not formalise Rhin's paper and does not prove `H_Rhin`.**
+This folder proves `lam_lower`, hence Steiner's theorem, **without any hypothesis**. It does not formalise Rhin's
+paper and does not prove `H_Rhin` (its lower bound for `|Λ|` is much weaker than Rhin's, but sufficient here).
 
 ## What is proved (no hypothesis; axioms `propext`, `Classical.choice`, `Quot.sound` only)
 
-| statement (`Logs23/Logs23_Enonces.lean`) | content |
+Frozen statements: `Logs23/Logs23_Enonces.lean` (step 2a) and `Logs23/TwoLog_Enonces.lean` (step 2b), each written
+and committed before its proofs.
+
+| statement | content |
 |---|---|
 | `bridge_gap` | for `0 < k < qBr'` and every integer `L`: `\|pBr log 2 − qBr log 3\| ≤ \|L log 2 − k log 3\|` |
 | `bridge_value` | `10^(−101) ≤ \|pBr log 2 − qBr log 3\|` |
 | `lam_lower_bridge` | `lam_lower` for `20000 < k < qBr'` |
 | `steiner_bridge`, `steiner_cycle_bridge` | Steiner's theorem (Davison's equation; circuits) for `k < qBr'` |
-| `reduction` | `lam_lower` implies `steiner_nh`, `steiner_int_nh`, `steiner_cycle_nh`, `steiner_cycle_int_nh`, `tstar_circuit_nh`: the statements `steiner`, `steiner_int`, `steiner_cycle`, `steiner_cycle_int`, `tstar_circuit` of `../steiner1978/` without their premise `H_Rhin` (the sixth statement there with this premise, `rhin_k_le`, "`k ≤ 108`", is not covered) |
+| `two_log_lower` | for natural numbers `b₁`, `b₂ ≥ 2^334`: `exp(−10^12 ν^5) ≤ \|b₁ log 2 − b₂ log 3\|`, `ν = ⌊log₂ b₂⌋ + 1` |
+| `lam_lower_large` | `lam_lower` for `k ≥ 2^334` |
+| `lam_lower` | for every `k > 20000` and every `l`: `1/(2^k − 1) ≤ \|Λ\|` |
+| `reduction` | `lam_lower` implies the five statements below |
+| `steiner_nh`, `steiner_int_nh`, `steiner_cycle_nh`, `steiner_cycle_int_nh`, `tstar_circuit_nh` | the statements `steiner`, `steiner_int`, `steiner_cycle`, `steiner_cycle_int`, `tstar_circuit` of `../steiner1978/` without their premise `H_Rhin` |
 
 Here `pBr/qBr` and `pBr'/qBr'` are two consecutive convergents of `log₂ 3`; `qBr` is the first convergent denominator
-with 100 digits and `qBr' ≈ 6.34 · 10^100`. So, without hypothesis, the only circuit on the positive integers that
-is a cycle and has fewer than `qBr'` odd steps is {1, 2} (instead of `k ≤ 20000` odd steps in `../steiner1978/`).
+with 100 digits and `qBr' ≈ 6.34 · 10^100 > 2^334`.
 
-## What is not proved
+In particular (`steiner_cycle_nh`): **the only circuit on the positive integers that is a cycle is {1, 2}**, and
+(`steiner_cycle_int_nh`) the circuit-cycles on `ℤ` are `{−1}`, `{1, 2}` and `{−5, −7, −10}`, with no hypothesis.
+The sixth statement of `../steiner1978/` with the premise `H_Rhin`, `rhin_k_le` ("`k ≤ 108`"), is not covered.
 
-`lam_lower` for `k ≥ qBr'`. Hence the five statements `…_nh` (Steiner's theorem for all `k`, without `H_Rhin`)
-are **not** proved yet. This needs an effective lower bound for linear forms in two logarithms (for instance of
-the type of M. Laurent, *Linear forms in two logarithms and interpolation determinants*, Acta Arith. 66 (1994),
-181–199, or N. Gouillon, *Explicit lower bounds for linear forms in two logarithms*, J. Théor. Nombres Bordeaux 18
-(2006), 125–146). Thanks to the bridge, it is enough to have such a bound for large coefficients only, and with
-large constants: for instance a bound `log|b₁ log 2 − b₂ log 3| ≥ −C (log b)²` for `b = max(|b₁|, |b₂|) ≥ qBr'`
-would suffice as soon as `C ≤ log(2^qBr' − 1)/(log(2 qBr'))² ≈ 8.1·10^95`. (For `k ≥ qBr'`, either `|Λ| ≥ 1`, or
-`k ≤ b = k + l < 2k`; the function `log(2^k − 1)/(log(2k))²` increases with `k`; value computed by
-`checks/cf_log23.py`.) The published constants are many orders of magnitude smaller. None is formalised here.
+## How it is proved
 
-## How the bridge is proved
-
+**Step 2a, the bridge (`k < qBr'`).**
 * `Logs23/Encadrements.lean`: `log 2 = 2 artanh(1/3)` and `log(3/2) = 2 artanh(1/5)`; Mathlib's
   `Real.sum_range_le_log_div` and `Real.log_div_le_sum_range_add` give rational enclosures of width below
   `10^(−211)` (221 and 155 terms), computed by the kernel (`decide +kernel`).
-* `Logs23/Pont.lean`: the basis `(pBr, qBr), (pBr', qBr')` of `ℤ²` is unimodular (`pBr' qBr − pBr qBr' = 1`); write
+* `Logs23/Pont.lean`: the basis `(pBr, qBr), (pBr', qBr')` of `ℤ²` is unimodular; write
   `(L, k) = a (pBr, qBr) + b (pBr', qBr')`. For `0 < k < qBr'`, `a ≠ 0` and `a b ≤ 0`; since
   `pBr log 2 − qBr log 3 < 0 < pBr' log 2 − qBr' log 3` (from the enclosures), `|L log 2 − k log 3| ≥ |pBr log 2 − qBr log 3|`.
-  No continued-fraction theory is used in Lean: only the two pairs of integers and two certified signs.
-  This best-approximation argument is classical (it is the property that convergents are best approximations);
-  it plays the role of the numerical computation of partial quotients in Steiner's proof as summarised by J. Simons
-  and B. de Weger, *Theoretical and computational bounds for m-cycles of the 3n+1 problem*, Acta Arith. 117 (2005),
-  version 1.44 (2010), §1.4. No novelty is claimed.
+  This best-approximation argument is classical (convergents are best approximations); it plays the role of the
+  numerical computation of partial quotients in Steiner's proof as summarised by J. Simons and B. de Weger,
+  *Theoretical and computational bounds for m-cycles of the 3n+1 problem*, Acta Arith. 117 (2005), version 1.44
+  (2010), §1.4. No novelty is claimed.
 * `Logs23/Principal.lean`: the proofs of `../steiner1978/Steiner/Principal.lean`, with `rhin_k_le_thm` replaced by
-  `k_le_of_lam`, which combines the lower bound with `lam_small` (a solution with `k ≥ 1`, `l ≥ 1`, `h ≠ 0` has
-  `|Λ| < 1/(2^k − 1)`, for either sign of `h`).
+  `k_le_of_lam`, which combines a lower bound for `|Λ|` with `lam_small` (a solution with `k ≥ 1`, `l ≥ 1`, `h ≠ 0`
+  has `|Λ| < 1/(2^k − 1)`, for either sign of `h`).
 
-The four integers were computed by `checks/cf_log23.py` (mpmath, 600 digits; output in `checks/cf_log23.out.txt`);
-Lean re-certifies everything it uses about them.
+**Step 2b, `two_log_lower` (`b₂ ≥ 2^334`).** An interpolation determinant in the spirit of M. Laurent (*Linear forms
+in two logarithms and interpolation determinants*, Acta Arith. 66 (1994), 181–199), with crude explicit constants.
+Parameters: `L = ν`, `K + 1 = 2^15 ν`, `N = L (K + 1)`, columns `(r, s)`, `1 ≤ r ≤ 2^8 ν`, `0 ≤ s < 2^7 ν`.
+* `Logs23/Interpolation.lean`: the integer matrix `M[(l,κ),(r,s)] = (r b₂ + s b₁)^κ (2^r 3^s)^(l+1)` satisfies
+  `det M = b₂^σ G(δ)`, `G(t) = det[ζ^κ e^{λ_l ζ} e^{(l+1) s t}]`, `ζ = r + s b₁/b₂`, `λ_l = (l+1) log 2`, `δ = −Λ/b₂`,
+  `σ = Σ κ` (`det_Mint`); bounds `|det A| ≤ N! M^N`, `|det A − det B| ≤ N · N! · M^(N−1) · D`.
+* Instead of a zero lemma, a positivity argument: `Logs23/CauchyBinet.lean` (the Cauchy–Binet formula, not in
+  Mathlib v4.34), `Logs23/GenVandermonde.lean` (generalized Vandermonde determinants with increasing positive nodes
+  and increasing exponents are positive, by Descartes' rule of signs, Mathlib
+  `Polynomial.roots_countP_pos_le_signVariations`), `Logs23/ExpKernel.lean` (all Cauchy–Binet terms of
+  `det[e^{μ_i x ζ_j}]` have the same sign, hence a lower bound by one term and the bound
+  `|E(1)| ≤ x^(−N(N−1)/2) |E(x)|`), `Logs23/Confluence.lean` (with `μ = λ_l + κ h`, a triangular change of rows gives
+  `E = h^σ det[…]`, and `h → 0` gives the same two bounds for `D(x) = det[(xζ)^κ e^{λ_l x ζ}]`, `D(1) = G(0)`).
+* `Logs23/Proposition.lean` (`prop_main`): if `N! X(x)^N / x^(N(N−1)/2) ≤ 1/(2 b₂^σ)`, then `|G(0)|` is small; if
+  `det M ≠ 0` then `|G(δ)| ≥ b₂^(−σ)`, and if `det M = 0` then `G(δ) = 0`; in both cases
+  `|G(δ) − G(0)| ≥ |G(0)| ≥ T' > 0`, and the perturbation bound gives `|Λ| ≥ b₂ T' / (N · N! · (3 X(1))^N · L S)`.
+  The case `det M = 0` is not excluded.
+* `Logs23/Constantes.lean`: the condition of `prop_main` (with `x = 16`) and the final inequality, for every `ν ≥ 335`
+  (logarithms, `log ν ≤ ν/50 + 3`, `n! ≤ n^n`, polynomial inequalities).
+* `Logs23/TwoLog.lean`: the grid of points (distinct for coprime `b₁, b₂`), the reduction to coprime `b₁, b₂`
+  (dividing by the gcd; small reduced denominators are handled by the bridge), then `lam_lower_large`, `lam_lower`
+  and the five statements `…_nh` through `reduction`.
+
+We have not checked whether this replacement of the zero lemma by total positivity appears in the literature; it
+may well be known. Much stronger explicit bounds are published (Laurent 1994; M. Laurent, M. Mignotte,
+Y. Nesterenko, J. Number Theory 55 (1995); N. Gouillon, *Explicit lower bounds for linear forms in two logarithms*,
+J. Théor. Nombres Bordeaux 18 (2006), 125–146); the bound here is deliberately crude, because the bridge covers every
+`k < qBr'`. Steiner's own proof uses Baker's theorem on linear forms in two logarithms (Simons–de Weger, §1.4).
+
+The four integers of the bridge were computed by `checks/cf_log23.py` (mpmath, 600 digits; output in
+`checks/cf_log23.out.txt`); Lean re-certifies everything it uses about them.
 
 ## Re-checking
 
-`./check.sh` (needs `python3`): checks `SHA256SUMS`, runs `../steiner1978/check.sh` (which builds the
-Steiner 1978 modules imported here), compiles `Logs23/*.lean` one by one with `lean -o` (`LEAN_PATH` from `env.sh`,
-taken from `../steiner1978`; this folder has no Lake package of its own and `lake build` is not used), fails on any
-error or `sorry` warning, and reads the axiom report of `Logs23/Axiomes.lean` (expected: 7 reports — the 6 proved
-frozen statements and `widths` — standard axioms only). Warnings "exponent … exceeds the threshold 256" in the
-logs of `Encadrements` and `Pont` are expected. Prerequisite: Mathlib's prebuilt cache (`lake exe cache get` in
-`../steiner1978`). Recorded report: `axioms/Logs23_Axiomes.txt`.
+`./check.sh` (needs `python3`): checks `SHA256SUMS`, runs `../steiner1978/check.sh` (which builds the Steiner 1978
+modules imported here), compiles `Logs23/*.lean` one by one with `lean -o` (`LEAN_PATH` from `env.sh`: this folder's
+build directory, then the `LEAN_PATH` of `../steiner1978`; this folder has no Lake package of its own and `lake build`
+is not used), fails on any error or `sorry` warning, and reads the axiom report of `Logs23/Axiomes.lean` (expected:
+15 reports — the 14 frozen statements and `widths` — standard axioms only). Warnings "exponent … exceeds the
+threshold 256" and deprecation warnings in the logs are expected. Prerequisite: Mathlib's prebuilt cache
+(`lake exe cache get` in `../steiner1978`). Recorded report: `axioms/Logs23_Axiomes.txt`.
 
 ## Credits
 
-Definitions and the finite check `k ≤ 20000` (both signs): `../steiner1978/`. Series bounds for the logarithm:
-Mathlib. Formalisation written with Claude (Anthropic), LABO-COLLATZ, directed by Eric Merle.
+Definitions and the finite check `k ≤ 20000` (both signs): `../steiner1978/`. Series bounds for the logarithm,
+Descartes' rule of signs, Vandermonde determinants, `Matrix.det_le`: Mathlib. Formalisation written with Claude
+(Anthropic), LABO-COLLATZ, directed by Eric Merle.

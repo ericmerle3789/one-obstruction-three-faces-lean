@@ -6,7 +6,7 @@ import Steiner.Steiner_Enonces
 
 Goal: remove the named hypothesis `Steiner.H_Rhin` from the Steiner 1978 formalisation (`../steiner1978/`).
 That formalisation proves Steiner's theorem under `H_Rhin` (G. Rhin 1987, inequality (7), case `u₀ = 0`), and
-without hypothesis only for `k ≤ 20000`. It uses `H_Rhin` once, through `rhin_k_le` ("`k ≤ 108`").
+without hypothesis only for `k ≤ 20000`. It uses `H_Rhin` only through `rhin_k_le` ("`k ≤ 108`").
 
 What is needed is much weaker than `H_Rhin`: `lam_lower` below, a lower bound `1/(2^k − 1) ≤ |Λ|` for the linear
 form `Λ = (k + l) log 2 − k log 3` when `k > 20000`. We do **not** formalise Rhin's paper.
@@ -16,8 +16,9 @@ Plan (see `README.md`):
   (`qBr` has 100 digits, `qBr'` has 101) give `|L log 2 − k log 3| ≥ |pBr log 2 − qBr log 3| ≥ 10^(−101)` for
   every `0 < k < qBr'` (`bridge_gap`, `bridge_value`), hence `lam_lower` for `20000 < k < qBr'`, and Steiner's
   theorem for `k < qBr'`;
-* **step 2b** (open): an effective lower bound for `|b₁ log 2 − b₂ log 3|`, `b₂ ≥ qBr'`, giving `lam_lower` for all
-  `k`; with `reduction`, Steiner's theorem without any hypothesis.
+* **step 2b**: an effective lower bound for `|b₁ log 2 − b₂ log 3|` for large `b₂` (`Logs23/TwoLog_Enonces.lean`,
+  proved in `Logs23/TwoLog.lean`), giving `lam_lower` for `k ≥ 2^334`, hence for every `k > 20000` with the bridge;
+  with `reduction`, Steiner's theorem without any hypothesis.
 
 Written before the proofs. Each statement is a `def … : Prop`; the proofs are `…_thm` in the proof files, and
 `Logs23/Axiomes.lean` checks `example : X := X_thm` for the statements proved so far.

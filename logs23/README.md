@@ -20,7 +20,7 @@ This folder works towards `lam_lower`. **It does not formalise Rhin's paper and 
 | `bridge_value` | `10^(−101) ≤ \|pBr log 2 − qBr log 3\|` |
 | `lam_lower_bridge` | `lam_lower` for `20000 < k < qBr'` |
 | `steiner_bridge`, `steiner_cycle_bridge` | Steiner's theorem (Davison's equation; circuits) for `k < qBr'` |
-| `reduction` | `lam_lower` implies `steiner_nh`, `steiner_int_nh`, `steiner_cycle_nh`, `steiner_cycle_int_nh`, `tstar_circuit_nh`: the five statements of `../steiner1978/` that use `H_Rhin`, without it |
+| `reduction` | `lam_lower` implies `steiner_nh`, `steiner_int_nh`, `steiner_cycle_nh`, `steiner_cycle_int_nh`, `tstar_circuit_nh`: the statements `steiner`, `steiner_int`, `steiner_cycle`, `steiner_cycle_int`, `tstar_circuit` of `../steiner1978/` without their premise `H_Rhin` (the sixth statement there with this premise, `rhin_k_le`, "`k ≤ 108`", is not covered) |
 
 Here `pBr/qBr` and `pBr'/qBr'` are two consecutive convergents of `log₂ 3`; `qBr` is the first denominator with
 100 digits and `qBr' ≈ 6.34 · 10^100`. So Steiner's theorem is proved without hypothesis for every circuit with

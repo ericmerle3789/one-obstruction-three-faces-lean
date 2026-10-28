@@ -1,12 +1,14 @@
 # One Obstruction, Three Faces — Merle Lean stack
 
-Archived on Zenodo: https://doi.org/10.5281/zenodo.23498095 (concept DOI; v1.0 = 10.5281/zenodo.23498096).
+Archived on Zenodo: https://doi.org/10.5281/zenodo.23498095 (concept DOI, which resolves to the latest version;
+v1.0 = 10.5281/zenodo.23498096, v1.1 = 10.5281/zenodo.23514572, v1.2 = 10.5281/zenodo.23541611,
+v1.3 = 10.5281/zenodo.23686224; the DOI of v1.4, the first release with `logs23/`, is listed on the Zenodo record).
 
 > **Status (2026-10-02).** This is the Merle side of the joint note *One obstruction, three
 > faces* with Benjamin Macindoe. It formalizes and checks entries of the shared claims ledger.
 > **Nothing here excludes a Collatz cycle beyond the published bounds** (Bařina's verification
-> to 2⁷¹; Hercher 2023). Every kernel claim was first checked on Lean 4.27.0, which predates the
-> fix of the kernel soundness bug [lean4#14576](https://github.com/leanprover/lean4/issues/14576)
+> to 2⁷¹; Hercher 2023). Every kernel claim of the six ledger files was first checked on Lean 4.27.0,
+> which predates the fix of the kernel soundness bug [lean4#14576](https://github.com/leanprover/lean4/issues/14576)
 > (fixed in v4.32.2, 2026-07-28); all six files were then re-checked on Lean 4.34.0 — see
 > [`recheck-v4.34/RECHECK.md`](recheck-v4.34/RECHECK.md).
 
@@ -38,7 +40,7 @@ last "Key status" block of `LEDGER.md` in the shared repo, not this README.
 | `hh1997/` | — | Halbeisen–Hungerbühler 1997 (*Acta Arith.* 78) formalised on Lean 4.34.0: a classical paper, not a ledger entry; 70 proved statements, standard axioms; one remark of the paper not proved — see `hh1997/README.md` |
 | `lagarias1990/` | — | Lagarias 1990 (*Acta Arith.* 56) formalised on Lean 4.34.0: a classical paper, not a ledger entry; 60 frozen statements, all proved (61 theorems: Corollary 2.1a twice), standard axioms; Theorem 3.1 with the printed constant and Theorem 3.2 under named hypotheses (Theorem 3.1 also without any hypothesis, constant 6/5); out of scope: Theorems 3.3 and 4.3, (4.12)–(4.14), Remarks (2)–(4) of p. 52 with (4.19), the flat segment of Fig. 4.1; the minimality of the 48 unchanged rows of Table 3.1 is checked numerically, not in Lean — see `lagarias1990/README.md` |
 | `steiner1978/` | — | Steiner 1978 (*Congr. Numer.* 20) formalised on Lean 4.34.0: a classical theorem, not a ledger entry; the statements were written without the original paper, reconstructed from Steiner 1981, Lagarias's annotated bibliography and Simons–de Weger 2005, and compared with the paper after release v1.2; 12 frozen statements, all proved, standard axioms; Steiner's theorem (the only circuit on the positive integers that is a cycle is `{1, 2}`) under a named hypothesis (Rhin 1987, inequality (7) with `u₀ = 0`), and without any hypothesis for at most 20000 odd terms (a finite check by the kernel) — see `steiner1978/README.md`; without the hypothesis for every number of odd terms in `logs23/` |
-| `logs23/` | — | Steiner 1978 without `H_Rhin` (Lean 4.34.0; not yet in a release): a lower bound for `\|(k+l) log 2 − k log 3\|` proved for every `k > 20000`, hence five of the six statements of `steiner1978/` with the premise `H_Rhin` (all but `rhin_k_le`) without that premise; 14 frozen statements, all proved, standard axioms; it does not prove `H_Rhin` — see *Steiner 1978 without `H_Rhin`* below and `logs23/README.md` |
+| `logs23/` | — | Steiner 1978 without `H_Rhin` (Lean 4.34.0; new in release v1.4): a lower bound for `\|(k+l) log 2 − k log 3\|` proved for every `k > 20000`, hence five of the six statements of `steiner1978/` with the premise `H_Rhin` (all but `rhin_k_le`) without that premise; 14 frozen statements, all proved, standard axioms; it does not prove `H_Rhin` — see *Steiner 1978 without `H_Rhin`* below and `logs23/README.md` |
 | `experiments/` | — | Python verification scripts and outputs (`experiments/README.md`) |
 | `rounds/` | — | round 11 only; rounds 12 onward live in the shared repo |
 
@@ -75,8 +77,8 @@ hypothesis, the only circuit on the positive integers that is a cycle is `{1, 2}
 
 - For `k` below `qBr' ≈ 6.34·10^100`: two consecutive convergents of `log₂ 3`, with rational enclosures of `log 2`
   and `log(3/2)` computed by the kernel (`decide +kernel`).
-- For `k ≥ 2^334`: an explicit, deliberately crude bound `exp(−10^12 ν^5) ≤ |b₁ log 2 − b₂ log 3|` for `b₂ ≥ 2^334`,
-  `ν = ⌊log₂ b₂⌋ + 1`, by an interpolation determinant in the spirit of M. Laurent (Acta Arith. 66, 1994), with a
+- For `k ≥ 2^334`: an explicit, deliberately crude bound `exp(−10^12 ν^5) ≤ |b₁ log 2 − b₂ log 3|` for natural
+  numbers `b₁` and `b₂ ≥ 2^334`, `ν = ⌊log₂ b₂⌋ + 1`, by an interpolation determinant in the spirit of M. Laurent (Acta Arith. 66, 1994), with a
   positivity argument (Cauchy–Binet, Descartes' rule of signs) in place of a zero lemma.
 - Not proved: `H_Rhin` itself (Rhin's bound is much stronger, and his paper is not formalised); `rhin_k_le` is not
   restated without its premise. The bound is far weaker than the published ones (Laurent 1994; Laurent, Mignotte,

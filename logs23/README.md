@@ -1,7 +1,8 @@
 # logs23 — a lower bound for |b₁ log 2 − b₂ log 3|, and Steiner 1978 without `H_Rhin`
 
-**Status (2026-10-28): on GitHub (branch `main`), not released** (no release, tag or DOI covers this folder yet).
-Lean 4.34.0, Mathlib v4.34.0.
+**Status: in release v1.4 of this repository** (its first release that contains this folder), archived on Zenodo;
+concept DOI [10.5281/zenodo.23498095](https://doi.org/10.5281/zenodo.23498095), which resolves to the latest
+version; the DOI of version v1.4 is listed on that Zenodo record. Lean 4.34.0, Mathlib v4.34.0.
 
 `../steiner1978/` proves Steiner's theorem on circuits (the only circuit on the positive integers that is a cycle
 is {1, 2}) under the named hypothesis `H_Rhin` (the case `u₀ = 0` of inequality (7) of G. Rhin, *Approximants de
@@ -109,8 +110,8 @@ The four integers of the bridge were computed by `checks/cf_log23.py` (mpmath, 6
 
 Prerequisites: git, curl, python3, [elan](https://github.com/leanprover/elan) (the `lean-toolchain` files of this
 folder and of `../steiner1978` select Lean 4.34.0), network access (elan downloads Lean 4.34.0, Lake clones Mathlib
-and its dependencies, `lake exe cache get` downloads Mathlib's prebuilt files) and disk space: about 8 GB for the
-clone (Mathlib's sources and prebuilt files included), plus the Lean 4.34.0 toolchain installed by elan (2.7 GB on
+and its dependencies, `lake exe cache get` downloads Mathlib's prebuilt files) and disk space: about 8 GiB for the
+clone (Mathlib's sources and prebuilt files included), plus the Lean 4.34.0 toolchain installed by elan (2.7 GiB on
 the machine used) and Mathlib's download cache (`~/.cache/mathlib`). From the root of a fresh clone of the
 repository:
 
@@ -124,15 +125,18 @@ cd ../logs23
 `./check.sh` checks `SHA256SUMS` (the Lean sources of `Logs23/`), runs `../steiner1978/check.sh` (which builds the
 Steiner 1978 modules imported here), compiles `Logs23/*.lean` one by one with `lean -o` (`LEAN_PATH` from `env.sh`:
 this folder's build directory, then the `LEAN_PATH` of `../steiner1978`; this folder has no Lake package of its own
-and `lake build` is not used), fails on any error or `sorry` warning, and reads the axiom report of
-`Logs23/Axiomes.lean`: it fails unless the reports are exactly those of the 15 theorems listed in `check.sh` (the 14
-frozen statements and `widths`), each with standard axioms only. Warnings "exponent … exceeds the threshold 256" and
+and `lake build` is not used), fails on any error or `sorry` warning in these files, and reads the axiom report of
+`Logs23/Axiomes.lean`: it fails unless the reports are exactly those of the 15 theorems listed in `check.sh` (the
+proofs `…_thm` of the 14 frozen statements, and `widths`), each with standard axioms only. (The log of
+`../steiner1978/Labo/Blueprint.lean` shows one `sorry` warning: the unused marker `Tstar_open`, see
+`../steiner1978/README.md`, *Dependencies*; no axiom report here depends on `sorryAx`.) Warnings "exponent … exceeds the threshold 256" and
 deprecation warnings in the logs are expected. Recorded report: `axioms/Logs23_Axiomes.txt`.
 
-These commands were run on 2026-10-28 from a fresh clone of commit f9c33aa (the later commits change README files
-only), on a machine where Lean 4.34.0 was already installed and Mathlib's prebuilt files were already in the local
-cache: `../steiner1978/check.sh` read its 12 axiom reports and `./check.sh` its 15, all with standard axioms only;
-compared afterwards, they were the same as the recorded ones (`../steiner1978/axioms/Steiner_Axiomes.txt`,
+These commands were run on 2026-10-28 from a fresh clone of commit f9c33aa (`git clone --no-local` of a local copy of
+the repository; the later commits change no Lean source, `check.sh`, `env.sh` or `SHA256SUMS`), on a machine where
+Lean 4.34.0 was already installed and Mathlib's prebuilt files were already in the local cache:
+`../steiner1978/check.sh` read its 12 axiom reports and `./check.sh` its 15, all with standard axioms only; compared
+afterwards, they were the same as the recorded ones (`../steiner1978/axioms/Steiner_Axiomes.txt`,
 `axioms/Logs23_Axiomes.txt`).
 
 ## Credits

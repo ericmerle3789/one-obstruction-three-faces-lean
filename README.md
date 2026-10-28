@@ -79,8 +79,8 @@ hypothesis, the only circuit on the positive integers that is a cycle is `{1, 2}
 
 - For `k` below `qBr' ≈ 6.34·10^100`: two consecutive convergents of `log₂ 3`, with rational enclosures of `log 2`
   and `log(3/2)` computed by the kernel (`decide +kernel`).
-- For `k ≥ 2^334`: an explicit, deliberately crude bound `exp(−10^12 ν^5) ≤ |b₁ log 2 − b₂ log 3|` for natural
-  numbers `b₁` and `b₂ ≥ 2^334`, `ν = ⌊log₂ b₂⌋ + 1`. After division by the gcd of `b₁` and `b₂` (small reduced
+- For `k ≥ 2^334`: an explicit, deliberately crude bound `exp(−10^12 ν^5) ≤ |b₁ log 2 − b₂ log 3|` for every
+  natural `b₁` and every natural `b₂ ≥ 2^334`, `ν = ⌊log₂ b₂⌋ + 1`. After division by the gcd of `b₁` and `b₂` (small reduced
   denominators are handled by the convergents above), it is proved by an interpolation determinant in the spirit of
   M. Laurent (Acta Arith. 66, 1994), with a positivity argument (Cauchy–Binet, Descartes' rule of signs) in place of
   a zero lemma.

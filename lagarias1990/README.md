@@ -264,7 +264,7 @@ README. Two rows concern proof files (`Mots.lean`, `Tables.lean`), which were no
     with `p_k` varying ↔ the construction in `thm3_4` (`v` followed by zeros);
   - Remark 3.13 (`d = Q(2^{p_k} − 3^k)`, `n = Q·A_k`) ↔ the scaling `tk_scale`, `clear_den`.
 - **Earlier formalisations.** We found none of Lagarias 1990 (ccchallenge entry `Lagarias1990`: not started on
-  2026-10-20). (Update 2026-10-28: ccchallenge record 15 of that entry, created on 2026-10-20 after that check, is
+  2026-10-20). (Update 2026-10-28, before release v1.5: ccchallenge record 15 of that entry, created on 2026-10-20 after that check, is
   this formalisation; it points to the Zenodo DOI of release v1.1, 10.5281/zenodo.23514572.)
 
 ## Dependencies

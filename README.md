@@ -2,7 +2,8 @@
 
 Archived on Zenodo: https://doi.org/10.5281/zenodo.23498095 (concept DOI, which resolves to the latest version;
 v1.0 = 10.5281/zenodo.23498096, v1.1 = 10.5281/zenodo.23514572, v1.2 = 10.5281/zenodo.23541611,
-v1.3 = 10.5281/zenodo.23686224, v1.4 = 10.5281/zenodo.23720217, the first release with `logs23/`).
+v1.3 = 10.5281/zenodo.23686224, v1.4 = 10.5281/zenodo.23720217, the first release with `logs23/`; the DOI of v1.5,
+documentation only, the first release with a `LICENSE` file, is listed on the Zenodo record).
 Source repository: https://github.com/ericmerle3789/one-obstruction-three-faces-lean (the Zenodo archives do not
 contain the git history, whose commits the READMEs cite).
 
@@ -179,7 +180,7 @@ also compiles alone with `lake env lean` in any Lean 4.27.0 + Mathlib project.
 ### Re-checking the formalisations of classical papers (added 2026-10-28)
 
 Start from the root of a clone of a release tag (for example
-`git clone --branch v1.4 https://github.com/ericmerle3789/one-obstruction-three-faces-lean`) or from its Zenodo
+`git clone --branch v1.5 https://github.com/ericmerle3789/one-obstruction-three-faces-lean`) or from its Zenodo
 archive. Prerequisites: git, curl, python3, `sha256sum` or `shasum`, and
 [elan](https://github.com/leanprover/elan) (each folder's `lean-toolchain` selects Lean 4.34.0), with network access.
 Each of `hh1997/`, `lagarias1990/`, `steiner1978/` and `recheck-v4.34/` is its own Lake project with its own copy of

@@ -1,6 +1,7 @@
 # logs23 — a lower bound for |b₁ log 2 − b₂ log 3|, and Steiner 1978 without `H_Rhin`
 
-**Status: in release v1.4 of this repository** (its first release that contains this folder), archived on Zenodo;
+**Status: in release v1.4 of this repository** (its first release that contains this folder) and in release v1.5
+(documentation only), archived on Zenodo;
 concept DOI [10.5281/zenodo.23498095](https://doi.org/10.5281/zenodo.23498095), which resolves to the latest
 version; version v1.4: [10.5281/zenodo.23720217](https://doi.org/10.5281/zenodo.23720217). Lean 4.34.0, Mathlib v4.34.0.
 

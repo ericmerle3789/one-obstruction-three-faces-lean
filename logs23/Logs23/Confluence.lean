@@ -10,7 +10,8 @@ Rows `i : Fin (L * (K + 1))` correspond to pairs `(l, κ) ∈ Fin L × Fin (K + 
   (a lower triangular change of rows);
 * as `h → 0+`, the right-hand determinant tends to `D(x)`;
 * `vprod μ_h ≥ h^σ ((log 2)/2)^(tri N)` for small `h`;
-hence, from `Logs23/ExpKernel.lean`, `|D(1)| ≥ (∏ 1/m!) ((log 2)/2)^(tri N) |V(ζ)|` and `|D(1)| ≤ x^(−tri N) |D(x)|`.
+hence, from `Logs23/ExpKernel.lean`, for distinct positive `ζ_j`: `|D(1)| ≥ (∏ 1/m!) ((log 2)/2)^(tri N) |V(ζ)|`, and
+`|D(1)| ≤ x^(−tri N) |D(x)|` for `x ≥ 1`.
 -/
 
 namespace Logs23

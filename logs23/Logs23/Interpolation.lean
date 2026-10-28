@@ -4,7 +4,7 @@ import Logs23.Confluence
 /-!
 # Logs23 · the integer interpolation determinant and bounds for determinants
 
-Columns `j` carry natural numbers `r_j ≥ 1`, `s_j < S`; for natural numbers `b₁, b₂ ≥ 1` put `θ = b₁/b₂`,
+Columns `j` carry natural numbers `r_j ≥ 1`, `s_j < S`; for natural numbers `b₁ ≥ 0`, `b₂ ≥ 1` put `θ = b₁/b₂`,
 `ζ_j = r_j + s_j θ`, `Λ = b₁ log 2 − b₂ log 3`, `δ = −Λ/b₂`. The integer matrix
 `M[(l,κ), j] = (r_j b₂ + s_j b₁)^κ (2^{r_j} 3^{s_j})^{l+1}` satisfies `det M = b₂^σ G(δ)`,
 `G(t) = det [ζ_j^κ e^{λ_l ζ_j} e^{(l+1) s_j t}]` (`λ_l = (l+1) log 2`). With the bounds of `Logs23/Confluence.lean`

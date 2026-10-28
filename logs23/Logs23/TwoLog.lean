@@ -62,7 +62,7 @@ theorem grid_injective {ν : ℕ} (hν : 1 ≤ ν) {b₁ b₂ : ℕ} (hcop : Nat
   simp only [rrG, ssG] at hs hr
   exact Prod.ext (Fin.ext (by omega)) (Fin.ext hs.symm)
 
-/-- `|V(ζ)| ≥ b₂^(−N²)` when the integers `b₂ ζ_j` are distinct. -/
+/-- `|V(ζ)| ≥ b^(−N²)` when `1 ≤ b` and `|ζ_j − ζ_i| ≥ 1/b` for `i ≠ j`. -/
 theorem abs_vprod_ge {N : ℕ} (ζ : Fin N → ℝ) {b : ℝ} (hb : 1 ≤ b) (hsep : ∀ i j, i ≠ j → 1 / b ≤ |ζ j - ζ i|) :
     (1 / b) ^ (N ^ 2) ≤ |vprod ζ| := by
   have hb0 : 0 < 1 / b := by positivity

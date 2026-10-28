@@ -5,8 +5,9 @@ import Logs23.Proposition
 # Logs23 · the constants of step 2b, for every `ν ≥ 335`
 
 Parameters: `L = ν`, `K + 1 = 2^15 ν`, `N = L (K + 1)`, `S = 2^7 ν`, `ζ_max = 2^9 ν`, `λ_max = ν log 2`, `x = 16`.
-* `cond_P`: the condition `(P)` of `prop_main` holds for every `b₂ < 2^ν`;
-* `final_ge`: `b₂ T' / (N N! (3 X(1))^N L S) ≥ exp(−10^12 ν^5)` whenever `T' ≥ (∏ 1/k!) ((log 2)/2)^(tri N) b₂^(−N²)`.
+* `cond_P`: the condition `(P)` of `prop_main` holds for every `0 < b₂ < 2^ν`;
+* `final_ge`: `b₂ T' / (N N! (3 X(1))^N L S) ≥ exp(−10^12 ν^5)` whenever `0 < b₂ < 2^ν` and
+  `T' ≥ (∏ 1/k!) ((log 2)/2)^(tri N) b₂^(−N²)`.
 The proofs take logarithms and use `log ν ≤ ν/50 + 3`, `0.6931 < log 2 < 0.6932`, `n! ≤ n^n`, `σ ≤ N K`,
 `tri N = N (N − 1)/2`, then polynomial inequalities in `ν`.
 -/

@@ -4,7 +4,8 @@ import Logs23.Interpolation
 /-!
 # Logs23 · the main inequality (step 2b; outline in `README.md`)
 
-If the parameters satisfy the condition `(P)`, then
+For points `ζ_j = r_j + s_j b₁/b₂` with `r_j ≥ 1`, `s_j < S` and the integers `r_j b₂ + s_j b₁` distinct, bounds
+`ζ_j ≤ ζ_max`, `λ_l ≤ λ_max`, `L S |Λ|/b₂ ≤ 1`, and `x ≥ 1`: if the parameters satisfy the condition `(P)`, then
 `|Λ| ≥ b₂ T' / (N · N! · (3 X(1))^N · L S)`, `T' = (∏_{k<N} 1/k!) ((log 2)/2)^(tri N) |V(ζ)|`.
 The case `det M = 0` is not excluded: it is harmless because `|G(0)| ≥ T' > 0`.
 -/

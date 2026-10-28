@@ -17,8 +17,11 @@ paper and does not prove `H_Rhin` (its lower bound for `|Λ|` is much weaker tha
 
 ## What is proved (no hypothesis; axioms `propext`, `Classical.choice`, `Quot.sound` only)
 
-Frozen statements: `Logs23/Logs23_Enonces.lean` (frozen at step 2a) and `Logs23/TwoLog_Enonces.lean` (frozen at
-step 2b), each written and committed before its proofs.
+Frozen statements: `Logs23/Logs23_Enonces.lean` (frozen at step 2a, commit 3a127e3) and `Logs23/TwoLog_Enonces.lean`
+(frozen at step 2b, commit 7fb3a6f), each written and committed before its proofs. Since then only the header
+comment of `Logs23_Enonces.lean` was edited (commits 438f048 and de13596; `git diff 3a127e3 HEAD --
+logs23/Logs23/Logs23_Enonces.lean` shows comment lines only); `TwoLog_Enonces.lean` is unchanged. Its header
+mentions the lab's register; the section "How it is proved" below replaces it.
 
 | statement | content |
 |---|---|
@@ -60,28 +63,31 @@ The sixth statement of `../steiner1978/` with the premise `H_Rhin`, `rhin_k_le` 
   has `|Λ| < 1/(2^k − 1)`, for either sign of `h`).
 
 **Step 2b, `two_log_lower` (`b₂ ≥ 2^334`).** An interpolation determinant in the spirit of M. Laurent (*Linear forms
-in two logarithms and interpolation determinants*, Acta Arith. 66 (1994), 181–199), with crude explicit constants.
-Parameters: `L = ν`, `K + 1 = 2^15 ν`, `N = L (K + 1)`, columns `(r, s)`, `1 ≤ r ≤ 2^8 ν`, `0 ≤ s < 2^7 ν`.
+in two logarithms and interpolation determinants*, Acta Arith. 66 (1994), 181–199), with crude explicit constants,
+for `Λ = b₁ log 2 − b₂ log 3`. Parameters: `L = ν`, `K + 1 = 2^15 ν`, `N = L (K + 1)`, columns `(r, s)`,
+`1 ≤ r ≤ 2^8 ν`, `0 ≤ s < S = 2^7 ν`; `ζ_max = 2^9 ν`, `λ_max = ν log 2`.
 * `Logs23/Interpolation.lean`: the integer matrix `M[(l,κ),(r,s)] = (r b₂ + s b₁)^κ (2^r 3^s)^(l+1)` satisfies
   `det M = b₂^σ G(δ)`, `G(t) = det[ζ^κ e^{λ_l ζ} e^{(l+1) s t}]`, `ζ = r + s b₁/b₂`, `λ_l = (l+1) log 2`, `δ = −Λ/b₂`,
-  `σ = Σ κ` (`det_Mint`); bounds `|det A| ≤ N! M^N`, `|det A − det B| ≤ N · N! · M^(N−1) · D`.
+  `σ = Σ κ` (`det_Mint`); for `N × N` matrices with entries bounded by `M` and entrywise differences bounded by `D`:
+  `|det A| ≤ N! M^N`, `|det A − det B| ≤ N · N! · M^(N−1) · D`.
 * Instead of a zero lemma, a positivity argument: `Logs23/CauchyBinet.lean` (the Cauchy–Binet formula, not in
   Mathlib v4.34), `Logs23/GenVandermonde.lean` (generalized Vandermonde determinants with increasing positive nodes
   and increasing exponents are positive, by Descartes' rule of signs, Mathlib
   `Polynomial.roots_countP_pos_le_signVariations`), `Logs23/ExpKernel.lean` (all Cauchy–Binet terms of
-  `det[e^{μ_i x ζ_j}]` have the same sign, hence a lower bound by one term and the bound
-  `|E(1)| ≤ x^(−N(N−1)/2) |E(x)|`), `Logs23/Confluence.lean` (with `μ = λ_l + κ h`, a triangular change of rows gives
+  `det[e^{μ_i x ζ_j}]` have the same sign for distinct positive `μ_i`, `ζ_j` and `x ≥ 0`, hence a lower bound by one
+  term and the bound `|E(1)| ≤ x^(−N(N−1)/2) |E(x)|` for `x ≥ 1`), `Logs23/Confluence.lean` (with `μ = λ_l + κ h`, a
+  triangular change of rows gives
   `E = h^σ det[…]`, and `h → 0` gives analogous bounds for `D(x) = det[(xζ)^κ e^{λ_l x ζ}]`, `D(1) = G(0)`:
-  `|D(1)| ≥ T' := (∏_{m<N} 1/m!) ((log 2)/2)^(N(N−1)/2) |V(ζ)|` and `|D(1)| ≤ x^(−N(N−1)/2) |D(x)|`).
+  `|D(1)| ≥ T' := (∏_{m<N} 1/m!) ((log 2)/2)^(N(N−1)/2) |V(ζ)|` and `|D(1)| ≤ x^(−N(N−1)/2) |D(x)|` for `x ≥ 1`).
 * `Logs23/Proposition.lean` (`prop_main`): for distinct points (the integers `r b₂ + s b₁` distinct), with
-  `X(x) := (x ζ_max)^K e^{λ_max x ζ_max}` bounding the entries and `L S |Λ|/b₂ ≤ 1`: if
+  `X(x) := (x ζ_max)^K e^{λ_max x ζ_max}` bounding the entries and `L S |Λ|/b₂ ≤ 1`: if, for some `x ≥ 1`,
   `N! X(x)^N / x^(N(N−1)/2) ≤ 1/(2 b₂^σ)`, then `|G(0)|` is small; if
   `det M ≠ 0` then `|G(δ)| ≥ b₂^(−σ)`, and if `det M = 0` then `G(δ) = 0`; in both cases
   `|G(δ) − G(0)| ≥ |G(0)| ≥ T' > 0`, and the perturbation bound gives `|Λ| ≥ b₂ T' / (N · N! · (3 X(1))^N · L S)`.
   The case `det M = 0` is not excluded.
 * `Logs23/Constantes.lean`: the condition of `prop_main` (with `x = 16`) and the final inequality, for every `ν ≥ 335`
   (logarithms, `log ν ≤ ν/50 + 3`, `n! ≤ n^n`, polynomial inequalities).
-* `Logs23/TwoLog.lean`: the grid of points (distinct for coprime `b₁, b₂`), the reduction to coprime `b₁, b₂`
+* `Logs23/TwoLog.lean`: the grid of points (distinct for coprime `b₁, b₂` with `S ≤ b₂`), the reduction to coprime `b₁, b₂`
   (dividing by the gcd; small reduced denominators are handled by the bridge), then `lam_lower_large`, `lam_lower`
   and the five statements `…_nh` through `reduction`.
 

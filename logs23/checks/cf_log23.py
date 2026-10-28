@@ -1,7 +1,8 @@
 """Continued fraction of theta = log 3 / log 2 (mpmath, 600 digits): convergents p/q; the loop stops at the first
 q > 10^100, which is qBr' (101 digits); the convergent before it is pBr/qBr.
-Numerical only; the Lean bridge (Logs23/Pont.lean) re-certifies the two retained convergents from rational
-enclosures. Prints pBr, qBr, pBr', qBr' of Logs23/Logs23_Enonces.lean."""
+Numerical only. Lean does not use that these are convergents: from rational enclosures it re-certifies what it
+uses (pBr' qBr - pBr qBr' = 1, the two signs, |pBr log 2 - qBr log 3| >= 10^(-101), 2^334 <= qBr').
+Prints pBr, qBr, pBr', qBr' of Logs23/Logs23_Enonces.lean."""
 import mpmath as mp
 mp.mp.dps = 600
 th = mp.log(3) / mp.log(2)
@@ -28,5 +29,3 @@ print("pBr  =", p)
 print("qBr  =", q)
 print("pBr' =", pp)
 print("qBr' =", qq)
-# largest C such that C (log 2k)^2 <= log(2^k - 1) for every k >= qBr' (the function increases with k)
-print("log(2^qBr' - 1)/(log 2qBr')^2 =", mp.nstr(mp.log(mp.mpf(2) ** qq - 1) / mp.log(2 * qq) ** 2, 6))

@@ -5,7 +5,7 @@ import Logs23.GenVandermonde
 /-!
 # Logs23 · the exponential kernel `det [exp (μ_i ζ_j)]`
 
-For distinct positive `μ_i` and distinct positive `ζ_j`, the Cauchy–Binet expansion of `det [exp (μ_i x ζ_j)]`
+For distinct positive `μ_i`, distinct positive `ζ_j` and `x ≥ 0`, the Cauchy–Binet expansion of `det [exp (μ_i x ζ_j)]`
 (truncated exponential series, then `n → ∞`) has all its terms of the same sign (generalized Vandermonde
 determinants). Hence
 * `|det [exp (μ_i ζ_j)]| ≥ (∏_{m<N} 1/m!) |V(μ)| |V(ζ)|` (one term);
@@ -143,7 +143,7 @@ theorem term_Q₀ {N n : ℕ} (h : N ≤ n) (μ ζ : Fin N → ℝ) :
   simp only [enum_Q₀, Fin.val_castLE, one_pow, mul_one]
   rw [vprod_eq_det ζ, ← vprod_eq_det μ]
 
-/-- `ε · det(truncated product) = Σ ε · term`, a sum of nonnegative terms. -/
+/-- `ε · det(truncated product) = Σ ε · term` (nonnegative terms when `ε` is the sign of `eps_mul_term_nonneg`). -/
 theorem eps_det_trunc {N n : ℕ} (μ ζ : Fin N → ℝ) (x : ℝ) (ε : ℝ) :
     ε * (Atr μ n * Btr ζ x n).det = ∑ Q : Subsets N n, ε * term μ ζ x Q := by
   rw [det_mul_eq_sum_subsets, Finset.mul_sum]; rfl

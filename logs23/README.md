@@ -2,7 +2,7 @@
 
 **Status: in release v1.4 of this repository** (its first release that contains this folder), archived on Zenodo;
 concept DOI [10.5281/zenodo.23498095](https://doi.org/10.5281/zenodo.23498095), which resolves to the latest
-version; the DOI of version v1.4 is listed on that Zenodo record. Lean 4.34.0, Mathlib v4.34.0.
+version; version v1.4: [10.5281/zenodo.23720217](https://doi.org/10.5281/zenodo.23720217). Lean 4.34.0, Mathlib v4.34.0.
 
 `../steiner1978/` proves Steiner's theorem on circuits (the only circuit on the positive integers that is a cycle
 is {1, 2}) under the named hypothesis `H_Rhin` (the case `u₀ = 0` of inequality (7) of G. Rhin, *Approximants de
@@ -138,6 +138,10 @@ Lean 4.34.0 was already installed and Mathlib's prebuilt files were already in t
 `../steiner1978/check.sh` read its 12 axiom reports and `./check.sh` its 15, all with standard axioms only; compared
 afterwards, they were the same as the recorded ones (`../steiner1978/axioms/Steiner_Axiomes.txt`,
 `axioms/Logs23_Axiomes.txt`).
+
+*(Note of 2026-10-28.)* That run took under 6 minutes, `lake exe cache get` included. Re-run the same day from a
+fresh clone of tag v1.4 on an M1 Pro busy with other jobs, the same commands took about 22 minutes; the 12 and 15
+reports were again identical to the recorded ones.
 
 ## Credits
 

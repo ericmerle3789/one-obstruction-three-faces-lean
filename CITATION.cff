@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: >-
+  If you use this repository, please cite its Zenodo archive (concept DOI below, which resolves to the latest
+  version). The formalisations of the three classical works prove nothing new about Collatz cycles; nothing in this
+  repository excludes a Collatz cycle beyond the published bounds or proves the Collatz conjecture.
+title: >-
+  One Obstruction, Three Faces — Merle Lean stack, with Lean 4 formalisations of Halbeisen–Hungerbühler 1997,
+  Lagarias 1990 and Steiner 1978
+type: software
+authors:
+  - family-names: Merle
+    given-names: Eric
+    affiliation: "Independent researcher, Chartres, France"
+    orcid: "https://orcid.org/0009-0008-7940-402X"
+doi: 10.5281/zenodo.23498095
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23498095
+    description: "Concept DOI: all versions, resolves to the latest"
+  - type: doi
+    value: 10.5281/zenodo.23720217
+    description: "Release v1.4 (first release with logs23/)"
+repository-code: "https://github.com/ericmerle3789/one-obstruction-three-faces-lean"
+url: "https://collatz-lab.org"
+license: CC-BY-4.0
+keywords:
+  - Collatz conjecture
+  - 3x+1 problem
+  - Collatz cycles
+  - Lean 4
+  - Mathlib
+  - formal verification

@@ -44,6 +44,9 @@ In numbers:
 
 ## How to check
 
+From the root of a clone of a release tag, or of its Zenodo archive (prerequisites and disk space: [*Re-checking the
+formalisations of classical papers*](../README.md#re-checking-the-formalisations-of-classical-papers-added-2026-10-28) in the root README):
+
 ```bash
 cd lagarias1990
 lake exe cache get
@@ -53,6 +56,8 @@ lake exe cache get
 `check.sh` first checks the sources against `SHA256SUMS`, then compiles the files one by one with
 `lake env lean`, in dependency order. It then reads the `#print axioms` output of `Lagarias/Axiomes.lean`, and
 fails if any theorem depends on an axiom other than the three above, or if the number of reports is not 61. It was run from a clean build on 2026-10-20 (25 files, about 6 minutes on an M1 Pro once Mathlib is cached).
+*(Note of 2026-10-28: re-run from a fresh clone of tag v1.4 on an M1 Pro busy with other jobs, it took about
+22 minutes, `lake exe cache get` included, each file loading Mathlib; the 61 reports were identical to `axioms/`.)*
 
 ## Named hypotheses
 
@@ -259,7 +264,8 @@ README. Two rows concern proof files (`Mots.lean`, `Tables.lean`), which were no
     with `p_k` varying ↔ the construction in `thm3_4` (`v` followed by zeros);
   - Remark 3.13 (`d = Q(2^{p_k} − 3^k)`, `n = Q·A_k`) ↔ the scaling `tk_scale`, `clear_den`.
 - **Earlier formalisations.** We found none of Lagarias 1990 (ccchallenge entry `Lagarias1990`: not started on
-  2026-10-20).
+  2026-10-20). (Update 2026-10-28: ccchallenge record 15 of that entry, created on 2026-10-20 after that check, is
+  this formalisation; it points to the Zenodo DOI of release v1.1, 10.5281/zenodo.23514572.)
 
 ## Dependencies
 

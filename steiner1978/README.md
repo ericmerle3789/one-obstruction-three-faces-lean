@@ -42,6 +42,9 @@ Mathematics and Computing (Winnipeg, 1977), Congressus Numerantium 20, Utilitas 
 
 ## How to check
 
+From the root of a clone of a release tag, or of its Zenodo archive (prerequisites and disk space: [*Re-checking the
+formalisations of classical papers*](../README.md#re-checking-the-formalisations-of-classical-papers-added-2026-10-28) in the root README):
+
 ```bash
 cd steiner1978
 lake exe cache get
@@ -208,7 +211,8 @@ available to us" was not justified; it was read afterwards (see *Comparison with
   that entry's reviews, where the file described as an "Annotated PDF" was linked before the release) and are
   withdrawn. The root README now says that the statements were written without the original paper and compared with
   it after release v1.2; `.zenodo.json` will be updated at the next release. Update (2026-10-27): `.zenodo.json`
-  updated for release v1.3.
+  updated for release v1.3. Update (2026-10-28): ccchallenge record 16 now points to the Zenodo DOI of release v1.4,
+  10.5281/zenodo.23720217 (public API, 2026-10-28); status `waiting_to_be_audited`.
 - **Hercher 2023.** [PhilNorfleet/Hercher2023_lean](https://github.com/PhilNorfleet/Hercher2023_lean)
   (ccchallenge entry `Hercher2023`, status `waiting_to_be_audited`) formalises Hercher's *There are no Collatz
   m-Cycles with m ≤ 91*. Its main theorem, `no_m_cycle_le_82` (read on 2026-10-21), excludes m-cycles with

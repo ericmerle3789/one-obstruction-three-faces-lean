@@ -5,7 +5,10 @@
 2026-07-28, fixed in **v4.32.2** the same day. Every kernel claim of the six ledger files of this repository was
 checked on **v4.27.0** (see `../lean-toolchain`), which predates the fix. (Note of 2026-10-28: the Lean files added
 later, `Labo/` here and the folders `../hh1997/`, `../lagarias1990/`, `../steiner1978/`, `../logs23/`, are checked
-on Lean 4.34.0, as their `lean-toolchain` files say.) The bug's reproduction builds a declaration by
+on Lean 4.34.0, as their `lean-toolchain` files say.) (Note added after release v1.4, on 2026-10-28: in release v1.4,
+the sentence before the previous note and the one after it were changed without saying so in the files (only the
+notes of release v1.4 mention it); they read "Every kernel
+claim in this repository was checked on **v4.27.0**" and "…; none of the files here do anything of the kind".) The bug's reproduction builds a declaration by
 hand through `addDecl` (metaprogramming); none of the six files do anything of the kind — they are
 ordinary tactic proofs, and their axiom logs show only `propext`, `Classical.choice`, `Quot.sound`. The
 risk was therefore remote, but the only honest remedy is to re-run the kernel after the fix.

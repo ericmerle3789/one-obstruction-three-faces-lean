@@ -29,6 +29,9 @@ Eliahou's k(2⁴⁰) = 17 087 915).
 
 ## How to check
 
+From the root of a clone of a release tag, or of its Zenodo archive (prerequisites and disk space: [*Re-checking the
+formalisations of classical papers*](../README.md#re-checking-the-formalisations-of-classical-papers-added-2026-10-28) in the root README):
+
 ```bash
 cd hh1997
 lake exe cache get
@@ -41,6 +44,12 @@ axiom other than the three above (this also rules out `sorryAx` and `Lean.ofRedu
 behind `native_decide`). On an M1 Pro it takes about 30 minutes, mostly loading Mathlib; no file
 needs more than a few minutes. It was run from a clean copy of this folder before publication
 (2026-10-19), with the result recorded in `axioms/`.
+
+*(Note of 2026-10-28.)* Unlike the scripts of the other folders, `check.sh` neither checks the sources against
+`SHA256SUMS` nor compares the number of axiom reports with an expected value (it prints that number): run `shasum -a 256 -c SHA256SUMS` (or `sha256sum -c SHA256SUMS`) in this
+folder first. The run reads 78 axiom reports: the 70 proved statements `…_thm`, six of them printed twice, and
+two auxiliary lemmas, `cycle_one` and `cycle_two`. Re-run on 2026-10-28 from a fresh clone of tag v1.4: identical to
+`axioms/`.
 
 ## Layout
 

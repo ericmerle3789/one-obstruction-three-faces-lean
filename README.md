@@ -2,9 +2,16 @@
 
 Archived on Zenodo: https://doi.org/10.5281/zenodo.23498095 (concept DOI, which resolves to the latest version;
 v1.0 = 10.5281/zenodo.23498096, v1.1 = 10.5281/zenodo.23514572, v1.2 = 10.5281/zenodo.23541611,
-v1.3 = 10.5281/zenodo.23686224; the DOI of v1.4, the first release with `logs23/`, is listed on the Zenodo record).
+v1.3 = 10.5281/zenodo.23686224, v1.4 = 10.5281/zenodo.23720217, the first release with `logs23/`).
 Source repository: https://github.com/ericmerle3789/one-obstruction-three-faces-lean (the Zenodo archives do not
 contain the git history, whose commits the READMEs cite).
+
+> **Status (2026-10-28).** Besides the Merle side of the joint note with Benjamin Macindoe (block below), this
+> repository holds Lean 4.34.0 formalisations of three classical works on Collatz cycles: Halbeisen–Hungerbühler 1997
+> ([`hh1997/`](hh1997/)), Lagarias 1990 ([`lagarias1990/`](lagarias1990/)) and Steiner 1978
+> ([`steiner1978/`](steiner1978/), under the named hypothesis `H_Rhin`; without it in [`logs23/`](logs23/)). They prove
+> nothing new about Collatz cycles and do not prove the Collatz conjecture. How to re-check them: [*Re-checking the
+> formalisations of classical papers*](#re-checking-the-formalisations-of-classical-papers-added-2026-10-28), below.
 
 > **Status (2026-10-02).** This is the Merle side of the joint note *One obstruction, three
 > faces* with Benjamin Macindoe. It formalizes and checks entries of the shared claims ledger.
@@ -13,6 +20,13 @@ contain the git history, whose commits the READMEs cite).
 > which predates the fix of the kernel soundness bug [lean4#14576](https://github.com/leanprover/lean4/issues/14576)
 > (fixed in v4.32.2, 2026-07-28); all six files were then re-checked on Lean 4.34.0 — see
 > [`recheck-v4.34/RECHECK.md`](recheck-v4.34/RECHECK.md).
+
+> *(Note of 2026-10-28, after release v1.4.) In release v1.4, "of the six ledger files" was added to the sentence on
+> Lean 4.27.0 without saying so in the files (only the notes of release v1.4 mention it), here and in `recheck-v4.34/RECHECK.md` (where "none of the files here" also became
+> "none of the six files"). Before, it read "Every kernel claim was first checked on Lean 4.27.0" (in `RECHECK.md`: "Every kernel
+> claim in this repository was checked on v4.27.0"), which was not
+> true of `hh1997/`, `lagarias1990/`, `steiner1978/`, `logs23/` and `recheck-v4.34/Labo/`, checked on Lean 4.34.0
+> only.*
 
 The **Lean 4 verification stack** (Eric Merle's "kernel key") for the joint note
 *One obstruction, three faces* with Benjamin Macindoe.
@@ -162,6 +176,33 @@ Each file except `LegendreApprox.lean` ends with `#print axioms`. For L-A1 the o
 The root-level v4.27.0 files are kept as they were checked; `TransportRecurrence.lean`
 also compiles alone with `lake env lean` in any Lean 4.27.0 + Mathlib project.
 
+### Re-checking the formalisations of classical papers (added 2026-10-28)
+
+Start from the root of a clone of a release tag (for example
+`git clone --branch v1.4 https://github.com/ericmerle3789/one-obstruction-three-faces-lean`) or from its Zenodo
+archive. Prerequisites: git, curl, python3, `sha256sum` or `shasum`, and
+[elan](https://github.com/leanprover/elan) (each folder's `lean-toolchain` selects Lean 4.34.0), with network access.
+Each of `hh1997/`, `lagarias1990/`, `steiner1978/` and `recheck-v4.34/` is its own Lake project with its own copy of
+Mathlib (about 8 GiB once `lake exe cache get` has run; `logs23/` uses the build of `steiner1978/`). Disk space needed
+besides: the Lean 4.34.0 toolchain installed by elan (2.7 GiB on the machine used) and Mathlib's download cache
+(`~/.cache/mathlib`). Delete `<folder>/.lake` between two folders if disk space is short. The last row of the table below is the re-check of
+the six ledger files, not a classical paper.
+
+| folder | commands, from the root of the clone | what the script checks |
+|---|---|---|
+| `hh1997/` | `cd hh1997 && shasum -a 256 -c SHA256SUMS && lake exe cache get && ./check.sh` | 33 files, standard axioms only; the script prints the number of axiom reports (78) without comparing it with an expected value, and it does not check `SHA256SUMS`, hence the `shasum` command (with `sha256sum` only: `sha256sum -c SHA256SUMS`) |
+| `lagarias1990/` | `cd lagarias1990 && lake exe cache get && ./check.sh` | `SHA256SUMS`, 25 files, 61 axiom reports |
+| `steiner1978/` and `logs23/` | `cd steiner1978 && lake exe cache get && cd ../logs23 && ./check.sh` | both folders' `SHA256SUMS`, 7 + 14 files, 12 + 15 axiom reports |
+| `recheck-v4.34/` | the commands of *Reproduce* above; `Labo/`: see `recheck-v4.34/LABO.md` | no script: compare the `#print axioms` output of the five ledger files that print one (all but `LegendreApprox.lean`) with `recheck-v4.34/axioms_v4.34.txt` (40 declarations) |
+
+Each `check.sh` fails if a theorem depends on an axiom other than `propext`, `Classical.choice` and `Quot.sound`. On
+2026-10-28 these commands were run from a fresh clone of tag v1.4, with Lean 4.34.0 already installed and Mathlib's
+download cache already filled, on an M1 Pro busy with other jobs: about 29 minutes for `hh1997/`, 22 for
+`lagarias1990/`, 22 for `steiner1978/` and `logs23/` together, 9 for `recheck-v4.34/` (the six ledger files and
+`Labo/`, which prints no axiom report); each time includes `lake exe cache get`. Every axiom report was identical
+to the recorded one. The READMEs of `hh1997/`, `lagarias1990/`, `steiner1978/` and `logs23/` give the times
+measured when they were published.
+
 ## Working conditions, disclosed
 
 Research direction and standards of evidence are the author's; the mathematical
@@ -172,4 +213,5 @@ not of their hypotheses, and not of a model's reading of its output: commit
 `7d46474` retracts `da2c8db`, where an aborted compilation was misreported as
 "0 errors"; and the kernel itself can have bugs (lean4#14576).
 
-License: CC BY 4.0.
+License: CC BY 4.0 (see [`LICENSE`](LICENSE), the official legal code, added on 2026-10-28; releases v1.0–v1.4
+contain no `LICENSE` file, and their license is the one stated in their README and Zenodo record).

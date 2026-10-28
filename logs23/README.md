@@ -1,6 +1,7 @@
 # logs23 — a lower bound for |b₁ log 2 − b₂ log 3|, and Steiner 1978 without `H_Rhin`
 
-**Status: local only, not released.** Lean 4.34.0, Mathlib v4.34.0.
+**Status (2026-10-28): on GitHub (branch `main`), not released** (no release, tag or DOI covers this folder yet).
+Lean 4.34.0, Mathlib v4.34.0.
 
 `../steiner1978/` proves Steiner's theorem on circuits (the only circuit on the positive integers that is a cycle
 is {1, 2}) under the named hypothesis `H_Rhin` (the case `u₀ = 0` of inequality (7) of G. Rhin, *Approximants de
@@ -44,7 +45,9 @@ at `n = 1`, with `k = l = 1`), and (`steiner_cycle_int_nh`) every circuit-cycle 
 `{−5, −7, −10}` (it starts at `n = −1` with `l = 0`, at `n = 1`, or at `n = −5`), with no hypothesis. (These
 statements exclude every other circuit-cycle; that the listed ones are circuit-cycles is a direct computation,
 not stated in Lean.)
-The sixth statement of `../steiner1978/` with the premise `H_Rhin`, `rhin_k_le` ("`k ≤ 108`"), is not covered.
+The sixth statement of `../steiner1978/` with the premise `H_Rhin`, `rhin_k_le` ("`k ≤ 108`"), is not stated here
+without its premise; it would follow at once from `steiner_int_nh` (a solution with `k ≥ 1`, `l ≥ 1`, `h ≠ 0` has
+`k ≤ 2`).
 
 ## How it is proved
 
@@ -96,20 +99,35 @@ We have not checked whether this replacement of the zero lemma by total positivi
 may well be known. Much stronger explicit bounds are published (Laurent 1994; M. Laurent, M. Mignotte,
 Y. Nesterenko, J. Number Theory 55 (1995); N. Gouillon, *Explicit lower bounds for linear forms in two logarithms*,
 J. Théor. Nombres Bordeaux 18 (2006), 125–146); the bound here is deliberately crude, because the bridge covers every
-`k < qBr'`. Steiner's own proof uses Baker's theorem on linear forms in two logarithms (Simons–de Weger, §1.4).
+`k < qBr'`. Steiner's own proof uses Baker's theorem on linear forms in two logarithms (the paper's Lemma 1, from A. Baker,
+*Transcendental Number Theory*, p. 45; Simons–de Weger, §1.4; see `../steiner1978/README.md`).
 
 The four integers of the bridge were computed by `checks/cf_log23.py` (mpmath, 600 digits; output in
 `checks/cf_log23.out.txt`); Lean re-certifies everything it uses about them.
 
 ## Re-checking
 
-`./check.sh` (needs `python3`): checks `SHA256SUMS`, runs `../steiner1978/check.sh` (which builds the Steiner 1978
-modules imported here), compiles `Logs23/*.lean` one by one with `lean -o` (`LEAN_PATH` from `env.sh`: this folder's
-build directory, then the `LEAN_PATH` of `../steiner1978`; this folder has no Lake package of its own and `lake build`
-is not used), fails on any error or `sorry` warning, and reads the axiom report of `Logs23/Axiomes.lean` (expected:
-15 reports — the 14 frozen statements and `widths` — standard axioms only). Warnings "exponent … exceeds the
-threshold 256" and deprecation warnings in the logs are expected. Prerequisite: Mathlib's prebuilt cache
-(`lake exe cache get` in `../steiner1978`). Recorded report: `axioms/Logs23_Axiomes.txt`.
+Prerequisites: git, python3, [elan](https://github.com/leanprover/elan) (the `lean-toolchain` files of this folder
+and of `../steiner1978` select Lean 4.34.0), and network access for Mathlib's prebuilt cache. From a fresh clone:
+
+```bash
+cd steiner1978
+lake exe cache get
+cd ../logs23
+./check.sh
+```
+
+`./check.sh` checks `SHA256SUMS` (the Lean sources of `Logs23/`), runs `../steiner1978/check.sh` (which builds the
+Steiner 1978 modules imported here), compiles `Logs23/*.lean` one by one with `lean -o` (`LEAN_PATH` from `env.sh`:
+this folder's build directory, then the `LEAN_PATH` of `../steiner1978`; this folder has no Lake package of its own
+and `lake build` is not used), fails on any error or `sorry` warning, and reads the axiom report of
+`Logs23/Axiomes.lean`: it fails unless the reports are exactly those of the 15 theorems listed in `check.sh` (the 14
+frozen statements and `widths`), each with standard axioms only. Warnings "exponent … exceeds the threshold 256" and
+deprecation warnings in the logs are expected. Recorded report: `axioms/Logs23_Axiomes.txt`.
+
+These commands were run from a fresh clone of the repository on 2026-10-28: `../steiner1978/check.sh` read its 12
+axiom reports and `./check.sh` its 15, all with standard axioms only, the same as the recorded ones
+(`../steiner1978/axioms/Steiner_Axiomes.txt`, `axioms/Logs23_Axiomes.txt`).
 
 ## Credits
 

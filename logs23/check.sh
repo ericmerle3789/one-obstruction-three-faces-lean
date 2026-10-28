@@ -7,10 +7,10 @@
 # 3. Each file of Logs23/ is compiled with `lean -o`, in dependency order; the check fails on any error and on any
 #    warning "declaration uses `sorry`". (Warnings "exponent ... exceeds the threshold 256" and deprecation warnings
 #    are expected.)
-# 4. The `#print axioms` output of Logs23/Axiomes.lean is read, for the 15 theorems listed there (the 14 frozen
-#    statements and `widths`): the check fails if one of them depends on an axiom other than
-#    propext, Classical.choice, Quot.sound (this also rules out sorryAx and the auxiliary axiom that native_decide
-#    adds on Lean 4.34), or if the number of axiom reports is not EXPECTED.
+# 4. The `#print axioms` output of Logs23/Axiomes.lean is read: the check fails unless the reports are exactly those
+#    of the EXPECTED theorems listed in NAMES below (the 14 frozen statements and `widths`), or if one of them depends
+#    on an axiom other than propext, Classical.choice, Quot.sound (this also rules out sorryAx and the auxiliary
+#    axiom that native_decide adds on Lean 4.34).
 set -euo pipefail
 cd "$(dirname "$0")"
 EXPECTED=15
@@ -41,21 +41,30 @@ done
 python3 - logs/Logs23.Axiomes.log "$EXPECTED" <<'PY'
 import re, sys
 ok = {"propext", "Classical.choice", "Quot.sound"}
-n, bad = 0, []
+NAMES = ["Logs23." + s for s in """bridge_gap_thm bridge_value_thm lam_lower_bridge_thm steiner_bridge_thm
+steiner_cycle_bridge_thm reduction_thm two_log_lower_thm lam_lower_large_thm lam_lower_thm steiner_nh_thm
+steiner_int_nh_thm steiner_cycle_nh_thm steiner_cycle_int_nh_thm tstar_circuit_nh_thm widths""".split()]
+bad, names = [], []
 expected = int(sys.argv[2])
+if len(set(NAMES)) != expected:
+    bad.append(f"NAMES lists {len(set(NAMES))} theorems, EXPECTED is {expected}")
 for f in sys.argv[1:2]:
     text = open(f).read()
     if re.search(r"(?m)^\S+:\d+:\d+: error", text):
         bad.append(f + ": error")
     for name, axs in re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", text):
-        n += 1
+        names.append(name)
         extra = {a.strip() for a in axs.split(",")} - ok
         if extra:
             bad.append(f"{name}: {sorted(extra)}")
-    n += len(re.findall(r"' does not depend on any axioms", text))
+    names += re.findall(r"'([^']+)' does not depend on any axioms", text)
+n = len(names)
 print(f"{n} axiom reports read")
 if n != expected:
     bad.append(f"expected {expected} axiom reports, read {n}")
+if sorted(names) != sorted(NAMES):
+    bad.append(f"missing: {sorted(set(NAMES) - set(names))}; unexpected or repeated: "
+               f"{sorted(set(n_ for n_ in names if names.count(n_) > 1 or n_ not in NAMES))}")
 if bad:
     print("CHECK FAILED:", *bad, sep="\n  ")
     sys.exit(1)

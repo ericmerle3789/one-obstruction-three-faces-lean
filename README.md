@@ -37,7 +37,8 @@ last "Key status" block of `LEDGER.md` in the shared repo, not this README.
 | `recheck-v4.34/` | — | the six files above on Lean 4.34.0; `Labo/`: lab modules offered for information, no ledger entry, one `sorry` (the open target `Tstar_open`) — see `LABO.md` |
 | `hh1997/` | — | Halbeisen–Hungerbühler 1997 (*Acta Arith.* 78) formalised on Lean 4.34.0: a classical paper, not a ledger entry; 70 proved statements, standard axioms; one remark of the paper not proved — see `hh1997/README.md` |
 | `lagarias1990/` | — | Lagarias 1990 (*Acta Arith.* 56) formalised on Lean 4.34.0: a classical paper, not a ledger entry; 60 frozen statements, all proved (61 theorems: Corollary 2.1a twice), standard axioms; Theorem 3.1 with the printed constant and Theorem 3.2 under named hypotheses (Theorem 3.1 also without any hypothesis, constant 6/5); out of scope: Theorems 3.3 and 4.3, (4.12)–(4.14), Remarks (2)–(4) of p. 52 with (4.19), the flat segment of Fig. 4.1; the minimality of the 48 unchanged rows of Table 3.1 is checked numerically, not in Lean — see `lagarias1990/README.md` |
-| `steiner1978/` | — | Steiner 1978 (*Congr. Numer.* 20) formalised on Lean 4.34.0: a classical theorem, not a ledger entry; the statements were written without the original paper, reconstructed from Steiner 1981, Lagarias's annotated bibliography and Simons–de Weger 2005, and compared with the paper after release v1.2; 12 frozen statements, all proved, standard axioms; Steiner's theorem (the only circuit on the positive integers that is a cycle is `{1, 2}`) under a named hypothesis (Rhin 1987, inequality (7) with `u₀ = 0`), and without any hypothesis for at most 20000 odd terms (a finite check by the kernel) — see `steiner1978/README.md` |
+| `steiner1978/` | — | Steiner 1978 (*Congr. Numer.* 20) formalised on Lean 4.34.0: a classical theorem, not a ledger entry; the statements were written without the original paper, reconstructed from Steiner 1981, Lagarias's annotated bibliography and Simons–de Weger 2005, and compared with the paper after release v1.2; 12 frozen statements, all proved, standard axioms; Steiner's theorem (the only circuit on the positive integers that is a cycle is `{1, 2}`) under a named hypothesis (Rhin 1987, inequality (7) with `u₀ = 0`), and without any hypothesis for at most 20000 odd terms (a finite check by the kernel) — see `steiner1978/README.md`; without the hypothesis for every number of odd terms in `logs23/` |
+| `logs23/` | — | Steiner 1978 without `H_Rhin` (Lean 4.34.0, added 2026-10-28): a lower bound for `\|(k+l) log 2 − k log 3\|` proved for every `k > 20000`, hence the five statements of `steiner1978/` with the premise `H_Rhin` without that premise; 14 frozen statements, all proved, standard axioms; it does not prove `H_Rhin` — see *Steiner 1978 without `H_Rhin`* below and `logs23/README.md` |
 | `experiments/` | — | Python verification scripts and outputs (`experiments/README.md`) |
 | `rounds/` | — | round 11 only; rounds 12 onward live in the shared repo |
 
@@ -62,6 +63,28 @@ next round.
 | L-A5 | the invariance of the gcd under rotation: Lagarias 1990, §2; Halbeisen–Hungerbühler 1997, Lemma 9, eq. (15); Wegner 2021 ([arXiv:2101.08060](https://arxiv.org/abs/2101.08060)), eq. (16)–(18). The adjacent exchange T1/T2 is eq. (2) and (4) of Halbeisen–Hungerbühler 1997, chained | the normalisation C, the gcd corollary, the Lean key |
 | L-A7 | in substance, T. Tao, [blog post of 2011-08-25](https://terrytao.wordpress.com/2011/08/25/the-collatz-conjecture-littlewood-offord-theory-and-powers-of-2-and-3/): the heuristic count 1/q per word, Baker's theorem for q, Stirling, the factor (0.9659…)^a; our c_gen = 0.0793186 = (1 − H₂(log₃ 2))·log₂ 3 is the same constant, counted per odd step | the explicit additive tail (μ named, C₀); the kernel proof at the constant 1/13 |
 | L-A8 | the chain is classical: Crandall 1978 and Eliahou 1993 (product bound, window); the Legendre step as in Simons–de Weger 2005, Lemma 9(a) | re-proved in the kernel |
+
+## Steiner 1978 without `H_Rhin` (`logs23/`, added 2026-10-28)
+
+`steiner1978/` proves Steiner's theorem under the named hypothesis `H_Rhin` (Rhin 1987, inequality (7) with
+`u₀ = 0`), which it uses only to bound the number `k` of odd terms. `logs23/` does without it. With the axioms
+`propext`, `Classical.choice`, `Quot.sound` only, it proves `lam_lower`: `1/(2^k − 1) ≤ |(k + l) log 2 − k log 3|`
+for every `k > 20000` and `l ≥ 0`; and from it the statements `steiner`, `steiner_int`, `steiner_cycle`,
+`steiner_cycle_int` and `tstar_circuit` of `steiner1978/` without their premise `H_Rhin`. In particular, with no
+hypothesis, the only circuit on the positive integers that is a cycle is `{1, 2}` (`steiner_cycle_nh`).
+
+- For `k` below `qBr' ≈ 6.34·10^100`: two consecutive convergents of `log₂ 3`, with rational enclosures of `log 2`
+  and `log(3/2)` computed by the kernel (`decide +kernel`).
+- For `k ≥ 2^334`: an explicit, deliberately crude bound `exp(−10^12 ν^5) ≤ |b₁ log 2 − b₂ log 3|` for `b₂ ≥ 2^334`,
+  `ν = ⌊log₂ b₂⌋ + 1`, by an interpolation determinant in the spirit of M. Laurent (Acta Arith. 66, 1994), with a
+  positivity argument (Cauchy–Binet, Descartes' rule of signs) in place of a zero lemma.
+- Not proved: `H_Rhin` itself (Rhin's bound is much stronger, and his paper is not formalised); `rhin_k_le` is not
+  restated without its premise. The bound is far weaker than the published ones (Laurent 1994; Laurent, Mignotte,
+  Nesterenko 1995; Gouillon 2006). No novelty is claimed: replacing the zero lemma by positivity may well be known.
+  The formalisation proves nothing new about Collatz cycles.
+- Statements frozen in `logs23/Logs23/Logs23_Enonces.lean` and `logs23/Logs23/TwoLog_Enonces.lean`, each committed
+  before its proofs. To re-check: `lake exe cache get` in `steiner1978/`, then `logs23/check.sh` (see
+  `logs23/README.md`).
 
 ## Ledger entry L-A1 — the transport recurrence
 

@@ -214,7 +214,8 @@ available to us" was not justified; it was read afterwards (see *Comparison with
   m-Cycles with m ≤ 91*. Its main theorem, `no_m_cycle_le_82` (read on 2026-10-21), excludes m-cycles with
   `m ≤ 82` under two external hypotheses; one bounds the number `K` of odd terms of the cycle by `1.4784·m·δ^m`. At `m = 1`
   this hypothesis already gives `K ≤ 2`, so its case `m = 1` is not Steiner's theorem.
-- **This repository.** `hh1997/` uses the same map `T` (`LaboBP.T`).
+- **This repository.** `hh1997/` uses the same map `T` (`LaboBP.T`). `../logs23/` proves Steiner's theorem without
+  `H_Rhin` (see the update of 2026-10-28 at the top).
 
 ## Dependencies
 

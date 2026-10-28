@@ -99,8 +99,8 @@ We have not checked whether this replacement of the zero lemma by total positivi
 may well be known. Much stronger explicit bounds are published (Laurent 1994; M. Laurent, M. Mignotte,
 Y. Nesterenko, J. Number Theory 55 (1995); N. Gouillon, *Explicit lower bounds for linear forms in two logarithms*,
 J. Théor. Nombres Bordeaux 18 (2006), 125–146); the bound here is deliberately crude, because the bridge covers every
-`k < qBr'`. Steiner's own proof uses Baker's theorem on linear forms in two logarithms (the paper's Lemma 1, from A. Baker,
-*Transcendental Number Theory*, p. 45; Simons–de Weger, §1.4; see `../steiner1978/README.md`).
+`k < qBr'`. Steiner's own proof uses Baker's theorem on linear forms in two logarithms (Lemma 1 of his paper, from
+A. Baker, *Transcendental Number Theory*, p. 45; Simons–de Weger, §1.4; see `../steiner1978/README.md`).
 
 The four integers of the bridge were computed by `checks/cf_log23.py` (mpmath, 600 digits; output in
 `checks/cf_log23.out.txt`); Lean re-certifies everything it uses about them.
@@ -108,7 +108,7 @@ The four integers of the bridge were computed by `checks/cf_log23.py` (mpmath, 6
 ## Re-checking
 
 Prerequisites: git, python3, [elan](https://github.com/leanprover/elan) (the `lean-toolchain` files of this folder
-and of `../steiner1978` select Lean 4.34.0), and network access for Mathlib's prebuilt cache. From a fresh clone:
+and of `../steiner1978` select Lean 4.34.0), and network access for Mathlib's prebuilt cache. From the root of a fresh clone of the repository:
 
 ```bash
 cd steiner1978

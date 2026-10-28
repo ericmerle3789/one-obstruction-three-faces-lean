@@ -20,8 +20,8 @@ Mathematics and Computing (Winnipeg, 1977), Congressus Numerantium 20, Utilitas 
 > `steiner_cycle`, `steiner_cycle_int` and `tstar_circuit` without their premise `H_Rhin`, with the same three
 > axioms. It does not prove `H_Rhin`: in the proofs, it replaces `rhin_k_le`, through which the other statements use
 > `H_Rhin`, by a lower bound for `|Λ|` that is much weaker than `H_Rhin` and that it proves, `1/(2^k − 1) ≤ |Λ|` for
-> every `k > 20000` (see `../logs23/README.md`). Nothing in this folder changes: its Lean files, `SHA256SUMS` and
-> `check.sh` are as they were; `../logs23/check.sh` runs this folder's `check.sh`.
+> every `k > 20000` (see `../logs23/README.md`). Nothing else in this folder changes: its Lean files, `SHA256SUMS`
+> and `check.sh` are as they were; `../logs23/check.sh` runs this folder's `check.sh`.
 
 **Status (2026-10-21).**
 - **Kernel-checked: 12 frozen statements, all proved** (`check.sh` checks that there are 12 axiom reports, one per

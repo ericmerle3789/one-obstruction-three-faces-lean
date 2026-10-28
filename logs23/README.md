@@ -107,8 +107,10 @@ The four integers of the bridge were computed by `checks/cf_log23.py` (mpmath, 6
 
 ## Re-checking
 
-Prerequisites: git, python3, [elan](https://github.com/leanprover/elan) (the `lean-toolchain` files of this folder
-and of `../steiner1978` select Lean 4.34.0), and network access for Mathlib's prebuilt cache. From the root of a fresh clone of the repository:
+Prerequisites: git, curl, python3, [elan](https://github.com/leanprover/elan) (the `lean-toolchain` files of this
+folder and of `../steiner1978` select Lean 4.34.0), network access (elan downloads Lean 4.34.0, Lake clones Mathlib
+and its dependencies, `lake exe cache get` downloads Mathlib's prebuilt files) and about 8 GB of disk space. From the
+root of a fresh clone of the repository:
 
 ```bash
 cd steiner1978
@@ -125,8 +127,9 @@ and `lake build` is not used), fails on any error or `sorry` warning, and reads 
 frozen statements and `widths`), each with standard axioms only. Warnings "exponent … exceeds the threshold 256" and
 deprecation warnings in the logs are expected. Recorded report: `axioms/Logs23_Axiomes.txt`.
 
-These commands were run from a fresh clone of the repository on 2026-10-28: `../steiner1978/check.sh` read its 12
-axiom reports and `./check.sh` its 15, all with standard axioms only, the same as the recorded ones
+These commands were run from a fresh clone of the repository on 2026-10-28, on a machine where Mathlib's prebuilt
+files were already in the local cache: `../steiner1978/check.sh` read its 12 axiom reports and `./check.sh` its 15,
+all with standard axioms only; compared afterwards, they were the same as the recorded ones
 (`../steiner1978/axioms/Steiner_Axiomes.txt`, `axioms/Logs23_Axiomes.txt`).
 
 ## Credits

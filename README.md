@@ -4,7 +4,7 @@ Archived on Zenodo: https://doi.org/10.5281/zenodo.23498095 (concept DOI, which 
 v1.0 = 10.5281/zenodo.23498096, v1.1 = 10.5281/zenodo.23514572, v1.2 = 10.5281/zenodo.23541611,
 v1.3 = 10.5281/zenodo.23686224; the DOI of v1.4, the first release with `logs23/`, is listed on the Zenodo record).
 Source repository: https://github.com/ericmerle3789/one-obstruction-three-faces-lean (the Zenodo archives do not
-contain the git history, which records when each set of statements was frozen and when it was proved).
+contain the git history, whose commits the READMEs cite).
 
 > **Status (2026-10-02).** This is the Merle side of the joint note *One obstruction, three
 > faces* with Benjamin Macindoe. It formalizes and checks entries of the shared claims ledger.

@@ -6,7 +6,7 @@
 checked on **v4.27.0** (see `../lean-toolchain`), which predates the fix. (Note of 2026-10-28: the Lean files added
 later, `Labo/` here and the folders `../hh1997/`, `../lagarias1990/`, `../steiner1978/`, `../logs23/`, are checked
 on Lean 4.34.0, as their `lean-toolchain` files say.) The bug's reproduction builds a declaration by
-hand through `addDecl` (metaprogramming); none of the files here do anything of the kind — they are
+hand through `addDecl` (metaprogramming); none of the six files do anything of the kind — they are
 ordinary tactic proofs, and their axiom logs show only `propext`, `Classical.choice`, `Quot.sound`. The
 risk was therefore remote, but the only honest remedy is to re-run the kernel after the fix.
 

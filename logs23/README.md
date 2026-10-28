@@ -108,7 +108,7 @@ The four integers of the bridge were computed by `checks/cf_log23.py` (mpmath, 6
 
 ## Re-checking
 
-Prerequisites: git, curl, python3, [elan](https://github.com/leanprover/elan) (the `lean-toolchain` files of this
+Prerequisites: git, curl, python3, `sha256sum` or `shasum`, [elan](https://github.com/leanprover/elan) (the `lean-toolchain` files of this
 folder and of `../steiner1978` select Lean 4.34.0), network access (elan downloads Lean 4.34.0, Lake clones Mathlib
 and its dependencies, `lake exe cache get` downloads Mathlib's prebuilt files) and disk space: about 8 GiB for the
 clone (Mathlib's sources and prebuilt files included), plus the Lean 4.34.0 toolchain installed by elan (2.7 GiB on

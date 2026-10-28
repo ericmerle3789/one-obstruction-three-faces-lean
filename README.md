@@ -3,6 +3,8 @@
 Archived on Zenodo: https://doi.org/10.5281/zenodo.23498095 (concept DOI, which resolves to the latest version;
 v1.0 = 10.5281/zenodo.23498096, v1.1 = 10.5281/zenodo.23514572, v1.2 = 10.5281/zenodo.23541611,
 v1.3 = 10.5281/zenodo.23686224; the DOI of v1.4, the first release with `logs23/`, is listed on the Zenodo record).
+Source repository: https://github.com/ericmerle3789/one-obstruction-three-faces-lean (the Zenodo archives do not
+contain the git history, which records when each set of statements was frozen and when it was proved).
 
 > **Status (2026-10-02).** This is the Merle side of the joint note *One obstruction, three
 > faces* with Benjamin Macindoe. It formalizes and checks entries of the shared claims ledger.
@@ -78,8 +80,10 @@ hypothesis, the only circuit on the positive integers that is a cycle is `{1, 2}
 - For `k` below `qBr' ≈ 6.34·10^100`: two consecutive convergents of `log₂ 3`, with rational enclosures of `log 2`
   and `log(3/2)` computed by the kernel (`decide +kernel`).
 - For `k ≥ 2^334`: an explicit, deliberately crude bound `exp(−10^12 ν^5) ≤ |b₁ log 2 − b₂ log 3|` for natural
-  numbers `b₁` and `b₂ ≥ 2^334`, `ν = ⌊log₂ b₂⌋ + 1`, by an interpolation determinant in the spirit of M. Laurent (Acta Arith. 66, 1994), with a
-  positivity argument (Cauchy–Binet, Descartes' rule of signs) in place of a zero lemma.
+  numbers `b₁` and `b₂ ≥ 2^334`, `ν = ⌊log₂ b₂⌋ + 1`. After division by the gcd of `b₁` and `b₂` (small reduced
+  denominators are handled by the convergents above), it is proved by an interpolation determinant in the spirit of
+  M. Laurent (Acta Arith. 66, 1994), with a positivity argument (Cauchy–Binet, Descartes' rule of signs) in place of
+  a zero lemma.
 - Not proved: `H_Rhin` itself (Rhin's bound is much stronger, and his paper is not formalised); `rhin_k_le` is not
   restated without its premise. The bound is far weaker than the published ones (Laurent 1994; Laurent, Mignotte,
   Nesterenko 1995; Gouillon 2006). No novelty is claimed: replacing the zero lemma by positivity may well be known.

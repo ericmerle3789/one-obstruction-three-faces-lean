@@ -98,8 +98,8 @@ they were committed without any proof (commit 7fd7873, with the copied `Labo/Blu
 | `H_Rhin` | for integers `u₁, u₂` with `H = max(|u₁|, |u₂|) ≥ 2`: `H^(−13.3) ≤ |u₁ log 2 + u₂ log 3|` | [Rh], Proposition p. 160 (the page given by [SdW] and Simons 2022), inequality (7), case `u₀ = 0` |
 
 - Rhin's (7) reads: for integers `u₀, u₁, u₂` with `H = max(|u₁|, |u₂|) ≥ 2`, `|u₀ + u₁ log 2 + u₂ log 3| ≥ H^(−13.3)`.
-  The lab read it in the author's copy of the paper on 2026-09-26; we could not open that copy again for this
-  release. [SdW] (Lemma 12: "We apply the Proposition on p. 160 of [Rh] with u₀ = 0, H = u₁ = K + L, and u₂ = −K")
+  The lab read it in the author's copy of the paper on 2026-09-26; we could not open that copy again for
+  release v1.2. [SdW] (Lemma 12: "We apply the Proposition on p. 160 of [Rh] with u₀ = 0, H = u₁ = K + L, and u₂ = −K")
   and J. L. Simons, arXiv:2205.10582 (in the proofs of Lemma 10: `|Λ| ≥ [2K + L]^−13.3`, with `H = |u₁|`, and of
   Lemma 12: `|Λ| ≥ [3K + 2L]^−13.3`, with `H = |u₂|`) apply it with `u₀ = 0`.
 - Only the case `u₀ = 0` is assumed; it is applied with `u₁ = k + l`, `u₂ = −k`. The other statements use `H_Rhin`

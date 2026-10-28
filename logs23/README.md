@@ -19,8 +19,9 @@ paper and does not prove `H_Rhin` (its lower bound for `|Λ|` is much weaker tha
 
 Frozen statements: `Logs23/Logs23_Enonces.lean` (frozen at step 2a, commit 3a127e3) and `Logs23/TwoLog_Enonces.lean`
 (frozen at step 2b, commit 7fb3a6f), each written and committed before its proofs. Since then only the header
-comment of `Logs23_Enonces.lean` was edited (commits 438f048 and de13596; `git diff 3a127e3 HEAD --
-logs23/Logs23/Logs23_Enonces.lean` shows comment lines only); `TwoLog_Enonces.lean` is unchanged. Its header
+comment of `Logs23_Enonces.lean` was edited (commits 438f048 and de13596; from this folder,
+`git -C .. diff 3a127e3 HEAD -- logs23/Logs23/Logs23_Enonces.lean` shows comment lines only); `TwoLog_Enonces.lean`
+is unchanged. Its header
 mentions the lab's register; the section "How it is proved" below replaces it.
 
 | statement | content |
@@ -74,7 +75,7 @@ for `Λ = b₁ log 2 − b₂ log 3`. Parameters: `L = ν`, `K + 1 = 2^15 ν`, `
   Mathlib v4.34), `Logs23/GenVandermonde.lean` (generalized Vandermonde determinants with increasing positive nodes
   and increasing exponents are positive, by Descartes' rule of signs, Mathlib
   `Polynomial.roots_countP_pos_le_signVariations`), `Logs23/ExpKernel.lean` (all Cauchy–Binet terms of
-  `det[e^{μ_i x ζ_j}]` have the same sign for distinct positive `μ_i`, `ζ_j` and `x ≥ 0`, hence a lower bound by one
+  `E(x) := det[e^{μ_i x ζ_j}]` have the same sign for distinct positive `μ_i`, `ζ_j` and `x ≥ 0`, hence a lower bound by one
   term and the bound `|E(1)| ≤ x^(−N(N−1)/2) |E(x)|` for `x ≥ 1`), `Logs23/Confluence.lean` (with `μ = λ_l + κ h`, a
   triangular change of rows gives
   `E = h^σ det[…]`, and `h → 0` gives analogous bounds for `D(x) = det[(xζ)^κ e^{λ_l x ζ}]`, `D(1) = G(0)`:

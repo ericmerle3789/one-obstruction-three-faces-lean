@@ -8,7 +8,8 @@ Columns `j` carry natural numbers `r_j ≥ 1`, `s_j < S`; for natural numbers `b
 `ζ_j = r_j + s_j θ`, `Λ = b₁ log 2 − b₂ log 3`, `δ = −Λ/b₂`. The integer matrix
 `M[(l,κ), j] = (r_j b₂ + s_j b₁)^κ (2^{r_j} 3^{s_j})^{l+1}` satisfies `det M = b₂^σ G(δ)`,
 `G(t) = det [ζ_j^κ e^{λ_l ζ_j} e^{(l+1) s_j t}]` (`λ_l = (l+1) log 2`). With the bounds of `Logs23/Confluence.lean`
-and a perturbation bound, a condition `(P)` on the parameters gives an explicit lower bound for `|Λ|`.
+and a perturbation bound, a condition `(P)` on the parameters gives an explicit lower bound for `|Λ|`
+(`prop_main`, in `Logs23/Proposition.lean`).
 -/
 
 namespace Logs23

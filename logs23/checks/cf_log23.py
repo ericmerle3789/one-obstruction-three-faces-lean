@@ -1,7 +1,8 @@
 """Continued fraction of theta = log 3 / log 2 (mpmath, 600 digits): convergents p/q; the loop stops at the first
 q > 10^100, which is qBr' (101 digits); the convergent before it is pBr/qBr.
-Numerical only. Lean does not use that these are convergents: from rational enclosures it re-certifies what it
-uses (pBr' qBr - pBr qBr' = 1, the two signs, |pBr log 2 - qBr log 3| >= 10^(-101), 2^334 <= qBr').
+Numerical only. Lean does not use that these are convergents; it re-certifies what it uses: pBr' qBr - pBr qBr' = 1
+and 2^334 <= qBr' by exact integer computation (decide +kernel), the two signs and |pBr log 2 - qBr log 3| >= 10^(-101)
+from rational enclosures of log 2 and log 3.
 Prints pBr, qBr, pBr', qBr' of Logs23/Logs23_Enonces.lean."""
 import mpmath as mp
 mp.mp.dps = 600

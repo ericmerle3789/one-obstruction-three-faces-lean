@@ -87,6 +87,7 @@ statement `X` has a proof `X_thm`; `Seifert1988/Axiomes.lean` checks `example : 
 Modelling choices, all visible in `Seifert_Enonces.lean`:
 * The length `r` of a cycle is the minimal period (`Function.minimalPeriod`), and a cyclic point is positive and odd.
 * Freeness is `∀ k, 0 < k < r → z.rotate k ≠ z`. The ideal in γ) is an `Ideal ℤ`.
+* In `thm1a_rotate`, `k` is a natural number; the paper says "an integer", which adds nothing on a cycle.
 * (S′) is stated for positive odd `n`, the domain of `f`; the paper says "positive integer".
 * Theorem 2 is stated with `d n ≤ …` rather than a quotient; `d > 0` comes from `thm1b`. In `H` the subtraction is on
   natural numbers; it does not truncate on a length vector, since every coordinate is at least 1 (`sum_dropLast_ge`).

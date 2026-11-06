@@ -53,12 +53,13 @@ for f in sys.argv[1:2]:
     text = open(f).read()
     if re.search(r"(?m)^\S+:\d+:\d+: error", text):
         bad.append(f + ": error")
-    for name, axs in re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", text):
+    # Names may contain an apostrophe (formula_1_2'_thm): anchor at the start of the line.
+    for name, axs in re.findall(r"(?m)^'(.+)' depends on axioms:\s*\[([^\]]*)\]", text):
         names.append(name)
         extra = {a.strip() for a in axs.split(",")} - ok
         if extra:
             bad.append(f"{name}: {sorted(extra)}")
-    names += re.findall(r"'([^']+)' does not depend on any axioms", text)
+    names += re.findall(r"(?m)^'(.+)' does not depend on any axioms", text)
 n = len(names)
 print(f"{n} axiom reports read")
 if n != expected:

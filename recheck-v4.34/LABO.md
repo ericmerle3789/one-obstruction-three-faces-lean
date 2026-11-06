@@ -32,6 +32,9 @@ byte-identical copies of the re-checked ones (sha256 prefixes listed at the end 
 layout was then rebuilt once from scratch (2026-09-26, the four targets above, Mathlib oleans reused):
 21 modules, 0 errors, the single `sorry` warning above, and `#print axioms` of `B2`, `B4_int`, `B5`,
 `window_thm`, `Kstar_orbit_thm`, `Ck2_thm` = `[propext, Classical.choice, Quot.sound]`.
+To see the axioms, run `lake env lean` on a file containing `import Labo.S2_B5`, `import Labo.S4_K_window`,
+`import Labo.Tent_Kstar_orbit_formaliste`, `import Labo.Tent_Ck2_formaliste` and `#print axioms` for `LaboBP.B2`,
+`LaboBP.B4_int`, `LaboBP.B5`, `window_thm`, `Kstar_orbit_thm`, `Ck2_thm` (the last three are outside any namespace).
 
 ## What each file proves
 

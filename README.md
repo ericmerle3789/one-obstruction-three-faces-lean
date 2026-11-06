@@ -179,8 +179,10 @@ also compiles alone with `lake env lean` in any Lean 4.27.0 + Mathlib project.
 
 ### Re-checking the formalisations of classical papers (added 2026-10-28)
 
+*(Note of 2026-11-06.)* This section also covers `recheck-v4.34/`, which is a re-check of earlier work and not a formalisation of a classical paper.
+
 Start from the root of a clone of a release tag (for example
-`git clone --branch v1.5 https://github.com/ericmerle3789/one-obstruction-three-faces-lean`) or from its Zenodo
+`git clone --branch v1.5 https://github.com/ericmerle3789/one-obstruction-three-faces-lean && cd one-obstruction-three-faces-lean`) or from its Zenodo
 archive. Prerequisites: git, curl, python3, `sha256sum` or `shasum`, and
 [elan](https://github.com/leanprover/elan) (each folder's `lean-toolchain` selects Lean 4.34.0), with network access.
 Each of `hh1997/`, `lagarias1990/`, `steiner1978/` and `recheck-v4.34/` is its own Lake project with its own copy of

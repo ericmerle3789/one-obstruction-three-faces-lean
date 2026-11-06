@@ -34,6 +34,7 @@ formalisations of classical papers*](../README.md#re-checking-the-formalisations
 
 ```bash
 cd hh1997
+shasum -a 256 -c SHA256SUMS   # or: sha256sum -c SHA256SUMS
 lake exe cache get
 ./check.sh
 ```

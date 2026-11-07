@@ -51,8 +51,9 @@ pp. 6–7) and in Fernández–Ibáñez, arXiv 2607.24844v1 (Theorem 7.3 and the
 the injection i ↦ (il mod n) + ⌊i/n′⌋ on {0, …, n−1}, with n′ = n/gcd(l, n), which bounds each tail sum of the weights
 2^{−(il mod n)/n} by the same tail sum of a geometric sequence, as Lemma 3 requires; the bound n′ ≥ 17 for l > 1000;
 and the inequality 1.0418 (t − 1) ≤ 3 log t for 2 ≤ t ≤ 6, by concavity of log. In short: with y = 2^{l/n}/3,
-M = 3^{n−1} Σ_{i<n} 2^{−(il mod n)/n} yⁱ; Lemma 3 and the geometric sum give M/(n3ⁿ) ≤ 2^{1/n′}(t − 1)/(6 log t) with
-t = 2^{l+1}/3ⁿ ∈ ]2, 6[; and n′ ≥ 17 gives 2^{1/n′} < 1.0418, hence M/(n3ⁿ) ≤ 1/2.
+M = 3^{n−1} Σ_{i<n} 2^{−(il mod n)/n} yⁱ; Lemma 3, the geometric sum and log z ≤ z − 1 (z = 2^{1/n}y, zⁿ = t, natural
+log) give M/(n3ⁿ) ≤ 2^{1/n′}(t − 1)/(6 log t) with t = 2^{l+1}/3ⁿ ∈ ]2, 6[, where the factor 2^{1/n′} = 2^{gcd(l,n)/n}
+comes from ⌊i/n′⌋ < gcd(l, n); and n′ ≥ 17 gives 2^{1/n′} < 1.0418, hence M/(n3ⁿ) ≤ 1/2.
 
 **Credit.** The constant 1/2 for l > 10³ is the paper's. K. Knight, *Collatz high cycles do not exist*, preprint HAL
 hal-04261183v1 (2023), printed p. 7, quotes the bounds of Remark 1 (his Theorem 4.9; in his notation x/20 and 7x/10,
@@ -64,8 +65,8 @@ hence for all his pairs; `remark1_large` proves 1/2 only for l > 1000.
 **Reading history.** The lab read Knight's preprint in September 2026 for its main argument; its sentence on Remark 1
 was noticed only on 2026-11-07, after both proofs (`remark1_lower6`, 2026-10-19; `remark1_large`, 2026-11-07). Its
 published version (*Discrete Math.* 349 (2026), 114812) has not been read. We found no proof of the bounds 1/2 and 1/6
-in the sources we read: Knight's preprint; Lagarias's annotated bibliographies (arXiv math/0309224 and math/0608208: their entries on HH 1997 and on
-Hotzel's 2003 thesis, which we did not read);
+in the sources we read: Knight's preprint; Lagarias's annotated bibliographies (arXiv math/0309224, entry 80, HH 1997; arXiv math/0608208, entry 36,
+Hotzel's 2003 thesis, which itself was not read);
 Cox–Ghosh–Sultanow; Fernández–Ibáñez. That does not make the proof new.
 
 **Numerical check (l ≤ 3000).** For l ≤ 1000 the bound 1/2 is not proved in Lean. An exact computation outside this repository (the
@@ -98,7 +99,8 @@ folder first. The run reads 78 axiom reports: the 70 proved statements `…_thm`
 two auxiliary lemmas, `cycle_one` and `cycle_two`. Re-run on 2026-10-28 from a fresh clone of tag v1.4: identical to
 `axioms/`. *(2026-11-07.)* With `HH1997c_Demi_Axiomes.lean` the run reads 85 axiom reports: `remark1_large_thm` and six
 of its lemmas are added (run of 2026-11-07 on the files of commit 2040d50, exit 0; not yet from a fresh clone; later commits change only
-comments in two Lean files, each recompiled with an identical axiom report). The
+comments in two Lean files, `HH1997c_Axiomes.lean` and `HH1997c_Demi_Preuves.lean`; both were recompiled, and the axiom
+reports of `HH1997c_Axiomes.lean` and `HH1997c_Demi_Axiomes.lean` are unchanged). The
 headers of the nine earlier `*_Axiomes.lean` files name their output `…_axioms_v4.34.txt`; the committed files are
 `axioms/…_Axiomes.txt` (noted on 2026-11-07).
 
@@ -186,7 +188,7 @@ Nothing here breaks a theorem of the paper.
 
 As far as we could check (EuDML, the authors' pages, Lagarias's annotated bibliography 2003,
 Cox–Ghosh–Sultanow 2021; 20 Oct 2026), none of the points above has been reported in print. Lagarias
-already writes "optimal" in quotation marks (MR 98g:11025). *(2026-11-07: Knight's preprint hal-04261183, 2023, re-read
+already writes "optimal" in quotation marks (MR 98g:11025). *(2026-11-07: Knight's preprint hal-04261183v1, 2023, re-read
 on that day, does not report them either; it states 1/6 and 1/2 for Remark 1, for l = ⌈n log₂ 3⌉, without proof.)* A note (21 October 2026) lists the slips of this paper and of
 Lagarias 1990 that are checked by a Lean theorem or by a script: doi:[10.5281/zenodo.23535498](https://doi.org/10.5281/zenodo.23535498).
 *(2026-11-07: that note says `remark1_large` is not proved, which is superseded, and gives 1/6 (`remark1_lower6`)

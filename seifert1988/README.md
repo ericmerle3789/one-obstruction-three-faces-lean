@@ -1,6 +1,8 @@
 # seifert1988 — Seifert's arithmetic of cycles (1988), in Lean
 
-**Status: candidate, in no release yet.** Lean 4.34.0, Mathlib v4.34.0. No hypothesis; axioms `propext`,
+**Status: in release v1.6 of this repository** (its first release that contains this folder), archived on Zenodo;
+concept DOI [10.5281/zenodo.23498095](https://doi.org/10.5281/zenodo.23498095), which resolves to the latest version;
+the DOI of v1.6 is listed on the Zenodo record. Lean 4.34.0, Mathlib v4.34.0. No hypothesis; axioms `propext`,
 `Classical.choice`, `Quot.sound` only.
 
 B. G. Seifert, *On the arithmetic of cycles for the Collatz–Hasse ('Syracuse') conjectures*, Discrete Mathematics 68
@@ -17,7 +19,10 @@ difference in the proof of Corollary 1, Theorem 2, `h(j)`, (1.3), (S), (S′) an
 comparison also showed two misprints in Theorem 2 and its proof, listed in the table below.
 
 **A published correction?** We looked for one by a web search, which found none. The review zbMATH 0638.10003 was not
-read: the automatic check of that site did not let us through.
+read: the automatic check of that site did not let us through. *(Added 2026-11-07.)* J. C. Lagarias, *The 3x+1 problem: an
+annotated bibliography (1963–1999)*, [arXiv:math/0309224](https://arxiv.org/abs/math/0309224), entry 154, summarises
+the paper and notes that all integer solutions of `2^l − 3^r = 1` have been found unconditionally (Størmer 1908, and
+later Pillai, LeVeque, Hampel); it mentions none of the other points below.
 
 ## The map
 
@@ -35,7 +40,7 @@ step from `f^(i−1)(n)` to `f^i(n)` (Definition 1.1). Seifert sets `d(ε, r)(z)
 | Introduction and text after Corollary 2 | to test a vector, "one simply checks" that `e/d` is a positive integer | freeness must stay: `(1,1)` with `ε = −1` passes this test and is not a length vector. With freeness, one divisibility suffices | `free_essential`, `thm1b_single` |
 | Corollary 1 | if `z` is a cyclic vector, the vector `z′ ≠ z` with `z(1), z(2)` swapped is not | false for `ε = −1`: `(1,2)` and `(2,1)` are the vectors of 5 and 7. The last step of the proof (`d` odd) does not conclude: `d` odd does not prevent `d ∣ 2^Δ − 1` | `cor1_printed_false`, `cor1_divides`, `cor1_exact` |
 | Theorem 2 | exponent `z(2)+…+z(r) − r + 1`. The display prints the numerator `3^r − 3^r`, and the line "Hence" of the proof the denominator `ε(3^r − 2^e)`: misprints, since (1.3) just before has `(3^r − 2^r)` over `ε (2^l − 3^r)` | read as in (1.3), false with Definition 1.1 at `n = 7`, `z = (2,1)`, `ε = −1` (the bound is 5). The exponent proved for both signs is `z(1)+…+z(r−1) − r + 1`, the printed one of the vector read backwards | `thm2_printed_false`, `thm2`, `thm2_plus`, `thm2_reversed` |
-| Corollary 2 | (S) and (S′) imply that `2^l − 3^r = ±1` has only the listed solutions | true, and its conclusion holds without (S) or (S′): it is the classical solution of these equations (Levi ben Gerson). The paper's acknowledgment already points to a paper of Tijdeman containing a result "essentially equivalent" to this conclusion. As an implication Corollary 2 says nothing beyond that. The step of its proof is `solution_gives_cycle`; by the same classical result its hypothesis has one solution, `(l, r, ε) = (3, 2, −1)`, so it has a single instance, the cycle (5 7) | `cor2_plus`, `cor2_minus`, `gersonides_plus`, `gersonides_minus`, `solution_gives_cycle` |
+| Corollary 2 | (S) and (S′) imply that `2^l − 3^r = ±1` has only the listed solutions | true, and its conclusion holds without (S) or (S′): it is the classical solution of these equations (Levi ben Gerson). The paper's acknowledgment already points to a paper of Tijdeman containing a result "essentially equivalent" to this conclusion, and Lagarias's annotated bibliography (entry 154) notes that `2^l − 3^r = 1` is solved unconditionally. As an implication Corollary 2 says nothing beyond that. The step of its proof is `solution_gives_cycle`; by the same classical result its hypothesis has one solution, `(l, r, ε) = (3, 2, −1)`, so it has a single instance, the cycle (5 7) | `cor2_plus`, `cor2_minus`, `gersonides_plus`, `gersonides_minus`, `solution_gives_cycle` |
 
 Theorems 1 and 2 hold once `e` and the exponent are read as above, and they are proved here along the paper's lines. Not
 in the paper: the input that repairs Corollary 1 for `r ≥ 3`, the transport that reduces γ) to one divisibility

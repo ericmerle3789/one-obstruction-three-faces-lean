@@ -2,15 +2,17 @@
 
 Archived on Zenodo: https://doi.org/10.5281/zenodo.23498095 (concept DOI, which resolves to the latest version;
 v1.0 = 10.5281/zenodo.23498096, v1.1 = 10.5281/zenodo.23514572, v1.2 = 10.5281/zenodo.23541611,
-v1.3 = 10.5281/zenodo.23686224, v1.4 = 10.5281/zenodo.23720217, the first release with `logs23/`; the DOI of v1.5,
-documentation only, the first release with a `LICENSE` file, is listed on the Zenodo record).
+v1.3 = 10.5281/zenodo.23686224, v1.4 = 10.5281/zenodo.23720217, the first release with `logs23/`,
+v1.5 = 10.5281/zenodo.23728612, documentation only, the first release with a `LICENSE` file; the DOI of v1.6, the
+first release with `seifert1988/`, is listed on the Zenodo record).
 Source repository: https://github.com/ericmerle3789/one-obstruction-three-faces-lean (the Zenodo archives do not
 contain the git history, whose commits the READMEs cite).
 
-> **Status (2026-10-28).** Besides the Merle side of the joint note with Benjamin Macindoe (block below), this
-> repository holds Lean 4.34.0 formalisations of three classical works on Collatz cycles: Halbeisen–Hungerbühler 1997
-> ([`hh1997/`](hh1997/)), Lagarias 1990 ([`lagarias1990/`](lagarias1990/)) and Steiner 1978
-> ([`steiner1978/`](steiner1978/), under the named hypothesis `H_Rhin`; without it in [`logs23/`](logs23/)). They prove
+> **Status (2026-11-07).** Besides the Merle side of the joint note with Benjamin Macindoe (block below), this
+> repository holds Lean 4.34.0 formalisations of four classical works on Collatz cycles: Halbeisen–Hungerbühler 1997
+> ([`hh1997/`](hh1997/)), Lagarias 1990 ([`lagarias1990/`](lagarias1990/)), Steiner 1978
+> ([`steiner1978/`](steiner1978/), under the named hypothesis `H_Rhin`; without it in [`logs23/`](logs23/)) and Seifert
+> 1988 ([`seifert1988/`](seifert1988/), new in release v1.6). They prove
 > nothing new about Collatz cycles and do not prove the Collatz conjecture. How to re-check them: [*Re-checking the
 > formalisations of classical papers*](#re-checking-the-formalisations-of-classical-papers-added-2026-10-28), below.
 
@@ -58,6 +60,7 @@ last "Key status" block of `LEDGER.md` in the shared repo, not this README.
 | `lagarias1990/` | — | Lagarias 1990 (*Acta Arith.* 56) formalised on Lean 4.34.0: a classical paper, not a ledger entry; 60 frozen statements, all proved (61 theorems: Corollary 2.1a twice), standard axioms; Theorem 3.1 with the printed constant and Theorem 3.2 under named hypotheses (Theorem 3.1 also without any hypothesis, constant 6/5); out of scope: Theorems 3.3 and 4.3, (4.12)–(4.14), Remarks (2)–(4) of p. 52 with (4.19), the flat segment of Fig. 4.1; the minimality of the 48 unchanged rows of Table 3.1 is checked numerically, not in Lean — see `lagarias1990/README.md` |
 | `steiner1978/` | — | Steiner 1978 (*Congr. Numer.* 20) formalised on Lean 4.34.0: a classical theorem, not a ledger entry; the statements were written without the original paper, reconstructed from Steiner 1981, Lagarias's annotated bibliography and Simons–de Weger 2005, and compared with the paper after release v1.2; 12 frozen statements, all proved, standard axioms; Steiner's theorem (the only circuit on the positive integers that is a cycle is `{1, 2}`) under a named hypothesis (Rhin 1987, inequality (7) with `u₀ = 0`), and without any hypothesis for at most 20000 odd terms (a finite check by the kernel) — see `steiner1978/README.md`; without the hypothesis for every number of odd terms in `logs23/` |
 | `logs23/` | — | Steiner 1978 without `H_Rhin` (Lean 4.34.0; new in release v1.4): a lower bound for `\|(k+l) log 2 − k log 3\|` proved for every `k > 20000`, hence five of the six statements of `steiner1978/` with the premise `H_Rhin` (all but `rhin_k_le`) without that premise; 14 frozen statements, all proved, standard axioms; it does not prove `H_Rhin` — see *Steiner 1978 without `H_Rhin`* below and `logs23/README.md` |
+| `seifert1988/` | — | Seifert 1988 (*Discrete Math.* 68) formalised on Lean 4.34.0: a classical paper, not a ledger entry; new in release v1.6, compared with the publisher's PDF on 2026-11-07; 33 frozen statements, all proved, no hypothesis, standard axioms; with Definition 1.1, the printed numerator (e) is that of the vector read backwards, and Theorems 1 and 2 are proved once it and the exponent of Theorem 2 are read accordingly; Corollary 1 fails only for the cycle (5 7) of `f_{−1}` (`cor1_exact`, which uses `lam_lower` of `logs23/`); the conclusion of Corollary 2 is classical (Levi ben Gerson) and is proved without its hypothesis — see `seifert1988/README.md` |
 | `experiments/` | — | Python verification scripts and outputs (`experiments/README.md`) |
 | `rounds/` | — | round 11 only; rounds 12 onward live in the shared repo |
 
@@ -82,6 +85,12 @@ next round.
 | L-A5 | the invariance of the gcd under rotation: Lagarias 1990, §2; Halbeisen–Hungerbühler 1997, Lemma 9, eq. (15); Wegner 2021 ([arXiv:2101.08060](https://arxiv.org/abs/2101.08060)), eq. (16)–(18). The adjacent exchange T1/T2 is eq. (2) and (4) of Halbeisen–Hungerbühler 1997, chained | the normalisation C, the gcd corollary, the Lean key |
 | L-A7 | in substance, T. Tao, [blog post of 2011-08-25](https://terrytao.wordpress.com/2011/08/25/the-collatz-conjecture-littlewood-offord-theory-and-powers-of-2-and-3/): the heuristic count 1/q per word, Baker's theorem for q, Stirling, the factor (0.9659…)^a; our c_gen = 0.0793186 = (1 − H₂(log₃ 2))·log₂ 3 is the same constant, counted per odd step | the explicit additive tail (μ named, C₀); the kernel proof at the constant 1/13 |
 | L-A8 | the chain is classical: Crandall 1978 and Eliahou 1993 (product bound, window); the Legendre step as in Simons–de Weger 2005, Lemma 9(a) | re-proved in the kernel |
+
+*(Note of 2026-11-07, after the article was read for `seifert1988/`.) Seifert 1988 does not state the recurrence of L-A1:
+in the proof of Theorem 1 each point of the cycle is a quotient (1.2′), and the recurrence follows from that. Condition γ)
+of Theorem 1(b) asks that `d` divide the numerator of every rotation; that a single divisibility suffices is suggested by
+the text ("one simply checks") but not proved there. It is `thm1b_single` in `seifert1988/`, whose README lists this and
+the other slips found.*
 
 ## Steiner 1978 without `H_Rhin` (`logs23/`; section added 2026-10-28)
 
@@ -182,11 +191,11 @@ also compiles alone with `lake env lean` in any Lean 4.27.0 + Mathlib project.
 *(Note of 2026-11-06.)* This section also covers `recheck-v4.34/`, which is a re-check of earlier work and not a formalisation of a classical paper.
 
 Start from the root of a clone of a release tag (for example
-`git clone --branch v1.5 https://github.com/ericmerle3789/one-obstruction-three-faces-lean && cd one-obstruction-three-faces-lean`) or from its Zenodo
+`git clone --branch v1.6 https://github.com/ericmerle3789/one-obstruction-three-faces-lean && cd one-obstruction-three-faces-lean`) or from its Zenodo
 archive. Prerequisites: git, curl, python3, `sha256sum` or `shasum`, and
 [elan](https://github.com/leanprover/elan) (each folder's `lean-toolchain` selects Lean 4.34.0), with network access.
 Each of `hh1997/`, `lagarias1990/`, `steiner1978/` and `recheck-v4.34/` is its own Lake project with its own copy of
-Mathlib (about 8 GiB once `lake exe cache get` has run; `logs23/` uses the build of `steiner1978/`). Disk space needed
+Mathlib (about 8 GiB once `lake exe cache get` has run; `logs23/` and `seifert1988/` use the build of `steiner1978/`). Disk space needed
 besides: the Lean 4.34.0 toolchain installed by elan (2.7 GiB on the machine used) and Mathlib's download cache
 (`~/.cache/mathlib`). Delete `<folder>/.lake` between two folders if disk space is short. The last row of the table below is the re-check of
 the six ledger files, not a classical paper.
@@ -196,6 +205,7 @@ the six ledger files, not a classical paper.
 | `hh1997/` | `cd hh1997 && shasum -a 256 -c SHA256SUMS && lake exe cache get && ./check.sh` | 33 files, standard axioms only; the script prints the number of axiom reports (78) without comparing it with an expected value, and it does not check `SHA256SUMS`, hence the `shasum` command (with `sha256sum` only: `sha256sum -c SHA256SUMS`) |
 | `lagarias1990/` | `cd lagarias1990 && lake exe cache get && ./check.sh` | `SHA256SUMS`, 25 files, 61 axiom reports |
 | `steiner1978/` and `logs23/` | `cd steiner1978 && lake exe cache get && cd ../logs23 && ./check.sh` | both folders' `SHA256SUMS`, 7 + 14 files, 12 + 15 axiom reports |
+| `seifert1988/` | `cd steiner1978 && lake exe cache get && cd ../seifert1988 && ./check.sh` | its own `SHA256SUMS`, 6 files; then it runs `logs23/check.sh` (the row above); then 33 axiom reports |
 | `recheck-v4.34/` | the commands of *Reproduce* above; `Labo/`: see `recheck-v4.34/LABO.md` | no script: compare the `#print axioms` output of the five ledger files that print one (all but `LegendreApprox.lean`) with `recheck-v4.34/axioms_v4.34.txt` (40 declarations) |
 
 Each `check.sh` fails if a theorem depends on an axiom other than `propext`, `Classical.choice` and `Quot.sound`. On
@@ -204,7 +214,8 @@ download cache already filled, on an M1 Pro busy with other jobs: about 29 minut
 `lagarias1990/`, 22 for `steiner1978/` and `logs23/` together, 9 for `recheck-v4.34/` (the six ledger files and
 `Labo/`, which prints no axiom report); each time includes `lake exe cache get`. Every axiom report was identical
 to the recorded one. The READMEs of `hh1997/`, `lagarias1990/`, `steiner1978/` and `logs23/` give the times
-measured when they were published.
+measured when they were published. *(Added 2026-11-07.)* `seifert1988/` was not part of that run; its README gives
+the time of its own run from a fresh clone.
 
 ## Working conditions, disclosed
 

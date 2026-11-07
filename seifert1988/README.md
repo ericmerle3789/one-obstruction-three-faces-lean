@@ -43,11 +43,10 @@ in the paper: the input that repairs Corollary 1 for `r ≥ 3`, the transport th
 
 **The sign `ε = +1`.** The counterexamples to (e), Theorem 1(b), Corollary 1 and Theorem 2 all have `ε = −1`. For `ε = +1` the
 only known cycle is the fixed point 1. Its vector is constant, so the printed and repaired formulas agree on it, and it
-satisfies the printed (1.2′), Theorem 1(b) and both inequalities of Theorem 2 (`1 ≤ 1` and `1 ≤ 2`). Refuting them for
-`ε = +1` would take a non-trivial cycle of `f_1`, so they are neither proved nor refuted here; what is proved, for both
-signs, is the version with `e` and `H`. Corollary 1 holds for `ε = +1` (`cor1_exact`), though the last step of its printed
-proof does not conclude. The formula (1.2) concerns any piece of orbit and does fail for `ε = +1`: with `m = 3`,
-`f²(3) = 1` and `z = (1, 4)`, the printed formula gives `13/9` and the repaired one gives 3.
+satisfies the printed (1.2′), Theorem 1(b) and, with the numerator of (1.3), both inequalities of Theorem 2 (`1 ≤ 1` and
+`1 ≤ 2`). Refuting them for `ε = +1` would take a non-trivial cycle of `f_1`, so they are neither proved nor refuted here;
+what is proved, for both signs, is the version with `e` and `H`. Corollary 1 holds for `ε = +1` (`cor1_exact`), though the
+last step of its printed proof does not conclude.
 
 ## Corollary 1, repaired
 
@@ -70,8 +69,7 @@ it, so that nothing is assumed here. This is the reason why this folder depends 
 ## What is proved
 
 Frozen statements: `Seifert1988/Seifert_Enonces.lean`, committed before the proofs (commit 233b2c4, 33 statements). No
-statement has changed since; the one later change is the comment above `thm2_printed_false`, corrected on 2026-11-07
-after reading the page images. Each statement `X` has a proof `X_thm`; `Seifert1988/Axiomes.lean` checks
+statement has changed since; only comments have, on 2026-11-07, after reading the page images and after review. Each statement `X` has a proof `X_thm`; `Seifert1988/Axiomes.lean` checks
 `example : X := X_thm` for each.
 
 | statement | content | paper |

@@ -14,8 +14,8 @@ conjecture: Seifert's theorems are arithmetic criteria for cycles.
 `f^i(n) = 2^(−z(i)) (3 f^(i−1)(n) + ε)`, and the two worked examples of the paper use that reading. The printed
 formula (e), and with it (1.2), (1.2'), the difference in the proof of Corollary 1 and Theorem 2, read it backwards. So
 `e` below is the formula that fits Definition 1.1 and the examples, `ePrinted` is the printed one, and
-`printed_e_reverse` says `ePrinted z = e z.reverse`. The statements marked "repaired" are what is proved with that reading. For `ε = 1`, printed (1.2') and printed
-Theorems 1(b) and 2 are neither proved nor refuted here: the README says why.
+`printed_e_reverse` says `ePrinted z = e z.reverse`. The statements marked "repaired" are what is proved with that reading. For `ε = 1`, printed (1.2') and Theorem 1(b),
+and Theorem 2 with the numerator of (1.3), are neither proved nor refuted here: the README says why.
 -/
 
 namespace Seifert

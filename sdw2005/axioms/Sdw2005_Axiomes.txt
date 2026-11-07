@@ -5,3 +5,5 @@
 'Sdw2005.chain_K_lt_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Sdw2005.cycle_chain_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Sdw2005.cycle_K_lt_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Sdw2005.chain_K_lt_91_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Sdw2005.cycle_K_lt_91_thm' depends on axioms: [propext, Classical.choice, Quot.sound]

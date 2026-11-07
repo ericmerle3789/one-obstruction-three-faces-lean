@@ -41,8 +41,11 @@ Theorems 1 and 2 hold once `e` and the exponent are read as above, and they are 
 in the paper: the input that repairs Corollary 1 for `r ≥ 3`, the transport that reduces γ) to one divisibility
 (`thm1b_single`), and the solution of the two equations (`gersonides_plus`, `gersonides_minus`).
 
-**The sign `ε = +1`.** The counterexamples to (e), Theorem 1(b), Corollary 1 and Theorem 2 all have `ε = −1`. For `ε = +1` the
-only known cycle is the fixed point 1. Its vector is constant, so the printed and repaired formulas agree on it, and it
+**The sign `ε = +1`.** The backward reading does not depend on the sign. On a piece of orbit, (1.2) with `z` numbered
+forwards as in Definition 1.1 already fails for `ε = +1`: with `m = 3`, `f²(3) = 1` and `z = (1, 4)`, it gives `13/9` instead
+of 3; numbered backwards from `n`, as "by reversing the cycle" may suggest, it gives 3 (a hand computation, not in Lean).
+As statements about cycles, the counterexamples to (e), Theorem 1(b), Corollary 1 and Theorem 2 all have `ε = −1`. For
+`ε = +1` the only known cycle is the fixed point 1. Its vector is constant, so the printed and repaired formulas agree on it, and it
 satisfies the printed (1.2′), Theorem 1(b) and, with the numerator of (1.3), both inequalities of Theorem 2 (`1 ≤ 1` and
 `1 ≤ 2`). Refuting them for `ε = +1` would take a non-trivial cycle of `f_1`, so they are neither proved nor refuted here;
 what is proved, for both signs, is the version with `e` and `H`. Corollary 1 holds for `ε = +1` (`cor1_exact`), though the

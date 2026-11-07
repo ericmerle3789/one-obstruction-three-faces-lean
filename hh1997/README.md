@@ -15,21 +15,34 @@ Archived on Zenodo: https://doi.org/10.5281/zenodo.23498095 (concept DOI; v1.0 =
 finite verification behind the numerical example of §4.4, which the paper did partly numerically
 (a Mathematica procedure in floating point). One statement of the paper is stated here and **not proved**:
 `remark1_large` (Remark 1, "for l > 10³, 7/10 can be replaced by 1/2"), for which the paper gives no
-proof. Two items are not formalised at all: Remark 2 (an asymptotic remark without a precise
+proof *(proved on 2026-11-07; see the addendum below)*. Two items are not formalised at all: Remark 2 (an asymptotic remark without a precise
 statement) and two figures the paper quotes from other authors (Lagarias's l ≥ 301 994 and
 Eliahou's k(2⁴⁰) = 17 087 915).
 
 - **70 proved statements**, each frozen in a `*_Enonces.lean` file before its proof was written, each
   checked by `example : X := X_thm` (the proof has exactly the type of the frozen statement); one more
-  frozen statement, `remark1_large`, is not proved.
-- *(Addendum 2026-11-07.)* `remark1_large` is now proved, against its statement frozen on 2026-10-19 and unchanged
-  (sha256 `ea5dfcd3…` of `Labo/HH1997c_Enonces.lean`): `Labo/HH1997c_Demi_Preuves.lean`, checked in
-  `Labo/HH1997c_Demi_Axiomes.lean`, standard axioms. Every statement formalised here is therefore proved (71; Remark 2
-  and the two quoted figures stay unformalised, as above).
-  The paper gives no proof. The proof here is elementary: the closed form M = Σ_{k<n} 2^{⌊kl/n⌋} 3^{n−1−k} (known: it is
-  Lemma 5 read through Corollary 1), an injection k ↦ (kl mod n) + ⌊k/n′⌋ (n′ = n/gcd(l, n)) with Abel summation in place
-  of a rearrangement, a geometric sum, and n′ ≥ 17 for l > 1000. We found this bound and argument in none of the sources we read (Lagarias's annotated bibliographies 2003
-  and 2006, Cox–Ghosh–Sultanow 2021, Fernández–Ibáñez arXiv 2607.24844); that does not make it new.
+  frozen statement, `remark1_large`, is not proved *(proved on 2026-11-07: next item)*.
+- *(Addendum 2026-11-07.)* `remark1_large` is now proved, against its statement frozen on 2026-10-19 (commit 36d5136)
+  and unchanged since (sha256 `ea5dfcd3…` of `Labo/HH1997c_Enonces.lean`); the proof was written on 2026-11-07:
+  `Labo/HH1997c_Demi_Preuves.lean`, checked in `Labo/HH1997c_Demi_Axiomes.lean`, standard axioms. Every frozen statement
+  checked by an `example` is therefore proved (71). The six other `Prop` definitions of the `*_Enonces.lean` files are
+  predicates or a named hypothesis (`VerifiedUpTo`, `cf_gap`, `NonPeriodic`, `thm3_line`) or the two sides of the proved
+  equivalence `Aprime_equiv` (`notA`, `Aprime`). Remark 2 and the two quoted figures stay unformalised, as above.
+  The paper's only indication for Remark 1 is "Using similar arguments", i.e. those that end the proof of Proposition 2:
+  Lemma 3 and a geometric series. The proof here uses them: the closed form M = Σ_{k<n} 2^{⌊kl/n⌋} 3^{n−1−k} (known: it
+  is Lemma 5 read through Corollary 1; also Cox–Ghosh–Sultanow 2021, Lemma 3 and Corollary 1, and Fernández–Ibáñez,
+  arXiv 2607.24844, Theorem 7.3 and §8), Lemma 3 in its mirrored (suffix) form `abel_suffix`, and a geometric sum. It
+  adds an injection k ↦ (kl mod n) + ⌊k/n′⌋ (n′ = n/gcd(l, n)) that gives the suffix domination, n′ ≥ 17 for l > 1000,
+  and a numerical inequality on [2, 6].
+  The constants are not ours. K. Knight, *Collatz high cycles do not exist*, preprint HAL hal-04261183 (2023), p. 7,
+  after quoting the bounds 1/20 and 7/10 of Remark 1, states that they can be improved to 1/6 and 1/2, and omits the
+  proof ("we omit the proof for brevity"). His pairs are l = ⌈n log₂ 3⌉, n ≥ 1, a subset of the pairs (l, n(l)) of
+  Remark 1 (for some n, two values of l have n(l) = n). His inequalities are strict; `remark1_lower6` proves the lower
+  one, with ≤, for all his pairs; `remark1_large` proves the upper one, with ≤, for those with l > 1000 only; for
+  l ≤ 1000 the bound 1/2 is only computed (for 2 ≤ l ≤ 3000 the maximum is 0.4645, at l = 168), which proves nothing. We read Knight's preprint after writing the proof; we have not seen the published
+  version (*Discrete Math.* 349 (2026), 114812). We found no proof of the bound in the sources we read (Knight's
+  preprint; Lagarias's annotated bibliographies 2003 and 2006; Cox–Ghosh–Sultanow 2021; Fernández–Ibáñez, arXiv
+  2607.24844); that does not make the proof new.
 - **0 `sorry`** in the proofs (one unused marker in a dependency, see *Dependencies*), **0 `native_decide`**, **axioms: only `propext`, `Classical.choice`,
   `Quot.sound`** (logs in [`axioms/`](axioms/)).
 - **Lean 4.34.0, Mathlib v4.34.0** (`lean-toolchain`, `lake-manifest.json`), i.e. after the fix of the
@@ -59,7 +72,9 @@ needs more than a few minutes. It was run from a clean copy of this folder befor
 folder first. The run reads 78 axiom reports: the 70 proved statements `…_thm`, six of them printed twice, and
 two auxiliary lemmas, `cycle_one` and `cycle_two`. Re-run on 2026-10-28 from a fresh clone of tag v1.4: identical to
 `axioms/`. *(2026-11-07.)* With `HH1997c_Demi_Axiomes.lean` the run reads 85 axiom reports: `remark1_large_thm` and six
-of its lemmas are added.
+of its lemmas are added (run of 2026-11-07 on the working tree of the branch, exit 0; not yet from a fresh clone). The
+headers of the nine earlier `*_Axiomes.lean` files name their output `…_axioms_v4.34.txt`; the committed files are
+`axioms/…_Axiomes.txt` (noted on 2026-11-07).
 
 ## Layout
 
@@ -92,8 +107,8 @@ prints its axioms.
 | Lemma 4, Lemma 5, Corollary 1 | `lemma4`, `lemma5`, `cor1` | proved |
 | Proposition 1 | `prop1` | proved |
 | Proposition 2 | `prop2`, `blocks23`, `blocks160` | proved for all l > 6; the block decomposition holds from l ≥ 23 (printed: 160) |
-| Remark 1, 1/20 ≤ M/(n3ⁿ) ≤ 7/10 | `remark1`, `remark1_lower6` | proved, in fact with 1/6 and 2/3 |
-| Remark 1, ≤ 1/2 for l > 10³ | `remark1_large` | proved on 2026-11-07 (`HH1997c_Demi_*`; no proof in the paper). Until then: not proved; numerically the maximum is 0.46 for l ≤ 3000 |
+| Remark 1, 1/20 ≤ M/(n3ⁿ) ≤ 7/10 | `remark1`, `remark1_lower6` | proved, in fact with 1/6 and 2/3 *(2026-11-07: 1/6 is also stated, without proof, by Knight 2023; see the addendum above)* |
+| Remark 1, ≤ 1/2 for l > 10³ | `remark1_large` | proved on 2026-11-07 (`HH1997c_Demi_*`; no proof in the paper; the constant is also stated without proof by Knight 2023, see the addendum above). Until then: not proved; numerically the maximum is 0.46 for l ≤ 3000 (2026-11-07: 0.4645, at l = 168; for 1000 < l ≤ 3000, 0.438, at l = 2108) |
 | Lemma 6 | `lemma6` | proved as printed, without the concavity the paper asserts |
 | Remark 2 | — | not formalised (asymptotic, no precise statement) |
 | Lemma 7 | `lemma7`, `lemma7_dom`, `lemma7_step` | proved (n ≤ l made explicit) |
@@ -145,7 +160,8 @@ Nothing here breaks a theorem of the paper.
 
 As far as we could check (EuDML, the authors' pages, Lagarias's annotated bibliography 2003,
 Cox–Ghosh–Sultanow 2021; 20 Oct 2026), none of the points above has been reported in print. Lagarias
-already writes "optimal" in quotation marks (MR 98g:11025). A note (21 October 2026) lists the slips of this paper and of
+already writes "optimal" in quotation marks (MR 98g:11025). *(2026-11-07: Knight's preprint hal-04261183, 2023, read
+since, does not report them either; it states the constants 1/6 and 1/2 for Remark 1 without proof.)* A note (21 October 2026) lists the slips of this paper and of
 Lagarias 1990 that are checked by a Lean theorem or by a script: doi:[10.5281/zenodo.23535498](https://doi.org/10.5281/zenodo.23535498).
 
 ## Dependencies

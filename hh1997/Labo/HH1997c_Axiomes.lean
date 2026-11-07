@@ -6,6 +6,8 @@ import Labo.HH1997c_Preuves
 Each `example` checks that the proof has EXACTLY the type of the frozen statement of `Labo/HH1997c_Enonces.lean`;
 each `#print axioms` must show only `propext`, `Classical.choice`, `Quot.sound`.
 NOT proved (named, see the report): `remark1_large`, `example44_check` (hence `example44` itself).
+(Dated note, 2026-11-07: `remark1_large` has since been proved, in `Labo/HH1997c_Demi_Preuves.lean`; its check and
+axiom log are in `Labo/HH1997c_Demi_Axiomes.lean`.  The sentence above is kept as written on 2026-10-19.)
 Output committed in `HH1997c_axioms_v4.34.txt`.
 -/
 

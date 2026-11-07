@@ -31,6 +31,10 @@ Eliahou's k(2⁴⁰) = 17 087 915).
 
 ## Remark 1 for l > 10³ (added 2026-11-07)
 
+**The statement.** For l ≥ 2, n = n(l) is the largest n with 3ⁿ < 2ˡ, and M = M_{l,n} is the largest, over the words of
+length l with n ones, of the smallest value of ϕ on the rotations of the word (`M`, Lemma 5). Remark 1 says
+1/20 ≤ M/(n3ⁿ) ≤ 7/10 for all l, "and for l > 10³ one can even replace 7/10 by 1/2". `remark1_large` is this last claim.
+
 **Status.** `remark1_large` is proved against its statement frozen on 2026-10-19 (commit 36d5136) and unchanged since
 (sha256 `ea5dfcd3…` of `Labo/HH1997c_Enonces.lean`). The proof, written on 2026-11-07, is
 `Labo/HH1997c_Demi_Preuves.lean`, checked in `Labo/HH1997c_Demi_Axiomes.lean`; standard axioms. Every frozen statement
@@ -38,28 +42,33 @@ checked by an `example` is therefore proved (71). The six other `Prop` definitio
 predicates or a named hypothesis (`VerifiedUpTo`, `cf_gap`, `NonPeriodic`, `thm3_line`) or the two sides of the proved
 equivalence `Aprime_equiv` (`notA`, `Aprime`). Remark 2 and the two quoted figures stay unformalised.
 
-**Method, and what was known.** The paper's only indication is "Using similar arguments", presumably those of the
-proof of Proposition 2, which ends with Lemma 3 and a geometric series. The proof here uses these two tools (Lemma 3 in
-its mirrored, suffix form `abel_suffix`), not the block decomposition (8)–(10). It starts from the closed form
-M = Σ_{k<n} 2^{⌊kl/n⌋} 3^{n−1−k}, which is known: it is Corollary 1 reindexed (Lemma 5 gives M = ϕ(s̃); Corollary 1 is
-reproduced in Cox–Ghosh–Sultanow 2021), and it appears in this form in Knight 2023 (pp. 6–7) and in Fernández–Ibáñez,
-arXiv 2607.24844 (Theorem 7.3 and the proof of Theorem 8.2). The proof here adds an injection
-k ↦ (kl mod n) + ⌊k/n′⌋ (n′ = n/gcd(l, n)) that gives the suffix domination, the bound n′ ≥ 17 for l > 1000, and a
-numerical inequality on [2, 6].
+**Method.** The paper's only indication is "Using similar arguments", presumably those of the proof of Proposition 2,
+which ends with Lemma 3 and a geometric series. The proof here uses these two tools (Lemma 3 in its mirrored, suffix
+form `abel_suffix`), not the block decomposition (8)–(10). It starts from the closed form
+M = Σ_{i<n} 2^{⌊il/n⌋} 3^{n−1−i}, which is known: it is Corollary 1 reindexed (Lemma 5 gives M = ϕ(s̃); Corollary 1 is
+reproduced in Cox–Ghosh–Sultanow, arXiv 2101.04067v4), and it appears in this form in Knight's preprint (printed
+pp. 6–7) and in Fernández–Ibáñez, arXiv 2607.24844v1 (Theorem 7.3 and the proof of Theorem 8.2). The proof here adds:
+the injection i ↦ (il mod n) + ⌊i/n′⌋ on {0, …, n−1}, with n′ = n/gcd(l, n), which bounds each tail sum of the weights
+2^{−(il mod n)/n} by the same tail sum of a geometric sequence, as Lemma 3 requires; the bound n′ ≥ 17 for l > 1000;
+and the inequality 1.0418 (t − 1) ≤ 3 log t for 2 ≤ t ≤ 6, by concavity of log.
 
-**The constants are not ours.** The constant 1/2 for l > 10³ is Halbeisen–Hungerbühler's (Remark 1). K. Knight,
-*Collatz high cycles do not exist*, preprint HAL hal-04261183 (2023), p. 7 (printed page numbers), quotes the bounds of
-Remark 1 (his Theorem 4.9; in his notation x/20 and 7x/10, with x = n), states that they can be improved to x/6 and x/2,
-and omits the proof ("we omit the proof for brevity"). His pairs are l = ⌈n log₂ 3⌉ for every n ≥ 1, a strict subset
-of the pairs (l, n(l)) of Remark 1 (for some n, two values of l have n(l) = n), and his inequalities are strict.
-`remark1_lower6` proves his lower bound, with ≤, for all his pairs; `remark1_large` proves his upper bound, with ≤,
-only for his pairs with l > 1000. For l ≤ 1000 the bound 1/2 is checked only by an exact computation outside this
-repository, not in Lean (rationals from the closed form; the maximum is 0.4645, at l = 168, for 2 ≤ l ≤ 3000, and
-0.438, at l = 2108, for 1000 < l ≤ 3000). The lab read Knight's preprint in September 2026 for its main argument; its
-sentence on Remark 1 was noticed only on 2026-11-07, after both proofs (`remark1_lower6`, 2026-10-19; `remark1_large`,
-2026-11-07). We have not seen the published version (*Discrete Math.* 349 (2026), 114812). We found no proof of the
-bounds 1/2 and 1/6 in the sources we read (Knight's preprint; Lagarias's annotated bibliographies 2003 and 2006;
-Cox–Ghosh–Sultanow 2021; Fernández–Ibáñez); that does not make the proof new.
+**Credit.** The constant 1/2 for l > 10³ is the paper's. K. Knight, *Collatz high cycles do not exist*, preprint HAL
+hal-04261183v1 (2023), printed p. 7, quotes the bounds of Remark 1 (his Theorem 4.9; in his notation x/20 and 7x/10,
+x = n), states that they can be improved to x/6 and x/2, and omits the proof ("we omit the proof for brevity"). He
+states both bounds only for l = ⌈n log₂ 3⌉, n ≥ 1, a strict subset of the pairs (l, n(l)) of Remark 1 (for some n, two
+values of l have n(l) = n), and with strict inequalities. Here, with ≤: `remark1_lower6` proves 1/6 for every l ≥ 2,
+hence for all his pairs; `remark1_large` proves 1/2 only for l > 1000.
+
+**Reading history.** The lab read Knight's preprint in September 2026 for its main argument; its sentence on Remark 1
+was noticed only on 2026-11-07, after both proofs (`remark1_lower6`, 2026-10-19; `remark1_large`, 2026-11-07). Its
+published version (*Discrete Math.* 349 (2026), 114812) has not been read. We found no proof of the bounds 1/2 and 1/6
+in the sources we read: Knight's preprint; Lagarias's annotated bibliographies (arXiv math/0309224 and math/0608208);
+Cox–Ghosh–Sultanow; Fernández–Ibáñez. That does not make the proof new.
+
+**For l ≤ 1000.** The bound 1/2 is not proved in Lean there. An exact computation outside this repository (the
+rationals M/(n3ⁿ) from the closed form, with n = n(l)) gives M/(n3ⁿ) ≤ 1/2 for every 2 ≤ l ≤ 3000; the maximum over
+these l is 0.4645, at l = 168, and over 1000 < l ≤ 3000 it is 0.438, at l = 2108. Neither l is one of Knight's pairs;
+over his pairs with l ≤ 3000 the maximum is 7/18, at l = 4.
 
 ## How to check
 
@@ -78,7 +87,7 @@ lake exe cache get
 axiom other than the three above (this also rules out `sorryAx` and `Lean.ofReduceBool`, the axiom
 behind `native_decide`). On an M1 Pro it takes about 30 minutes, mostly loading Mathlib; no file
 needs more than a few minutes. It was run from a clean copy of this folder before publication
-(2026-10-19), with the result recorded in `axioms/` *(that run: the 33 files of 2026-10-19)*.
+(2026-10-19), with the result recorded in `axioms/`. *(2026-11-07: that run covered the 33 files of 2026-10-19.)*
 
 *(Note of 2026-10-28.)* Unlike the scripts of the other folders, `check.sh` neither checks the sources against
 `SHA256SUMS` nor compares the number of axiom reports with an expected value (it prints that number): run `shasum -a 256 -c SHA256SUMS` (or `sha256sum -c SHA256SUMS`) in this
@@ -95,7 +104,7 @@ headers of the nine earlier `*_Axiomes.lean` files name their output `…_axioms
 |---|---|
 | `Labo/HH1997_*` | batch a: (2), (3), (4), Lemma 2, Lemmas 4–5, Corollary 1, (13), Lemma 9 |
 | `Labo/HH1997b_*` | batch b: Lemma 1, Lemma 3, Lemma 7, Theorem 4 |
-| `Labo/HH1997c_*` | batch c: Propositions 1–2, Lemma 6, Remark 1, Lemma 1 (sign), reduction of §4.4 |
+| `Labo/HH1997c_*` | batch c: Propositions 1–2, Lemma 6, Remark 1, Lemma 1 (sign), reduction of §4.4 *(2026-11-07: except `HH1997c_Demi_*`, below)* |
 | `Labo/HH1997d_*` | batch d: Lemma 8, Theorems 1–3, continued fractions of log₂ 3, "optimal" |
 | `Labo/HH1997e_*` | batch e: (A′) ⇔ ¬(A) of §5; joint check of batches a–e in one environment |
 | `Labo/HH1997f_*` | batch f: the finite verification of §4.4 |
@@ -120,7 +129,7 @@ prints its axioms.
 | Lemma 4, Lemma 5, Corollary 1 | `lemma4`, `lemma5`, `cor1` | proved |
 | Proposition 1 | `prop1` | proved |
 | Proposition 2 | `prop2`, `blocks23`, `blocks160` | proved for all l > 6; the block decomposition holds from l ≥ 23 (printed: 160) |
-| Remark 1, 1/20 ≤ M/(n3ⁿ) ≤ 7/10 | `remark1`, `remark1_lower6` | proved, in fact with 1/6 and 2/3 *(2026-11-07: 1/6 is also stated, without proof, by Knight 2023; see *Remark 1 for l > 10³* above)* |
+| Remark 1, 1/20 ≤ M/(n3ⁿ) ≤ 7/10 | `remark1`, `remark1_lower6` | proved, in fact with 1/6 and 2/3 *(2026-11-07: 1/6 is also stated, without proof and only for l = ⌈n log₂ 3⌉, by Knight 2023; see *Remark 1 for l > 10³* above)* |
 | Remark 1, ≤ 1/2 for l > 10³ | `remark1_large` | **not proved** (no proof in the paper; numerically the maximum is 0.46 for l ≤ 3000) *(2026-11-07: proved, `HH1997c_Demi_*`; 1/2 is also stated without proof, for l = ⌈n log₂ 3⌉, by Knight 2023, see *Remark 1 for l > 10³* above; by an exact computation outside this repository, the maximum is 0.4645 (l = 168) for 2 ≤ l ≤ 3000, and 0.438 (l = 2108) for 1000 < l ≤ 3000)* |
 | Lemma 6 | `lemma6` | proved as printed, without the concavity the paper asserts |
 | Remark 2 | — | not formalised (asymptotic, no precise statement) |
@@ -176,6 +185,8 @@ Cox–Ghosh–Sultanow 2021; 20 Oct 2026), none of the points above has been rep
 already writes "optimal" in quotation marks (MR 98g:11025). *(2026-11-07: Knight's preprint hal-04261183, 2023, re-read
 on that day, does not report them either; it states 1/6 and 1/2 for Remark 1, for l = ⌈n log₂ 3⌉, without proof.)* A note (21 October 2026) lists the slips of this paper and of
 Lagarias 1990 that are checked by a Lean theorem or by a script: doi:[10.5281/zenodo.23535498](https://doi.org/10.5281/zenodo.23535498).
+*(2026-11-07: that note says `remark1_large` is not proved, which is superseded, and gives 1/6 (`remark1_lower6`)
+without the credit to Knight now given in *Remark 1 for l > 10³* above.)*
 
 ## Dependencies
 

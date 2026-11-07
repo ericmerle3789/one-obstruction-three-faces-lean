@@ -7,14 +7,15 @@ import Labo.HH1997c_Preuves
 Remark 1 of Halbeisen–Hungerbühler 1997 ends: for `l > 10³` the constant can be replaced by `1/2`, i.e.
 `M_{l,n}/(n 3^n) ≤ 1/2` with `n = n(l)`. The paper's only indication is "Using similar arguments", presumably those
 of the proof of Proposition 2, which ends with Lemma 3 and a geometric series; the route below uses these two tools. The constants 1/6 and 1/2
-are also stated, without proof, by K. Knight (preprint HAL hal-04261183, 2023, p. 7) for `l = ⌈n log₂ 3⌉`.
+are also stated, without proof, by K. Knight (preprint HAL hal-04261183v1, 2023, printed p. 7), only for
+`l = ⌈n log₂ 3⌉`.
 Frozen statement: `remark1_large` of `Labo/HH1997c_Enonces.lean`, unchanged. Axiom log: `Labo/HH1997c_Demi_Axiomes.lean`.
 
 Route:
 1. closed form `M = Σ_{k<n} 2^{⌊kl/n⌋} 3^{n−1−k}`: Corollary 1 (`M_range_real`) reindexed by the positions of the ones
    (`j ↦ cl l n j` on the jumps, inverse `k ↦ ⌊kl/n⌋`); this closed form is known: HH Corollary 1 reindexed
-   (Corollary 1 is reproduced in Cox–Ghosh–Sultanow 2021), and in this form in Knight 2023, pp. 6–7, and in
-   Fernández–Ibáñez, arXiv 2607.24844 (Theorem 7.3 and the proof of Theorem 8.2);
+   (Corollary 1 is reproduced in Cox–Ghosh–Sultanow 2021), and in this form in Knight 2023 (printed pp. 6–7) and in
+   Fernández–Ibáñez, arXiv 2607.24844v1 (Theorem 7.3 and the proof of Theorem 8.2);
 2. with `B = 2^{1/n}` and `y = B^l/3`: `M = 3^{n−1} Σ_k (B^{σ_k})⁻¹ y^k`, `σ_k = kl mod n`;
 3. `τ(k) = σ_k + ⌊k/n'⌋` (`g = gcd(l,n)`, `n = g n'`) is injective on `[0,n)` and `τ(k) < σ_k + g`. Hence every suffix
    sum of `(B^{σ_k})⁻¹` is at most the same suffix sum of `B^g/B^{n−k}` (`sum_antitone_le`: an antitone sequence summed

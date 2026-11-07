@@ -226,7 +226,9 @@ def thm2_plus : Prop :=
     d 1 z * n ≤ 2 ^ H z * (2 ^ z.sum - 2 ^ z.length)
 
 /-- Theorem 2 fails as printed, with Definition 1.1: `n = 7`, `z = (2, 1)`, `ε = −1`: the printed exponent
-`z(2) − 2 + 1` is 0 and the printed bound is `(3² − 2²) / 1 = 5`. -/
+`z(2) − 2 + 1` is 0 and the bound is `(3² − 2²) / 1 = 5`. The display of the theorem prints the numerator `3^r − 3^r`, a
+misprint (read literally, the bound is 0); the numerator used here is the `3^r − 2^r` of (1.3) in the proof.
+This comment was corrected on 2026-11-07 after reading the page images; the statement itself is unchanged. -/
 def thm2_printed_false : Prop :=
   IsCyclic (-1) 7 ∧ lengthVector (-1) 7 = [2, 1] ∧
     ¬ (d (-1) [2, 1] * 7 ≤ 2 ^ ((([2, 1] : List ℕ).drop 1).sum - (([2, 1] : List ℕ).length - 1)) * (3 ^ 2 - 2 ^ 2))

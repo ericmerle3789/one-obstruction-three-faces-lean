@@ -10,11 +10,14 @@ B. G. Seifert, *On the arithmetic of cycles for the Collatz–Hasse ('Syracuse')
 are arithmetic criteria: they say when a given vector of exponents is the vector of a cycle. They exclude no cycle
 beyond what is already published. We claim no novelty; the slips listed below may well be known.
 
-**What is not checked yet.** Every reading of "as printed" below comes from a machine conversion of the article into
-text. The conversion is coherent (the same reading occurs in (e), (1.2), (1.2′), the difference in Corollary 1 and
-`h(j)`), but it has not been compared with the page images. This paragraph stays until that comparison is done.
-We also looked for a published correction only by a web search, which found none; the review zbMATH 0638.10003 was not
-read.
+**Comparison with the article.** Every reading of "as printed" below was compared on 2026-11-07 with the page images of
+the publisher's PDF, at the 400 dpi of the scan, by the AI collaborator (see *Working conditions*): Definition 1.1, the
+generator `g`, (e), (d.ε), (1.2), (1.2′), Theorem 1(b) and the remark after it, the examples, Corollaries 1 and 2 with the
+difference in the proof of Corollary 1, Theorem 2, `h(j)`, (1.3), (S), (S′) and the acknowledgment. All of them agree. The
+comparison also showed two misprints in Theorem 2 and its proof, listed in the table below.
+
+**A published correction?** We looked for one by a web search, which found none. The review zbMATH 0638.10003 was not
+read: the automatic check of that site did not let us through.
 
 ## The map
 
@@ -31,7 +34,7 @@ step from `f^(i−1)(n)` to `f^i(n)` (Definition 1.1). Seifert sets `d(ε, r)(z)
 | Remark after Theorem 1 | `e/d(+1, r) = 1` for `z = (1, …, 1)`, "the sequence 1 1 … for `f_1`" | that quotient is `−1`; it is `1` with `d(−1, r)`. The vector of `1 1 …` for `f_1` is `(2, …, 2)` | `remark_constant` |
 | Introduction and text after Corollary 2 | to test a vector, "one simply checks" that `e/d` is a positive integer | freeness must stay: `(1,1)` with `ε = −1` passes this test and is not a length vector. With freeness, one divisibility suffices | `free_essential`, `thm1b_single` |
 | Corollary 1 | if `z` is a cyclic vector, the vector `z′ ≠ z` with `z(1), z(2)` swapped is not | false for `ε = −1`: `(1,2)` and `(2,1)` are the vectors of 5 and 7. The last step of the proof (`d` odd) does not conclude: `d` odd does not prevent `d ∣ 2^Δ − 1` | `cor1_printed_false`, `cor1_divides`, `cor1_exact` |
-| Theorem 2 | exponent `z(2)+…+z(r) − r + 1` | false with Definition 1.1 at `n = 7`, `z = (2,1)`, `ε = −1` (the bound is 5). The exponent that holds is `z(1)+…+z(r−1) − r + 1`, the printed one of the vector read backwards | `thm2_printed_false`, `thm2`, `thm2_plus`, `thm2_reversed` |
+| Theorem 2 | exponent `z(2)+…+z(r) − r + 1`. The display prints the numerator `3^r − 3^r`, and the line "Hence" of the proof the denominator `ε(3^r − 2^e)`: misprints, since (1.3) just before has `(3^r − 2^r)` over `ε (2^l − 3^r)` | read as in (1.3), false with Definition 1.1 at `n = 7`, `z = (2,1)`, `ε = −1` (the bound is 5). The exponent that holds is `z(1)+…+z(r−1) − r + 1`, the printed one of the vector read backwards | `thm2_printed_false`, `thm2`, `thm2_plus`, `thm2_reversed` |
 | Corollary 2 | (S) and (S′) imply that `2^l − 3^r = ±1` has only the listed solutions | true, and its conclusion holds without (S) or (S′): it is the classical solution of these equations (Levi ben Gerson). The paper's acknowledgment already points to a result of Tijdeman with an equivalent conclusion. As an implication it says nothing beyond that; the step that matters is `solution_gives_cycle` | `cor2_plus`, `cor2_minus`, `gersonides_plus`, `gersonides_minus`, `solution_gives_cycle` |
 
 Theorems 1 and 2 themselves hold once `e` and the exponent are read as above. Their proofs in the paper are the proofs
@@ -57,8 +60,10 @@ it, so that nothing is assumed here. This is the reason why this folder depends 
 
 ## What is proved
 
-Frozen statements: `Seifert1988/Seifert_Enonces.lean`, committed before the proofs (commit 233b2c4, 33 statements). Each
-statement `X` has a proof `X_thm`; `Seifert1988/Axiomes.lean` checks `example : X := X_thm` for each.
+Frozen statements: `Seifert1988/Seifert_Enonces.lean`, committed before the proofs (commit 233b2c4, 33 statements). No
+statement has changed since; the one later change is the comment above `thm2_printed_false`, corrected on 2026-11-07
+after reading the page images. Each statement `X` has a proof `X_thm`; `Seifert1988/Axiomes.lean` checks
+`example : X := X_thm` for each.
 
 | statement | content | paper |
 |---|---|---|

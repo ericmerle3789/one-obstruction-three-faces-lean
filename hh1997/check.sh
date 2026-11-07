@@ -2,7 +2,7 @@
 # Re-check the Halbeisen–Hungerbühler 1997 formalisation, file by file, on Lean 4.34.0 + Mathlib v4.34.0.
 # Prerequisite, once:  lake exe cache get   (downloads the prebuilt Mathlib; nothing of Mathlib is recompiled).
 # Each file is compiled with `lake env lean -o`, in dependency order; then the `#print axioms` output of the
-# nine *_Axiomes files is read: the check fails if any theorem depends on an axiom other than
+# ten *_Axiomes files is read: the check fails if any theorem depends on an axiom other than
 # propext, Classical.choice, Quot.sound (this also rules out sorryAx and Lean.ofReduceBool, i.e. native_decide).
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -10,7 +10,8 @@ OUT=.lake/build/lib/lean
 mkdir -p "$OUT/Labo" "$OUT/OneObstruction" logs
 ORDER="Labo.Blueprint Labo.S2_Pont OneObstruction.ContentDescent Labo.HH1997_Enonces OneObstruction.TransportRecurrence
 Labo.HH1997_Preuves Labo.HH1997_Axiomes Labo.HH1997b_Enonces Labo.HH1997b_Preuves Labo.HH1997b_Axiomes
-Labo.HH1997c_Enonces Labo.HH1997c_Preuves Labo.HH1997c_Axiomes Labo.HH1997d_Enonces Labo.HH1997d_Preuves
+Labo.HH1997c_Enonces Labo.HH1997c_Preuves Labo.HH1997c_Axiomes Labo.HH1997c_Demi_Preuves
+Labo.HH1997c_Demi_Axiomes Labo.HH1997d_Enonces Labo.HH1997d_Preuves
 Labo.HH1997d_Axiomes Labo.HH1997d_Pont_Enonces Labo.HH1997d_Pont_Preuves Labo.HH1997d_CF_Preuves
 Labo.HH1997d_Fin_Preuves Labo.HH1997d_Fort_Enonces Labo.HH1997d_Fort_Preuves Labo.HH1997d_Fin_Axiomes
 Labo.HH1997d_Fort_Axiomes Labo.HH1997d_Pont_Axiomes Labo.HH1997e_Enonces Labo.HH1997e_Preuves

@@ -22,6 +22,14 @@ Eliahou's k(2⁴⁰) = 17 087 915).
 - **70 proved statements**, each frozen in a `*_Enonces.lean` file before its proof was written, each
   checked by `example : X := X_thm` (the proof has exactly the type of the frozen statement); one more
   frozen statement, `remark1_large`, is not proved.
+- *(Addendum 2026-11-07.)* `remark1_large` is now proved, against its statement frozen on 2026-10-19 and unchanged
+  (sha256 `ea5dfcd3…` of `Labo/HH1997c_Enonces.lean`): `Labo/HH1997c_Demi_Preuves.lean`, checked in
+  `Labo/HH1997c_Demi_Axiomes.lean`, standard axioms. Every statement formalised here is therefore proved (71; Remark 2
+  and the two quoted figures stay unformalised, as above).
+  The paper gives no proof. The proof here is elementary: the closed form M = Σ_{k<n} 2^{⌊kl/n⌋} 3^{n−1−k} (known: it is
+  Lemma 5 read through Corollary 1), an injection k ↦ (kl mod n) + ⌊k/n′⌋ (n′ = n/gcd(l, n)) with Abel summation in place
+  of a rearrangement, a geometric sum, and n′ ≥ 17 for l > 1000. We found this bound and argument in none of the sources we read (Lagarias's annotated bibliographies 2003
+  and 2006, Cox–Ghosh–Sultanow 2021, Fernández–Ibáñez arXiv 2607.24844); that does not make it new.
 - **0 `sorry`** in the proofs (one unused marker in a dependency, see *Dependencies*), **0 `native_decide`**, **axioms: only `propext`, `Classical.choice`,
   `Quot.sound`** (logs in [`axioms/`](axioms/)).
 - **Lean 4.34.0, Mathlib v4.34.0** (`lean-toolchain`, `lake-manifest.json`), i.e. after the fix of the
@@ -39,8 +47,8 @@ lake exe cache get
 ./check.sh
 ```
 
-`check.sh` compiles the 33 files one by one with `lake env lean`, in dependency order, then reads the
-`#print axioms` output of the nine `*_Axiomes.lean` files and fails if any theorem depends on an
+`check.sh` compiles the 35 files (33 before 2026-11-07) one by one with `lake env lean`, in dependency order, then reads the
+`#print axioms` output of the ten `*_Axiomes.lean` files (nine before 2026-11-07) and fails if any theorem depends on an
 axiom other than the three above (this also rules out `sorryAx` and `Lean.ofReduceBool`, the axiom
 behind `native_decide`). On an M1 Pro it takes about 30 minutes, mostly loading Mathlib; no file
 needs more than a few minutes. It was run from a clean copy of this folder before publication
@@ -50,7 +58,8 @@ needs more than a few minutes. It was run from a clean copy of this folder befor
 `SHA256SUMS` nor compares the number of axiom reports with an expected value (it prints that number): run `shasum -a 256 -c SHA256SUMS` (or `sha256sum -c SHA256SUMS`) in this
 folder first. The run reads 78 axiom reports: the 70 proved statements `…_thm`, six of them printed twice, and
 two auxiliary lemmas, `cycle_one` and `cycle_two`. Re-run on 2026-10-28 from a fresh clone of tag v1.4: identical to
-`axioms/`.
+`axioms/`. *(2026-11-07.)* With `HH1997c_Demi_Axiomes.lean` the run reads 85 axiom reports: `remark1_large_thm` and six
+of its lemmas are added.
 
 ## Layout
 
@@ -63,7 +72,8 @@ two auxiliary lemmas, `cycle_one` and `cycle_two`. Re-run on 2026-10-28 from a f
 | `Labo/HH1997e_*` | batch e: (A′) ⇔ ¬(A) of §5; joint check of batches a–e in one environment |
 | `Labo/HH1997f_*` | batch f: the finite verification of §4.4 |
 | `Labo/Blueprint.lean`, `Labo/S2_Pont.lean`, `OneObstruction/ContentDescent.lean`, `OneObstruction/TransportRecurrence.lean` | earlier files reused by batch a (see *Dependencies*) |
-| `axioms/` | the `#print axioms` output of the nine `*_Axiomes.lean` files |
+| `Labo/HH1997c_Demi_*` | `remark1_large` (Remark 1, 1/2 for l > 10³), added 2026-11-07 |
+| `axioms/` | the `#print axioms` output of the ten `*_Axiomes.lean` files |
 | `SHA256SUMS` | hashes of every `.lean` file |
 
 In each batch, `*_Enonces.lean` holds only definitions and `def X : Prop` statements, with a
@@ -83,7 +93,7 @@ prints its axioms.
 | Proposition 1 | `prop1` | proved |
 | Proposition 2 | `prop2`, `blocks23`, `blocks160` | proved for all l > 6; the block decomposition holds from l ≥ 23 (printed: 160) |
 | Remark 1, 1/20 ≤ M/(n3ⁿ) ≤ 7/10 | `remark1`, `remark1_lower6` | proved, in fact with 1/6 and 2/3 |
-| Remark 1, ≤ 1/2 for l > 10³ | `remark1_large` | **not proved** (no proof in the paper; numerically the maximum is 0.46 for l ≤ 3000) |
+| Remark 1, ≤ 1/2 for l > 10³ | `remark1_large` | proved on 2026-11-07 (`HH1997c_Demi_*`; no proof in the paper). Until then: not proved; numerically the maximum is 0.46 for l ≤ 3000 |
 | Lemma 6 | `lemma6` | proved as printed, without the concavity the paper asserts |
 | Remark 2 | — | not formalised (asymptotic, no precise statement) |
 | Lemma 7 | `lemma7`, `lemma7_dom`, `lemma7_step` | proved (n ≤ l made explicit) |
@@ -156,7 +166,7 @@ Batch a reuses four earlier files, byte-identical to the ones in [`../recheck-v4
 ## Authorship and use of AI
 
 Statements, proofs and this README were written by **Claude Opus 5.5** (Anthropic), in Claude Code
-sessions of Eric Merle's lab on 2026-10-19; each statement was compared line by line with the paper
+sessions of Eric Merle's lab on 2026-10-19 (the proof of `remark1_large`: 2026-11-07); each statement was compared line by line with the paper
 before its proof was written, and the whole folder was recompiled from scratch by a separate session
 before publication. Numerical witnesses (Python) were run before the proofs to test predictions;
 they prove nothing — the proofs are the Lean files. Responsible: Eric Merle.

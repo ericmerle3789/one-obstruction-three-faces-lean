@@ -1,0 +1,7 @@
+'LaboHH.remark1_large_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.M_closed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.M_real_form' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.suffix_dom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.nprime_ge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.log_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LaboHH.half_core' depends on axioms: [propext, Classical.choice, Quot.sound]

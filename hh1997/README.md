@@ -28,19 +28,20 @@ Eliahou's k(2⁴⁰) = 17 087 915).
   checked by an `example` is therefore proved (71). The six other `Prop` definitions of the `*_Enonces.lean` files are
   predicates or a named hypothesis (`VerifiedUpTo`, `cf_gap`, `NonPeriodic`, `thm3_line`) or the two sides of the proved
   equivalence `Aprime_equiv` (`notA`, `Aprime`). Remark 2 and the two quoted figures stay unformalised, as above.
-  The paper's only indication for Remark 1 is "Using similar arguments", i.e. those that end the proof of Proposition 2:
-  Lemma 3 and a geometric series. The proof here uses them: the closed form M = Σ_{k<n} 2^{⌊kl/n⌋} 3^{n−1−k} (known: it
-  is Lemma 5 read through Corollary 1; also Cox–Ghosh–Sultanow 2021, Lemma 3 and Corollary 1, and Fernández–Ibáñez,
-  arXiv 2607.24844, Theorem 7.3 and §8), Lemma 3 in its mirrored (suffix) form `abel_suffix`, and a geometric sum. It
-  adds an injection k ↦ (kl mod n) + ⌊k/n′⌋ (n′ = n/gcd(l, n)) that gives the suffix domination, n′ ≥ 17 for l > 1000,
+  The paper's only indication for Remark 1 is "Using similar arguments", presumably those of the proof of
+  Proposition 2, which ends with Lemma 3 and a geometric series. The proof here uses these two tools (Lemma 3 in its
+  mirrored, suffix form `abel_suffix`), not the block decomposition (8)–(10), with the closed form
+  M = Σ_{k<n} 2^{⌊kl/n⌋} 3^{n−1−k}, which is known: it is Corollary 1 reindexed (Lemma 5 gives M = ϕ(s̃); Corollary 1 is
+  reproduced as Corollary 1 of Cox–Ghosh–Sultanow 2021), and it appears in this form in Knight 2023, p. 7, and in
+  Fernández–Ibáñez, arXiv 2607.24844 (Theorem 7.3 and the proof of Theorem 8.2). It adds an injection k ↦ (kl mod n) + ⌊k/n′⌋ (n′ = n/gcd(l, n)) that gives the suffix domination, n′ ≥ 17 for l > 1000,
   and a numerical inequality on [2, 6].
   The constants are not ours. K. Knight, *Collatz high cycles do not exist*, preprint HAL hal-04261183 (2023), p. 7,
-  after quoting the bounds 1/20 and 7/10 of Remark 1, states that they can be improved to 1/6 and 1/2, and omits the
-  proof ("we omit the proof for brevity"). His pairs are l = ⌈n log₂ 3⌉, n ≥ 1, a subset of the pairs (l, n(l)) of
+  after quoting the bounds of Remark 1 (his Theorem 4.9; in his notation x/20 and 7x/10, x = n), states that they can be
+  improved to x/6 and x/2, and omits the proof ("we omit the proof for brevity"). His pairs are l = ⌈n log₂ 3⌉, n ≥ 1, a subset of the pairs (l, n(l)) of
   Remark 1 (for some n, two values of l have n(l) = n). His inequalities are strict; `remark1_lower6` proves the lower
   one, with ≤, for all his pairs; `remark1_large` proves the upper one, with ≤, for those with l > 1000 only; for
-  l ≤ 1000 the bound 1/2 is only computed (for 2 ≤ l ≤ 3000 the maximum is 0.4645, at l = 168), which proves nothing. We read Knight's preprint after writing the proof; we have not seen the published
-  version (*Discrete Math.* 349 (2026), 114812). We found no proof of the bound in the sources we read (Knight's
+  l ≤ 1000 the bound 1/2 is only computed (for 2 ≤ l ≤ 3000 the maximum is 0.4645, at l = 168), which proves nothing. The lab read Knight's preprint in September 2026 for its main argument; its sentence on
+  Remark 1 was noticed only on 2026-11-07, after the proof was written. We have not seen the published version (*Discrete Math.* 349 (2026), 114812). We found no proof of the bound in the sources we read (Knight's
   preprint; Lagarias's annotated bibliographies 2003 and 2006; Cox–Ghosh–Sultanow 2021; Fernández–Ibáñez, arXiv
   2607.24844); that does not make the proof new.
 - **0 `sorry`** in the proofs (one unused marker in a dependency, see *Dependencies*), **0 `native_decide`**, **axioms: only `propext`, `Classical.choice`,
@@ -60,8 +61,8 @@ lake exe cache get
 ./check.sh
 ```
 
-`check.sh` compiles the 35 files (33 before 2026-11-07) one by one with `lake env lean`, in dependency order, then reads the
-`#print axioms` output of the ten `*_Axiomes.lean` files (nine before 2026-11-07) and fails if any theorem depends on an
+`check.sh` compiles the 35 files (33 up to release v1.6) one by one with `lake env lean`, in dependency order, then reads the
+`#print axioms` output of the ten `*_Axiomes.lean` files (nine up to release v1.6) and fails if any theorem depends on an
 axiom other than the three above (this also rules out `sorryAx` and `Lean.ofReduceBool`, the axiom
 behind `native_decide`). On an M1 Pro it takes about 30 minutes, mostly loading Mathlib; no file
 needs more than a few minutes. It was run from a clean copy of this folder before publication
@@ -72,7 +73,7 @@ needs more than a few minutes. It was run from a clean copy of this folder befor
 folder first. The run reads 78 axiom reports: the 70 proved statements `…_thm`, six of them printed twice, and
 two auxiliary lemmas, `cycle_one` and `cycle_two`. Re-run on 2026-10-28 from a fresh clone of tag v1.4: identical to
 `axioms/`. *(2026-11-07.)* With `HH1997c_Demi_Axiomes.lean` the run reads 85 axiom reports: `remark1_large_thm` and six
-of its lemmas are added (run of 2026-11-07 on the working tree of the branch, exit 0; not yet from a fresh clone). The
+of its lemmas are added (run of 2026-11-07 on the files of commit 2040d50, exit 0; not yet from a fresh clone). The
 headers of the nine earlier `*_Axiomes.lean` files name their output `…_axioms_v4.34.txt`; the committed files are
 `axioms/…_Axiomes.txt` (noted on 2026-11-07).
 
@@ -88,7 +89,7 @@ headers of the nine earlier `*_Axiomes.lean` files name their output `…_axioms
 | `Labo/HH1997f_*` | batch f: the finite verification of §4.4 |
 | `Labo/Blueprint.lean`, `Labo/S2_Pont.lean`, `OneObstruction/ContentDescent.lean`, `OneObstruction/TransportRecurrence.lean` | earlier files reused by batch a (see *Dependencies*) |
 | `Labo/HH1997c_Demi_*` | `remark1_large` (Remark 1, 1/2 for l > 10³), added 2026-11-07 |
-| `axioms/` | the `#print axioms` output of the ten `*_Axiomes.lean` files |
+| `axioms/` | the `#print axioms` output of the ten `*_Axiomes.lean` files (nine up to release v1.6) |
 | `SHA256SUMS` | hashes of every `.lean` file |
 
 In each batch, `*_Enonces.lean` holds only definitions and `def X : Prop` statements, with a
@@ -108,7 +109,7 @@ prints its axioms.
 | Proposition 1 | `prop1` | proved |
 | Proposition 2 | `prop2`, `blocks23`, `blocks160` | proved for all l > 6; the block decomposition holds from l ≥ 23 (printed: 160) |
 | Remark 1, 1/20 ≤ M/(n3ⁿ) ≤ 7/10 | `remark1`, `remark1_lower6` | proved, in fact with 1/6 and 2/3 *(2026-11-07: 1/6 is also stated, without proof, by Knight 2023; see the addendum above)* |
-| Remark 1, ≤ 1/2 for l > 10³ | `remark1_large` | proved on 2026-11-07 (`HH1997c_Demi_*`; no proof in the paper; the constant is also stated without proof by Knight 2023, see the addendum above). Until then: not proved; numerically the maximum is 0.46 for l ≤ 3000 (2026-11-07: 0.4645, at l = 168; for 1000 < l ≤ 3000, 0.438, at l = 2108) |
+| Remark 1, ≤ 1/2 for l > 10³ | `remark1_large` | **not proved** (no proof in the paper; numerically the maximum is 0.46 for l ≤ 3000) *(2026-11-07: proved, `HH1997c_Demi_*`; the constant is also stated without proof by Knight 2023, see the addendum above; the maximum is 0.4645, at l = 168, and 0.438, at l = 2108, for 1000 < l ≤ 3000: exact rationals from the closed form, a lab computation not in this repository)* |
 | Lemma 6 | `lemma6` | proved as printed, without the concavity the paper asserts |
 | Remark 2 | — | not formalised (asymptotic, no precise statement) |
 | Lemma 7 | `lemma7`, `lemma7_dom`, `lemma7_step` | proved (n ≤ l made explicit) |
@@ -160,8 +161,8 @@ Nothing here breaks a theorem of the paper.
 
 As far as we could check (EuDML, the authors' pages, Lagarias's annotated bibliography 2003,
 Cox–Ghosh–Sultanow 2021; 20 Oct 2026), none of the points above has been reported in print. Lagarias
-already writes "optimal" in quotation marks (MR 98g:11025). *(2026-11-07: Knight's preprint hal-04261183, 2023, read
-since, does not report them either; it states the constants 1/6 and 1/2 for Remark 1 without proof.)* A note (21 October 2026) lists the slips of this paper and of
+already writes "optimal" in quotation marks (MR 98g:11025). *(2026-11-07: Knight's preprint hal-04261183, 2023, re-read
+on that day, does not report them either; it states the constants 1/6 and 1/2 for Remark 1 without proof.)* A note (21 October 2026) lists the slips of this paper and of
 Lagarias 1990 that are checked by a Lean theorem or by a script: doi:[10.5281/zenodo.23535498](https://doi.org/10.5281/zenodo.23535498).
 
 ## Dependencies
@@ -182,7 +183,12 @@ Batch a reuses four earlier files, byte-identical to the ones in [`../recheck-v4
 ## Authorship and use of AI
 
 Statements, proofs and this README were written by **Claude Opus 5.5** (Anthropic), in Claude Code
-sessions of Eric Merle's lab on 2026-10-19 (the proof of `remark1_large`: 2026-11-07); each statement was compared line by line with the paper
+sessions of Eric Merle's lab on 2026-10-19; each statement was compared line by line with the paper
 before its proof was written, and the whole folder was recompiled from scratch by a separate session
 before publication. Numerical witnesses (Python) were run before the proofs to test predictions;
 they prove nothing — the proofs are the Lean files. Responsible: Eric Merle.
+
+*(Added 2026-11-07.)* The proof of `remark1_large` (`Labo/HH1997c_Demi_*`) was written by Claude Opus 5.5 in a Claude
+Code session of the lab on 2026-11-07, against the statement frozen on 2026-10-19, which was not changed. The folder was
+then recompiled file by file with `check.sh` (35 files, exit 0, 85 axiom reports) on the files of commit 2040d50, by the
+same session; not yet from a fresh clone.

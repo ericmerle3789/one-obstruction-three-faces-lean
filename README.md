@@ -3,8 +3,9 @@
 Archived on Zenodo: https://doi.org/10.5281/zenodo.23498095 (concept DOI, which resolves to the latest version;
 v1.0 = 10.5281/zenodo.23498096, v1.1 = 10.5281/zenodo.23514572, v1.2 = 10.5281/zenodo.23541611,
 v1.3 = 10.5281/zenodo.23686224, v1.4 = 10.5281/zenodo.23720217, the first release with `logs23/`,
-v1.5 = 10.5281/zenodo.23728612, documentation only, the first release with a `LICENSE` file; the DOI of v1.6, the
-first release with `seifert1988/`, is listed on the Zenodo record).
+v1.5 = 10.5281/zenodo.23728612, documentation only, the first release with a `LICENSE` file, v1.6 = 10.5281/zenodo.24033614,
+the first release with `seifert1988/`; the DOI of v1.7, the first release with the proof of `remark1_large` in `hh1997/`,
+is listed on the Zenodo record).
 Source repository: https://github.com/ericmerle3789/one-obstruction-three-faces-lean (the Zenodo archives do not
 contain the git history, whose commits the READMEs cite).
 
@@ -193,7 +194,7 @@ also compiles alone with `lake env lean` in any Lean 4.27.0 + Mathlib project.
 *(Note of 2026-11-06.)* This section also covers `recheck-v4.34/`, which is a re-check of earlier work and not a formalisation of a classical paper.
 
 Start from the root of a clone of a release tag (for example
-`git clone --branch v1.6 https://github.com/ericmerle3789/one-obstruction-three-faces-lean && cd one-obstruction-three-faces-lean`) or from its Zenodo
+`git clone --branch v1.7 https://github.com/ericmerle3789/one-obstruction-three-faces-lean && cd one-obstruction-three-faces-lean`) or from its Zenodo
 archive. Prerequisites: git, curl, python3, `sha256sum` or `shasum`, and
 [elan](https://github.com/leanprover/elan) (each folder's `lean-toolchain` selects Lean 4.34.0), with network access.
 Each of `hh1997/`, `lagarias1990/`, `steiner1978/` and `recheck-v4.34/` is its own Lake project with its own copy of
@@ -218,7 +219,7 @@ download cache already filled, on an M1 Pro busy with other jobs: about 29 minut
 to the recorded one. The READMEs of `hh1997/`, `lagarias1990/`, `steiner1978/` and `logs23/` give the times
 measured when they were published. *(Added 2026-11-07.)* `seifert1988/` was not part of that run; its README gives
 the time of its own run from a fresh clone. *(Added 2026-11-07, later.)* The proof of `remark1_large` added to `hh1997/`
-(35 files, 85 axiom reports) has not yet been re-run from a fresh clone.
+(35 files, 85 axiom reports) has not yet been re-run from a fresh clone. *(Later the same day: re-run from a fresh GitHub clone of commit 31e63a4, with Lean 4.34.0 already installed and Mathlib's download cache already filled: exit 0, 37 minutes including `lake exe cache get`, 85 axiom reports, the ten files of `hh1997/axioms/` identical byte for byte to the logs of the run.)*
 
 ## Working conditions, disclosed
 

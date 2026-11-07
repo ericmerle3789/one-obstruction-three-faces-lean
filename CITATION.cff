@@ -23,6 +23,9 @@ identifiers:
   - type: doi
     value: 10.5281/zenodo.23728612
     description: "Release v1.5 (documentation only; first release with a LICENSE file)"
+  - type: doi
+    value: 10.5281/zenodo.24033614
+    description: "Release v1.6 (first release with seifert1988/)"
 repository-code: "https://github.com/ericmerle3789/one-obstruction-three-faces-lean"
 url: "https://collatz-lab.org"
 license: CC-BY-4.0

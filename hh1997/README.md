@@ -100,7 +100,7 @@ two auxiliary lemmas, `cycle_one` and `cycle_two`. Re-run on 2026-10-28 from a f
 `axioms/`. *(2026-11-07.)* With `HH1997c_Demi_Axiomes.lean` the run reads 85 axiom reports: `remark1_large_thm` and six
 of its lemmas are added (run of 2026-11-07 on the files of commit 2040d50, exit 0; not yet from a fresh clone; later commits change only
 comments in two Lean files, `HH1997c_Axiomes.lean` and `HH1997c_Demi_Preuves.lean`; both were recompiled, and the axiom
-reports of `HH1997c_Axiomes.lean` and `HH1997c_Demi_Axiomes.lean` are unchanged). The
+reports of `HH1997c_Axiomes.lean` and `HH1997c_Demi_Axiomes.lean` are unchanged). *(Later on 2026-11-07: re-run from a fresh GitHub clone of commit 31e63a4, with Lean 4.34.0 already installed and Mathlib's download cache already filled: exit 0, 37 minutes including `lake exe cache get`, 85 axiom reports, the ten files of `hh1997/axioms/` identical byte for byte to the logs of the run.)* The
 headers of the nine earlier `*_Axiomes.lean` files name their output `…_axioms_v4.34.txt`; the committed files are
 `axioms/…_Axiomes.txt` (noted on 2026-11-07).
 
@@ -220,4 +220,5 @@ they prove nothing — the proofs are the Lean files. Responsible: Eric Merle.
 *(Added 2026-11-07.)* The proof of `remark1_large` (`Labo/HH1997c_Demi_*`) was written by Claude Opus 5.5 in a Claude
 Code session of the lab on 2026-11-07, against the statement frozen on 2026-10-19, which was not changed. The folder was
 then recompiled file by file with `check.sh` (35 files, exit 0, 85 axiom reports) on the files of commit 2040d50, by the
-same session; not yet from a fresh clone. Later commits change only comments in two Lean files.
+same session; not yet from a fresh clone. Later commits change only comments in two Lean files. *(Later the same
+day, the folder was re-run from a fresh GitHub clone of commit 31e63a4, with Lean 4.34.0 already installed and Mathlib's download cache already filled: exit 0, 37 minutes including `lake exe cache get`, 85 axiom reports, the ten files of `hh1997/axioms/` identical byte for byte to the logs of the run; see* How to check*.)*

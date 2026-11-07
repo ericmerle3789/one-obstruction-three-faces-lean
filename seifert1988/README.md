@@ -136,9 +136,9 @@ used), fails on any error or `sorry` warning in these files, and reads the axiom
 fails unless the reports are exactly those of the 33 theorems listed in `check.sh`, each with standard axioms only.
 Recorded report: `axioms/Seifert_Axiomes.txt`.
 
-These commands were run on 2026-11-07 from a fresh clone, taken on GitHub, of commit e15e71b (the later commits change no
+These commands were run on 2026-11-07 from a fresh clone, taken on GitHub, of commit 6404e33 (the later commits change no
 Lean source, `check.sh`, `env.sh` or `SHA256SUMS`), on a machine with 16 GB of memory where Lean 4.34.0 was already
-installed and Mathlib's prebuilt files were already in the local cache. They took 649 s in all. `../steiner1978/check.sh`
+installed and Mathlib's prebuilt files were already in the local cache. They took 707 s in all. `../steiner1978/check.sh`
 read its 12 axiom reports, `../logs23/check.sh` its 15 and `./check.sh` its 33, all with standard axioms only; the 33 were
 the same as the recorded ones.
 

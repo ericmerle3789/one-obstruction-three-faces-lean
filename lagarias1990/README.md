@@ -155,6 +155,8 @@ that the rows k = 35 and k = 73 of Table 3.1 are incorrect ("But there are error
 incorrect."), and A102280 and A102284, which reproduce that table, give the corrected values (G. H. Morley,
 14 March 2013). A note (21 October 2026) lists the slips of this paper and of Halbeisen–Hungerbühler 1997 that are
 checked by a Lean theorem or by a script: doi:[10.5281/zenodo.23535498](https://doi.org/10.5281/zenodo.23535498).
+*(2026-11-07: version 2 of that note, doi:[10.5281/zenodo.24043129](https://doi.org/10.5281/zenodo.24043129), keeps the text of version 1 unchanged and adds
+an addendum on Remark 1 of Halbeisen–Hungerbühler 1997; nothing it says about this paper changes.)*
 
 **A. Backed by Lean.**
 

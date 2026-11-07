@@ -192,7 +192,9 @@ already writes "optimal" in quotation marks (MR 98g:11025). *(2026-11-07: Knight
 on that day, does not report them either; it states 1/6 and 1/2 for Remark 1, for l = ⌈n log₂ 3⌉, without proof.)* A note (21 October 2026) lists the slips of this paper and of
 Lagarias 1990 that are checked by a Lean theorem or by a script: doi:[10.5281/zenodo.23535498](https://doi.org/10.5281/zenodo.23535498).
 *(2026-11-07: that note says `remark1_large` is not proved, which is superseded, and gives 1/6 (`remark1_lower6`)
-without the credit to Knight now given in *Remark 1 for l > 10³* above.)*
+without the credit to Knight now given in *Remark 1 for l > 10³* above.)* *(Later on 2026-11-07: version 2 of that
+note, doi:[10.5281/zenodo.24043129](https://doi.org/10.5281/zenodo.24043129), keeps the text of version 1 unchanged and adds an addendum that records the
+proof of `remark1_large` and this credit.)*
 
 ## Dependencies
 

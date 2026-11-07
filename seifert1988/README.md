@@ -21,8 +21,9 @@ comparison also showed two misprints in Theorem 2 and its proof, listed in the t
 **A published correction?** We looked for one by a web search, which found none. The review zbMATH 0638.10003 was not
 read: the automatic check of that site did not let us through. *(Added 2026-11-07.)* J. C. Lagarias, *The 3x+1 problem: an
 annotated bibliography (1963–1999)*, [arXiv:math/0309224](https://arxiv.org/abs/math/0309224), entry 154, summarises
-the paper and notes that all integer solutions of `2^l − 3^r = 1` have been found unconditionally (Størmer 1908, and
-later Pillai, LeVeque, Hampel); it mentions none of the other points below.
+the paper and notes that all integer solutions of `2^l − 3^r = 1` have been found unconditionally: they can be found by a
+method of Størmer (1908), and were found as special cases of more general results by Pillai, LeVeque and Hampel. It
+mentions none of the other points below.
 
 ## The map
 

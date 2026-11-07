@@ -104,6 +104,20 @@ J. Théor. Nombres Bordeaux 18 (2006), 125–146); the bound here is deliberatel
 `k < qBr'`. Steiner's own proof uses Baker's theorem on linear forms in two logarithms (Lemma 1 of his paper, from
 A. Baker, *Transcendental Number Theory*, p. 45; Simons–de Weger, §1.4; see `../steiner1978/README.md`).
 
+*(2026-11-07.)* We have since checked part of the literature, and the core of this replacement is in print. In M.
+Waldschmidt, *Diophantine Approximation on Linear Algebraic Groups* (Springer, 2000), §2.2.2, a lemma of G. Pólya is
+the zero estimate: a function `Σ aᵢ(x) e^{wᵢ x}`, with nonzero real polynomials `aᵢ` and distinct real `wᵢ`, has at
+most `Σ deg aᵢ + n − 1` real zeros (Lemma 2.2). Corollary 2.3 deduces that the corresponding alternant determinants at
+distinct real points (with multiplicities) are not zero, and §2.3 uses this, with an interpolation determinant on the
+same kind of grid of points `s₁ + s₂β`, to prove the real case of the Gel'fond–Schneider theorem. Waldschmidt credits
+the lemma to Pólya and its use in a similar context to A. O. Gel'fond and Yu. V. Linnik, *Elementary Methods in the
+Analytic Theory of Numbers* (1962), Chap. 12. There, it only shows that the determinant is not zero, for a qualitative
+result, and the upper bound comes from Schwarz's lemma. In what we read, we did not find the sign argument used here
+(all Cauchy–Binet terms have the same sign, which gives an explicit lower bound for `G(0)` and the upper bound by
+comparison with `x^(N(N−1)/2)`). We have not read Gel'fond–Linnik, Chap. 12, nor M. Waldschmidt, *Nombres
+transcendants*, Lecture Notes in Math. 402 (1974), Exercise 6.1.c, where interpolation determinants are computed
+explicitly, with references to N. I. Fel'dman; it may well be known.
+
 The four integers of the bridge were computed by `checks/cf_log23.py` (mpmath, 600 digits; output in
 `checks/cf_log23.out.txt`); Lean re-certifies everything it uses about them.
 

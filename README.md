@@ -113,6 +113,9 @@ hypothesis, the only circuit on the positive integers that is a cycle is `{1, 2}
 - Not proved: `H_Rhin` itself (Rhin's bound is much stronger, and his paper is not formalised); `rhin_k_le` is not
   restated without its premise. The bound is far weaker than the published ones (Laurent 1994; Laurent, Mignotte,
   Nesterenko 1995; Gouillon 2006). No novelty is claimed: replacing the zero lemma by positivity may well be known.
+  *(2026-11-07: its core is in print. In the real case, M. Waldschmidt, Diophantine Approximation on Linear
+  Algebraic Groups (Springer, 2000), §2.2–2.3, uses G. Pólya's count of the real zeros of exponential polynomials as
+  the zero estimate of an interpolation determinant; see `logs23/README.md`.)*
   The formalisation proves nothing new about Collatz cycles.
 - Statements frozen in `logs23/Logs23/Logs23_Enonces.lean` and `logs23/Logs23/TwoLog_Enonces.lean`, each committed
   before its proofs. To re-check: `lake exe cache get` in `steiner1978/`, then `logs23/check.sh` (see

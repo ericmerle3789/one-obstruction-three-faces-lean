@@ -213,6 +213,8 @@ available to us" was not justified; it was read afterwards (see *Comparison with
   it after release v1.2; `.zenodo.json` will be updated at the next release. Update (2026-10-27): `.zenodo.json`
   updated for release v1.3. Update (2026-10-28): ccchallenge record 16 now points to the Zenodo DOI of release v1.4,
   10.5281/zenodo.23720217 (public API, 2026-10-28, before release v1.5); status `waiting_to_be_audited`.
+  Update (2026-11-07): record 16 now points to the Zenodo DOI of release v1.7, 10.5281/zenodo.24041065
+  (public API, 2026-11-07); before that, it pointed to the Zenodo DOI of release v1.5, 10.5281/zenodo.23728612. `steiner1978/` and `../logs23/` are unchanged between v1.5 and v1.7; status `waiting_to_be_audited`.
 - **Hercher 2023.** [PhilNorfleet/Hercher2023_lean](https://github.com/PhilNorfleet/Hercher2023_lean)
   (ccchallenge entry `Hercher2023`, status `waiting_to_be_audited`) formalises Hercher's *There are no Collatz
   m-Cycles with m ≤ 91*. Its main theorem, `no_m_cycle_le_82` (read on 2026-10-21), excludes m-cycles with

@@ -265,7 +265,9 @@ README. Two rows concern proof files (`Mots.lean`, `Tables.lean`), which were no
   - Remark 3.13 (`d = Q(2^{p_k} − 3^k)`, `n = Q·A_k`) ↔ the scaling `tk_scale`, `clear_den`.
 - **Earlier formalisations.** We found none of Lagarias 1990 (ccchallenge entry `Lagarias1990`: not started on
   2026-10-20). (Update 2026-10-28, before release v1.5: ccchallenge record 15 of that entry, created on 2026-10-20 after that check, is
-  this formalisation; it points to the Zenodo DOI of release v1.1, 10.5281/zenodo.23514572.)
+  this formalisation; it points to the Zenodo DOI of release v1.1, 10.5281/zenodo.23514572.) (Update 2026-11-07:
+  record 15 now points to the Zenodo DOI of release v1.7, 10.5281/zenodo.24041065 (public API, 2026-11-07); before that, it pointed to the Zenodo DOI of release v1.5, 10.5281/zenodo.23728612. `lagarias1990/` is unchanged between v1.5 and v1.7;
+  status `waiting_to_be_audited`.)
 
 ## Dependencies
 

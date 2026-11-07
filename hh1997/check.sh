@@ -2,7 +2,7 @@
 # Re-check the Halbeisen–Hungerbühler 1997 formalisation, file by file, on Lean 4.34.0 + Mathlib v4.34.0.
 # Prerequisite, once:  lake exe cache get   (downloads the prebuilt Mathlib; nothing of Mathlib is recompiled).
 # Each file is compiled with `lake env lean -o`, in dependency order; then the `#print axioms` output of the
-# ten *_Axiomes files is read: the check fails if any theorem depends on an axiom other than
+# ten *_Axiomes files (nine up to release v1.6) is read: the check fails if any theorem depends on an axiom other than
 # propext, Classical.choice, Quot.sound (this also rules out sorryAx and Lean.ofReduceBool, i.e. native_decide).
 set -euo pipefail
 cd "$(dirname "$0")"

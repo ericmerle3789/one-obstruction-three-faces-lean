@@ -7,9 +7,10 @@ import Labo.HH1997c_Preuves
 Remark 1 of Halbeisen–Hungerbühler 1997 ends: for `l > 10³` the constant can be replaced by `1/2`, i.e.
 `M_{l,n}/(n 3^n) ≤ 1/2` with `n = n(l)`. The paper's only indication is "Using similar arguments", presumably those
 of the proof of Proposition 2, which ends with Lemma 3 and a geometric series; the route below uses these two tools. The constants 1/6 and 1/2
-are also stated, without proof, by K. Knight (preprint HAL hal-04261183v1, 2023, printed p. 7), only for
-`l = ⌈n log₂ 3⌉`.
-Frozen statement: `remark1_large` of `Labo/HH1997c_Enonces.lean`, unchanged. Axiom log: `Labo/HH1997c_Demi_Axiomes.lean`.
+are stated, without proof, by K. Knight (preprint HAL hal-04261183v1, 2023, printed p. 7), only for
+`l = ⌈n log₂ 3⌉` (1/2 for `l > 10³` is the paper's own).
+Frozen statement: `remark1_large` of `Labo/HH1997c_Enonces.lean`, unchanged. Axiom check: `Labo/HH1997c_Demi_Axiomes.lean`
+(output: `axioms/HH1997c_Demi_Axiomes.txt`).
 
 Route:
 1. closed form `M = Σ_{k<n} 2^{⌊kl/n⌋} 3^{n−1−k}`: Corollary 1 (`M_range_real`) reindexed by the positions of the ones
@@ -19,7 +20,7 @@ Route:
 2. with `B = 2^{1/n}` and `y = B^l/3`: `M = 3^{n−1} Σ_k (B^{σ_k})⁻¹ y^k`, `σ_k = kl mod n`;
 3. `τ(k) = σ_k + ⌊k/n'⌋` (`g = gcd(l,n)`, `n = g n'`) is injective on `[0,n)` and `τ(k) < σ_k + g`. Hence every suffix
    sum of `(B^{σ_k})⁻¹` is at most the same suffix sum of `B^g/B^{n−k}` (`sum_antitone_le`: an antitone sequence summed
-   over `t` naturals is at most its sum over `0, …, t−1`), and `abel_suffix` (HH Lemma 3 in mirrored, suffix form,
+   over `m` naturals is at most its sum over `0, …, m−1`), and `abel_suffix` (HH Lemma 3 in mirrored, suffix form,
    already used for Proposition 2 in `HH1997c_Preuves`) gives `Σ (B^{σ_k})⁻¹ y^k ≤ (B^g/2) Σ (By)^k`;
 4. geometric sum and `log z ≤ z − 1`: `M ≤ (1/2)·n·3^n · 2^{1/n'} (t−1)/(3 log t)`, `t = 2^{l+1}/3^n ∈ ]2,6[`;
 5. `n' ≥ 17` for `l > 1000` (otherwise `256·3^{n'} ≤ 243·2^{l'}` gives `g ≤ 21`, so `n ≤ 336` and `l ≤ 1000`), so

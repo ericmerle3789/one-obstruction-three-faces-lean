@@ -32,7 +32,7 @@ Eliahou's k(2⁴⁰) = 17 087 915).
 ## Remark 1 for l > 10³ (added 2026-11-07)
 
 **The statement.** For l ≥ 2, n = n(l) is the largest n with 3ⁿ < 2ˡ, and M = M_{l,n} is the largest, over the words of
-length l with n ones, of the smallest value of ϕ on the rotations of the word (`M`, Lemma 5). Remark 1 says
+length l with n ones, of the smallest value of ϕ on the rotations of the word (`M`; defined in §2 of the paper, attained at s̃ by Lemma 5). Remark 1 says
 1/20 ≤ M/(n3ⁿ) ≤ 7/10 for all l, "and for l > 10³ one can even replace 7/10 by 1/2". `remark1_large` is this last claim.
 
 **Status.** `remark1_large` is proved against its statement frozen on 2026-10-19 (commit 36d5136) and unchanged since
@@ -50,7 +50,9 @@ reproduced in Cox–Ghosh–Sultanow, arXiv 2101.04067v4), and it appears in thi
 pp. 6–7) and in Fernández–Ibáñez, arXiv 2607.24844v1 (Theorem 7.3 and the proof of Theorem 8.2). The proof here adds:
 the injection i ↦ (il mod n) + ⌊i/n′⌋ on {0, …, n−1}, with n′ = n/gcd(l, n), which bounds each tail sum of the weights
 2^{−(il mod n)/n} by the same tail sum of a geometric sequence, as Lemma 3 requires; the bound n′ ≥ 17 for l > 1000;
-and the inequality 1.0418 (t − 1) ≤ 3 log t for 2 ≤ t ≤ 6, by concavity of log.
+and the inequality 1.0418 (t − 1) ≤ 3 log t for 2 ≤ t ≤ 6, by concavity of log. In short: with y = 2^{l/n}/3,
+M = 3^{n−1} Σ_{i<n} 2^{−(il mod n)/n} yⁱ; Lemma 3 and the geometric sum give M/(n3ⁿ) ≤ 2^{1/n′}(t − 1)/(6 log t) with
+t = 2^{l+1}/3ⁿ ∈ ]2, 6[; and n′ ≥ 17 gives 2^{1/n′} < 1.0418, hence M/(n3ⁿ) ≤ 1/2.
 
 **Credit.** The constant 1/2 for l > 10³ is the paper's. K. Knight, *Collatz high cycles do not exist*, preprint HAL
 hal-04261183v1 (2023), printed p. 7, quotes the bounds of Remark 1 (his Theorem 4.9; in his notation x/20 and 7x/10,
@@ -62,10 +64,11 @@ hence for all his pairs; `remark1_large` proves 1/2 only for l > 1000.
 **Reading history.** The lab read Knight's preprint in September 2026 for its main argument; its sentence on Remark 1
 was noticed only on 2026-11-07, after both proofs (`remark1_lower6`, 2026-10-19; `remark1_large`, 2026-11-07). Its
 published version (*Discrete Math.* 349 (2026), 114812) has not been read. We found no proof of the bounds 1/2 and 1/6
-in the sources we read: Knight's preprint; Lagarias's annotated bibliographies (arXiv math/0309224 and math/0608208);
+in the sources we read: Knight's preprint; Lagarias's annotated bibliographies (arXiv math/0309224 and math/0608208: their entries on HH 1997 and on
+Hotzel's 2003 thesis, which we did not read);
 Cox–Ghosh–Sultanow; Fernández–Ibáñez. That does not make the proof new.
 
-**For l ≤ 1000.** The bound 1/2 is not proved in Lean there. An exact computation outside this repository (the
+**Numerical check (l ≤ 3000).** For l ≤ 1000 the bound 1/2 is not proved in Lean. An exact computation outside this repository (the
 rationals M/(n3ⁿ) from the closed form, with n = n(l)) gives M/(n3ⁿ) ≤ 1/2 for every 2 ≤ l ≤ 3000; the maximum over
 these l is 0.4645, at l = 168, and over 1000 < l ≤ 3000 it is 0.438, at l = 2108. Neither l is one of Knight's pairs;
 over his pairs with l ≤ 3000 the maximum is 7/18, at l = 4.
@@ -94,7 +97,8 @@ needs more than a few minutes. It was run from a clean copy of this folder befor
 folder first. The run reads 78 axiom reports: the 70 proved statements `…_thm`, six of them printed twice, and
 two auxiliary lemmas, `cycle_one` and `cycle_two`. Re-run on 2026-10-28 from a fresh clone of tag v1.4: identical to
 `axioms/`. *(2026-11-07.)* With `HH1997c_Demi_Axiomes.lean` the run reads 85 axiom reports: `remark1_large_thm` and six
-of its lemmas are added (run of 2026-11-07 on the files of commit 2040d50, exit 0; not yet from a fresh clone). The
+of its lemmas are added (run of 2026-11-07 on the files of commit 2040d50, exit 0; not yet from a fresh clone; later commits change only
+comments in two Lean files, each recompiled with an identical axiom report). The
 headers of the nine earlier `*_Axiomes.lean` files name their output `…_axioms_v4.34.txt`; the committed files are
 `axioms/…_Axiomes.txt` (noted on 2026-11-07).
 
@@ -129,7 +133,7 @@ prints its axioms.
 | Lemma 4, Lemma 5, Corollary 1 | `lemma4`, `lemma5`, `cor1` | proved |
 | Proposition 1 | `prop1` | proved |
 | Proposition 2 | `prop2`, `blocks23`, `blocks160` | proved for all l > 6; the block decomposition holds from l ≥ 23 (printed: 160) |
-| Remark 1, 1/20 ≤ M/(n3ⁿ) ≤ 7/10 | `remark1`, `remark1_lower6` | proved, in fact with 1/6 and 2/3 *(2026-11-07: 1/6 is also stated, without proof and only for l = ⌈n log₂ 3⌉, by Knight 2023; see *Remark 1 for l > 10³* above)* |
+| Remark 1, 1/20 ≤ M/(n3ⁿ) ≤ 7/10 | `remark1`, `remark1_lower6` | proved, in fact with 1/6 and 2/3 *(2026-11-07: 1/6 was stated earlier, in 2023, without proof and only for l = ⌈n log₂ 3⌉, by Knight; see *Remark 1 for l > 10³* above)* |
 | Remark 1, ≤ 1/2 for l > 10³ | `remark1_large` | **not proved** (no proof in the paper; numerically the maximum is 0.46 for l ≤ 3000) *(2026-11-07: proved, `HH1997c_Demi_*`; 1/2 is also stated without proof, for l = ⌈n log₂ 3⌉, by Knight 2023, see *Remark 1 for l > 10³* above; by an exact computation outside this repository, the maximum is 0.4645 (l = 168) for 2 ≤ l ≤ 3000, and 0.438 (l = 2108) for 1000 < l ≤ 3000)* |
 | Lemma 6 | `lemma6` | proved as printed, without the concavity the paper asserts |
 | Remark 2 | — | not formalised (asymptotic, no precise statement) |
@@ -214,4 +218,4 @@ they prove nothing — the proofs are the Lean files. Responsible: Eric Merle.
 *(Added 2026-11-07.)* The proof of `remark1_large` (`Labo/HH1997c_Demi_*`) was written by Claude Opus 5.5 in a Claude
 Code session of the lab on 2026-11-07, against the statement frozen on 2026-10-19, which was not changed. The folder was
 then recompiled file by file with `check.sh` (35 files, exit 0, 85 axiom reports) on the files of commit 2040d50, by the
-same session; not yet from a fresh clone.
+same session; not yet from a fresh clone. Later commits change only comments in two Lean files.

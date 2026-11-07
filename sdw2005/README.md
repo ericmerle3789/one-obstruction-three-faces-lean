@@ -16,17 +16,28 @@ the lower bounds of `../logs23/` instead, so with no hypothesis at all:
 > `cycle_K_lt_91`: the same with at most `91` local minima instead of `82`, and fewer than `2·10^21` odd terms.
 
 This is not new mathematics, and it does not prove the Collatz conjecture or exclude any cycle. That any explicit
-lower bound for `|x log 2 + y log 3|` gives an a priori bound is in the logic of Simons–de Weger's argument. Both
-bounds are weaker than theirs: for `78 ≤ m ≤ 90`, Theorem 3(d) of their version 1.44 gives `K < 1.3993·m·δ^m`
-(`δ = log₂ 3`), about `2.9·10^18` at `m = 82`, and for smaller `m` the same theorem gives more; for `m ≤ 91`, the
-bound `K < 1.4784·m·δ^m < 2.2·10^20` used by Hercher (below) is about ten times smaller than `2·10^21`. Their results
-use a lower bound `X0` for the elements of a cycle (from computations); `cycle_K_lt` and `cycle_K_lt_91` use none.
+lower bound for `|x log 2 + y log 3|` that decays more slowly than exponentially in `K` (Rhin's, or those of
+`../logs23/`) gives an a priori bound is in the logic of Simons–de Weger's argument.
+
+Compared with their bounds: their initial bound `K < K1(m)` (Lemma 14, §6.1) is the one that uses Rhin's lower bound;
+solving the equation that defines `K1(m)` (our computation, which gives back their table values at `m = 64` and
+`m = 100`) gives `K1(82) ≈ 3.8·10^19` and `K1(91) ≈ 2.6·10^21`. `K1(m)` grows with `m`: as a bound for all `m ≤ 82`
+(resp. `m ≤ 91`), `4·10^18` (resp. `2·10^21`) is below `K1(82)` (resp. `K1(91)`), but `K1(m)` is already below
+`4·10^18` for `m ≤ 77` and below `2·10^21` for `m ≤ 90`. In this range of `K`, the lower bounds for `Λ` used here,
+from continued fractions of `log₂ 3` (the bridge of `../logs23/`, and the convergents 38 and 39 for `m ≤ 82`), are
+stronger than Rhin's; their later steps also use continued fractions. Both bounds for `K` are weaker than their final
+bounds (Lemma 16 in §6.2, and §7, which rests on Lemma 16; both rest on `K < K1(m)`), stated in Theorem 3(d) of
+their version 1.44: for `78 ≤ m ≤ 90`, `K < 1.3993·m·δ^m` (`δ = log₂ 3`), about `2.9·10^18` at `m = 82`, and for
+`91 ≤ m ≤ 515 619`, `K < 1.4784·m·δ^m`, below `2.2·10^20` at `m = 91` (about ten times smaller than `2·10^21`); for
+smaller `m`, parts (b) and (c) of that theorem give more. Their results use a lower bound `X0` for the elements of a
+cycle (from computations); `cycle_K_lt` and `cycle_K_lt_91` use none.
 
 ## Why `4·10^18` with `m ≤ 82`, and `2·10^21` with `m ≤ 91`
 
 C. Hercher, *There are no Collatz m-cycles with m ≤ 91* (J. Integer Seq. 26 (2023), art. 23.3.5; arXiv:2201.00406), uses the
-upper bound of Simons–de Weger for `K` (`K < 1.4784·m·δ^m < 2.2·10^20` for `m ≤ 91`). In the Lean formalisation of
-Hercher's argument for `m ≤ 82` by P. Norfleet (GitHub `PhilNorfleet/Hercher2023_lean`, read on 2026-11-07), that
+upper bound of Simons–de Weger for `K` (`K < 1.4784·m·δ^m < 2.2·10^20` for `m ≤ 91`, as he quotes it; their
+Theorem 3 states it for `91 ≤ m ≤ 515 619` in part (d) and implies it for `m ≤ 90` through parts (b)–(d)). In the
+Lean formalisation of Hercher's argument for `m ≤ 82` by P. Norfleet (GitHub `PhilNorfleet/Hercher2023_lean`, read on 2026-11-07), that
 bound is a hypothesis, `hSdW : K < 1.4784·m·δ^m`, used to obtain `K < 4·10^18`. `cycle_K_lt` does **not** imply
 `hSdW` (for small `m`, `1.4784·m·δ^m` is far below `4·10^18`); it states the bound `K < 4·10^18` itself without
 hypothesis, **for the definitions of this folder** (`minCount`, `oddCount`). It could replace the step where `hSdW` is
@@ -34,9 +45,15 @@ used only after a bridge lemma between those definitions and the ones of that fo
 distinct odd values over one period and `m` is the period of the map from a local minimum to the next), and a
 restatement of its theorem. Nothing of that repository is copied here.
 
-For `m ≤ 91`, the proof of the main theorem in the arXiv version read (v3, 2023-04-04) iterates lower bounds for `K` (with a lower
-bound `X0` for the elements of a cycle, from computations) up to `K > 7.94·10^21`, and uses the upper bound
-`2.2·10^20` above only in its last comparison. The bound `2·10^21` of `cycle_K_lt_91` is also below `7.94·10^21`.
+For `m ≤ 91`, the proof of the main theorem in the arXiv version read (v3, 2023-04-04) iterates lower bounds for
+`K` (with a lower bound `X0` for the elements of a cycle, from computations) up to `K > 7.94·10^21`, and uses the upper bound
+`2.2·10^20` above only in its last comparison. The bound `2·10^21` of `cycle_K_lt_91` is also below `7.94·10^21`, as
+is, by our computation above, the initial bound `K1(91) ≈ 2.6·10^21` of Simons–de Weger. But that iteration uses
+Hercher's Theorem 21, and P. Norfleet's repository (`SUMMARY.md`, read on 2026-11-07) reports an error near the end of
+its proof: with a bound that it could prove instead, the iteration stops near `K ≈ 4.6·10^18`, which is enough only
+for `m ≤ 82`; according to the same file, the zbMATH review of the paper (Zbl 1536.11052, not read here) also mentions
+a possible flaw near the end of that proof. We have not checked this. So `K > 7.94·10^21` may not be established, and
+`cycle_K_lt_91` is offered as a statement on its own.
 The statements of the results used along the way (his Theorem 21 and Lemma 22 in that version) contain no upper bound
 for `K`, but their proofs were not checked here for that, the starting point `K > 7·10^11` is taken from Theorem 3 of
 Simons–de Weger, and the same bridge lemma between definitions would be needed; so this folder does not give a proof
@@ -45,7 +62,8 @@ convergents of `log₂ 3` other than the bridge of `../logs23/` (see below).
 
 ## What is proved (no hypothesis; axioms `propext`, `Classical.choice`, `Quot.sound` only)
 
-Frozen statements: `Sdw2005/Sdw_Enonces.lean`, committed alone before its proofs (commit 750c7f2), and
+Frozen statements: `Sdw2005/Sdw_Enonces.lean`, committed before its proofs with no proof file (commit 750c7f2, with
+the set-up files of the folder; its header says "committed alone": it was the only Lean file of that commit), and
 `Sdw2005/Sdw91_Enonces.lean`, committed alone before its proofs (commit 21b4ae5); both unchanged since (SHA-256 in
 `SHA256SUMS`).
 
@@ -101,3 +119,7 @@ Once, in `../steiner1978/`: `lake exe cache get`. Then `./check.sh` (needs pytho
 `lean -o` in dependency order (failing on any error or `sorry`), and reads the `#print axioms` report of
 `Sdw2005/Axiomes.lean`: it fails unless the 9 theorems are exactly those expected and depend only on `propext`,
 `Classical.choice`, `Quot.sound`. Deprecation warnings and a warning on an exponent above 256 are expected.
+This folder was re-run from a fresh GitHub clone of commit e2fdb2e (2026-11-07), with Lean 4.34.0 already installed and
+Mathlib's download cache already filled: exit 0, 8 minutes including `lake exe cache get` and the runs of
+`steiner1978/check.sh` and `logs23/check.sh` that `check.sh` starts, 9 axiom reports, `axioms/Sdw2005_Axiomes.txt`
+identical byte for byte to the log of the run.

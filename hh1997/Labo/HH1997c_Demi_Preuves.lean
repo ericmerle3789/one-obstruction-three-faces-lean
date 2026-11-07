@@ -13,7 +13,7 @@ Frozen statement: `remark1_large` of `Labo/HH1997c_Enonces.lean`, unchanged. Axi
 Route:
 1. closed form `M = Σ_{k<n} 2^{⌊kl/n⌋} 3^{n−1−k}`: Corollary 1 (`M_range_real`) reindexed by the positions of the ones
    (`j ↦ cl l n j` on the jumps, inverse `k ↦ ⌊kl/n⌋`); this closed form is known: HH Corollary 1 reindexed
-   (Corollary 1 is reproduced in Cox–Ghosh–Sultanow 2021), and in this form in Knight 2023, p. 7, and in
+   (Corollary 1 is reproduced in Cox–Ghosh–Sultanow 2021), and in this form in Knight 2023, pp. 6–7, and in
    Fernández–Ibáñez, arXiv 2607.24844 (Theorem 7.3 and the proof of Theorem 8.2);
 2. with `B = 2^{1/n}` and `y = B^l/3`: `M = 3^{n−1} Σ_k (B^{σ_k})⁻¹ y^k`, `σ_k = kl mod n`;
 3. `τ(k) = σ_k + ⌊k/n'⌋` (`g = gcd(l,n)`, `n = g n'`) is injective on `[0,n)` and `τ(k) < σ_k + g`. Hence every suffix

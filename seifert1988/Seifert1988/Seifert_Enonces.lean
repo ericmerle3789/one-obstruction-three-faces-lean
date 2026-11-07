@@ -14,7 +14,8 @@ conjecture: Seifert's theorems are arithmetic criteria for cycles.
 `f^i(n) = 2^(−z(i)) (3 f^(i−1)(n) + ε)`, and the two worked examples of the paper use that reading. The printed
 formula (e), and with it (1.2), (1.2'), the difference in the proof of Corollary 1 and Theorem 2, read it backwards. So
 `e` below is the formula that fits Definition 1.1 and the examples, `ePrinted` is the printed one, and
-`printed_e_reverse` says `ePrinted z = e z.reverse`. The statements marked "repaired" are what remains true.
+`printed_e_reverse` says `ePrinted z = e z.reverse`. The statements marked "repaired" are what is proved with that reading. For `ε = 1`, printed (1.2') and printed
+Theorems 1(b) and 2 are neither proved nor refuted here: the README says why.
 -/
 
 namespace Seifert
@@ -124,7 +125,7 @@ and `z` is not a length vector. -/
 def free_essential : Prop :=
   0 < d (-1) [1, 1] ∧ d (-1) [1, 1] ∣ (e [1, 1] : ℤ) ∧ ¬ IsLengthVector (-1) [1, 1]
 
-/-- The examples of the paper: 5 and 17 for `f_{−1}`, with their `z`, `e`, `d`; and the fixed points 1. -/
+/-- The examples of the paper: 5 and 17 for `f_{−1}`, with their `z`, `e`, `d`. Beyond its list: the fixed point 1 of each `f_ε`. -/
 def examples : Prop :=
   IsCyclic (-1) 5 ∧ lengthVector (-1) 5 = [1, 2] ∧ e [1, 2] = 5 ∧ d (-1) [1, 2] = 1 ∧
   IsCyclic (-1) 17 ∧ lengthVector (-1) 17 = [1, 1, 1, 2, 1, 1, 4] ∧
@@ -178,7 +179,8 @@ def cor1_divides : Prop :=
   ∀ ε a b w, IsSign ε → IsLengthVector ε (a :: b :: w) → IsLengthVector ε (b :: a :: w) →
     d ε (a :: b :: w) ∣ (2 : ℤ) ^ (max a b - min a b) - 1
 
-/-- An arithmetic input not in the paper, from `lam_lower` of `../logs23/`: `|2^l − 3^r| ≥ 2^(l−r)` for `r ≥ 3`. -/
+/-- An arithmetic input not in the paper: `|2^l − 3^r| ≥ 2^(l−r)` for `r ≥ 3`. A finite check by the kernel for `r ≤ 20000`,
+`lam_lower` of `../logs23/` above. -/
 def near_miss : Prop := ∀ r l : ℕ, 3 ≤ r → (2 : ℤ) ^ l ≤ 2 ^ r * |(2 : ℤ) ^ l - 3 ^ r|
 
 /-- Corollary 1, repaired: the only counterexample is the cycle (5 7) of `f_{−1}`. -/
@@ -193,7 +195,9 @@ def cor1_exact_anywhere : Prop :=
 
 /-! ## Corollary 2 -/
 
-/-- The step of the proof of Corollary 2: a solution of (E.ε) with `r ≥ 2` gives a cycle of length `r`, since `d = 1`. -/
+/-- The step of the proof of Corollary 2: a solution of (E.ε) with `r ≥ 2` gives a cycle of length `r`, since `d = 1`.
+By `gersonides_plus` and `gersonides_minus` the hypothesis has one solution, `(l, r, ε) = (3, 2, −1)`: this statement has a
+single instance, the cycle (5 7). -/
 def solution_gives_cycle : Prop :=
   ∀ ε (l r : ℕ), IsSign ε → 2 ≤ r → (2 : ℤ) ^ l - 3 ^ r = ε →
     IsLengthVector ε ((l - r + 1) :: List.replicate (r - 1) 1)

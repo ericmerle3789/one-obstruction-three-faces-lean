@@ -37,6 +37,10 @@ contain the git history, whose commits the READMEs cite).
 > *(Note of 2026-11-08.)* On "Hercher 2023" above: P. Norfleet reports an error in the proof of
 > Theorem 21 of Hercher's paper (arXiv v3), which the proof of its main theorem (no nontrivial m-cycle with
 > `m ≤ 91`) uses; not checked here — see [`sdw2005/README.md`](sdw2005/).
+>
+> *(Update, later on 2026-11-08.)* The journal version of that paper has a corrigendum by the author, dated
+> 14 June 2026, which acknowledges the error and repairs the proof of Theorem 21; we checked the repair and recomputed the
+> iteration of the main proof, and `m ≤ 91` stands as far as we checked — see [`sdw2005/README.md`](sdw2005/).
 
 > *(Note of 2026-10-28, after release v1.4.) In release v1.4, "of the six ledger files" was added to the sentence on
 > Lean 4.27.0 without saying so in the files (only the notes of release v1.4 mention it), here and in `recheck-v4.34/RECHECK.md` (where "none of the files here" also became

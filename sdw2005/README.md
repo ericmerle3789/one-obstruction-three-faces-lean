@@ -63,6 +63,18 @@ its proof: with a bound that it could prove instead, the iteration stops near `K
 for `m ≤ 82`; according to the same file, the zbMATH review of the paper (Zbl 1536.11052, not read here) also mentions
 a possible flaw near the end of that proof. We have not checked this. So `K > 7.94·10^21` may not be established, and
 `cycle_K_lt_91` is offered as a statement on its own.
+*(Added 2026-11-08, later the same day.)* The journal version of the paper (J. Integer Seq. 26 (2023), Article 23.3.5)
+has a corrigendum by the author, dated 14 June 2026 and linked from the article's page on the journal's site (arXiv is still
+at v3 and does not have it). It acknowledges the error at the end of the proof of Theorem 21 (the one also reported in
+P. Norfleet's repository) and proves in another way the inequality used afterwards: the window of `m2` consecutive local
+minima is chosen with the largest sum of `log₂(n_i + 1)`, so that Lemma 20 bounds the growth by `δ` all around the window,
+and a convexity argument gives the bound. We read it and found it correct; one step (the maximum of a convex function is
+reached at a vertex) needs one more line, because the set of constraints is not bounded, and that line is easy (the function
+decreases along every unbounded direction of that set). We also recomputed the iteration of the proof of Theorem 23 from
+the statement of Theorem 21: the same values, up to `K > 7.94·10^21`, and, for each `m` from 83 to 91, a final lower bound
+above `1.4784·m·δ^m`. We did not re-check Theorem 14 of the paper, the bounds of Simons–de Weger it uses, or the value of
+`X0`. So, as far as we checked, the error is real in the printed proof, the corrigendum repairs it, and `m ≤ 91` stands.
+Nothing in this folder changes, and `cycle_K_lt_91` is still offered as a statement on its own.
 The statements of the results used along the way (his Theorem 21 and Lemma 22 in that version) contain no upper bound
 for `K`, but their proofs were not checked here for that, the starting point `K > 7·10^11` is taken from Theorem 3 of
 Simons–de Weger, and the same bridge lemma between definitions would be needed; so this folder does not give a proof

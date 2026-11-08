@@ -19,6 +19,9 @@ contain the git history, whose commits the READMEs cite).
 > the way of Simons–de Weger 2005 but without Rhin's lower bound, weaker than their final bounds; they exclude no
 > cycle. *(2026-11-08, on `main`, not yet in a release.)* `sdw2005/` also states these bounds for the number of
 > distinct odd values of the orbit, the count used by some other formalisations.
+> *(2026-11-08, on `main`, not yet in a release.)* [`brox2000/`](brox2000/): Brox 2000 (*Acta Arith.* 92), *Collatz
+> cycles with few descents* — Theorem 1.1, Corollary 1.2 and Lemma 2.2 — in Brox's setting (all cycles, on `ℤ`), with
+> an explicit bound; not new mathematics, it excludes no cycle.
 > How to re-check them: [*Re-checking the
 > formalisations of classical papers*](#re-checking-the-formalisations-of-classical-papers-added-2026-10-28), below.
 
@@ -72,6 +75,7 @@ last "Key status" block of `LEDGER.md` in the shared repo, not this README.
 | `logs23/` | — | Steiner 1978 without `H_Rhin` (Lean 4.34.0; new in release v1.4): a lower bound for `\|(k+l) log 2 − k log 3\|` proved for every `k > 20000`, hence five of the six statements of `steiner1978/` with the premise `H_Rhin` (all but `rhin_k_le`) without that premise; 14 frozen statements, all proved, standard axioms; it does not prove `H_Rhin` — see *Steiner 1978 without `H_Rhin`* below and `logs23/README.md` |
 | `seifert1988/` | — | Seifert 1988 (*Discrete Math.* 68) formalised on Lean 4.34.0: a classical paper, not a ledger entry; new in release v1.6, compared with the publisher's PDF on 2026-11-07; 33 frozen statements, all proved, no hypothesis, standard axioms; with Definition 1.1, the printed numerator (e) is that of the vector read backwards, and Theorems 1 and 2 are proved once it and the exponent of Theorem 2 are read accordingly; Corollary 1 fails only for the cycle (5 7) of `f_{−1}` (`cor1_exact`, which uses `lam_lower` of `logs23/`); the conclusion of Corollary 2 is classical (Levi ben Gerson) and is proved without its hypothesis — see `seifert1988/README.md` |
 | `sdw2005/` | — | an upper bound for `K` in the way of Simons–de Weger (version 1.44), weaker than their final bounds, for `m ≤ 82` and `m ≤ 91` without Rhin's lower bound, using the lower bounds of `logs23/` (Lean 4.34.0; new in release v1.8): a cycle of `C(n) = n/2, (3n+1)/2` on the positive integers with at most 82 local minima in `N` terms has fewer than `4·10^18` odd terms, and with at most 91, fewer than `2·10^21`; 9 frozen statements, all proved, no hypothesis, standard axioms (13 since 2026-11-08, on `main`: the same bounds for distinct odd values); not new mathematics, it excludes no cycle — see `sdw2005/README.md` |
+| `brox2000/` | — | Brox 2000 (*Acta Arith.* 92, *Collatz cycles with few descents*) formalised on Lean 4.34.0 (added 2026-11-08, on `main`, not yet in a release), in his setting (`T` on `ℤ`, all cycles) and, first, for the positive cycles on `ℕ`: only finitely many integers lie on a cycle with fewer than `2 log \|Γ\|` descending odd elements (Theorem 1.1; explicitly, such a cycle has `\|Γ\| < 2^1500`), or with at most `ν` (Corollary 1.2), and the period is at most `2 \|Γ\|` (Lemma 2.2); 10 frozen statements, all proved, no hypothesis, standard axioms; the key inequality is taken from `sdw2005/` (mirrored for `3x − 1` for the negative cycles) and the lower bound from `logs23/` instead of Baker–Feldman; Brox's own route (his Lemma 5.1) and his Remark 4.1 (`3x + d`) are not formalised; not new mathematics, it excludes no cycle — see `brox2000/README.md` |
 | `experiments/` | — | Python verification scripts and outputs (`experiments/README.md`) |
 | `rounds/` | — | round 11 only; rounds 12 onward live in the shared repo |
 
@@ -207,13 +211,15 @@ also compiles alone with `lake env lean` in any Lean 4.27.0 + Mathlib project.
 *(Note of 2026-11-06.)* This section also covers `recheck-v4.34/`, which is a re-check of earlier work and not a formalisation of a classical paper.
 *(Note of 2026-11-07.)* It also covers `sdw2005/`, which is not a formalisation of a classical paper either, but an
 upper bound in the way of Simons–de Weger 2005, proved without Rhin's lower bound.
+*(Note of 2026-11-08.)* It also covers `brox2000/` (Brox 2000, all cycles, on `ℤ`), on `main`
+and not yet in a release: clone `main` for it, not a release tag.
 
 Start from the root of a clone of a release tag (for example
 `git clone --branch v1.8 https://github.com/ericmerle3789/one-obstruction-three-faces-lean && cd one-obstruction-three-faces-lean`) or from its Zenodo
 archive. Prerequisites: git, curl, python3, `sha256sum` or `shasum`, and
 [elan](https://github.com/leanprover/elan) (each folder's `lean-toolchain` selects Lean 4.34.0), with network access.
 Each of `hh1997/`, `lagarias1990/`, `steiner1978/` and `recheck-v4.34/` is its own Lake project with its own copy of
-Mathlib (about 8 GiB once `lake exe cache get` has run; `logs23/`, `seifert1988/` and `sdw2005/` use the build of `steiner1978/`). Disk space needed
+Mathlib (about 8 GiB once `lake exe cache get` has run; `logs23/`, `seifert1988/`, `sdw2005/` and `brox2000/` use the build of `steiner1978/`). Disk space needed
 besides: the Lean 4.34.0 toolchain installed by elan (2.7 GiB on the machine used) and Mathlib's download cache
 (`~/.cache/mathlib`). Delete `<folder>/.lake` between two folders if disk space is short. The last row of the table below is the re-check of
 the six ledger files, not a classical paper.
@@ -225,6 +231,7 @@ the six ledger files, not a classical paper.
 | `steiner1978/` and `logs23/` | `cd steiner1978 && lake exe cache get && cd ../logs23 && ./check.sh` | both folders' `SHA256SUMS`, 7 + 14 files, 12 + 15 axiom reports |
 | `seifert1988/` | `cd steiner1978 && lake exe cache get && cd ../seifert1988 && ./check.sh` | its own `SHA256SUMS`, 6 files; then it runs `logs23/check.sh` (the row above); then 33 axiom reports |
 | `sdw2005/` | `cd steiner1978 && lake exe cache get && cd ../sdw2005 && ./check.sh` | its own `SHA256SUMS`, 9 files (7 in release v1.8); then it runs `logs23/check.sh` (the row of `steiner1978/` and `logs23/`); then 13 axiom reports (9 in release v1.8) |
+| `brox2000/` | `cd steiner1978 && lake exe cache get && cd ../brox2000 && ./check.sh` | its own `SHA256SUMS`, 10 files; then it runs `sdw2005/check.sh` (the row above); then 10 axiom reports |
 | `recheck-v4.34/` | the commands of *Reproduce* above; `Labo/`: see `recheck-v4.34/LABO.md` | no script: compare the `#print axioms` output of the five ledger files that print one (all but `LegendreApprox.lean`) with `recheck-v4.34/axioms_v4.34.txt` (40 declarations) |
 
 Each `check.sh` fails if a theorem depends on an axiom other than `propext`, `Classical.choice` and `Quot.sound`. On

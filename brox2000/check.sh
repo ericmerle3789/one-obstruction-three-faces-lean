@@ -9,12 +9,12 @@
 #    warning "declaration uses `sorry`". (Warnings "exponent ... exceeds the threshold 256" and deprecation warnings
 #    are expected.)
 # 4. The `#print axioms` output of Brox2000/Axiomes.lean is read: the check fails unless the reports are exactly those
-#    of the EXPECTED theorems listed in NAMES below (the 5 frozen statements), or if one of them depends
+#    of the EXPECTED theorems listed in NAMES below (the 10 frozen statements), or if one of them depends
 #    on an axiom other than propext, Classical.choice, Quot.sound (this also rules out sorryAx and the auxiliary
 #    axiom that native_decide adds on Lean 4.34).
 set -euo pipefail
 cd "$(dirname "$0")"
-EXPECTED=5
+EXPECTED=10
 if command -v sha256sum > /dev/null 2>&1; then sha256sum --quiet -c SHA256SUMS; else shasum -a 256 --quiet -c SHA256SUMS; fi
 echo "SHA256SUMS: all sources match"
 echo "== ../sdw2005/check.sh"
@@ -23,7 +23,7 @@ echo "== brox2000"
 source ./env.sh
 OUT=.lake/build/lib/lean
 mkdir -p "$OUT/Brox2000" logs
-ORDER="Brox2000.Brox_Enonces Brox2000.Combinatoire Brox2000.Analyse Brox2000.Brox Brox2000.Axiomes"
+ORDER="Brox2000.Brox_Enonces Brox2000.Combinatoire Brox2000.Analyse Brox2000.Brox Brox2000.BroxZ_Enonces Brox2000.MiroirChaine Brox2000.MiroirCycles Brox2000.MiroirCombinatoire Brox2000.BroxZ Brox2000.Axiomes"
 for m in $ORDER; do
   p="${m//.//}"
   printf '%-24s ' "$m"
@@ -41,7 +41,7 @@ python3 - logs/Brox2000.Axiomes.log "$EXPECTED" <<'PY'
 import re, sys
 ok = {"propext", "Classical.choice", "Quot.sound"}
 NAMES = ["Brox2000." + s for s in """lemma22_pos_thm lemma22_finite_pos_thm thm11_pos_explicit_thm thm11_pos_thm
-cor12_pos_thm""".split()]
+cor12_pos_thm lemma22_Z_thm lemma22_finite_Z_thm thm11_Z_explicit_thm thm11_Z_thm cor12_Z_thm""".split()]
 bad, names = [], []
 expected = int(sys.argv[2])
 if len(set(NAMES)) != expected:

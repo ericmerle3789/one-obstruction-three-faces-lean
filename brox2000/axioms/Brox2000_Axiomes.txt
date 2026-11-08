@@ -1,0 +1,5 @@
+'Brox2000.lemma22_pos_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Brox2000.lemma22_finite_pos_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Brox2000.thm11_pos_explicit_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Brox2000.thm11_pos_thm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Brox2000.cor12_pos_thm' depends on axioms: [propext, Classical.choice, Quot.sound]

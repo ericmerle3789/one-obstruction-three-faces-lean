@@ -17,7 +17,8 @@ contain the git history, whose commits the READMEs cite).
 > nothing new about Collatz cycles and do not prove the Collatz conjecture. Release v1.8 adds
 > [`sdw2005/`](sdw2005/): upper bounds for the number of odd terms of a cycle with at most 82 or 91 local minima, in
 > the way of Simons–de Weger 2005 but without Rhin's lower bound, weaker than their final bounds; they exclude no
-> cycle.
+> cycle. *(2026-11-08, on `main`, not yet in a release.)* `sdw2005/` also states these bounds for the number of
+> distinct odd values of the orbit, the count used by some other formalisations.
 > How to re-check them: [*Re-checking the
 > formalisations of classical papers*](#re-checking-the-formalisations-of-classical-papers-added-2026-10-28), below.
 
@@ -70,7 +71,7 @@ last "Key status" block of `LEDGER.md` in the shared repo, not this README.
 | `steiner1978/` | — | Steiner 1978 (*Congr. Numer.* 20) formalised on Lean 4.34.0: a classical theorem, not a ledger entry; the statements were written without the original paper, reconstructed from Steiner 1981, Lagarias's annotated bibliography and Simons–de Weger 2005, and compared with the paper after release v1.2; 12 frozen statements, all proved, standard axioms; Steiner's theorem (the only circuit on the positive integers that is a cycle is `{1, 2}`) under a named hypothesis (Rhin 1987, inequality (7) with `u₀ = 0`), and without any hypothesis for at most 20000 odd terms (a finite check by the kernel) — see `steiner1978/README.md`; without the hypothesis for every number of odd terms in `logs23/` |
 | `logs23/` | — | Steiner 1978 without `H_Rhin` (Lean 4.34.0; new in release v1.4): a lower bound for `\|(k+l) log 2 − k log 3\|` proved for every `k > 20000`, hence five of the six statements of `steiner1978/` with the premise `H_Rhin` (all but `rhin_k_le`) without that premise; 14 frozen statements, all proved, standard axioms; it does not prove `H_Rhin` — see *Steiner 1978 without `H_Rhin`* below and `logs23/README.md` |
 | `seifert1988/` | — | Seifert 1988 (*Discrete Math.* 68) formalised on Lean 4.34.0: a classical paper, not a ledger entry; new in release v1.6, compared with the publisher's PDF on 2026-11-07; 33 frozen statements, all proved, no hypothesis, standard axioms; with Definition 1.1, the printed numerator (e) is that of the vector read backwards, and Theorems 1 and 2 are proved once it and the exponent of Theorem 2 are read accordingly; Corollary 1 fails only for the cycle (5 7) of `f_{−1}` (`cor1_exact`, which uses `lam_lower` of `logs23/`); the conclusion of Corollary 2 is classical (Levi ben Gerson) and is proved without its hypothesis — see `seifert1988/README.md` |
-| `sdw2005/` | — | an upper bound for `K` in the way of Simons–de Weger (version 1.44), weaker than their final bounds, for `m ≤ 82` and `m ≤ 91` without Rhin's lower bound, using the lower bounds of `logs23/` (Lean 4.34.0; new in release v1.8): a cycle of `C(n) = n/2, (3n+1)/2` on the positive integers with at most 82 local minima in `N` terms has fewer than `4·10^18` odd terms, and with at most 91, fewer than `2·10^21`; 9 frozen statements, all proved, no hypothesis, standard axioms; not new mathematics, it excludes no cycle — see `sdw2005/README.md` |
+| `sdw2005/` | — | an upper bound for `K` in the way of Simons–de Weger (version 1.44), weaker than their final bounds, for `m ≤ 82` and `m ≤ 91` without Rhin's lower bound, using the lower bounds of `logs23/` (Lean 4.34.0; new in release v1.8): a cycle of `C(n) = n/2, (3n+1)/2` on the positive integers with at most 82 local minima in `N` terms has fewer than `4·10^18` odd terms, and with at most 91, fewer than `2·10^21`; 9 frozen statements, all proved, no hypothesis, standard axioms (13 since 2026-11-08, on `main`: the same bounds for distinct odd values); not new mathematics, it excludes no cycle — see `sdw2005/README.md` |
 | `experiments/` | — | Python verification scripts and outputs (`experiments/README.md`) |
 | `rounds/` | — | round 11 only; rounds 12 onward live in the shared repo |
 
@@ -223,7 +224,7 @@ the six ledger files, not a classical paper.
 | `lagarias1990/` | `cd lagarias1990 && lake exe cache get && ./check.sh` | `SHA256SUMS`, 25 files, 61 axiom reports |
 | `steiner1978/` and `logs23/` | `cd steiner1978 && lake exe cache get && cd ../logs23 && ./check.sh` | both folders' `SHA256SUMS`, 7 + 14 files, 12 + 15 axiom reports |
 | `seifert1988/` | `cd steiner1978 && lake exe cache get && cd ../seifert1988 && ./check.sh` | its own `SHA256SUMS`, 6 files; then it runs `logs23/check.sh` (the row above); then 33 axiom reports |
-| `sdw2005/` | `cd steiner1978 && lake exe cache get && cd ../sdw2005 && ./check.sh` | its own `SHA256SUMS`, 7 files; then it runs `logs23/check.sh` (the row of `steiner1978/` and `logs23/`); then 9 axiom reports |
+| `sdw2005/` | `cd steiner1978 && lake exe cache get && cd ../sdw2005 && ./check.sh` | its own `SHA256SUMS`, 9 files (7 in release v1.8); then it runs `logs23/check.sh` (the row of `steiner1978/` and `logs23/`); then 13 axiom reports (9 in release v1.8) |
 | `recheck-v4.34/` | the commands of *Reproduce* above; `Labo/`: see `recheck-v4.34/LABO.md` | no script: compare the `#print axioms` output of the five ledger files that print one (all but `LegendreApprox.lean`) with `recheck-v4.34/axioms_v4.34.txt` (40 declarations) |
 
 Each `check.sh` fails if a theorem depends on an axiom other than `propext`, `Classical.choice` and `Quot.sound`. On

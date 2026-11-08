@@ -4,6 +4,8 @@
 concept DOI [10.5281/zenodo.23498095](https://doi.org/10.5281/zenodo.23498095), which resolves to the latest version;
 the DOI of v1.8 is listed on the Zenodo record. Lean 4.34.0, Mathlib v4.34.0; uses the build of `../steiner1978/` and
 the modules of `../logs23/`.
+*(2026-11-08.)* `Sdw2005/Pont_Enonces.lean` and `Sdw2005/Pont.lean` (the same bounds counted on distinct values, below)
+were added after release v1.8; they are on `main`, not yet in a release.
 
 J. Simons and B. de Weger, *Theoretical and computational bounds for m-cycles of the 3n + 1 problem*, Acta Arith.
 117 (2005) (version 1.44 of 2010 read; the lemma and theorem numbers below are those of that version), bound the number
@@ -46,6 +48,11 @@ hypothesis, **for the definitions of this folder** (`minCount`, `oddCount`). It 
 used only after a bridge lemma between those definitions and the ones of that formalisation (there, `K` counts the
 distinct odd values over one period and `m` is the period of the map from a local minimum to the next), and a
 restatement of its theorem. Nothing of that repository is copied here.
+*(2026-11-08.)* The part of that bridge that depends only on this folder is now proved: see *Counting distinct values*
+below. In that formalisation (same map `C`), `K` is the number of distinct odd values among `C^[j] n1`, `j < N`, for
+`N = blockStart n1 m`, which is `(oddValues n1 N).card` here; so `pont_image` gives `K < 4·10^18` there once it is
+shown, with that formalisation's definitions, that `C^[N] n1 = n1` and that these `N` terms contain at most `82` local
+minima in the sense of `minCount` (odd, with an even cyclic predecessor). That last step is not done here.
 
 For `m ≤ 91`, the proof of the main theorem in the arXiv version read (v3, 2023-04-04) iterates lower bounds for
 `K` (with a lower bound `X0` for the elements of a cycle, from computations) up to `K > 7.94·10^21`, and uses the upper bound
@@ -62,12 +69,28 @@ Simons–de Weger, and the same bridge lemma between definitions would be needed
 of Hercher's theorem without Rhin's lower bound. The value `2·10^21` is chosen so that the proof needs no pair of
 convergents of `log₂ 3` other than the bridge of `../logs23/` (see below).
 
+## Counting distinct values (added 2026-11-08)
+
+`cycle_K_lt` and `cycle_K_lt_91` count terms. Four more statements give the same bounds for the number of distinct
+odd values, with `orbitSet n N = {C^[j] n | j < N}` and `oddValues n N` its odd elements (`Sdw2005/Pont_Enonces.lean`):
+
+> `pont_image` (resp. `pont_image_91`): if `C^[N] n = n` with `n > 0`, `N > 0`, and `minCount n N ≤ 82` (resp. `91`),
+> then `(oddValues n N).card < 4·10^18` (resp. `2·10^21`). No minimality of `N` is assumed.
+>
+> `pont_minimal` (resp. `pont_minimal_91`): over the minimal period `N = minimalPeriod C n > 0`, if at most `82`
+> (resp. `91`) distinct values of the orbit are local minima (`minValues n N`), then `(oddValues n N).card <
+> 4·10^18` (resp. `2·10^21`).
+
+Proof (`Sdw2005/Pont.lean`): distinct odd values are at most odd terms (`Finset.card_image_le`); over the minimal
+period, `j ↦ C^[j] n` is injective on `[0, N)` (`Function.iterate_injOn_Iio_minimalPeriod`), so values and terms are
+counted alike, for odd values and for local minima. Bookkeeping only; nothing new.
+
 ## What is proved (no hypothesis; axioms `propext`, `Classical.choice`, `Quot.sound` only)
 
 Frozen statements: `Sdw2005/Sdw_Enonces.lean`, committed before its proofs with no proof file (commit 750c7f2, with
 the set-up files of the folder; its header says "committed alone": it was the only Lean file of that commit), and
 `Sdw2005/Sdw91_Enonces.lean`, committed alone before its proofs (commit 21b4ae5); both unchanged since (SHA-256 in
-`SHA256SUMS`).
+`SHA256SUMS`). *(2026-11-08.)* `Sdw2005/Pont_Enonces.lean` was committed alone before its proofs (commit 972f1e5).
 
 | statement | content |
 |---|---|
@@ -81,6 +104,8 @@ the set-up files of the folder; its header says "committed alone": it was the on
 | `cycle_K_lt` | the first statement quoted above |
 | `chain_K_lt_91` | for every solution of the chain equation with `m ≤ 91`: `K < 2·10^21` |
 | `cycle_K_lt_91` | the second statement quoted above |
+| `pont_image`, `pont_image_91` | the bounds of `cycle_K_lt`, `cycle_K_lt_91` for distinct odd values (added 2026-11-08) |
+| `pont_minimal`, `pont_minimal_91` | the same over the minimal period, with distinct local-minimum values in the hypothesis (added 2026-11-08) |
 
 ## How it is proved
 
@@ -112,6 +137,8 @@ the set-up files of the folder; its header says "committed alone": it was the on
 | `Sdw2005/Cycles.lean` | `cycle_chain`, `cycle_K_lt` |
 | `Sdw2005/Sdw91_Enonces.lean` | the frozen statements for `m ≤ 91` |
 | `Sdw2005/Borne91.lean` | `chain_K_lt_91`, `cycle_K_lt_91` |
+| `Sdw2005/Pont_Enonces.lean` | the frozen statements on distinct values (added 2026-11-08) |
+| `Sdw2005/Pont.lean` | their proofs (added 2026-11-08) |
 | `Sdw2005/Axiomes.lean` | statement check (`example`s) and `#print axioms` |
 
 ## Re-check
@@ -119,7 +146,7 @@ the set-up files of the folder; its header says "committed alone": it was the on
 Once, in `../steiner1978/`: `lake exe cache get`. Then `./check.sh` (needs python3). It checks the sources against
 `SHA256SUMS`, runs `../logs23/check.sh` (which runs `../steiner1978/check.sh`), compiles each file of `Sdw2005/` with
 `lean -o` in dependency order (failing on any error or `sorry`), and reads the `#print axioms` report of
-`Sdw2005/Axiomes.lean`: it fails unless the 9 theorems are exactly those expected and depend only on `propext`,
+`Sdw2005/Axiomes.lean`: it fails unless the 13 theorems (9 up to release v1.8) are exactly those expected and depend only on `propext`,
 `Classical.choice`, `Quot.sound`. Deprecation warnings and a warning on an exponent above 256 are expected.
 This folder was re-run from a fresh GitHub clone of commit e2fdb2e (2026-11-07), with Lean 4.34.0 already installed and
 Mathlib's download cache already filled: exit 0, 8 minutes including `lake exe cache get` and the runs of

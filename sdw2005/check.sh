@@ -8,12 +8,12 @@
 #    warning "declaration uses `sorry`". (Warnings "exponent ... exceeds the threshold 256" and deprecation warnings
 #    are expected.)
 # 4. The `#print axioms` output of Sdw2005/Axiomes.lean is read: the check fails unless the reports are exactly those
-#    of the EXPECTED theorems listed in NAMES below (the 9 frozen statements), or if one of them depends
+#    of the EXPECTED theorems listed in NAMES below (the 13 frozen statements), or if one of them depends
 #    on an axiom other than propext, Classical.choice, Quot.sound (this also rules out sorryAx and the auxiliary
 #    axiom that native_decide adds on Lean 4.34).
 set -euo pipefail
 cd "$(dirname "$0")"
-EXPECTED=9
+EXPECTED=13
 if command -v sha256sum > /dev/null 2>&1; then sha256sum --quiet -c SHA256SUMS; else shasum -a 256 --quiet -c SHA256SUMS; fi
 echo "SHA256SUMS: all sources match"
 echo "== ../logs23/check.sh"
@@ -22,7 +22,7 @@ echo "== sdw2005"
 source ./env.sh
 OUT=.lake/build/lib/lean
 mkdir -p "$OUT/Sdw2005" logs
-ORDER="Sdw2005.Sdw_Enonces Sdw2005.Chaine Sdw2005.Bornes Sdw2005.Cycles Sdw2005.Sdw91_Enonces Sdw2005.Borne91 Sdw2005.Axiomes"
+ORDER="Sdw2005.Sdw_Enonces Sdw2005.Chaine Sdw2005.Bornes Sdw2005.Cycles Sdw2005.Sdw91_Enonces Sdw2005.Borne91 Sdw2005.Pont_Enonces Sdw2005.Pont Sdw2005.Axiomes"
 for m in $ORDER; do
   p="${m//.//}"
   printf '%-24s ' "$m"
@@ -40,7 +40,8 @@ python3 - logs/Sdw2005.Axiomes.log "$EXPECTED" <<'PY'
 import re, sys
 ok = {"propext", "Classical.choice", "Quot.sound"}
 NAMES = ["Sdw2005." + s for s in """lemma4_thm lemma6_thm lemma7_min_thm lemma7_thm chain_K_lt_thm cycle_chain_thm
-cycle_K_lt_thm chain_K_lt_91_thm cycle_K_lt_91_thm""".split()]
+cycle_K_lt_thm chain_K_lt_91_thm cycle_K_lt_91_thm pont_image_thm pont_image_91_thm pont_minimal_thm
+pont_minimal_91_thm""".split()]
 bad, names = [], []
 expected = int(sys.argv[2])
 if len(set(NAMES)) != expected:

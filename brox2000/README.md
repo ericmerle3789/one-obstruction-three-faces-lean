@@ -1,6 +1,8 @@
 # brox2000 — Brox 2000, *Collatz cycles with few descents* (Theorem 1.1, Corollary 1.2, Lemma 2.2)
 
-**Status (2026-11-08): on `main`, not in a release.** Phase A (positive cycles) and phase B (all cycles, on `ℤ`).
+**Status: in release v1.9 of this repository** (its first release that contains this folder), archived on Zenodo;
+concept DOI [10.5281/zenodo.23498095](https://doi.org/10.5281/zenodo.23498095), which resolves to the latest version;
+the DOI of v1.9 is listed on the Zenodo record. Phase A (positive cycles) and phase B (all cycles, on `ℤ`).
 Lean 4.34.0, Mathlib v4.34.0; uses the build of `../steiner1978/` and the modules of `../logs23/` and `../sdw2005/`.
 
 T. Brox, *Collatz cycles with few descents*, Acta Arith. 92 (2000), 181–188, DOI
@@ -113,7 +115,7 @@ and its mirror, and Remark 4.1 (`3x + d`).
 
 | file | content |
 |---|---|
-| `Brox2000/Brox_Enonces.lean` | the 5 frozen statements of phase A (commit f8f331b, alone, before any proof) |
+| `Brox2000/Brox_Enonces.lean` | the 5 frozen statements of phase A (commit f8f331b, the only Lean file of that commit, with `env.sh` and `lean-toolchain`; before any proof) |
 | `Brox2000/Combinatoire.lean` | descents = local minima on a cycle; `\|Γ\|`, `δ(Γ)` as counts of terms; `N ≤ 2K`; `n ≤ N 3^K 2^N` |
 | `Brox2000/Analyse.lean` | `chain_K_lt_brox`: a solution of the chain equation with `m < 2 log K` has `K < 2^1500` |
 | `Brox2000/Brox.lean` | the proofs of the 5 statements of phase A |
@@ -135,6 +137,11 @@ From the root of a clone: `cd steiner1978 && lake exe cache get && cd ../brox200
 `../steiner1978/`), compiles the 10 files with `lean -o`, and fails unless the 10 axiom reports are exactly those of
 the 10 theorems, within `propext`, `Classical.choice`, `Quot.sound`. There is no Lake package here: `env.sh` takes
 `LEAN_PATH` from `../steiner1978`.
+This folder was re-run from a fresh GitHub clone of commit 9077bda (2026-11-08), with Lean 4.34.0 already installed
+and Mathlib's download cache already filled: exit 0, 30 minutes including the clone, `lake exe cache get` and the runs
+of `steiner1978/check.sh`, `logs23/check.sh` and `sdw2005/check.sh` that `brox2000/check.sh` starts, 12 + 15 + 13 + 10
+axiom reports (`steiner1978/`, `logs23/`, `sdw2005/`, `brox2000/`), `sdw2005/axioms/Sdw2005_Axiomes.txt` and
+`brox2000/axioms/Brox2000_Axiomes.txt` identical byte for byte to the axiom lines of the logs of the run.
 
 ## Credit
 

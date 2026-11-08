@@ -5,21 +5,22 @@ v1.0 = 10.5281/zenodo.23498096, v1.1 = 10.5281/zenodo.23514572, v1.2 = 10.5281/z
 v1.3 = 10.5281/zenodo.23686224, v1.4 = 10.5281/zenodo.23720217, the first release with `logs23/`,
 v1.5 = 10.5281/zenodo.23728612, documentation only, the first release with a `LICENSE` file, v1.6 = 10.5281/zenodo.24033614,
 the first release with `seifert1988/`, v1.7 = 10.5281/zenodo.24041065, the first release with the proof of
-`remark1_large` in `hh1997/`; the DOI of v1.8, the first release with `sdw2005/`, is listed on the Zenodo record).
+`remark1_large` in `hh1997/`, v1.8 = 10.5281/zenodo.24049927, the first release with `sdw2005/`; the DOI of v1.9, the
+first release with `brox2000/`, is listed on the Zenodo record).
 Source repository: https://github.com/ericmerle3789/one-obstruction-three-faces-lean (the Zenodo archives do not
 contain the git history, whose commits the READMEs cite).
 
-> **Status (2026-11-07).** Besides the Merle side of the joint note with Benjamin Macindoe (block below), this
-> repository holds Lean 4.34.0 formalisations of four classical works on Collatz cycles: Halbeisen–Hungerbühler 1997
+> **Status (2026-11-08).** Besides the Merle side of the joint note with Benjamin Macindoe (block below), this
+> repository holds Lean 4.34.0 formalisations of five classical works on Collatz cycles: Halbeisen–Hungerbühler 1997
 > ([`hh1997/`](hh1997/)), Lagarias 1990 ([`lagarias1990/`](lagarias1990/)), Steiner 1978
-> ([`steiner1978/`](steiner1978/), under the named hypothesis `H_Rhin`; without it in [`logs23/`](logs23/)) and Seifert
-> 1988 ([`seifert1988/`](seifert1988/), new in release v1.6). They prove
+> ([`steiner1978/`](steiner1978/), under the named hypothesis `H_Rhin`; without it in [`logs23/`](logs23/)), Seifert
+> 1988 ([`seifert1988/`](seifert1988/), new in release v1.6) and Brox 2000 ([`brox2000/`](brox2000/), new in release
+> v1.9). They prove
 > nothing new about Collatz cycles and do not prove the Collatz conjecture. Release v1.8 adds
 > [`sdw2005/`](sdw2005/): upper bounds for the number of odd terms of a cycle with at most 82 or 91 local minima, in
 > the way of Simons–de Weger 2005 but without Rhin's lower bound, weaker than their final bounds; they exclude no
-> cycle. *(2026-11-08, on `main`, not yet in a release.)* `sdw2005/` also states these bounds for the number of
-> distinct odd values of the orbit, the count used by some other formalisations.
-> *(2026-11-08, on `main`, not yet in a release.)* [`brox2000/`](brox2000/): Brox 2000 (*Acta Arith.* 92), *Collatz
+> cycle. Release v1.9 adds, in `sdw2005/`, the same bounds for the number of distinct odd values of the orbit, the
+> count used by some other formalisations, and [`brox2000/`](brox2000/): Brox 2000 (*Acta Arith.* 92), *Collatz
 > cycles with few descents* — Theorem 1.1, Corollary 1.2 and Lemma 2.2 — in Brox's setting (all cycles, on `ℤ`), with
 > an explicit bound; not new mathematics, it excludes no cycle.
 > How to re-check them: [*Re-checking the
@@ -74,8 +75,8 @@ last "Key status" block of `LEDGER.md` in the shared repo, not this README.
 | `steiner1978/` | — | Steiner 1978 (*Congr. Numer.* 20) formalised on Lean 4.34.0: a classical theorem, not a ledger entry; the statements were written without the original paper, reconstructed from Steiner 1981, Lagarias's annotated bibliography and Simons–de Weger 2005, and compared with the paper after release v1.2; 12 frozen statements, all proved, standard axioms; Steiner's theorem (the only circuit on the positive integers that is a cycle is `{1, 2}`) under a named hypothesis (Rhin 1987, inequality (7) with `u₀ = 0`), and without any hypothesis for at most 20000 odd terms (a finite check by the kernel) — see `steiner1978/README.md`; without the hypothesis for every number of odd terms in `logs23/` |
 | `logs23/` | — | Steiner 1978 without `H_Rhin` (Lean 4.34.0; new in release v1.4): a lower bound for `\|(k+l) log 2 − k log 3\|` proved for every `k > 20000`, hence five of the six statements of `steiner1978/` with the premise `H_Rhin` (all but `rhin_k_le`) without that premise; 14 frozen statements, all proved, standard axioms; it does not prove `H_Rhin` — see *Steiner 1978 without `H_Rhin`* below and `logs23/README.md` |
 | `seifert1988/` | — | Seifert 1988 (*Discrete Math.* 68) formalised on Lean 4.34.0: a classical paper, not a ledger entry; new in release v1.6, compared with the publisher's PDF on 2026-11-07; 33 frozen statements, all proved, no hypothesis, standard axioms; with Definition 1.1, the printed numerator (e) is that of the vector read backwards, and Theorems 1 and 2 are proved once it and the exponent of Theorem 2 are read accordingly; Corollary 1 fails only for the cycle (5 7) of `f_{−1}` (`cor1_exact`, which uses `lam_lower` of `logs23/`); the conclusion of Corollary 2 is classical (Levi ben Gerson) and is proved without its hypothesis — see `seifert1988/README.md` |
-| `sdw2005/` | — | an upper bound for `K` in the way of Simons–de Weger (version 1.44), weaker than their final bounds, for `m ≤ 82` and `m ≤ 91` without Rhin's lower bound, using the lower bounds of `logs23/` (Lean 4.34.0; new in release v1.8): a cycle of `C(n) = n/2, (3n+1)/2` on the positive integers with at most 82 local minima in `N` terms has fewer than `4·10^18` odd terms, and with at most 91, fewer than `2·10^21`; 9 frozen statements, all proved, no hypothesis, standard axioms (13 since 2026-11-08, on `main`: the same bounds for distinct odd values); not new mathematics, it excludes no cycle — see `sdw2005/README.md` |
-| `brox2000/` | — | Brox 2000 (*Acta Arith.* 92, *Collatz cycles with few descents*) formalised on Lean 4.34.0 (added 2026-11-08, on `main`, not yet in a release), in his setting (`T` on `ℤ`, all cycles) and, first, for the positive cycles on `ℕ`: only finitely many integers lie on a cycle with fewer than `2 log \|Γ\|` descending odd elements (Theorem 1.1; explicitly, such a cycle has `\|Γ\| < 2^1500`), or with at most `ν` (Corollary 1.2), and the period is at most `2 \|Γ\|` (Lemma 2.2); 10 frozen statements, all proved, no hypothesis, standard axioms; the key inequality is taken from `sdw2005/` (mirrored for `3x − 1` for the negative cycles) and the lower bound from `logs23/` instead of Baker–Feldman; Brox's own route (his Lemma 5.1) and his Remark 4.1 (`3x + d`) are not formalised; not new mathematics, it excludes no cycle — see `brox2000/README.md` |
+| `sdw2005/` | — | an upper bound for `K` in the way of Simons–de Weger (version 1.44), weaker than their final bounds, for `m ≤ 82` and `m ≤ 91` without Rhin's lower bound, using the lower bounds of `logs23/` (Lean 4.34.0; new in release v1.8): a cycle of `C(n) = n/2, (3n+1)/2` on the positive integers with at most 82 local minima in `N` terms has fewer than `4·10^18` odd terms, and with at most 91, fewer than `2·10^21`; 9 frozen statements, all proved, no hypothesis, standard axioms (13 since release v1.9: the same bounds for distinct odd values); not new mathematics, it excludes no cycle — see `sdw2005/README.md` |
+| `brox2000/` | — | Brox 2000 (*Acta Arith.* 92, *Collatz cycles with few descents*) formalised on Lean 4.34.0 (new in release v1.9), in his setting (`T` on `ℤ`, all cycles) and, first, for the positive cycles on `ℕ`: only finitely many integers lie on a cycle with fewer than `2 log \|Γ\|` descending odd elements (Theorem 1.1; explicitly, such a cycle has `\|Γ\| < 2^1500`), or with at most `ν` (Corollary 1.2), and the period of a cycle other than `{0}` is at most `2 \|Γ\|` (Lemma 2.2); 10 frozen statements, all proved, no hypothesis, standard axioms; the key inequality is taken from `sdw2005/` (mirrored for `3x − 1` for the negative cycles) and the lower bound from `logs23/` instead of Baker–Feldman; Brox's own route (his Lemma 5.1) and his Remark 4.1 (`3x + d`) are not formalised; not new mathematics, it excludes no cycle — see `brox2000/README.md` |
 | `experiments/` | — | Python verification scripts and outputs (`experiments/README.md`) |
 | `rounds/` | — | round 11 only; rounds 12 onward live in the shared repo |
 
@@ -211,11 +212,10 @@ also compiles alone with `lake env lean` in any Lean 4.27.0 + Mathlib project.
 *(Note of 2026-11-06.)* This section also covers `recheck-v4.34/`, which is a re-check of earlier work and not a formalisation of a classical paper.
 *(Note of 2026-11-07.)* It also covers `sdw2005/`, which is not a formalisation of a classical paper either, but an
 upper bound in the way of Simons–de Weger 2005, proved without Rhin's lower bound.
-*(Note of 2026-11-08.)* It also covers `brox2000/` (Brox 2000, all cycles, on `ℤ`), on `main`
-and not yet in a release: clone `main` for it, not a release tag.
+*(Note of 2026-11-08.)* It also covers `brox2000/` (Brox 2000, all cycles, on `ℤ`; new in release v1.9).
 
 Start from the root of a clone of a release tag (for example
-`git clone --branch v1.8 https://github.com/ericmerle3789/one-obstruction-three-faces-lean && cd one-obstruction-three-faces-lean`) or from its Zenodo
+`git clone --branch v1.9 https://github.com/ericmerle3789/one-obstruction-three-faces-lean && cd one-obstruction-three-faces-lean`) or from its Zenodo
 archive. Prerequisites: git, curl, python3, `sha256sum` or `shasum`, and
 [elan](https://github.com/leanprover/elan) (each folder's `lean-toolchain` selects Lean 4.34.0), with network access.
 Each of `hh1997/`, `lagarias1990/`, `steiner1978/` and `recheck-v4.34/` is its own Lake project with its own copy of
@@ -247,6 +247,12 @@ the time of its own run from a fresh clone. *(Added 2026-11-07, later.)* The pro
 with Lean 4.34.0 already installed and Mathlib's download cache already filled: exit 0, 8 minutes including `lake exe
 cache get` and the runs of `steiner1978/check.sh` and `logs23/check.sh` that `sdw2005/check.sh` starts, 9 axiom reports,
 `sdw2005/axioms/Sdw2005_Axiomes.txt` identical byte for byte to the log of the run.
+*(Added 2026-11-08, for release v1.9.)* `brox2000/` was re-run from a fresh GitHub clone of commit 9077bda
+(2026-11-08), with Lean 4.34.0 already installed and Mathlib's download cache already filled: exit 0, 30 minutes
+including the clone, `lake exe cache get` and the runs of `steiner1978/check.sh`, `logs23/check.sh` and
+`sdw2005/check.sh` that `brox2000/check.sh` starts, 12 + 15 + 13 + 10 axiom reports (`steiner1978/`, `logs23/`,
+`sdw2005/`, `brox2000/`), `sdw2005/axioms/Sdw2005_Axiomes.txt` and `brox2000/axioms/Brox2000_Axiomes.txt` identical
+byte for byte to the axiom lines of the logs of the run.
 
 ## Working conditions, disclosed
 

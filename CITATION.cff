@@ -1,11 +1,11 @@
 cff-version: 1.2.0
 message: >-
   If you use this repository, please cite its Zenodo archive (concept DOI below, which resolves to the latest
-  version). The formalisations of the four classical works prove nothing new about Collatz cycles; nothing in this
+  version). The formalisations of the five classical works prove nothing new about Collatz cycles; nothing in this
   repository excludes a Collatz cycle beyond the published bounds or proves the Collatz conjecture.
 title: >-
   One Obstruction, Three Faces — Merle Lean stack, with Lean 4 formalisations of Halbeisen–Hungerbühler 1997,
-  Lagarias 1990, Steiner 1978 and Seifert 1988
+  Lagarias 1990, Steiner 1978, Seifert 1988 and Brox 2000
 type: software
 authors:
   - family-names: Merle
@@ -29,6 +29,9 @@ identifiers:
   - type: doi
     value: 10.5281/zenodo.24041065
     description: "Release v1.7 (first release with the proof of remark1_large in hh1997/)"
+  - type: doi
+    value: 10.5281/zenodo.24049927
+    description: "Release v1.8 (first release with sdw2005/)"
 repository-code: "https://github.com/ericmerle3789/one-obstruction-three-faces-lean"
 url: "https://collatz-lab.org"
 license: CC-BY-4.0

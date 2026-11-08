@@ -1,11 +1,11 @@
 # sdw2005 — an upper bound for `K` in the way of Simons–de Weger, without Rhin's lower bound (m ≤ 82, m ≤ 91)
 
-**Status: in release v1.8 of this repository** (its first release that contains this folder), archived on Zenodo;
+**Status: in this repository since release v1.8** (its first release that contains this folder), archived on Zenodo;
 concept DOI [10.5281/zenodo.23498095](https://doi.org/10.5281/zenodo.23498095), which resolves to the latest version;
-the DOI of v1.8 is listed on the Zenodo record. Lean 4.34.0, Mathlib v4.34.0; uses the build of `../steiner1978/` and
+the DOI of v1.8 is 10.5281/zenodo.24049927. Lean 4.34.0, Mathlib v4.34.0; uses the build of `../steiner1978/` and
 the modules of `../logs23/`.
 *(2026-11-08.)* `Sdw2005/Pont_Enonces.lean` and `Sdw2005/Pont.lean` (the same bounds counted on distinct values, below)
-were added after release v1.8; they are on `main`, not yet in a release.
+were added after release v1.8; they are in release v1.9.
 
 J. Simons and B. de Weger, *Theoretical and computational bounds for m-cycles of the 3n + 1 problem*, Acta Arith.
 117 (2005) (version 1.44 of 2010 read; the lemma and theorem numbers below are those of that version), bound the number
@@ -152,3 +152,5 @@ This folder was re-run from a fresh GitHub clone of commit e2fdb2e (2026-11-07),
 Mathlib's download cache already filled: exit 0, 8 minutes including `lake exe cache get` and the runs of
 `steiner1978/check.sh` and `logs23/check.sh` that `check.sh` starts, 9 axiom reports, `axioms/Sdw2005_Axiomes.txt`
 identical byte for byte to the log of the run.
+*(2026-11-08, release v1.9.)* Re-run again, with its 13 axiom reports, as part of the re-run of `../brox2000/` from a
+fresh GitHub clone of commit 9077bda (see `../brox2000/README.md`, *Re-check*).

@@ -4,8 +4,8 @@ Archived on Zenodo: https://doi.org/10.5281/zenodo.23498095 (concept DOI, which 
 v1.0 = 10.5281/zenodo.23498096, v1.1 = 10.5281/zenodo.23514572, v1.2 = 10.5281/zenodo.23541611,
 v1.3 = 10.5281/zenodo.23686224, v1.4 = 10.5281/zenodo.23720217, the first release with `logs23/`,
 v1.5 = 10.5281/zenodo.23728612, documentation only, the first release with a `LICENSE` file, v1.6 = 10.5281/zenodo.24033614,
-the first release with `seifert1988/`; the DOI of v1.7, the first release with the proof of `remark1_large` in `hh1997/`,
-is listed on the Zenodo record).
+the first release with `seifert1988/`, v1.7 = 10.5281/zenodo.24041065, the first release with the proof of
+`remark1_large` in `hh1997/`; the DOI of v1.8, the first release with `sdw2005/`, is listed on the Zenodo record).
 Source repository: https://github.com/ericmerle3789/one-obstruction-three-faces-lean (the Zenodo archives do not
 contain the git history, whose commits the READMEs cite).
 
@@ -14,7 +14,11 @@ contain the git history, whose commits the READMEs cite).
 > ([`hh1997/`](hh1997/)), Lagarias 1990 ([`lagarias1990/`](lagarias1990/)), Steiner 1978
 > ([`steiner1978/`](steiner1978/), under the named hypothesis `H_Rhin`; without it in [`logs23/`](logs23/)) and Seifert
 > 1988 ([`seifert1988/`](seifert1988/), new in release v1.6). They prove
-> nothing new about Collatz cycles and do not prove the Collatz conjecture. How to re-check them: [*Re-checking the
+> nothing new about Collatz cycles and do not prove the Collatz conjecture. Release v1.8 adds
+> [`sdw2005/`](sdw2005/): upper bounds for the number of odd terms of a cycle with at most 82 or 91 local minima, in
+> the way of Simons–de Weger 2005 but without Rhin's lower bound, weaker than their final bounds; they exclude no
+> cycle.
+> How to re-check them: [*Re-checking the
 > formalisations of classical papers*](#re-checking-the-formalisations-of-classical-papers-added-2026-10-28), below.
 
 > **Status (2026-10-02).** This is the Merle side of the joint note *One obstruction, three
@@ -24,6 +28,10 @@ contain the git history, whose commits the READMEs cite).
 > which predates the fix of the kernel soundness bug [lean4#14576](https://github.com/leanprover/lean4/issues/14576)
 > (fixed in v4.32.2, 2026-07-28); all six files were then re-checked on Lean 4.34.0 — see
 > [`recheck-v4.34/RECHECK.md`](recheck-v4.34/RECHECK.md).
+>
+> *(Note of 2026-11-08.)* On "Hercher 2023" above: P. Norfleet reports an error in the proof of
+> Theorem 21 of Hercher's paper (arXiv v3), which the proof of its main theorem (no nontrivial m-cycle with
+> `m ≤ 91`) uses; not checked here — see [`sdw2005/README.md`](sdw2005/).
 
 > *(Note of 2026-10-28, after release v1.4.) In release v1.4, "of the six ledger files" was added to the sentence on
 > Lean 4.27.0 without saying so in the files (only the notes of release v1.4 mention it), here and in `recheck-v4.34/RECHECK.md` (where "none of the files here" also became
@@ -62,7 +70,7 @@ last "Key status" block of `LEDGER.md` in the shared repo, not this README.
 | `steiner1978/` | — | Steiner 1978 (*Congr. Numer.* 20) formalised on Lean 4.34.0: a classical theorem, not a ledger entry; the statements were written without the original paper, reconstructed from Steiner 1981, Lagarias's annotated bibliography and Simons–de Weger 2005, and compared with the paper after release v1.2; 12 frozen statements, all proved, standard axioms; Steiner's theorem (the only circuit on the positive integers that is a cycle is `{1, 2}`) under a named hypothesis (Rhin 1987, inequality (7) with `u₀ = 0`), and without any hypothesis for at most 20000 odd terms (a finite check by the kernel) — see `steiner1978/README.md`; without the hypothesis for every number of odd terms in `logs23/` |
 | `logs23/` | — | Steiner 1978 without `H_Rhin` (Lean 4.34.0; new in release v1.4): a lower bound for `\|(k+l) log 2 − k log 3\|` proved for every `k > 20000`, hence five of the six statements of `steiner1978/` with the premise `H_Rhin` (all but `rhin_k_le`) without that premise; 14 frozen statements, all proved, standard axioms; it does not prove `H_Rhin` — see *Steiner 1978 without `H_Rhin`* below and `logs23/README.md` |
 | `seifert1988/` | — | Seifert 1988 (*Discrete Math.* 68) formalised on Lean 4.34.0: a classical paper, not a ledger entry; new in release v1.6, compared with the publisher's PDF on 2026-11-07; 33 frozen statements, all proved, no hypothesis, standard axioms; with Definition 1.1, the printed numerator (e) is that of the vector read backwards, and Theorems 1 and 2 are proved once it and the exponent of Theorem 2 are read accordingly; Corollary 1 fails only for the cycle (5 7) of `f_{−1}` (`cor1_exact`, which uses `lam_lower` of `logs23/`); the conclusion of Corollary 2 is classical (Levi ben Gerson) and is proved without its hypothesis — see `seifert1988/README.md` |
-| `sdw2005/` | — | an upper bound for `K` in the way of Simons–de Weger (version 1.44), weaker than their final bounds, for `m ≤ 82` and `m ≤ 91` without Rhin's lower bound, using the lower bounds of `logs23/` (Lean 4.34.0; not in a release): a cycle of `C(n) = n/2, (3n+1)/2` on the positive integers with at most 82 local minima in `N` terms has fewer than `4·10^18` odd terms, and with at most 91, fewer than `2·10^21`; 9 frozen statements, all proved, no hypothesis, standard axioms; not new mathematics, it excludes no cycle — see `sdw2005/README.md` |
+| `sdw2005/` | — | an upper bound for `K` in the way of Simons–de Weger (version 1.44), weaker than their final bounds, for `m ≤ 82` and `m ≤ 91` without Rhin's lower bound, using the lower bounds of `logs23/` (Lean 4.34.0; new in release v1.8): a cycle of `C(n) = n/2, (3n+1)/2` on the positive integers with at most 82 local minima in `N` terms has fewer than `4·10^18` odd terms, and with at most 91, fewer than `2·10^21`; 9 frozen statements, all proved, no hypothesis, standard axioms; not new mathematics, it excludes no cycle — see `sdw2005/README.md` |
 | `experiments/` | — | Python verification scripts and outputs (`experiments/README.md`) |
 | `rounds/` | — | round 11 only; rounds 12 onward live in the shared repo |
 
@@ -196,13 +204,15 @@ also compiles alone with `lake env lean` in any Lean 4.27.0 + Mathlib project.
 ### Re-checking the formalisations of classical papers (added 2026-10-28)
 
 *(Note of 2026-11-06.)* This section also covers `recheck-v4.34/`, which is a re-check of earlier work and not a formalisation of a classical paper.
+*(Note of 2026-11-07.)* It also covers `sdw2005/`, which is not a formalisation of a classical paper either, but an
+upper bound in the way of Simons–de Weger 2005, proved without Rhin's lower bound.
 
 Start from the root of a clone of a release tag (for example
-`git clone --branch v1.7 https://github.com/ericmerle3789/one-obstruction-three-faces-lean && cd one-obstruction-three-faces-lean`) or from its Zenodo
+`git clone --branch v1.8 https://github.com/ericmerle3789/one-obstruction-three-faces-lean && cd one-obstruction-three-faces-lean`) or from its Zenodo
 archive. Prerequisites: git, curl, python3, `sha256sum` or `shasum`, and
 [elan](https://github.com/leanprover/elan) (each folder's `lean-toolchain` selects Lean 4.34.0), with network access.
 Each of `hh1997/`, `lagarias1990/`, `steiner1978/` and `recheck-v4.34/` is its own Lake project with its own copy of
-Mathlib (about 8 GiB once `lake exe cache get` has run; `logs23/` and `seifert1988/` use the build of `steiner1978/`). Disk space needed
+Mathlib (about 8 GiB once `lake exe cache get` has run; `logs23/`, `seifert1988/` and `sdw2005/` use the build of `steiner1978/`). Disk space needed
 besides: the Lean 4.34.0 toolchain installed by elan (2.7 GiB on the machine used) and Mathlib's download cache
 (`~/.cache/mathlib`). Delete `<folder>/.lake` between two folders if disk space is short. The last row of the table below is the re-check of
 the six ledger files, not a classical paper.
@@ -213,6 +223,7 @@ the six ledger files, not a classical paper.
 | `lagarias1990/` | `cd lagarias1990 && lake exe cache get && ./check.sh` | `SHA256SUMS`, 25 files, 61 axiom reports |
 | `steiner1978/` and `logs23/` | `cd steiner1978 && lake exe cache get && cd ../logs23 && ./check.sh` | both folders' `SHA256SUMS`, 7 + 14 files, 12 + 15 axiom reports |
 | `seifert1988/` | `cd steiner1978 && lake exe cache get && cd ../seifert1988 && ./check.sh` | its own `SHA256SUMS`, 6 files; then it runs `logs23/check.sh` (the row above); then 33 axiom reports |
+| `sdw2005/` | `cd steiner1978 && lake exe cache get && cd ../sdw2005 && ./check.sh` | its own `SHA256SUMS`, 7 files; then it runs `logs23/check.sh` (the row of `steiner1978/` and `logs23/`); then 9 axiom reports |
 | `recheck-v4.34/` | the commands of *Reproduce* above; `Labo/`: see `recheck-v4.34/LABO.md` | no script: compare the `#print axioms` output of the five ledger files that print one (all but `LegendreApprox.lean`) with `recheck-v4.34/axioms_v4.34.txt` (40 declarations) |
 
 Each `check.sh` fails if a theorem depends on an axiom other than `propext`, `Classical.choice` and `Quot.sound`. On
@@ -224,6 +235,10 @@ to the recorded one. The READMEs of `hh1997/`, `lagarias1990/`, `steiner1978/` a
 measured when they were published. *(Added 2026-11-07.)* `seifert1988/` was not part of that run; its README gives
 the time of its own run from a fresh clone. *(Added 2026-11-07, later.)* The proof of `remark1_large` added to `hh1997/`
 (35 files, 85 axiom reports) has not yet been re-run from a fresh clone. *(Later the same day: re-run from a fresh GitHub clone of commit 31e63a4, with Lean 4.34.0 already installed and Mathlib's download cache already filled: exit 0, 37 minutes including `lake exe cache get`, 85 axiom reports, the ten files of `hh1997/axioms/` identical byte for byte to the logs of the run.)*
+*(Added 2026-11-07, for release v1.8.)* `sdw2005/` was re-run from a fresh GitHub clone of commit e2fdb2e (2026-11-07),
+with Lean 4.34.0 already installed and Mathlib's download cache already filled: exit 0, 8 minutes including `lake exe
+cache get` and the runs of `steiner1978/check.sh` and `logs23/check.sh` that `sdw2005/check.sh` starts, 9 axiom reports,
+`sdw2005/axioms/Sdw2005_Axiomes.txt` identical byte for byte to the log of the run.
 
 ## Working conditions, disclosed
 

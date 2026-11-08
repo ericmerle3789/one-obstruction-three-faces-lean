@@ -26,6 +26,9 @@ identifiers:
   - type: doi
     value: 10.5281/zenodo.24033614
     description: "Release v1.6 (first release with seifert1988/)"
+  - type: doi
+    value: 10.5281/zenodo.24041065
+    description: "Release v1.7 (first release with the proof of remark1_large in hh1997/)"
 repository-code: "https://github.com/ericmerle3789/one-obstruction-three-faces-lean"
 url: "https://collatz-lab.org"
 license: CC-BY-4.0

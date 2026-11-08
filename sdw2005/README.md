@@ -1,7 +1,9 @@
 # sdw2005 — an upper bound for `K` in the way of Simons–de Weger, without Rhin's lower bound (m ≤ 82, m ≤ 91)
 
-**Status: not in a release.** Lean 4.34.0, Mathlib v4.34.0; uses the build of `../steiner1978/` and the modules of
-`../logs23/`.
+**Status: in release v1.8 of this repository** (its first release that contains this folder), archived on Zenodo;
+concept DOI [10.5281/zenodo.23498095](https://doi.org/10.5281/zenodo.23498095), which resolves to the latest version;
+the DOI of v1.8 is listed on the Zenodo record. Lean 4.34.0, Mathlib v4.34.0; uses the build of `../steiner1978/` and
+the modules of `../logs23/`.
 
 J. Simons and B. de Weger, *Theoretical and computational bounds for m-cycles of the 3n + 1 problem*, Acta Arith.
 117 (2005) (version 1.44 of 2010 read; the lemma and theorem numbers below are those of that version), bound the number
